@@ -1,5 +1,6 @@
 from hashlib import sha256
 from typing import Annotated
+from unicodedata import normalize
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -23,18 +24,34 @@ def sha256_bytes(value: bytes) -> str:
 def aggregate_sha256(
     schema_version: str, components: list[ComponentDigest]
 ) -> str:
+    normalized_schema_version = normalize("NFC", schema_version)
+    if not normalized_schema_version.strip():
+        raise ValueError("schema version must not be blank")
+
+    normalized_components = [
+        {
+            "role": normalize("NFC", component.role),
+            "stable_id": normalize("NFC", component.stable_id),
+            "sha256": component.sha256,
+        }
+        for component in components
+    ]
     ordered_components = sorted(
-        components,
+        normalized_components,
         key=lambda component: (
-            component.role,
-            component.stable_id,
-            component.sha256,
+            component["role"],
+            component["stable_id"],
+            component["sha256"],
         ),
     )
+    identities = [
+        (component["role"], component["stable_id"])
+        for component in ordered_components
+    ]
+    if len(identities) != len(set(identities)):
+        raise ValueError("duplicate component identity")
     payload = {
-        "schema_version": schema_version,
-        "components": [
-            component.model_dump(mode="json") for component in ordered_components
-        ],
+        "schema_version": normalized_schema_version,
+        "components": ordered_components,
     }
     return sha256_bytes(canonical_json_bytes(payload))
