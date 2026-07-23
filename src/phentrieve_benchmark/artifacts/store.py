@@ -95,8 +95,9 @@ class ArtifactStore:
             while not ancestor.exists():
                 missing_ancestors.append(ancestor)
                 ancestor = ancestor.parent
-            self._root_directory_chain = list(reversed(missing_ancestors)) or [
-                self.root
+            self._root_directory_chain = [
+                ancestor,
+                *reversed(missing_ancestors),
             ]
         chain = [
             *self._root_directory_chain,

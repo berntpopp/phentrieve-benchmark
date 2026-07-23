@@ -154,6 +154,7 @@ def test_put_bytes_syncs_new_directory_entries_in_creation_order(
     store.put_bytes(b"directory creation")
 
     assert synced_directories == [
+        tmp_path.parent,
         tmp_path,
         root,
         root / "sha256",
@@ -202,7 +203,7 @@ def test_put_bytes_retries_directory_chain_sync_after_creation_failure(
 
     def fail_once(directory: Path) -> None:
         synced_directories.append(directory)
-        if len(synced_directories) == 1:
+        if directory == tmp_path and synced_directories.count(tmp_path) == 1:
             raise OSError("directory sync failed")
 
     monkeypatch.setattr(store_module, "_fsync_directory", fail_once)
@@ -213,7 +214,9 @@ def test_put_bytes_retries_directory_chain_sync_after_creation_failure(
     assert root.is_dir()
     store.put_bytes(value)
     assert synced_directories == [
+        tmp_path.parent,
         tmp_path,
+        tmp_path.parent,
         tmp_path,
         root,
         root / "sha256",
@@ -232,7 +235,7 @@ def test_put_bytes_retries_nested_root_creation_after_directory_sync_failure(
 
     def fail_once(directory: Path) -> None:
         synced_directories.append(directory)
-        if len(synced_directories) == 1:
+        if directory == tmp_path and synced_directories.count(tmp_path) == 1:
             raise OSError("directory sync failed")
 
     monkeypatch.setattr(store_module, "_fsync_directory", fail_once)
@@ -244,6 +247,40 @@ def test_put_bytes_retries_nested_root_creation_after_directory_sync_failure(
     assert store.put_bytes(value) == sha256_bytes(value)
     assert destination.read_bytes() == value
     assert synced_directories == [
+        tmp_path.parent,
+        tmp_path,
+        tmp_path.parent,
+        tmp_path,
+        tmp_path / "nested",
+        root,
+        root / "sha256",
+        destination.parent,
+    ]
+
+
+def test_put_bytes_repairs_nested_root_sync_after_store_restart(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    root = tmp_path / "nested" / "artifact-root"
+    value = b"nested restart directory creation"
+    destination = ArtifactStore(root).path_for(sha256_bytes(value))
+    synced_directories: list[Path] = []
+
+    def fail_once(directory: Path) -> None:
+        synced_directories.append(directory)
+        if directory == tmp_path and synced_directories.count(tmp_path) == 1:
+            raise OSError("directory sync failed")
+
+    monkeypatch.setattr(store_module, "_fsync_directory", fail_once)
+
+    with pytest.raises(OSError, match="directory sync failed"):
+        ArtifactStore(root).put_bytes(value)
+
+    assert (tmp_path / "nested").is_dir()
+    assert ArtifactStore(root).put_bytes(value) == sha256_bytes(value)
+    assert destination.read_bytes() == value
+    assert synced_directories == [
+        tmp_path.parent,
         tmp_path,
         tmp_path,
         tmp_path / "nested",
