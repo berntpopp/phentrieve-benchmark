@@ -1,5 +1,6 @@
 import subprocess
 from pathlib import Path
+from unicodedata import normalize
 
 from phentrieve_benchmark.provenance.canonical import canonical_json_bytes
 from phentrieve_benchmark.provenance.digests import sha256_bytes
@@ -17,17 +18,15 @@ def _git(repo: Path, *arguments: str) -> bytes:
 def _entry(repo: Path, raw_path: bytes) -> dict[str, str]:
     relative = raw_path.decode("utf-8")
     path = repo / relative
-    normalized_path = relative.replace("\\", "/")
+    normalized_path = normalize("NFC", relative.replace("\\", "/"))
     if path.is_file():
         return {
             "path": normalized_path,
-            "path_bytes": raw_path.hex(),
             "state": "present",
             "sha256": sha256_bytes(path.read_bytes()),
         }
     return {
         "path": normalized_path,
-        "path_bytes": raw_path.hex(),
         "state": "deleted",
         "sha256": sha256_bytes(b""),
     }
@@ -48,6 +47,9 @@ def code_sha256(repo: Path) -> str:
         raise ValueError("git listed a path more than once")
 
     entries = [_entry(repo, raw_path) for raw_path in raw_paths]
+    normalized_paths = [entry["path"] for entry in entries]
+    if len(normalized_paths) != len(set(normalized_paths)):
+        raise ValueError("normalized path collision")
     payload = {
         "schema_version": "code-identity/v1",
         "head": head,
