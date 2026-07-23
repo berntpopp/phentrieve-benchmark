@@ -22,6 +22,7 @@ class ArtifactStore:
 
     def __init__(self, root: Path) -> None:
         self.root = root
+        self._root_directory_chain: list[Path] = []
 
     def path_for(self, digest: str) -> Path:
         if _SHA256_PATTERN.fullmatch(digest) is None:
@@ -88,7 +89,21 @@ class ArtifactStore:
             raise ArtifactCorruptionError(f"artifact is corrupt: {digest}")
 
     def _ensure_directory(self, directory: Path) -> None:
-        for chain_directory in (self.root, self.root / "sha256", directory):
+        if not self._root_directory_chain:
+            missing_ancestors: list[Path] = []
+            ancestor = self.root
+            while not ancestor.exists():
+                missing_ancestors.append(ancestor)
+                ancestor = ancestor.parent
+            self._root_directory_chain = list(reversed(missing_ancestors)) or [
+                self.root
+            ]
+        chain = [
+            *self._root_directory_chain,
+            self.root / "sha256",
+            directory,
+        ]
+        for chain_directory in chain:
             try:
                 chain_directory.mkdir()
             except FileExistsError:
