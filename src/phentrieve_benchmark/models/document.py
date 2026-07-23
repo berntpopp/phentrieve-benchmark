@@ -1,7 +1,7 @@
 from enum import StrEnum
 from typing import Self
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from phentrieve_benchmark.provenance.canonical import canonical_text_bytes
 from phentrieve_benchmark.provenance.digests import Sha256Hex, sha256_bytes
@@ -22,6 +22,16 @@ class Document(BaseModel):
     translation_status: TranslationStatus
     text: str = Field(min_length=1)
     document_sha256: Sha256Hex
+
+    @model_validator(mode="after")
+    def has_canonical_text_and_hash(self) -> "Document":
+        canonical_bytes = canonical_text_bytes(self.text)
+        canonical_text = canonical_bytes.decode("utf-8")
+        if self.text != canonical_text:
+            raise ValueError("text must be canonical")
+        if self.document_sha256 != sha256_bytes(canonical_bytes):
+            raise ValueError("document_sha256 mismatch")
+        return self
 
     @classmethod
     def from_text(

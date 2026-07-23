@@ -22,7 +22,7 @@ class Annotation(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     annotation_id: str = Field(min_length=1)
-    hpo_id: str = Field(pattern=r"^HP:\d{7}$")
+    hpo_id: str = Field(pattern=r"^HP:[0-9]{7}$")
     assertion: str = "present"
     experiencer: str = "patient"
     temporality: str = "current"
@@ -43,6 +43,11 @@ def validate_annotation_set(document: Document, annotation_set: AnnotationSet) -
         raise ValueError("annotation set document hash mismatch")
     for annotation in annotation_set.annotations:
         for span in annotation.evidence_spans:
+            if span.end_char > len(document.text):
+                raise ValueError(
+                    "span ends past document end for annotation "
+                    f"{annotation.annotation_id}"
+                )
             actual = document.text[span.start_char : span.end_char]
             if actual != span.snippet:
                 raise ValueError(
