@@ -2,6 +2,7 @@ from pathlib import Path
 
 import pytest
 
+from phentrieve_benchmark.artifacts import store as store_module
 from phentrieve_benchmark.artifacts.store import (
     ArtifactCorruptionError,
     ArtifactStore,
@@ -45,3 +46,124 @@ def test_read_bytes_rejects_corrupt_artifact(tmp_path: Path) -> None:
 
     with pytest.raises(ArtifactCorruptionError):
         store.read_bytes(digest)
+
+
+def test_put_bytes_accepts_concurrent_publication_after_replace_failure(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    store = ArtifactStore(tmp_path)
+    value = b"concurrent fixture"
+    digest = sha256_bytes(value)
+    destination = store.path_for(digest)
+
+    def publish_then_fail(source: Path, target: Path) -> None:
+        assert target == destination
+        target.write_bytes(source.read_bytes())
+        raise OSError("destination was concurrently published")
+
+    monkeypatch.setattr(store_module.os, "replace", publish_then_fail)
+
+    assert store.put_bytes(value) == digest
+    assert destination.read_bytes() == value
+    assert not list(destination.parent.glob(f".{digest}.*"))
+
+
+def test_put_bytes_rejects_corrupt_concurrent_publication_after_replace_failure(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    store = ArtifactStore(tmp_path)
+    value = b"concurrent fixture"
+
+    def publish_corrupt_then_fail(source: Path, target: Path) -> None:
+        del source
+        target.write_bytes(b"corrupt")
+        raise OSError("destination was concurrently published")
+
+    monkeypatch.setattr(store_module.os, "replace", publish_corrupt_then_fail)
+
+    with pytest.raises(ArtifactCorruptionError):
+        store.put_bytes(value)
+
+
+def test_put_bytes_closes_descriptor_and_removes_temp_when_fdopen_fails(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    store = ArtifactStore(tmp_path)
+    closed_descriptors: list[int] = []
+    original_close = store_module.os.close
+
+    def fail_fdopen(file_descriptor: int, mode: str) -> None:
+        del file_descriptor, mode
+        raise OSError("fdopen failed")
+
+    def track_close(file_descriptor: int) -> None:
+        closed_descriptors.append(file_descriptor)
+        original_close(file_descriptor)
+
+    monkeypatch.setattr(store_module.os, "fdopen", fail_fdopen)
+    monkeypatch.setattr(store_module.os, "close", track_close)
+
+    with pytest.raises(OSError, match="fdopen failed"):
+        store.put_bytes(b"fdopen fixture")
+
+    assert closed_descriptors
+    digest = sha256_bytes(b"fdopen fixture")
+    assert not list(store.path_for(digest).parent.glob(f".{digest}.*"))
+
+
+def test_put_bytes_syncs_directory_after_publication(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    store = ArtifactStore(tmp_path)
+    digest = sha256_bytes(b"directory sync")
+    destination = store.path_for(digest)
+    destination.parent.mkdir(parents=True)
+    synced_directories: list[Path] = []
+
+    monkeypatch.setattr(
+        store_module,
+        "_fsync_directory",
+        lambda directory: synced_directories.append(directory),
+    )
+
+    store.put_bytes(b"directory sync")
+
+    assert synced_directories == [destination.parent]
+
+
+def test_put_bytes_syncs_new_directory_entries_in_creation_order(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    root = tmp_path / "artifact-root"
+    store = ArtifactStore(root)
+    digest = sha256_bytes(b"directory creation")
+    destination = store.path_for(digest)
+    synced_directories: list[Path] = []
+
+    monkeypatch.setattr(
+        store_module,
+        "_fsync_directory",
+        lambda directory: synced_directories.append(directory),
+    )
+
+    store.put_bytes(b"directory creation")
+
+    assert synced_directories == [
+        tmp_path,
+        root,
+        root / "sha256",
+        destination.parent,
+    ]
+
+
+def test_fsync_directory_is_a_no_op_on_non_posix_platforms(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    def fail_open(path: Path, flags: int) -> int:
+        del path, flags
+        raise AssertionError("unsupported platforms must not open directories")
+
+    monkeypatch.setattr(store_module.os, "name", "nt")
+    monkeypatch.setattr(store_module.os, "open", fail_open)
+
+    store_module._fsync_directory(tmp_path)
