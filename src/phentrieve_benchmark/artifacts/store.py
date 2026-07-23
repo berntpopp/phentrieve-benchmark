@@ -33,11 +33,12 @@ class ArtifactStore:
     def put_bytes(self, value: bytes) -> str:
         digest = sha256_bytes(value)
         destination = self.path_for(digest)
+        self._ensure_directory(destination.parent)
         if destination.exists():
             self._verify(destination, digest)
+            _fsync_directory(destination.parent)
             return digest
 
-        self._ensure_directory(destination.parent)
         file_descriptor, temporary_name = tempfile.mkstemp(
             prefix=f".{digest}.", dir=destination.parent
         )
@@ -52,12 +53,14 @@ class ArtifactStore:
                 os.fsync(temporary_file.fileno())
             if destination.exists():
                 self._verify(destination, digest)
+                _fsync_directory(destination.parent)
             else:
                 try:
                     os.replace(temporary_path, destination)
                 except OSError:
                     if destination.exists():
                         self._verify(destination, digest)
+                        _fsync_directory(destination.parent)
                     else:
                         raise
                 else:
@@ -67,10 +70,10 @@ class ArtifactStore:
                 with suppress(OSError):
                     os.close(file_descriptor)
             with suppress(OSError):
-                temporary_path.unlink(missing_ok=True)
+                _unlink_temporary(temporary_path)
             raise
         else:
-            temporary_path.unlink(missing_ok=True)
+            _unlink_temporary(temporary_path)
         return digest
 
     def read_bytes(self, digest: str) -> bytes:
@@ -85,19 +88,13 @@ class ArtifactStore:
             raise ArtifactCorruptionError(f"artifact is corrupt: {digest}")
 
     def _ensure_directory(self, directory: Path) -> None:
-        missing_directories: list[Path] = []
-        current = directory
-        while not current.exists():
-            missing_directories.append(current)
-            current = current.parent
-        for missing_directory in reversed(missing_directories):
+        for chain_directory in (self.root, self.root / "sha256", directory):
             try:
-                missing_directory.mkdir()
+                chain_directory.mkdir()
             except FileExistsError:
-                if not missing_directory.is_dir():
+                if not chain_directory.is_dir():
                     raise
-            else:
-                _fsync_directory(missing_directory.parent)
+            _fsync_directory(chain_directory.parent)
 
 
 def _fsync_directory(directory: Path) -> None:
@@ -111,3 +108,11 @@ def _fsync_directory(directory: Path) -> None:
         os.fsync(directory_descriptor)
     finally:
         os.close(directory_descriptor)
+
+
+def _unlink_temporary(temporary_path: Path) -> None:
+    try:
+        temporary_path.unlink()
+    except FileNotFoundError:
+        return
+    _fsync_directory(temporary_path.parent)

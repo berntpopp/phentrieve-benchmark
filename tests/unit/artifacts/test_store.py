@@ -128,7 +128,12 @@ def test_put_bytes_syncs_directory_after_publication(
 
     store.put_bytes(b"directory sync")
 
-    assert synced_directories == [destination.parent]
+    assert synced_directories == [
+        tmp_path.parent,
+        tmp_path,
+        tmp_path / "sha256",
+        destination.parent,
+    ]
 
 
 def test_put_bytes_syncs_new_directory_entries_in_creation_order(
@@ -152,6 +157,96 @@ def test_put_bytes_syncs_new_directory_entries_in_creation_order(
         tmp_path,
         root,
         root / "sha256",
+        destination.parent,
+    ]
+
+
+def test_put_bytes_retries_destination_directory_sync_after_publish_failure(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    store = ArtifactStore(tmp_path)
+    value = b"retry publication sync"
+    digest = sha256_bytes(value)
+    destination = store.path_for(digest)
+    destination.parent.mkdir(parents=True)
+    synced_directories: list[Path] = []
+
+    def fail_once(directory: Path) -> None:
+        synced_directories.append(directory)
+        if (
+            directory == destination.parent
+            and synced_directories.count(destination.parent) == 1
+        ):
+            raise OSError("directory sync failed")
+
+    monkeypatch.setattr(store_module, "_fsync_directory", fail_once)
+
+    with pytest.raises(OSError, match="directory sync failed"):
+        store.put_bytes(value)
+
+    assert destination.read_bytes() == value
+    assert store.put_bytes(value) == digest
+    assert [
+        directory for directory in synced_directories if directory == destination.parent
+    ] == [destination.parent, destination.parent]
+
+
+def test_put_bytes_retries_directory_chain_sync_after_creation_failure(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    root = tmp_path / "retry-root"
+    store = ArtifactStore(root)
+    value = b"retry directory creation"
+    destination = store.path_for(sha256_bytes(value))
+    synced_directories: list[Path] = []
+
+    def fail_once(directory: Path) -> None:
+        synced_directories.append(directory)
+        if len(synced_directories) == 1:
+            raise OSError("directory sync failed")
+
+    monkeypatch.setattr(store_module, "_fsync_directory", fail_once)
+
+    with pytest.raises(OSError, match="directory sync failed"):
+        store.put_bytes(value)
+
+    assert root.is_dir()
+    store.put_bytes(value)
+    assert synced_directories == [
+        tmp_path,
+        tmp_path,
+        root,
+        root / "sha256",
+        destination.parent,
+    ]
+
+
+def test_put_bytes_syncs_temp_deletion_after_concurrent_publication(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    store = ArtifactStore(tmp_path)
+    value = b"concurrent deletion sync"
+    digest = sha256_bytes(value)
+    destination = store.path_for(digest)
+    synced_directories: list[Path] = []
+
+    def publish_then_fail(source: Path, target: Path) -> None:
+        target.write_bytes(source.read_bytes())
+        raise OSError("destination was concurrently published")
+
+    monkeypatch.setattr(store_module.os, "replace", publish_then_fail)
+    monkeypatch.setattr(
+        store_module,
+        "_fsync_directory",
+        lambda directory: synced_directories.append(directory),
+    )
+
+    assert store.put_bytes(value) == digest
+    assert synced_directories == [
+        tmp_path.parent,
+        tmp_path,
+        tmp_path / "sha256",
+        destination.parent,
         destination.parent,
     ]
 
