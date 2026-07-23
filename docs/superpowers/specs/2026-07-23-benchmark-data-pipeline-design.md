@@ -428,12 +428,39 @@ artifacts are never overwritten in place.
 
 ### 8.1 Code identity
 
-`code_sha256` identifies the exact executable repository state. It is computed
-from a path-sorted canonical archive of the Git `HEAD` tree overlaid with
-tracked modifications and relevant untracked files. Declared runtime paths,
-including `.git/`, `.artifacts/`, local credentials, and generated run outputs,
-are excluded. The exclusion-policy identity is included in the hash input. A
-dirty boolean alone is never sufficient for cache reuse or resume.
+`code_sha256` identifies the exact executable repository state using the
+`code-identity/v2` canonical JSON payload. It first resolves the supplied path
+to the Git top-level, so calling it from a subdirectory fingerprints the whole
+repository. The payload contains `head`, `exclusion_policy` set to
+`repository-gitignore/v1`, `path_encoding` set to
+`percent-encoded-git-path-bytes/v1`, and path-sorted `entries`.
+
+Each entry contains exactly `path`, `state`, `kind`, `executable`, and
+`sha256`. `path` is an injective ASCII percent encoding of the raw,
+NUL-delimited bytes emitted by Git: ASCII letters, digits, `-`, `.`, `_`, and
+`/` are literal, with `/` the only unescaped path separator; percent signs,
+literal backslashes, and every other byte are encoded.
+Entries are sorted by that final encoded path. `state` is `present` or
+`deleted`; deleted tracked paths use `kind: missing`, `executable: false`, and
+the SHA-256 of empty bytes. Present regular files use `kind: file`, bind their
+executable bit, and hash their bytes. Present symlinks use `kind: symlink`,
+`executable: false`, and hash the raw link-target bytes, so broken links are
+not confused with deletions.
+
+Tracked files and relevant untracked files are enumerated with only repository
+`.gitignore` rules, including nested `.gitignore` files. Git's global exclude
+configuration and `.git/info/exclude` never affect this identity. Gitlinks,
+merge-conflicted duplicate index paths, device files, FIFOs, sockets, and other
+unsupported kinds fail closed rather than being represented as deletions.
+Regular files are read through a non-following descriptor where the platform
+supports it and checked before and after reading; a detectable concurrent
+mutation is retried a bounded number of times and then fails closed. This is
+not an atomic multi-file snapshot.
+
+Declared runtime paths, including `.git/`, `.artifacts/`, local credentials,
+and generated run outputs, are excluded through project `.gitignore` rules.
+The policy identifiers are included in the hash input. A dirty boolean alone
+is never sufficient for cache reuse or resume.
 
 ### 8.2 Run and release manifests
 

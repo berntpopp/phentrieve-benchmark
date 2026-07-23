@@ -913,7 +913,7 @@ git add src/phentrieve_benchmark/artifacts tests/unit/artifacts
 git commit -m "feat: add content-addressed artifact store"
 ```
 
-### Task 6: Exact code identity for clean and dirty worktrees
+### Task 6: Exact code identity v2 for clean and dirty worktrees
 
 **Files:**
 - Create: `src/phentrieve_benchmark/provenance/code_identity.py`
@@ -968,6 +968,13 @@ def test_ignored_artifacts_do_not_change_code_identity(tmp_path: Path) -> None:
     assert code_sha256(tmp_path) == before
 ```
 
+Also cover: a HEAD-only change; tracked deletion; deterministic ordering;
+subdirectory resolution to the Git top-level; project-only ignore rules; raw
+invalid UTF-8 Git path bytes and literal backslashes on POSIX; regular-file
+executable mode; broken symlinks; unsupported special files; and gitlinks.
+Platform-specific filesystem tests may skip when their primitives are
+unavailable.
+
 - [ ] **Step 2: Run tests and verify the missing identity function**
 
 Run: `uv run pytest tests/unit/provenance/test_code_identity.py -v`
@@ -976,62 +983,43 @@ Expected: FAIL during collection because `code_identity` does not exist.
 
 - [ ] **Step 3: Implement repository-state hashing**
 
-Create `src/phentrieve_benchmark/provenance/code_identity.py`:
+Create `src/phentrieve_benchmark/provenance/code_identity.py` with
+`_git(repo, *arguments)` using `subprocess.run(..., check=True,
+capture_output=True).stdout`. Resolve `repo` with `git rev-parse
+--show-toplevel` before every identity operation. Read raw NUL-delimited paths
+from `git ls-files -z --cached --others --exclude-per-directory=.gitignore`;
+do not use `--exclude-standard`, `.git/info/exclude`, or global excludes.
+
+Encode each raw Git path into an injective ASCII `path`: leave only ASCII
+letters, digits, `-`, `.`, `_`, and `/` literal, and percent-encode `%`,
+backslash, and every other byte. Sort by this final encoded path. Do not UTF-8
+decode Git path bytes.
+Parse `git ls-files --stage -z` and fail closed for gitlinks or duplicate index
+entries. Use `lstat`: regular files bind their executable bit and a
+descriptor-read SHA-256; symlinks bind raw link-target bytes; absent tracked
+files are `deleted`/`missing` with the empty-byte SHA-256. Reject all other
+file kinds. For regular files, open without following symlinks when possible,
+compare descriptor metadata before and after reading, retry boundedly, then
+raise on detected concurrent mutation.
+
+Hash canonical JSON with this exact payload shape:
 
 ```python
-from pathlib import Path
-import subprocess
-
-from phentrieve_benchmark.provenance.canonical import canonical_json_bytes
-from phentrieve_benchmark.provenance.digests import sha256_bytes
-
-
-def _git(repo: Path, *arguments: str) -> bytes:
-    return subprocess.run(
-        ["git", *arguments],
-        cwd=repo,
-        check=True,
-        capture_output=True,
-    ).stdout
-
-
-def code_sha256(repo: Path) -> str:
-    head = _git(repo, "rev-parse", "HEAD").decode().strip()
-    listed = _git(
-        repo,
-        "ls-files",
-        "-z",
-        "--cached",
-        "--others",
-        "--exclude-standard",
-    )
-    entries: list[dict[str, str]] = []
-    for raw_path in sorted(item for item in listed.split(b"\0") if item):
-        relative = raw_path.decode("utf-8")
-        path = repo / relative
-        if path.is_file():
-            entries.append(
-                {
-                    "path": relative.replace("\\", "/"),
-                    "state": "present",
-                    "sha256": sha256_bytes(path.read_bytes()),
-                }
-            )
-        else:
-            entries.append(
-                {
-                    "path": relative.replace("\\", "/"),
-                    "state": "deleted",
-                    "sha256": sha256_bytes(b""),
-                }
-            )
-    payload = {
-        "schema_version": "code-identity/v1",
-        "head": head,
-        "exclusion_policy": "gitignore/v1",
-        "entries": entries,
-    }
-    return sha256_bytes(canonical_json_bytes(payload))
+{
+    "schema_version": "code-identity/v2",
+    "head": head,
+    "exclusion_policy": "repository-gitignore/v1",
+    "path_encoding": "percent-encoded-git-path-bytes/v1",
+    "entries": [
+        {
+            "path": encoded_path,
+            "state": "present" | "deleted",
+            "kind": "file" | "symlink" | "missing",
+            "executable": bool,
+            "sha256": lowercase_sha256,
+        },
+    ],
+}
 ```
 
 - [ ] **Step 4: Run worktree tests and static checks**
@@ -1044,7 +1032,8 @@ uv run ruff check src/phentrieve_benchmark/provenance tests/unit/provenance
 uv run mypy
 ```
 
-Expected: two worktree tests pass and static checks succeed.
+Expected: all worktree-identity tests pass, with filesystem-specific cases
+skipped only where the platform cannot provide the needed primitive.
 
 - [ ] **Step 5: Commit code identity**
 
