@@ -150,8 +150,12 @@ French, and Spanish:
 The first quality-focused feasibility selection contains 10 source reports per
 language, for 30 source reports and 30 German translations. The proposed
 German pilot selection contains 30 source reports per language, for 90 source
-reports and 90 German translations. These sizes follow Phentrieve issue #313.
-The pipeline itself supports all 246 eligible source reports.
+reports and 90 German translations. In the first implementation, every selected
+English, French, or Spanish source report is translated into German only. A
+five-language parallel panel is a possible later expansion and is not part of
+this repository's initial acceptance criteria. The selection sizes originate
+from the feasibility and pilot cohorts discussed in Phentrieve issue #313. The
+pipeline itself supports all 246 eligible source reports.
 
 Selection is deterministic and stratified by:
 
@@ -201,17 +205,29 @@ SourceCase
 - `document_sha256`: SHA-256 of canonical document bytes;
 - `annotation_set_id`: immutable annotation-set revision;
 - `annotation_set_sha256`: canonical annotation-set hash;
+- `review_id`: immutable identity of one automated, bilingual, annotation, or
+  adjudication review;
+- `review_sha256`: canonical review-artifact hash;
+- `review_policy_id`: immutable identity of the policy that selected and
+  evaluated the review;
 - `selection_id`: immutable selected-cohort identity;
 - `hpo_release`: exact HPO release tag;
 - `source_language` and `target_language`;
 - `translation_status`: `native` or `translated`;
-- `review_status`: `pending`, `accepted`, `changes_requested`, or `rejected`;
+- `automated_review_status`: `pending`, `passed`, `findings`, or `failed`;
+- `manual_review_requirement`: `required` or `not_selected`;
+- `manual_review_status`: `pending`, `accepted`, `changes_requested`,
+  `rejected`, or `not_applicable`;
+- `annotation_review_status`: `pending`, `accepted`, `changes_requested`, or
+  `rejected`;
 - `curation_status`: `pending`, `accepted`, or `rejected`.
 
 Each annotation set refers to the exact `document_sha256` it annotates. If the
 German text changes, annotations attached to the previous document hash remain
 preserved but are no longer eligible for the current release until reviewed
-against the new text.
+against the new text. Review artifacts always identify the exact document or
+annotation-set hash they evaluate and record the reviewer role without storing
+credentials or other secrets.
 
 ### 6.2 Character spans
 
@@ -325,6 +341,30 @@ The default automated reviewer configuration uses `gpt-5.6-terra`. A
 stratified audit. Automated review produces proposals and findings, never a
 gold-standard approval.
 
+The feasibility phase uses a provisional risk-based human-review policy:
+
+- every translation receives automated review;
+- a deterministic, stratified sample of at least 20% receives manual bilingual
+  domain review against the source text;
+- sampling covers source language, document length, annotation density, and
+  assertion and factuality complexity, with stratum boundaries pinned in the
+  review policy;
+- the reviewer must be qualified in both the source language and German and
+  must record whether they act as a medical translator, bilingual clinical
+  annotator, or physician;
+- a meaning-changing defect involving phenotype identity, assertion,
+  experiencer, temporality, laterality, numerical values, omission, or addition
+  is critical and expands manual review to every remaining translation in the
+  affected source-language and complexity stratum;
+- review findings create corrected document artifacts and never overwrite the
+  original translation.
+
+The feasibility decision record reports the achieved manual and physician
+review coverage, defect rates by stratum, expansion decisions, and the approved
+manual-review policy for the pilot. Until that decision is recorded, the
+pipeline must not describe unreviewed translations as individually medically
+or physician validated.
+
 ### 7.7 Annotation adaptation
 
 Concept mapping and target-language span adaptation are separate operations:
@@ -334,12 +374,17 @@ Concept mapping and target-language span adaptation are separate operations:
 3. propose German spans using exact and normalized matching against the
    document and pinned German HPO terminology;
 4. use an agentic proposal only for unresolved or ambiguous spans;
-5. review HPO identity, span, assertion, experiencer, and temporality against
-   the German text;
-6. accept through human curation.
+5. perform a blinded primary review of HPO identity, span, assertion,
+   experiencer, and temporality against the German text without exposing
+   Phentrieve outputs;
+6. reconcile the primary review with source annotations and mapping proposals
+   during a separate adjudication step;
+7. accept through human curation.
 
 Source spans remain evidence and are never mechanically projected and accepted
-as German gold spans.
+as German gold spans. Reviewers and adjudicators record separate identities and
+decisions. Benchmark-system output is never visible during annotation, review,
+adjudication, or curation.
 
 ### 7.8 Single-term derivation
 
@@ -361,7 +406,7 @@ Every stage emits a canonical run manifest containing:
 - run identifier, stage, status, and timestamps;
 - input and output artifact hashes;
 - source repository, release tag or commit, and source checksums;
-- pipeline repository commit and dirty-state indicator;
+- pipeline repository commit, dirty-state indicator, and `code_sha256`;
 - normalized configuration hash;
 - prompt hash when applicable;
 - provider, engine, requested model, returned model identity, endpoint class,
@@ -380,6 +425,43 @@ raw exceptions are excluded from Git-tracked manifests.
 
 Corrections create new artifacts and annotation-set revisions. Existing
 artifacts are never overwritten in place.
+
+### 8.1 Code identity
+
+`code_sha256` identifies the exact executable repository state. It is computed
+from a path-sorted canonical archive of the Git `HEAD` tree overlaid with
+tracked modifications and relevant untracked files. Declared runtime paths,
+including `.git/`, `.artifacts/`, local credentials, and generated run outputs,
+are excluded. The exclusion-policy identity is included in the hash input. A
+dirty boolean alone is never sufficient for cache reuse or resume.
+
+### 8.2 Run and release manifests
+
+Run manifests are execution records. They contain volatile fields such as run
+identifiers, timestamps, retry events, and environment details and are not
+expected to be byte-identical across repeated executions.
+
+Release manifests are deterministic content records. They contain no volatile
+execution fields or run-manifest digests. A separate text-free linkage record
+maps a release-manifest digest to the contributing run-manifest digests; that
+record is execution provenance and does not participate in the release semantic
+identity. Repeating a deterministic build from identical inputs must produce
+byte-identical dataset artifacts and a byte-identical release manifest.
+
+### 8.3 Canonical serialization and aggregate hashes
+
+Persisted JSON values are normalized to declared Unicode forms and serialized
+with the JSON Canonicalization Scheme in RFC 8785. JSONL serializes each record
+canonically, orders records by the schema-declared stable identity, uses UTF-8
+with LF line endings, and ends with one newline. Schemas declare whether array
+order is semantically significant; set-like arrays are sorted by their stable
+identity before hashing.
+
+Aggregate identities such as `source_sha256`, `input_sha256`, `gold_sha256`,
+and `document_ids_sha256` are SHA-256 digests of canonical manifests containing
+the schema version and a path-sorted list of logical roles, stable identifiers,
+and component artifact digests. They are never hashes of directory traversal
+order or mutable filenames.
 
 ## 9. Paid Operations and Cost Visibility
 
@@ -404,6 +486,8 @@ The normal `translate` or agentic-review command:
 
 A non-interactive invocation of a paid stage exits without calling the
 provider. Non-interactive paid automation is outside the first implementation.
+All pre-run totals are labelled as estimates. Exact measured provider usage and
+the resulting post-run cost are recorded when the provider exposes them.
 
 ## 10. Console and Logging Design
 
@@ -443,6 +527,34 @@ an `incomplete` manifest and leaves validated artifacts resumable.
 - An incomplete run cannot produce a releasable dataset.
 - Raw exceptions remain in local diagnostic logs only; stable public error
   codes enter manifests.
+
+### 11.1 Release eligibility
+
+A dataset build is release-eligible only when all of the following are true:
+
+- every contributing run is `complete`;
+- source revisions, selection, configuration, code, prompts, providers, and
+  ontology releases have valid immutable identities;
+- all artifacts pass their schemas and cross-artifact integrity checks;
+- every annotation set references the current document hash;
+- every annotation set included in the release has `accepted` annotation-review
+  and curation decisions; rejected candidates remain in provenance but are
+  excluded from release payloads;
+- every translation passes automated review with no unresolved critical
+  finding;
+- translations selected by the active manual-review policy have an `accepted`
+  manual review, while non-selected translations are explicitly marked
+  `not_selected` and the achieved coverage is recorded;
+- the feasibility decision has approved the manual-review policy used for a
+  pilot release;
+- the release manifest is deterministic and all aggregate hashes verify;
+- a public data release has a compatible `redistributable` licensing decision.
+
+A local restricted bundle may be assembled without a `redistributable`
+decision, but it must still satisfy every quality and integrity requirement and
+must remain under a declared Git-ignored local bundle path. Release metadata
+must state the achieved bilingual and physician review coverage and must not
+imply individual medical validation for translations outside the manual sample.
 
 ## 12. Curation
 
@@ -499,8 +611,8 @@ Initial external references include:
 - UMLS licensing and access information:
   <https://www.nlm.nih.gov/databases/umls.html>.
 
-A release gate requires an explicit `redistributable` decision. Until that
-decision exists, the pipeline can produce:
+A public release gate requires an explicit `redistributable` decision. Until
+that decision exists, the pipeline can produce:
 
 - a local restricted data bundle;
 - a public recipe bundle with source references, checksums, transformations,
@@ -533,7 +645,8 @@ contract:
 
 The manifest exposes `dataset_id`, `dataset_version`, `hpo_release`,
 `source_sha256`, `input_sha256`, `gold_sha256`, `document_ids_sha256`,
-selection identity, and licensing identity.
+selection identity, licensing identity, review-policy identity, and achieved
+bilingual and physician review coverage.
 
 Native E3C and German parallel-text variants retain distinct stratum labels.
 Downstream benchmark software must not pool them into one headline score.
@@ -599,10 +712,17 @@ Required coverage includes:
 - annotation invalidation after document revision;
 - Unicode half-open spans and exact snippets;
 - separate translation and annotation reviews;
+- deterministic stratified manual-review sampling and critical-defect
+  expansion;
+- prevention of medical-validation claims beyond achieved review coverage;
 - interrupted-run resume behavior;
+- distinct code hashes for different dirty working-tree states;
 - rejection of incomplete releases;
+- enforcement of the complete release-eligibility predicate;
 - licensing gates and linked evidence;
-- byte-identical repeated deterministic builds;
+- byte-identical repeated dataset and release-manifest builds while run
+  manifests retain execution-specific fields;
+- RFC 8785 serialization, stable JSONL ordering, and aggregate-hash fixtures;
 - prevention of third-party text, secrets, and local artifacts entering Git.
 
 Live provider tests are excluded from continuous integration and require the
@@ -631,14 +751,16 @@ The first implementation is complete when:
    ignored artifact store;
 3. the E3C feasibility selection can be generated reproducibly;
 4. CSC/GSC HPO revision packets can be generated against HPO `v2026-06-23`;
-5. exact pre-run cost estimates are shown before any paid stage;
+5. clearly labelled approximate pre-run cost estimates are shown before any
+   paid stage;
 6. paid stages require an interactive confirmation and provide compact live
    progress and accrued-cost estimates;
-7. translation, concept mapping, span adaptation, reviews, and curation have
+7. translation, concept mapping, span adaptation, automated review, sampled
+   bilingual review, annotation review, adjudication, and curation have
    independent identities;
 8. a complete synthetic end-to-end run produces deterministic document,
-   annotation, term, Phentrieve-adapter, data-card, license, and manifest
-   outputs;
+   annotation, term, Phentrieve-adapter, data-card, license, and release-manifest
+   outputs while preserving separate execution run manifests;
 9. restricted real-data builds cannot be committed or released accidentally;
 10. the manuscript workflow can identify a dataset solely from the exported
     release manifest and hashes.
