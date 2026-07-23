@@ -1,9 +1,11 @@
+import errno
 import os
 import subprocess
 from pathlib import Path
 
 import pytest
 
+import phentrieve_benchmark.provenance.code_identity as code_identity
 from phentrieve_benchmark.provenance.canonical import canonical_json_bytes
 from phentrieve_benchmark.provenance.code_identity import code_sha256
 from phentrieve_benchmark.provenance.digests import sha256_bytes
@@ -127,6 +129,21 @@ def test_subdirectory_argument_hashes_repository_top_level(tmp_path: Path) -> No
     assert code_sha256(nested) == code_sha256(tmp_path)
 
 
+def test_top_level_resolution_preserves_leading_and_trailing_whitespace(
+    tmp_path: Path,
+) -> None:
+    repo = tmp_path / " leading-and-trailing "
+    repo.mkdir()
+    if repo.resolve().name != repo.name:
+        pytest.skip("filesystem does not preserve trailing directory whitespace")
+    _initialized_repo(repo)
+    (repo / "module.py").write_text("VALUE = 1\n", encoding="utf-8")
+    _git(repo, "add", ".")
+    _git(repo, "commit", "-m", "initial")
+
+    assert code_sha256(repo) == code_sha256(repo)
+
+
 def test_repository_gitignore_is_the_only_untracked_exclusion_source(
     tmp_path: Path,
 ) -> None:
@@ -151,6 +168,81 @@ def test_repository_gitignore_is_the_only_untracked_exclusion_source(
 
     assert after_external_excludes != before
     assert code_sha256(tmp_path) == after_external_excludes
+
+
+def test_untracked_path_that_vanished_after_enumeration_fails_closed(
+    tmp_path: Path,
+) -> None:
+    with pytest.raises(ValueError, match="untracked file vanished"):
+        code_identity._entry(tmp_path, b"gone.py", {})
+
+
+def test_regular_snapshot_retries_then_fails_when_open_never_succeeds(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    path = tmp_path / "module.py"
+    path.write_bytes(b"VALUE = 1\n")
+    attempts = 0
+
+    def missing_open(path: str | bytes, flags: int) -> int:
+        nonlocal attempts
+        attempts += 1
+        raise FileNotFoundError(errno.ENOENT, "vanished")
+
+    monkeypatch.setattr(code_identity.os, "open", missing_open)
+
+    with pytest.raises(ValueError, match="concurrent mutation"):
+        code_identity._regular_file_snapshot(os.fspath(path))
+    assert attempts == code_identity._READ_ATTEMPTS
+
+
+def test_regular_snapshot_retries_when_path_metadata_changes_after_read(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    path = tmp_path / "module.py"
+    path.write_bytes(b"VALUE = 1\n")
+    original_metadata = code_identity._file_metadata
+    metadata = iter([(1,), (1,), (1,), (2,)] * code_identity._READ_ATTEMPTS)
+    attempts = 0
+    original_open = code_identity.os.open
+
+    def counting_open(path: str | bytes, flags: int) -> int:
+        nonlocal attempts
+        attempts += 1
+        return original_open(path, flags)
+
+    monkeypatch.setattr(code_identity.os, "open", counting_open)
+    monkeypatch.setattr(code_identity, "_file_metadata", lambda value: next(metadata))
+
+    with pytest.raises(ValueError, match="concurrent mutation"):
+        code_identity._regular_file_snapshot(os.fspath(path))
+
+    monkeypatch.setattr(code_identity, "_file_metadata", original_metadata)
+    assert attempts == code_identity._READ_ATTEMPTS
+
+
+def test_entry_uses_mode_and_digest_from_the_same_snapshot(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    _initialized_repo(tmp_path)
+    source = tmp_path / "module.py"
+    source.write_bytes(b"INDEX = False\n")
+    _git(tmp_path, "add", ".")
+    _git(tmp_path, "commit", "-m", "initial")
+    descriptor_content = b"DESCRIPTOR = True\n"
+    monkeypatch.setattr(
+        code_identity,
+        "_regular_file_snapshot",
+        lambda path: (True, sha256_bytes(descriptor_content)),
+    )
+
+    assert code_sha256(tmp_path) == _expected_identity(
+        tmp_path,
+        [_file_entry("module.py", descriptor_content, executable=True)],
+    )
 
 
 @POSIX_ONLY
@@ -197,14 +289,16 @@ def test_literal_backslash_and_nested_path_have_distinct_identities(
     assert code_sha256(tmp_path) != literal_identity
 
 
-@POSIX_ONLY
 def test_broken_symlink_is_present_and_hashes_its_raw_target(tmp_path: Path) -> None:
     _initialized_repo(tmp_path)
     seed = tmp_path / "seed.py"
     seed.write_bytes(b"SEED = True\n")
     _git(tmp_path, "add", ".")
     _git(tmp_path, "commit", "-m", "initial")
-    os.symlink("missing-target", tmp_path / "link")
+    try:
+        os.symlink("missing-target", tmp_path / "link")
+    except (NotImplementedError, OSError) as error:
+        pytest.skip(f"symlink creation is unavailable: {error}")
 
     assert code_sha256(tmp_path) == _expected_identity(
         tmp_path,
@@ -253,13 +347,12 @@ def test_unsupported_special_file_kind_fails_closed(tmp_path: Path) -> None:
         code_sha256(tmp_path)
 
 
-@POSIX_ONLY
 def test_gitlink_fails_closed_without_being_treated_as_deleted(tmp_path: Path) -> None:
     _initialized_repo(tmp_path)
     (tmp_path / "seed.py").write_bytes(b"SEED = True\n")
     _git(tmp_path, "add", ".")
     _git(tmp_path, "commit", "-m", "initial")
-    child = tmp_path / "child"
+    child = tmp_path.with_name(f"{tmp_path.name}-child")
     child.mkdir()
     _initialized_repo(child)
     (child / "child.py").write_bytes(b"CHILD = True\n")

@@ -1,3 +1,4 @@
+import errno
 import os
 import stat
 import subprocess
@@ -23,8 +24,12 @@ def _git(repo: Path, *arguments: str) -> bytes:
 
 
 def _repository_top_level(repo: Path) -> Path:
-    top_level = _git(repo, "rev-parse", "--show-toplevel").decode().strip()
-    return Path(top_level)
+    top_level = _git(repo, "rev-parse", "--show-toplevel")
+    if top_level.endswith(b"\r\n"):
+        top_level = top_level[:-2]
+    elif top_level.endswith((b"\n", b"\r")):
+        top_level = top_level[:-1]
+    return Path(os.fsdecode(top_level))
 
 
 def _encode_path(raw_path: bytes) -> str:
@@ -52,18 +57,23 @@ def _index_modes(repo: Path) -> dict[bytes, bytes]:
     return modes
 
 
-def _file_metadata(value: os.stat_result) -> tuple[int, int, int, int, int]:
-    return (
+def _file_metadata(value: os.stat_result) -> tuple[int, ...]:
+    metadata = (
         value.st_dev,
         value.st_ino,
         value.st_mode,
         value.st_size,
         value.st_mtime_ns,
     )
+    if os.name == "posix":
+        return (*metadata, value.st_ctime_ns)
+    return metadata
 
 
-def _regular_file_sha256(path: str | bytes) -> str:
+def _regular_file_snapshot(path: str | bytes) -> tuple[bool, str]:
     flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
+    if os.name == "posix":
+        flags |= getattr(os, "O_NONBLOCK", 0)
     for _ in range(_READ_ATTEMPTS):
         try:
             before = os.lstat(path)
@@ -71,23 +81,34 @@ def _regular_file_sha256(path: str | bytes) -> str:
             continue
         if not stat.S_ISREG(before.st_mode):
             continue
+        before_metadata = _file_metadata(before)
         try:
             descriptor = os.open(path, flags)
-        except FileNotFoundError:
-            continue
-        except OSError:
-            continue
+        except OSError as error:
+            if error.errno in {errno.ELOOP, errno.ENOENT, errno.ENOTDIR}:
+                continue
+            raise
         try:
             opened = os.fstat(descriptor)
-            is_same_file = _file_metadata(before) == _file_metadata(opened)
-            if not stat.S_ISREG(opened.st_mode) or not is_same_file:
+            opened_metadata = _file_metadata(opened)
+            if not stat.S_ISREG(opened.st_mode) or before_metadata != opened_metadata:
                 continue
             chunks: list[bytes] = []
             while chunk := os.read(descriptor, 1024 * 1024):
                 chunks.append(chunk)
-            after = os.fstat(descriptor)
-            if _file_metadata(before) == _file_metadata(after):
-                return sha256_bytes(b"".join(chunks))
+            descriptor_after = os.fstat(descriptor)
+            try:
+                path_after = os.lstat(path)
+            except FileNotFoundError:
+                continue
+            descriptor_after_metadata = _file_metadata(descriptor_after)
+            path_after_metadata = _file_metadata(path_after)
+            if (
+                stat.S_ISREG(descriptor_after.st_mode)
+                and stat.S_ISREG(path_after.st_mode)
+                and opened_metadata == descriptor_after_metadata == path_after_metadata
+            ):
+                return bool(opened.st_mode & 0o111), sha256_bytes(b"".join(chunks))
         finally:
             os.close(descriptor)
     raise ValueError("concurrent mutation detected while reading regular file")
@@ -111,6 +132,8 @@ def _entry(
     try:
         path_stat = os.lstat(path)
     except FileNotFoundError:
+        if raw_path not in index_modes:
+            raise ValueError(f"untracked file vanished at {encoded_path!r}") from None
         return {
             "path": encoded_path,
             "state": "deleted",
@@ -120,12 +143,13 @@ def _entry(
         }
 
     if stat.S_ISREG(path_stat.st_mode):
+        executable, digest = _regular_file_snapshot(path)
         return {
             "path": encoded_path,
             "state": "present",
             "kind": "file",
-            "executable": bool(path_stat.st_mode & 0o111),
-            "sha256": _regular_file_sha256(path),
+            "executable": executable,
+            "sha256": digest,
         }
     if stat.S_ISLNK(path_stat.st_mode):
         return {

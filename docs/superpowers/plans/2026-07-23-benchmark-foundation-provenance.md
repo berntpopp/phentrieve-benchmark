@@ -997,10 +997,13 @@ decode Git path bytes.
 Parse `git ls-files --stage -z` and fail closed for gitlinks or duplicate index
 entries. Use `lstat`: regular files bind their executable bit and a
 descriptor-read SHA-256; symlinks bind raw link-target bytes; absent tracked
-files are `deleted`/`missing` with the empty-byte SHA-256. Reject all other
-file kinds. For regular files, open without following symlinks when possible,
-compare descriptor metadata before and after reading, retry boundedly, then
-raise on detected concurrent mutation.
+files are `deleted`/`missing` with the empty-byte SHA-256, while an untracked
+path that vanishes fails closed. Reject all other file kinds. For regular
+files, open without following symlinks and non-blocking on POSIX when possible;
+derive the executable bit and digest from the same descriptor snapshot; compare
+path and descriptor identity, kind, mode, size, mtime, and stable ctime where
+available before and after reading; retry boundedly, then raise on detected
+concurrent mutation.
 
 Hash canonical JSON with this exact payload shape:
 
