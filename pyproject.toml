@@ -1,0 +1,47 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "phentrieve-benchmark"
+version = "0.1.0"
+description = "Reproducible benchmark data pipelines for Phentrieve"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2,<3",
+    "rfc8785>=0.1,<1",
+    "typer>=0.16,<1",
+]
+
+[project.scripts]
+phentrieve-benchmark = "phentrieve_benchmark.cli:app"
+
+[dependency-groups]
+dev = [
+    "hypothesis>=6,<7",
+    "mypy>=1.15,<3",
+    "pytest>=8,<10",
+    "pytest-cov>=6,<8",
+    "ruff>=0.11,<1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/phentrieve_benchmark"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["phentrieve_benchmark"]
+mypy_path = ["src"]
