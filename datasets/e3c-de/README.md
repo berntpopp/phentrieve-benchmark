@@ -1,0 +1,25 @@
+# E3C Layer 1 preparation
+
+This target prepares the English, French, and Spanish Layer 1 reports from
+E3C v2.0.0. It does not translate, map concepts to HPO, invoke a provider,
+perform clinical review, or create a release.
+
+The immutable source is `hltfbk/E3C-Corpus` commit
+`f74bdf9eaaef7f08437d0c5b930c6dbbc25bbffc`. Its ZIP is 233,811,002 bytes
+with SHA-256
+`04e06d0a153a8ea845b647459ab51eb2fed5007bdf450d441c1469f8719a2206`.
+The recipe selects only Layer 1 XML: 84 English, 81 French, and 81 Spanish
+documents. These are public upstream data. Source XML, text, and generated
+artifacts remain under the Git-ignored `.artifacts/` directory to keep Git
+small and respect the recorded redistribution boundary, not because the
+source is treated as confidential.
+
+Run `uv run phentrieve-benchmark prepare e3c`; use
+`uv run phentrieve-benchmark smoke live-download` only for an explicit live
+verification. XMI offsets are interpreted as UTF-16 code-unit offsets and
+mapped to NFC-normalized canonical text. Terminal formatting newlines are
+removed according to the adapter contract.
+
+Only the text-free inventory and selection manifest are tracked. Upstream
+licensing is recorded in `license-evidence.yaml` and `LICENSES.md`; the source
+corpus is not redistributed.
