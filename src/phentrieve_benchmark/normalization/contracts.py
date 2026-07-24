@@ -38,5 +38,6 @@ class NormalizedTarget:
     annotation_sets: tuple[AnnotationSet, ...] = ()
     source_annotation_sets: tuple[SourceAnnotationSet, ...] = ()
     source_sidecar: tuple[RagHpoSourceAnnotationRecord, ...] = ()
+    source_structure_counts: tuple[tuple[str, str, str, int], ...] = ()
     counts: tuple[tuple[str, int], ...] = ()
     warnings: tuple[tuple[str, int], ...] = ()

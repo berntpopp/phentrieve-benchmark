@@ -73,6 +73,9 @@ def test_normalizes_registered_entities_relations_and_utf16_spans() -> None:
     assert clinical.evidence_spans[0].start_char == 3
     assert {item.name for item in clinical.attributes} == {"discontinuous"}
     assert all(relation.arguments for relation in source_set.relations)
+    assert result.source_structure_counts == (
+        ("en", "EN000001", "sentences", 1),
+    )
 
 
 @pytest.mark.parametrize(

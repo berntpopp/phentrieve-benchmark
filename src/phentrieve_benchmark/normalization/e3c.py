@@ -85,7 +85,7 @@ def _parse_document(
     language: str,
     contract: E3cAdapterContract,
     source_schema_id: str,
-) -> tuple[Document, SourceAnnotationSet, Counter[str]]:
+) -> tuple[Document, SourceAnnotationSet, Counter[str], int]:
     try:
         root = ElementTree.fromstring(payload)
     except (ElementTree.ParseError, DefusedXmlException) as error:
@@ -125,6 +125,7 @@ def _parse_document(
     relations_pending: list[tuple[Element, E3cSemanticType]] = []
     xmi_to_annotation: dict[str, str] = {}
     counts: Counter[str] = Counter()
+    sentence_count = 0
 
     for element in root:
         namespace, local = _split_tag(element.tag)
@@ -176,6 +177,8 @@ def _parse_document(
             elif local in relation_types:
                 relations_pending.append((element, semantic_type))
         elif local in contract.structural_types:
+            if local == "Sentence":
+                sentence_count += 1
             try:
                 text_map.utf16_span(
                     int(_required_attribute(element, "begin")),
@@ -221,7 +224,7 @@ def _parse_document(
         relations=tuple(relations),
     )
     validate_source_annotation_set(document, annotation_set)
-    return document, annotation_set, counts
+    return document, annotation_set, counts, sentence_count
 
 
 def normalize_e3c_members(
@@ -239,6 +242,7 @@ def normalize_e3c_members(
     semantic_counts: dict[str, Counter[str]] = {
         item.language: Counter() for item in contract.language_paths
     }
+    structure_counts: list[tuple[str, str, str, int]] = []
 
     for path, payload in sorted(members.items()):
         if path == "README.md":
@@ -253,7 +257,7 @@ def normalize_e3c_members(
         if identity in identities:
             raise E3cNormalizationError("duplicate E3C case identity")
         identities.add(identity)
-        document, annotation_set, counts = _parse_document(
+        document, annotation_set, counts, sentence_count = _parse_document(
             payload,
             path=path,
             language=language,
@@ -264,6 +268,9 @@ def normalize_e3c_members(
         annotation_sets.append(annotation_set)
         language_documents[language] += 1
         semantic_counts[language].update(counts)
+        structure_counts.append(
+            (language, source_case_id, "sentences", sentence_count)
+        )
 
     for language_path in contract.language_paths:
         language = language_path.language
@@ -290,6 +297,7 @@ def normalize_e3c_members(
                 key=lambda value: value.annotation_set_id,
             )
         ),
+        source_structure_counts=tuple(sorted(structure_counts)),
         counts=tuple(
             sorted(
                 [
