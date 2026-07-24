@@ -129,17 +129,40 @@ class ArchiveLock(BaseModel):
         return self
 
 
+class E3cSemanticCount(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True, strict=True)
+
+    name: str = Field(min_length=1)
+    count: int = Field(ge=0)
+
+    @field_validator("name")
+    @classmethod
+    def name_is_safe(cls, value: str) -> str:
+        return _safe_id(value)
+
+
 class E3cLanguagePath(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True, strict=True)
 
     language: Literal["en", "fr", "es"]
     path_pattern: str
     expected_documents: int = Field(gt=0)
+    expected_semantic_counts: tuple[E3cSemanticCount, ...] = ()
 
     @field_validator("path_pattern")
     @classmethod
     def path_is_safe_glob(cls, value: str) -> str:
         return _path_pattern(value, allow_glob=True)
+
+    @field_validator("expected_semantic_counts")
+    @classmethod
+    def semantic_counts_are_unique(
+        cls, values: tuple[E3cSemanticCount, ...]
+    ) -> tuple[E3cSemanticCount, ...]:
+        names = [value.name for value in values]
+        if len(names) != len(set(names)):
+            raise ValueError("duplicate E3C semantic count")
+        return values
 
 
 class E3cSemanticType(BaseModel):

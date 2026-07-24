@@ -1,0 +1,123 @@
+schema_version: source-recipe/v1
+source_id: e3c
+repository_url: https://github.com/hltfbk/E3C-Corpus
+source_commit: f74bdf9eaaef7f08437d0c5b930c6dbbc25bbffc
+archive:
+  url: https://codeload.github.com/hltfbk/E3C-Corpus/zip/f74bdf9eaaef7f08437d0c5b930c6dbbc25bbffc
+  format: zip
+  expected_byte_length: 233811002
+  maximum_byte_length: 234000000
+  sha256: 04e06d0a153a8ea845b647459ab51eb2fed5007bdf450d441c1469f8719a2206
+  expected_top_level_directory: E3C-Corpus-f74bdf9eaaef7f08437d0c5b930c6dbbc25bbffc
+  maximum_member_count: 52000
+  maximum_member_bytes: 1000000
+  maximum_expanded_bytes: 650000000
+  maximum_compression_ratio: 100
+included_paths:
+  - README.md
+  - data_annotation/English/layer1/*.xml
+  - data_annotation/French/layer1/*.xml
+  - data_annotation/Spanish/layer1/*.xml
+ignored_path_prefixes:
+  - data_annotation/Basque
+  - data_annotation/English/layer2
+  - data_annotation/French/layer2
+  - data_annotation/Italian
+  - data_annotation/Spanish/layer2
+  - data_collection
+  - data_validation
+  - documentation
+adapter_id: e3c-xmi/v1
+source_schema_id: webanno-uima-xmi/v2
+adapter_contract:
+  kind: e3c-xmi/v1
+  language_paths:
+    - language: en
+      path_pattern: data_annotation/English/layer1/*.xml
+      expected_documents: 84
+      expected_semantic_counts:
+        - {name: CLINENTITY, count: 1024}
+        - {name: EVENT, count: 4885}
+        - {name: ACTOR, count: 682}
+        - {name: BODYPART, count: 968}
+        - {name: TIMEX3, count: 380}
+        - {name: RML, count: 480}
+        - {name: TIMEX3TimexLinkLink, count: 502}
+        - {name: RMLPERTAINSTOLink, count: 541}
+        - {name: EVENTTLINKLink, count: 4350}
+        - {name: EVENTALINKLink, count: 114}
+    - language: fr
+      path_pattern: data_annotation/French/layer1/*.xml
+      expected_documents: 81
+      expected_semantic_counts:
+        - {name: CLINENTITY, count: 1327}
+        - {name: EVENT, count: 4312}
+        - {name: ACTOR, count: 427}
+        - {name: BODYPART, count: 659}
+        - {name: TIMEX3, count: 333}
+        - {name: RML, count: 508}
+        - {name: TIMEX3TimexLinkLink, count: 236}
+        - {name: RMLPERTAINSTOLink, count: 474}
+        - {name: EVENTTLINKLink, count: 3848}
+        - {name: EVENTALINKLink, count: 71}
+    - language: es
+      path_pattern: data_annotation/Spanish/layer1/*.xml
+      expected_documents: 81
+      expected_semantic_counts:
+        - {name: CLINENTITY, count: 1345}
+        - {name: EVENT, count: 4767}
+        - {name: ACTOR, count: 319}
+        - {name: BODYPART, count: 814}
+        - {name: TIMEX3, count: 383}
+        - {name: RML, count: 391}
+        - {name: TIMEX3TimexLinkLink, count: 604}
+        - {name: RMLPERTAINSTOLink, count: 473}
+        - {name: EVENTTLINKLink, count: 4096}
+        - {name: EVENTALINKLink, count: 92}
+  sofa_type: cas:Sofa
+  structural_types: [Token, Sentence]
+  semantic_types:
+    - name: CLINENTITY
+      kind: annotation
+      begin_attribute: begin
+      end_attribute: end
+      concept_attribute: entityID
+      allowed_attributes: [discontinuous]
+    - name: EVENT
+      kind: annotation
+      begin_attribute: begin
+      end_attribute: end
+      allowed_attributes: [ALINK, TLINK, contextualAspect, contextualModality, degree, docTimeRel, eventType, permanence, polarity]
+    - name: ACTOR
+      kind: annotation
+      begin_attribute: begin
+      end_attribute: end
+      allowed_attributes: [age, role]
+    - name: BODYPART
+      kind: annotation
+      begin_attribute: begin
+      end_attribute: end
+      allowed_attributes: [eventiveValue]
+    - name: TIMEX3
+      kind: annotation
+      begin_attribute: begin
+      end_attribute: end
+      allowed_attributes: [functionInDocument, timex3Class, timexLink, value]
+    - name: RML
+      kind: annotation
+      begin_attribute: begin
+      end_attribute: end
+      allowed_attributes: [PERTAINSTO]
+    - name: TIMEX3TimexLinkLink
+      kind: relation
+      argument_attributes: [role, target]
+    - name: RMLPERTAINSTOLink
+      kind: relation
+      argument_attributes: [role, target]
+    - name: EVENTTLINKLink
+      kind: relation
+      argument_attributes: [role, target]
+    - name: EVENTALINKLink
+      kind: relation
+      argument_attributes: [role, target]
+license_evidence_sha256: 062353d2495958bd12dfc6fd105075ce0688473d5093706785c39f1c1d4f6ea8

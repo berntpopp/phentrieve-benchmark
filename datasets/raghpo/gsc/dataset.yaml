@@ -1,0 +1,21 @@
+schema_version: normalization-recipe/v1
+target_id: gsc
+source_id: raghpo
+adapter_id: raghpo-gsc/v1
+required_paths:
+  - RAG-HPO Tests and Data Analysis copy.xlsx
+expected_tables:
+  - source_path: RAG-HPO Tests and Data Analysis copy.xlsx
+    sheet_name: GSC Input
+    columns: [patient_id, ID, clinical_note]
+    data_rows: 114
+  - source_path: RAG-HPO Tests and Data Analysis copy.xlsx
+    sheet_name: "GSC Manual Annotations "
+    columns: [Patient ID, ID, hpo_description, hpo_term, Category]
+    data_rows: 1012
+expected_counts:
+  - name: documents
+    count: 114
+  - name: annotations
+    count: 1012
+hpo_release: v2026-06-23

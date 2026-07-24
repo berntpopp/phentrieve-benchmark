@@ -1,0 +1,12 @@
+schema_version: license-evidence/v1
+source_id: e3c
+repository_url: https://github.com/hltfbk/E3C-Corpus
+source_commit: f74bdf9eaaef7f08437d0c5b930c6dbbc25bbffc
+license_id: LicenseRef-E3C-CC-BY-NC-version-unspecified
+license_url: https://github.com/hltfbk/E3C-Corpus/blob/f74bdf9eaaef7f08437d0c5b930c6dbbc25bbffc/README.md
+access_date: 2026-07-24
+upstream_statement: The upstream README declares CC BY-NC without a license version.
+redistribution_decision: source_not_redistributed
+derivative_work_notes: This phase records only text-free metadata and content hashes; upstream clinical text is not redistributed.
+unresolved_questions:
+  - Public release of later text-bearing derivatives remains deferred pending clarification of the unspecified CC BY-NC version and the intended review process.
