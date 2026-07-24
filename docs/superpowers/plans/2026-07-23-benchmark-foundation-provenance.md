@@ -1275,9 +1275,23 @@ git commit -m "feat: separate run and release manifests"
 - Create: `src/phentrieve_benchmark/policies/paid_operations.py`
 - Create: `tests/unit/policies/test_paid_operations.py`
 
+**Security contract amendment:** Python callers construct monetary fields with
+finite, non-negative `Decimal` instances; JSON represents them as plain
+decimal strings. Values are normalized for display without currency-specific
+rounding, so the displayed upper bound is never understated. A signed zero is
+canonicalized to zero. Every prompt-displayed identifier (`stage`, `provider`,
+`model`, and `pricing_snapshot_id`) is a nonempty ASCII identifier composed
+only of letters, digits, and `._/@:+-`; this rejects whitespace, controls,
+bidi characters, ANSI escapes, and prompt delimiters. Authorization invokes
+`confirm` only when `interactive is True` and accepts only a literal boolean
+`True` result. Adapters must convert their explicitly documented UI input to
+that boolean before calling this function.
+
 - [ ] **Step 1: Write failing authorization tests**
 
 ```python
+from decimal import Decimal
+
 import pytest
 
 from phentrieve_benchmark.policies.paid_operations import (
@@ -1295,8 +1309,8 @@ def request() -> PaidRunRequest:
         case_count=30,
         estimate=CostEstimate(
             currency="USD",
-            estimated_cost=2.83,
-            upper_bound=2.83,
+            estimated_cost=Decimal("2.83"),
+            upper_bound=Decimal("2.83"),
             pricing_snapshot_id="google-2026-07-23",
         ),
     )
@@ -1329,8 +1343,8 @@ def test_estimate_rejects_upper_bound_below_estimate() -> None:
     with pytest.raises(ValueError, match="upper_bound"):
         CostEstimate(
             currency="USD",
-            estimated_cost=2.83,
-            upper_bound=2.00,
+            estimated_cost=Decimal("2.83"),
+            upper_bound=Decimal("2.00"),
             pricing_snapshot_id="google-2026-07-23",
         )
 ```
@@ -1349,16 +1363,19 @@ Create `src/phentrieve_benchmark/policies/paid_operations.py`:
 
 ```python
 from collections.abc import Callable
+from decimal import Decimal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 class CostEstimate(BaseModel):
-    model_config = ConfigDict(extra="forbid", frozen=True)
+    model_config = ConfigDict(
+        extra="forbid", frozen=True, strict=True, allow_inf_nan=False
+    )
 
-    currency: str = Field(pattern=r"^[A-Z]{3}$")
-    estimated_cost: float = Field(ge=0)
-    upper_bound: float = Field(ge=0)
+    currency: str
+    estimated_cost: Decimal = Field(ge=0)
+    upper_bound: Decimal = Field(ge=0)
     pricing_snapshot_id: str = Field(min_length=1)
 
     @model_validator(mode="after")
@@ -1369,7 +1386,7 @@ class CostEstimate(BaseModel):
 
 
 class PaidRunRequest(BaseModel):
-    model_config = ConfigDict(extra="forbid", frozen=True)
+    model_config = ConfigDict(extra="forbid", frozen=True, strict=True)
 
     stage: str = Field(min_length=1)
     provider: str = Field(min_length=1)
@@ -1381,21 +1398,21 @@ class PaidRunRequest(BaseModel):
 def authorize_paid_run(
     request: PaidRunRequest,
     *,
-    interactive: bool,
-    confirm: Callable[[str], bool],
+    interactive: object,
+    confirm: Callable[[str], object],
 ) -> bool:
-    if not interactive:
+    if interactive is not True:
         return False
     message = (
         f"{request.stage} | provider {request.provider} | model {request.model} | "
         f"cases {request.case_count}\n"
         f"Estimated cost: {request.estimate.currency} "
-        f"{request.estimate.estimated_cost:.2f} "
-        f"(upper bound {request.estimate.upper_bound:.2f}; "
+        f"{request.estimate.estimated_cost:f} "
+        f"(upper bound {request.estimate.upper_bound:f}; "
         f"pricing {request.estimate.pricing_snapshot_id})\n"
         "Start paid run?"
     )
-    return confirm(message)
+    return confirm(message) is True
 ```
 
 - [ ] **Step 4: Run authorization tests and static checks**

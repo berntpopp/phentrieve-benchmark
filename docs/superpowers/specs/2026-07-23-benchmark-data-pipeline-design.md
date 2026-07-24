@@ -527,6 +527,16 @@ provider. Non-interactive paid automation is outside the first implementation.
 All pre-run totals are labelled as estimates. Exact measured provider usage and
 the resulting post-run cost are recorded when the provider exposes them.
 
+Pre-run money is an exact, finite, non-negative `Decimal`, not a binary float.
+Python callers provide `Decimal` values; JSON stores plain decimal strings.
+The confirmation display uses the normalized exact decimal value rather than a
+currency-specific rounded precision, so the displayed upper bound is never
+understated. Prompt-displayed provider, model, stage, and pricing identifiers
+use a conservative ASCII identifier charset. The authorization boundary calls
+the confirmation callback only for `interactive is True` and approves only a
+literal boolean `True`; a CLI adapter must turn its explicitly documented user
+input into that boolean before calling the boundary.
+
 ## 10. Console and Logging Design
 
 All code, schemas, configuration, documentation, prompts, CLI text, logs, and
