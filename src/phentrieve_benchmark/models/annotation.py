@@ -1,6 +1,7 @@
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from phentrieve_benchmark.models.document import Document
+from phentrieve_benchmark.models.identifiers import HpoRelease
 from phentrieve_benchmark.provenance.digests import Sha256Hex
 
 
@@ -34,7 +35,7 @@ class AnnotationSet(BaseModel):
 
     annotation_set_id: str = Field(min_length=1)
     document_sha256: Sha256Hex
-    hpo_release: str = Field(pattern=r"^v[0-9]{4}-[0-9]{2}-[0-9]{2}$")
+    hpo_release: HpoRelease
     annotations: tuple[Annotation, ...] = ()
 
 

@@ -5,6 +5,14 @@ from phentrieve_benchmark.models.annotation import (
     validate_annotation_set,
 )
 from phentrieve_benchmark.models.document import Document, TranslationStatus
+from phentrieve_benchmark.models.manifest import (
+    ProviderRunIdentity,
+    ReleaseManifest,
+    ReleaseRunLink,
+    RunManifest,
+    RunStatus,
+    UsageMetrics,
+)
 from phentrieve_benchmark.models.review import (
     ManualReviewRequirement,
     ManualReviewStatus,
@@ -19,8 +27,14 @@ __all__ = [
     "EvidenceSpan",
     "ManualReviewRequirement",
     "ManualReviewStatus",
+    "ProviderRunIdentity",
+    "ReleaseManifest",
+    "ReleaseRunLink",
     "ReviewKind",
     "ReviewRecord",
+    "RunManifest",
+    "RunStatus",
     "TranslationStatus",
+    "UsageMetrics",
     "validate_annotation_set",
 ]

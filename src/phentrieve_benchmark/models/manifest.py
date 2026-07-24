@@ -1,16 +1,23 @@
 from enum import StrEnum
-from typing import Annotated, Self
+from typing import Literal, Self
+from unicodedata import normalize
 
-from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, model_validator
+from pydantic import (
+    AwareDatetime,
+    BaseModel,
+    ConfigDict,
+    Field,
+    field_validator,
+    model_validator,
+)
 
+from phentrieve_benchmark.models.identifiers import HpoRelease
 from phentrieve_benchmark.provenance.canonical import canonical_json_bytes
 from phentrieve_benchmark.provenance.digests import (
     ComponentDigest,
     Sha256Hex,
     sha256_bytes,
 )
-
-HpoRelease = Annotated[str, Field(pattern=r"^v[0-9]{4}-[0-9]{2}-[0-9]{2}$")]
 
 
 class RunStatus(StrEnum):
@@ -20,7 +27,7 @@ class RunStatus(StrEnum):
 
 
 class ProviderRunIdentity(BaseModel):
-    model_config = ConfigDict(extra="forbid", frozen=True)
+    model_config = ConfigDict(extra="forbid", frozen=True, strict=True)
 
     provider: str = Field(min_length=1)
     engine: str = Field(min_length=1)
@@ -31,7 +38,9 @@ class ProviderRunIdentity(BaseModel):
 
 
 class UsageMetrics(BaseModel):
-    model_config = ConfigDict(extra="forbid", frozen=True)
+    model_config = ConfigDict(
+        extra="forbid", frozen=True, strict=True, allow_inf_nan=False
+    )
 
     input_characters: int = Field(default=0, ge=0)
     input_tokens: int = Field(default=0, ge=0)
@@ -41,8 +50,11 @@ class UsageMetrics(BaseModel):
 
 
 class RunManifest(BaseModel):
-    model_config = ConfigDict(extra="forbid", frozen=True)
+    """Volatile execution record with canonicalized set-like identities."""
 
+    model_config = ConfigDict(extra="forbid", frozen=True, strict=True)
+
+    schema_version: Literal["run-manifest/v1"] = "run-manifest/v1"
     run_id: str = Field(min_length=1)
     stage: str = Field(min_length=1)
     status: RunStatus
@@ -53,6 +65,7 @@ class RunManifest(BaseModel):
     code_sha256: Sha256Hex
     config_sha256: Sha256Hex
     source: tuple[ComponentDigest, ...] = ()
+    # Inputs and outputs are logical sets; their stored order is canonical.
     input_sha256: tuple[Sha256Hex, ...]
     output_sha256: tuple[Sha256Hex, ...]
     prompt_sha256: Sha256Hex | None = None
@@ -65,6 +78,52 @@ class RunManifest(BaseModel):
     error_codes: tuple[str, ...] = ()
     environment: tuple[ComponentDigest, ...] = ()
 
+    @field_validator("source", "environment")
+    @classmethod
+    def canonicalize_component_sets(
+        cls, components: tuple[ComponentDigest, ...]
+    ) -> tuple[ComponentDigest, ...]:
+        canonical_components = tuple(
+            component.model_copy(
+                update={
+                    "role": normalize("NFC", component.role),
+                    "stable_id": normalize("NFC", component.stable_id),
+                }
+            )
+            for component in components
+        )
+        identities = {
+            (component.role, component.stable_id)
+            for component in canonical_components
+        }
+        if len(identities) != len(canonical_components):
+            raise ValueError("duplicate component identity")
+        return tuple(
+            sorted(
+                canonical_components,
+                key=lambda component: (
+                    component.role,
+                    component.stable_id,
+                    component.sha256,
+                ),
+            )
+        )
+
+    @field_validator("input_sha256", "output_sha256")
+    @classmethod
+    def canonicalize_digest_sets(cls, digests: tuple[str, ...]) -> tuple[str, ...]:
+        if len(set(digests)) != len(digests):
+            raise ValueError("duplicate digest")
+        return tuple(sorted(digests))
+
+    @field_validator("error_codes")
+    @classmethod
+    def canonicalize_error_codes(cls, error_codes: tuple[str, ...]) -> tuple[str, ...]:
+        canonical_codes = tuple(normalize("NFC", code) for code in error_codes)
+        if len(set(canonical_codes)) != len(canonical_codes):
+            raise ValueError("duplicate error code")
+        return tuple(sorted(canonical_codes))
+
     @model_validator(mode="after")
     def completion_has_valid_time_range(self) -> Self:
         if self.status is RunStatus.COMPLETE and self.finished_at is None:
@@ -75,9 +134,9 @@ class RunManifest(BaseModel):
 
 
 class ReleaseManifest(BaseModel):
-    model_config = ConfigDict(extra="forbid", frozen=True)
+    model_config = ConfigDict(extra="forbid", frozen=True, strict=True)
 
-    schema_version: str = "release-manifest/v1"
+    schema_version: Literal["release-manifest/v1"] = "release-manifest/v1"
     dataset_id: str = Field(min_length=1)
     dataset_version: str = Field(min_length=1)
     hpo_release: HpoRelease
@@ -99,7 +158,17 @@ class ReleaseManifest(BaseModel):
 
 
 class ReleaseRunLink(BaseModel):
-    model_config = ConfigDict(extra="forbid", frozen=True)
+    model_config = ConfigDict(extra="forbid", frozen=True, strict=True)
 
+    schema_version: Literal["release-run-link/v1"] = "release-run-link/v1"
     release_sha256: Sha256Hex
     run_manifest_sha256: tuple[Sha256Hex, ...]
+
+    @field_validator("run_manifest_sha256")
+    @classmethod
+    def canonicalize_run_manifest_hashes(
+        cls, run_manifest_hashes: tuple[str, ...]
+    ) -> tuple[str, ...]:
+        if len(set(run_manifest_hashes)) != len(run_manifest_hashes):
+            raise ValueError("duplicate run manifest digest")
+        return tuple(sorted(run_manifest_hashes))
