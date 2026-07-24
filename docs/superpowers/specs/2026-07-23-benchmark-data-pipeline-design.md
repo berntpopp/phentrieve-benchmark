@@ -91,8 +91,10 @@ not a semantic clinical-text or licensing classifier. Prevention of
 third-party clinical text entering Git additionally depends on the artifact
 layout, dataset licensing gates, review policy, and release eligibility checks.
 The scanner also rejects index flags such as assume-unchanged and
-skip-worktree that could hide tracked working-tree divergence; fsmonitor is
-disabled for checks and any reported fsmonitor-valid entry is rejected.
+skip-worktree that could hide tracked working-tree divergence. Fsmonitor is
+disabled for ordinary, diff, and content checks. The dedicated fsmonitor-valid
+inspection forces the safe boolean `core.fsmonitor=true`, exposing stored flags
+while overriding any repository-local hook path; reported entries are rejected.
 
 ## 4. Repository Structure
 

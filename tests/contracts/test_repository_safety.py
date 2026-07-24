@@ -139,12 +139,35 @@ def test_skip_worktree_cannot_hide_dirty_tracked_file(tmp_path: Path) -> None:
         )
 
 
-def test_fsmonitor_valid_tag_is_rejected_if_git_reports_it() -> None:
-    with pytest.raises(SafetyViolation, match="unsafe index comparison flag"):
-        safety._reject_unsafe_index_flags(
-            b"h config.env\0",
-            reject_skip_worktree=False,
+def test_real_fsmonitor_valid_index_flag_is_rejected(tmp_path: Path) -> None:
+    initialise_repository(tmp_path)
+    track(tmp_path, "config.env", b"MODEL=general/nmt\n")
+    run_git(tmp_path, "config", "core.fsmonitor", "true")
+    run_git(tmp_path, "update-index", "--fsmonitor")
+    run_git(tmp_path, "update-index", "--fsmonitor-valid", "--", "config.env")
+
+    native = run_git(tmp_path, "ls-files", "-f", "-z").stdout
+    assert native == b"h config.env\0"
+    run_git(
+        tmp_path,
+        "config",
+        "core.fsmonitor",
+        "must-not-execute-arbitrary-hook",
+    )
+
+    try:
+        with pytest.raises(SafetyViolation, match="unsafe index comparison flag"):
+            scan_repository(tmp_path)
+    finally:
+        run_git(tmp_path, "config", "core.fsmonitor", "true")
+        run_git(
+            tmp_path,
+            "update-index",
+            "--no-fsmonitor-valid",
+            "--",
+            "config.env",
         )
+        run_git(tmp_path, "update-index", "--no-fsmonitor")
 
 
 @pytest.mark.parametrize(
@@ -402,7 +425,11 @@ def test_git_nonzero_exit_fails_closed(
     result = subprocess.CompletedProcess[bytes](
         args=["git"], returncode=128, stdout=b"", stderr=b"sensitive"
     )
-    monkeypatch.setattr(safety, "_git_process", lambda root, arguments: result)
+    monkeypatch.setattr(
+        safety,
+        "_git_process",
+        lambda root, arguments, **kwargs: result,
+    )
 
     with pytest.raises(SafetyViolation) as error:
         safety.index_snapshot(tmp_path)
@@ -416,7 +443,11 @@ def test_unexpected_worktree_comparison_status_fails_closed(
     result = subprocess.CompletedProcess[bytes](
         args=["git"], returncode=2, stdout=b"", stderr=b"sensitive"
     )
-    monkeypatch.setattr(safety, "_git_process", lambda root, arguments: result)
+    monkeypatch.setattr(
+        safety,
+        "_git_process",
+        lambda root, arguments, **kwargs: result,
+    )
 
     with pytest.raises(SafetyViolation, match="compare tracked worktree"):
         safety._worktree_differs_from_index(tmp_path)
@@ -459,6 +490,33 @@ def test_index_mutation_during_scan_fails_closed(
     monkeypatch.setattr(safety, "scan_entries", mutate_after_scan)
 
     with pytest.raises(SafetyViolation, match="index changed during scan"):
+        scan_repository(tmp_path)
+
+
+def test_fsmonitor_flag_enabled_during_scan_fails_closed(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    initialise_repository(tmp_path)
+    track(tmp_path, "config.env", b"MODEL=general/nmt\n")
+    original = safety.scan_entries
+
+    def enable_fsmonitor_after_scan(
+        root: Path, entries: list[safety.IndexEntry]
+    ) -> None:
+        original(root, entries)
+        run_git(tmp_path, "config", "core.fsmonitor", "true")
+        run_git(tmp_path, "update-index", "--fsmonitor")
+        run_git(
+            tmp_path,
+            "update-index",
+            "--fsmonitor-valid",
+            "--",
+            "config.env",
+        )
+
+    monkeypatch.setattr(safety, "scan_entries", enable_fsmonitor_after_scan)
+
+    with pytest.raises(SafetyViolation, match="unsafe index comparison flag"):
         scan_repository(tmp_path)
 
 

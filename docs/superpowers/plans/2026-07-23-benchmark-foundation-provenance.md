@@ -1710,7 +1710,9 @@ git commit -m "feat: add safe structured run events"
 > - Inspect raw NUL-delimited `git ls-files -v` and `git ls-files -f` output at
 >   both boundaries. Reject assume-unchanged, skip-worktree, and any reported
 >   fsmonitor-valid flags because they can suppress worktree comparison;
->   continue forcing `core.fsmonitor=false` for every check.
+>   force `core.fsmonitor=false` for ordinary, diff, and content checks. For
+>   `ls-files -f` only, force the safe boolean `core.fsmonitor=true` to expose
+>   stored flags while overriding any repository-local fsmonitor hook path.
 > - Reject `.artifacts`, `records/local`, `releases/local`, and
 >   `configs/providers/local`. Detect generic quoted or unquoted credential
 >   assignments in env, YAML, and JSON forms, including provider-prefixed

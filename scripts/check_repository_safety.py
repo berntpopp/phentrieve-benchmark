@@ -131,14 +131,19 @@ def trusted_git_environment() -> dict[str, str]:
     return environment
 
 
-def _git_arguments(arguments: list[str]) -> list[str]:
+def _git_arguments(
+    arguments: list[str],
+    *,
+    observe_fsmonitor: bool,
+) -> list[str]:
+    fsmonitor_setting = "true" if observe_fsmonitor else "false"
     return [
         "git",
         "--no-pager",
         "--no-replace-objects",
         "--literal-pathspecs",
         "-c",
-        "core.fsmonitor=false",
+        f"core.fsmonitor={fsmonitor_setting}",
         "-c",
         "core.untrackedCache=false",
         *arguments,
@@ -148,10 +153,15 @@ def _git_arguments(arguments: list[str]) -> list[str]:
 def _git_process(
     root: Path,
     arguments: list[str],
+    *,
+    observe_fsmonitor: bool = False,
 ) -> subprocess.CompletedProcess[bytes]:
     try:
         return subprocess.run(
-            _git_arguments(arguments),
+            _git_arguments(
+                arguments,
+                observe_fsmonitor=observe_fsmonitor,
+            ),
             cwd=root,
             env=trusted_git_environment(),
             check=False,
@@ -162,8 +172,17 @@ def _git_process(
         raise SafetyViolation("unable to read trusted Git repository state") from error
 
 
-def _git_output(root: Path, arguments: list[str]) -> bytes:
-    result = _git_process(root, arguments)
+def _git_output(
+    root: Path,
+    arguments: list[str],
+    *,
+    observe_fsmonitor: bool = False,
+) -> bytes:
+    result = _git_process(
+        root,
+        arguments,
+        observe_fsmonitor=observe_fsmonitor,
+    )
     if result.returncode != 0:
         raise SafetyViolation("unable to read trusted Git repository state")
     return result.stdout
@@ -209,7 +228,11 @@ def _reject_unsafe_index_flags(
 def index_flag_snapshot(root: Path) -> tuple[bytes, bytes]:
     assume_and_skip = _git_output(root, ["ls-files", "-v", "-z"])
     _reject_unsafe_index_flags(assume_and_skip, reject_skip_worktree=True)
-    fsmonitor_valid = _git_output(root, ["ls-files", "-f", "-z"])
+    fsmonitor_valid = _git_output(
+        root,
+        ["ls-files", "-f", "-z"],
+        observe_fsmonitor=True,
+    )
     _reject_unsafe_index_flags(fsmonitor_valid, reject_skip_worktree=False)
     return assume_and_skip, fsmonitor_valid
 
