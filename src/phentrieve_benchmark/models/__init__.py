@@ -13,6 +13,15 @@ from phentrieve_benchmark.models.manifest import (
     RunStatus,
     UsageMetrics,
 )
+from phentrieve_benchmark.models.mapping import (
+    HpoMappingCandidate,
+    MappingClassification,
+    MappingDecision,
+    MappingEvidence,
+    UmlsHpoMappingManifest,
+    UmlsHpoMappingRecord,
+    UmlsHpoMappingSummary,
+)
 from phentrieve_benchmark.models.pipeline import (
     ArchiveFormat,
     ArtifactReference,
@@ -46,8 +55,12 @@ __all__ = [
     "ArtifactReference",
     "Document",
     "EvidenceSpan",
+    "HpoMappingCandidate",
     "ManualReviewRequirement",
     "ManualReviewStatus",
+    "MappingClassification",
+    "MappingDecision",
+    "MappingEvidence",
     "NormalizationCount",
     "NormalizationManifest",
     "ProvenanceRunLink",
@@ -67,6 +80,9 @@ __all__ = [
     "SourceRelationArgument",
     "SourceSnapshotManifest",
     "TranslationStatus",
+    "UmlsHpoMappingManifest",
+    "UmlsHpoMappingRecord",
+    "UmlsHpoMappingSummary",
     "UsageMetrics",
     "WarningCount",
     "validate_annotation_set",
