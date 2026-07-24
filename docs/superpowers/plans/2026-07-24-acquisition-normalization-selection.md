@@ -17,7 +17,7 @@ workbooks stay under `.artifacts/`; only recipes, licensing evidence,
 text-free inventories, selection manifests, and documentation are tracked.
 
 **Tech stack:** Python 3.11+, Pydantic 2, Typer, RFC 8785, HTTPX, PyYAML,
-defusedxml, openpyxl, pytest, Hypothesis, Ruff, and mypy.
+defusedxml, openpyxl, pronto, pytest, Hypothesis, Ruff, and mypy.
 
 **Authoritative design:**
 `docs/superpowers/specs/2026-07-24-acquisition-normalization-selection-design.md`
@@ -55,7 +55,7 @@ defusedxml, openpyxl, pytest, Hypothesis, Ruff, and mypy.
 Run:
 
 ```powershell
-uv add "httpx>=0.28,<1" "PyYAML>=6,<7" "defusedxml>=0.7,<1" "openpyxl>=3.1,<4"
+uv add "httpx>=0.28,<1" "PyYAML>=6,<7" "defusedxml>=0.7,<1" "openpyxl>=3.1,<4" "pronto>=2.7,<3"
 ```
 
 HTTPX is the only network client. PyYAML is used only through `safe_load`.
@@ -68,7 +68,7 @@ Run:
 
 ```powershell
 uv lock --check
-uv run python -c "import defusedxml, httpx, openpyxl, yaml"
+uv run python -c "import defusedxml, httpx, openpyxl, pronto, yaml"
 uv run ruff check pyproject.toml
 ```
 
@@ -1300,6 +1300,249 @@ git status --short
 
 Expected: all commands exit zero and `git status --short` emits nothing.
 
-The next phase may start UMLS-to-HPO mapping and HPO revision. It must consume
-the immutable artifacts created here and must not modify these canonical source
-or selection records in place.
+The next phase may start UMLS-to-HPO mapping and manual HPO adjudication. It
+must consume the immutable artifacts created here and must not modify these
+canonical source or selection records in place.
+
+---
+
+### Task 16: Audit CSC/GSC IDs against pinned HPO v2026-06-23
+
+**Files:**
+
+- Create: `configs/ontologies/hpo-v2026-06-23.yaml`
+- Create: `src/phentrieve_benchmark/ontology/__init__.py`
+- Create: `src/phentrieve_benchmark/ontology/hpo.py`
+- Create: `src/phentrieve_benchmark/ontology/revision.py`
+- Modify: `src/phentrieve_benchmark/cli.py`
+- Create: `tests/fixtures/hpo.py`
+- Create: `tests/unit/ontology/test_hpo.py`
+- Create: `tests/unit/ontology/test_revision.py`
+- Create: `tests/integration/test_raghpo_hpo_revision.py`
+- Create: `datasets/raghpo/hpo-revision-policy.md`
+- Create: `datasets/raghpo/hpo-audit-v2026-06-23.json`
+- Modify: `datasets/raghpo/README.md`
+- Modify: `datasets/raghpo/csc/README.md`
+- Modify: `datasets/raghpo/gsc/README.md`
+
+- [ ] **Step 1: Lock the official ontology asset**
+
+The strict ontology recipe contains exactly:
+
+```text
+schema_version: hpo-source-recipe/v1
+release: v2026-06-23
+url: https://github.com/obophenotype/human-phenotype-ontology/releases/download/v2026-06-23/hp.obo
+expected_byte_length: 11222341
+maximum_byte_length: 12000000
+sha256: a5092cbdf605f568403cf7380d9173014015692433b2cc631bc5c1b053876b1b
+format: obo-1.4
+parser: pronto-2
+```
+
+Recipe tests reject `latest`, redirects, other hosts/releases, zero or
+uppercase digests, and any mismatch between release and URL.
+
+- [ ] **Step 2: Write failing HPO index tests**
+
+Generate a small OBO 1.4 document at runtime containing:
+
+- one active primary term;
+- one active term with an `alt_id`;
+- one obsolete term with one `replaced_by`;
+- one obsolete term with multiple replacements;
+- one obsolete term with `consider`;
+- one obsolete term without candidates;
+- a replacement chain and a cycle fixture.
+
+Test strict extraction of primary IDs, labels, alternate IDs, obsolescence,
+`replaced_by`, and `consider`. Reject malformed HPO IDs, primary duplicates,
+alternate-ID collisions, missing replacement targets, and cycles.
+
+The API is:
+
+```python
+@dataclass(frozen=True)
+class HpoTermRecord:
+    hpo_id: str
+    label: str | None
+    obsolete: bool
+    alternate_ids: tuple[str, ...]
+    replaced_by: tuple[str, ...]
+    consider: tuple[str, ...]
+
+@dataclass(frozen=True)
+class HpoIndex:
+    release: str
+    ontology_sha256: str
+    terms: Mapping[str, HpoTermRecord]
+    alternate_to_primary: Mapping[str, str]
+
+def load_hpo_index(
+    ontology_bytes: bytes,
+    *,
+    release: str,
+    ontology_sha256: str,
+) -> HpoIndex:
+    ...
+```
+
+- [ ] **Step 3: Observe the red HPO parser tests**
+
+Run:
+
+```powershell
+uv run pytest tests/unit/ontology/test_hpo.py -v
+```
+
+Expected: collection fails because `ontology.hpo` does not exist.
+
+- [ ] **Step 4: Implement the strict pronto-backed index**
+
+Parse only supplied bytes; pronto must not resolve imports or access the
+network. Copy the required values into immutable built-in records and discard
+the mutable ontology object. Sort every set-like field. Validate the complete
+index before returning it.
+
+- [ ] **Step 5: Write failing revision-decision tests**
+
+Define strict/frozen Pydantic models:
+
+```text
+HpoRevisionStatus(
+  active,
+  alt_id,
+  obsolete_replaced,
+  obsolete_ambiguous,
+  obsolete_unresolved,
+  unknown,
+  invalid_format
+)
+HpoRevisionDecision(
+  schema_version="hpo-revision-decision/v1",
+  source_annotation_id,
+  source_hpo_id,
+  ontology_release,
+  ontology_sha256,
+  status,
+  canonical_hpo_id?,
+  proposed_hpo_ids,
+  replacement_chain,
+  requires_manual_review,
+  reason_code
+)
+HpoAuditManifest(
+  schema_version="hpo-audit-manifest/v1",
+  target_id,
+  source_annotation_set_sha256,
+  ontology_release,
+  ontology_sha256,
+  decisions_sha256,
+  counts,
+  revised_annotation_sets_sha256?,
+  manual_queue_sha256?
+)
+```
+
+Test:
+
+- active IDs remain unchanged and require no manual review;
+- alternate IDs resolve uniquely to the active primary ID;
+- one `replaced_by` is proposed but not automatically accepted;
+- multiple replacements or any `consider` are ambiguous;
+- obsolete without candidates, unknown, and invalid IDs require review;
+- only active and alternate decisions have `canonical_hpo_id`;
+- decisions and counts are permutation-independent and contain no source
+  description or volatile execution field.
+
+- [ ] **Step 6: Observe the red decision tests**
+
+```powershell
+uv run pytest tests/unit/ontology/test_revision.py -v
+```
+
+Expected: collection fails because `ontology.revision` does not exist.
+
+- [ ] **Step 7: Implement deterministic audit and revised artifacts**
+
+Expose:
+
+```python
+def classify_hpo_id(
+    source_annotation_id: str,
+    source_hpo_id: str,
+    *,
+    index: HpoIndex,
+) -> HpoRevisionDecision:
+    ...
+
+def audit_annotation_sets(
+    target_id: Literal["csc", "gsc"],
+    annotation_sets: Sequence[AnnotationSet],
+    *,
+    index: HpoIndex,
+    store: ArtifactStore,
+) -> HpoAuditManifest:
+    ...
+```
+
+Create new annotation sets rather than editing source objects. Active and
+alternate IDs may enter the deterministic revised set. Every other status
+enters a separate ignored manual queue.
+
+- [ ] **Step 8: Add CLI and integration tests**
+
+Expose:
+
+```text
+phentrieve-benchmark hpo acquire --release v2026-06-23
+phentrieve-benchmark hpo audit csc --release v2026-06-23
+phentrieve-benchmark hpo audit gsc --release v2026-06-23
+```
+
+The acquisition verifies HTTPS response, no redirect, exact size, and exact
+SHA-256 before CAS publication. Integration tests use a local HTTP server,
+synthetic annotation sets, and a synthetic OBO file; normal CI stays offline.
+
+- [ ] **Step 9: Run the real CSC/GSC audit**
+
+After Tasks 1 through 15 have produced the local annotation artifacts, run:
+
+```powershell
+uv run phentrieve-benchmark hpo acquire --release v2026-06-23
+uv run phentrieve-benchmark hpo audit csc --release v2026-06-23
+uv run phentrieve-benchmark hpo audit gsc --release v2026-06-23
+```
+
+Export only the canonical text-free audit summary to
+`datasets/raghpo/hpo-audit-v2026-06-23.json`. Keep decisions, revised
+annotation sets, source descriptions, and manual queues under `.artifacts/`.
+
+- [ ] **Step 10: Document status counts and policy**
+
+Record exact counts for both targets by status, the ontology release and
+digest, the automatic alternate-ID rule, and the number of manual-review
+decisions. Do not claim obsolete proposals were medically accepted.
+
+- [ ] **Step 11: Verify and commit**
+
+Run:
+
+```powershell
+uv run pytest tests/unit/ontology tests/integration/test_raghpo_hpo_revision.py -v
+uv run ruff check src/phentrieve_benchmark/ontology tests/unit/ontology tests/integration/test_raghpo_hpo_revision.py
+uv run mypy
+uv run python scripts/check_repository_safety.py
+uv run pytest --cov=phentrieve_benchmark --cov=scripts --cov-report=term-missing --cov-fail-under=90
+git diff --check
+```
+
+Expected: all checks pass, real source data remains ignored, and the tracked
+audit contains only IDs, counts, statuses, release identities, and hashes.
+
+Then:
+
+```powershell
+git add configs/ontologies src/phentrieve_benchmark/ontology src/phentrieve_benchmark/cli.py tests datasets/raghpo
+git commit -m "feat: audit RAG-HPO terms against pinned ontology"
+```

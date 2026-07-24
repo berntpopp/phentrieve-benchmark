@@ -16,8 +16,10 @@ acquired and normalized independently. The E3C target additionally produces
 the first feasibility cohort containing 10 English, 10 French, and 10 Spanish
 Layer 1 reports.
 
-This phase does not translate text, revise HPO identifiers, map UMLS concepts
-to HPO, or publish a dataset release.
+This phase does not translate text, map UMLS concepts to HPO, manually
+adjudicate obsolete or ambiguous HPO replacements, or publish a dataset
+release. It does audit the existing CSC/GSC HPO identifiers against one pinned
+HPO release and creates a separate immutable revision artifact.
 
 ## 2. Confirmed Scope
 
@@ -30,6 +32,7 @@ The implementation includes:
 - complete normalization of the CSC and GSC targets;
 - normalization of E3C Layer 1 for English, French, and Spanish only;
 - a deterministic E3C feasibility selection of 30 reports;
+- a deterministic CSC/GSC HPO audit against release `v2026-06-23`;
 - separate commands for acquisition, normalization, and selection;
 - a per-target convenience command that orchestrates the required stages;
 - offline CI tests using local fixtures;
@@ -42,7 +45,7 @@ The following work is explicitly deferred:
 - Italian and Basque E3C reports;
 - the 90-report E3C pilot cohort;
 - UMLS-to-HPO mapping;
-- CSC/GSC HPO revision decisions;
+- manual adjudication of obsolete, ambiguous, `consider`, or unknown HPO IDs;
 - translation and translation review;
 - annotation adaptation and review;
 - public release construction.
@@ -518,9 +521,9 @@ The sidecar may contain source text and remains content-addressed under
 `.artifacts/`. Text-free manifests contain only its artifact hash, schema
 identity, row count, and warning counts.
 
-CSC and GSC normalization is complete in this phase; HPO validity,
-`alt_id`, replacement, ambiguity, and removal decisions belong to the
-subsequent revision phase.
+CSC and GSC source normalization remains immutable. Section 14 defines a
+separate HPO audit and revision artifact; it never edits these source
+annotation sets in place.
 
 ## 8. E3C Inventory and Length Measurement
 
@@ -805,3 +808,84 @@ This phase is complete when:
     calls.
 14. The explicit live smoke test validates real upstream structure and
     deterministic local output.
+15. The exact HPO `v2026-06-23` asset is verified by size and SHA-256 before
+    parsing.
+16. Every CSC/GSC HPO identifier is classified as active, alternate,
+    obsolete with replacement, obsolete ambiguous/unresolved, unknown, or
+    invalid.
+17. Active IDs remain unchanged, alternate IDs resolve deterministically to
+    their primary active ID, and every other non-active status requires manual
+    review without silently changing the source annotation.
+
+## 14. Pinned HPO Audit and Revision
+
+The ontology source is the official HPO release `v2026-06-23`. The pipeline
+uses the release asset:
+
+```text
+URL:
+https://github.com/obophenotype/human-phenotype-ontology/releases/download/v2026-06-23/hp.obo
+
+byte_length:
+11222341
+
+sha256:
+a5092cbdf605f568403cf7380d9173014015692433b2cc631bc5c1b053876b1b
+```
+
+The release tag, asset URL, exact byte length, and SHA-256 are configuration.
+`latest` is forbidden. A later HPO release creates a new audit and revision;
+it never overwrites the `v2026-06-23` result.
+
+The parsed index contains primary HPO IDs, labels, active/obsolete state,
+`alt_id`, `replaced_by`, and `consider`. Duplicate primary IDs, one alternate
+ID assigned to multiple terms, alternate/primary collisions, malformed HPO
+IDs, and replacement cycles fail closed.
+
+Each source annotation produces one immutable decision:
+
+```text
+HpoRevisionDecision
+  source_annotation_id
+  source_hpo_id
+  ontology_release
+  ontology_sha256
+  status
+  canonical_hpo_id?
+  proposed_hpo_ids[]
+  replacement_chain[]
+  requires_manual_review
+  reason_code
+```
+
+The closed statuses are:
+
+- `active`: the primary ID is active; `canonical_hpo_id` equals the source ID;
+- `alt_id`: the source ID uniquely identifies an active primary term and is
+  deterministically canonicalized;
+- `obsolete_replaced`: the obsolete term has exactly one explicit
+  `replaced_by`; it is recorded as a proposal and requires manual review;
+- `obsolete_ambiguous`: multiple `replaced_by` or any `consider` candidates
+  require manual review;
+- `obsolete_unresolved`: no replacement candidate exists;
+- `unknown`: the well-formed HPO ID is absent from the pinned ontology;
+- `invalid_format`: the value is not exactly `HP:[0-9]{7}`.
+
+Only `active` and `alt_id` populate `canonical_hpo_id` automatically.
+`replaced_by` and `consider` never silently alter the gold annotation. Source
+descriptions may be retained in ignored curation packets but never drive an
+automatic ID replacement.
+
+The stage emits:
+
+- ignored canonical decision JSONL for CSC and GSC separately;
+- a deterministic text-free audit manifest with counts by target and status;
+- an optional revised `AnnotationSet` containing only active and deterministically
+  resolved alternate IDs;
+- a separate run manifest and `ProvenanceRunLink`;
+- a manual-curation queue for every decision whose
+  `requires_manual_review=true`.
+
+The HPO parser and audit are fully covered by offline synthetic fixtures.
+The real HPO download and real CSC/GSC audit run only through the explicit
+live-source workflow.
