@@ -4,11 +4,13 @@
 caller-owned containers once, then validates the isolated built-ins against an
 explicit event schema before rendering canonical JSON. The only current schema
 is ``case_complete(case_id, duration_ms, status)``; every field is required and
-``status`` is exactly ``"ok"``. New event types require a reviewed schema rather
-than accepting arbitrary metadata. One pre-rendered record is appended with one
-write in append mode. This preserves prior content and relies on the operating
-system's normal append semantics; coordinating independent processes is outside
-this small, local event-log boundary.
+``case_id`` matches ``synthetic-[1-9][0-9]*`` while ``status`` is exactly
+``"ok"``. New event types require a reviewed schema rather than accepting
+arbitrary metadata; non-synthetic identities require a fixed-form digest field
+or a separately reviewed identifier type. One pre-rendered record is appended
+with one write in append mode. This preserves prior content and relies on the
+operating system's normal append semantics; coordinating independent processes
+is outside this small, local event-log boundary.
 """
 
 import math
@@ -52,7 +54,7 @@ _FORBIDDEN_EXACT_KEYS = frozenset(
 )
 _SAFE_EVENT_NAME = re.compile(r"[a-z][a-z0-9_.:-]{0,63}", re.ASCII)
 _SAFE_METADATA_KEY = re.compile(r"[a-z][a-z0-9_]{0,63}", re.ASCII)
-_CASE_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9_-]{0,127}", re.ASCII)
+_CASE_ID = re.compile(r"synthetic-[1-9][0-9]*", re.ASCII)
 _CASE_COMPLETE_FIELDS = frozenset({"case_id", "duration_ms", "status"})
 _CASE_COMPLETE_STATUSES = frozenset({"ok"})
 
@@ -243,7 +245,7 @@ def _validate_case_complete(fields: dict[str, Any]) -> None:
     case_id = fields["case_id"]
     if type(case_id) is not str or _CASE_ID.fullmatch(case_id) is None:
         raise UnsafeEventError(
-            "case_complete case_id must match [A-Za-z0-9][A-Za-z0-9_-]{0,127}"
+            "case_complete case_id must match synthetic-[1-9][0-9]*"
         )
 
     duration_ms = fields["duration_ms"]

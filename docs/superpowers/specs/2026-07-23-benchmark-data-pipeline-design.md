@@ -564,12 +564,15 @@ an `incomplete` manifest and leaves validated artifacts resumable.
 Structured event logging uses closed, field-specific schemas rather than
 accepting generic metadata. The first implementation supports only
 `case_complete`, with all three fields required: an opaque conservative-ASCII
-`case_id`, a strict non-negative integer `duration_ms`, and `status` fixed to
-the reviewed lifecycle code `ok`. Unknown event types and fields are rejected.
-Every new event type requires a design review, an explicit field schema, and
-event-specific tests before it can be emitted. Caller containers are first
-snapshotted once into built-in values, then semantic validation and canonical
-rendering complete before the event file is opened.
+`case_id` matching `synthetic-[1-9][0-9]*`, a strict non-negative integer
+`duration_ms`, and `status` fixed to the reviewed lifecycle code `ok`. Unknown
+event types and fields are rejected. Non-synthetic cases must use a fixed-form
+digest field such as `case_id_sha256`, or another reviewed validated identifier
+type in a new event schema. Every new event type requires a design review, an
+explicit field schema, and event-specific tests before it can be emitted.
+Caller containers are first snapshotted once into built-in values, then
+semantic validation and canonical rendering complete before the event file is
+opened.
 
 ## 11. Error and Resume Semantics
 

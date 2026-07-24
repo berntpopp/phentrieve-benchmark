@@ -1568,10 +1568,13 @@ git commit -m "feat: require interactive paid-run authorization"
 schema allowlist; a denylist or generic value grammar is not evidence that an
 event is text-free. The only current event is `case_complete`, and it requires
 exactly `case_id`, `duration_ms`, and `status`. `case_id` matches
-`[A-Za-z0-9][A-Za-z0-9_-]{0,127}`, `duration_ms` is a strict non-boolean
-integer greater than or equal to zero, and `status` is exactly `ok`. Missing or
-extra fields and unknown event types fail closed. Every future event type
-requires a reviewed schema and event-specific tests before it can be written.
+`synthetic-[1-9][0-9]*`: a positive canonical ASCII decimal ordinal with no
+leading zero. `duration_ms` is a strict non-boolean integer greater than or
+equal to zero, and `status` is exactly `ok`. Missing or extra fields and unknown
+event types fail closed. Every future event type requires a reviewed schema and
+event-specific tests before it can be written. Non-synthetic cases must use a
+fixed-form digest field such as `case_id_sha256`, or another reviewed and
+validated identifier type declared by that new event schema.
 
 As defense in depth, caller-owned mappings and non-byte sequences are consumed
 at most once into memoized built-in dict/list snapshots, including nested and

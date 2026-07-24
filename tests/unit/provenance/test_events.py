@@ -470,6 +470,18 @@ def test_writer_rejects_unknown_field_before_file_mutation(tmp_path: Path) -> No
     "case_id",
     [
         "",
+        "headache",
+        "Alice",
+        "sk-live-secret",
+        "synthetic-headache",
+        "synthetic-0",
+        "synthetic-01",
+        "synthetic-\u0661",
+        "synthetic-\uff11",
+        " synthetic-1",
+        "synthetic-1 ",
+        "synthetic-1\n",
+        "\x1bsynthetic-1",
         "patient one",
         "patient@example",
         "patient.name",
@@ -481,6 +493,8 @@ def test_writer_rejects_unknown_field_before_file_mutation(tmp_path: Path) -> No
 )
 def test_writer_rejects_invalid_case_id(tmp_path: Path, case_id: object) -> None:
     path = tmp_path / "events.jsonl"
+    existing = b'{"event":"existing"}\n'
+    path.write_bytes(existing)
 
     with pytest.raises(UnsafeEventError, match="case_id"):
         EventWriter(path).write(
@@ -488,7 +502,7 @@ def test_writer_rejects_invalid_case_id(tmp_path: Path, case_id: object) -> None
             fields={"case_id": case_id, "duration_ms": 12, "status": "ok"},
         )
 
-    assert not path.exists()
+    assert path.read_bytes() == existing
 
 
 @pytest.mark.parametrize("duration_ms", [-1, True, False, 1.0, "1"])
