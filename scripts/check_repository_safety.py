@@ -1,7 +1,11 @@
 from __future__ import annotations
 
+import hashlib
+import hmac
 import os
 import re
+import stat
+import struct
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -13,6 +17,7 @@ class SafetyViolation(RuntimeError):
 
 
 MAX_BLOB_BYTES = 4 * 1024 * 1024
+MAX_INDEX_BYTES = 64 * 1024 * 1024
 GIT_TIMEOUT_SECONDS = 30
 SUPPORTED_MODES = frozenset({b"100644", b"100755", b"120000"})
 FORBIDDEN_PATHS = (
@@ -131,19 +136,14 @@ def trusted_git_environment() -> dict[str, str]:
     return environment
 
 
-def _git_arguments(
-    arguments: list[str],
-    *,
-    observe_fsmonitor: bool,
-) -> list[str]:
-    fsmonitor_setting = "true" if observe_fsmonitor else "false"
+def _git_arguments(arguments: list[str]) -> list[str]:
     return [
         "git",
         "--no-pager",
         "--no-replace-objects",
         "--literal-pathspecs",
         "-c",
-        f"core.fsmonitor={fsmonitor_setting}",
+        "core.fsmonitor=false",
         "-c",
         "core.untrackedCache=false",
         *arguments,
@@ -153,15 +153,10 @@ def _git_arguments(
 def _git_process(
     root: Path,
     arguments: list[str],
-    *,
-    observe_fsmonitor: bool = False,
 ) -> subprocess.CompletedProcess[bytes]:
     try:
         return subprocess.run(
-            _git_arguments(
-                arguments,
-                observe_fsmonitor=observe_fsmonitor,
-            ),
+            _git_arguments(arguments),
             cwd=root,
             env=trusted_git_environment(),
             check=False,
@@ -175,14 +170,8 @@ def _git_process(
 def _git_output(
     root: Path,
     arguments: list[str],
-    *,
-    observe_fsmonitor: bool = False,
 ) -> bytes:
-    result = _git_process(
-        root,
-        arguments,
-        observe_fsmonitor=observe_fsmonitor,
-    )
+    result = _git_process(root, arguments)
     if result.returncode != 0:
         raise SafetyViolation("unable to read trusted Git repository state")
     return result.stdout
@@ -196,6 +185,196 @@ def _worktree_differs_from_index(root: Path) -> bool:
     if result.returncode not in {0, 1}:
         raise SafetyViolation("unable to compare tracked worktree with Git index")
     return result.returncode == 1
+
+
+def _malformed_index() -> SafetyViolation:
+    return SafetyViolation("Git index file is malformed")
+
+
+def _decode_v4_strip_count(
+    snapshot: bytes,
+    cursor: int,
+    limit: int,
+) -> tuple[int, int]:
+    if cursor >= limit:
+        raise _malformed_index()
+    byte = snapshot[cursor]
+    cursor += 1
+    value = byte & 0x7F
+    for _ in range(9):
+        if not byte & 0x80:
+            return value, cursor
+        if cursor >= limit:
+            raise _malformed_index()
+        value += 1
+        if value > (sys.maxsize >> 7):
+            raise _malformed_index()
+        byte = snapshot[cursor]
+        cursor += 1
+        value = (value << 7) + (byte & 0x7F)
+    raise _malformed_index()
+
+
+def _validate_index_bytes(snapshot: bytes, *, hash_name: str) -> None:
+    """Validate a documented Git index and reject its fsmonitor extension."""
+    if hash_name not in {"sha1", "sha256"}:
+        raise SafetyViolation("Git returned an unsupported object format")
+    hash_size = hashlib.new(hash_name).digest_size
+    if len(snapshot) < 12 + hash_size:
+        raise _malformed_index()
+
+    payload = snapshot[:-hash_size]
+    expected_checksum = snapshot[-hash_size:]
+    actual_checksum = hashlib.new(hash_name, payload).digest()
+    if not hmac.compare_digest(actual_checksum, expected_checksum):
+        raise SafetyViolation("Git index checksum is invalid")
+    if payload[:4] != b"DIRC":
+        raise _malformed_index()
+
+    version, entry_count = struct.unpack(">II", payload[4:12])
+    if version not in {2, 3, 4}:
+        raise SafetyViolation("Git index version is unsupported")
+    fixed_size = 40 + hash_size + 2
+    if entry_count > (len(payload) - 12) // (fixed_size + 1):
+        raise _malformed_index()
+
+    cursor = 12
+    previous_path = b""
+    for _ in range(entry_count):
+        entry_start = cursor
+        if cursor + fixed_size > len(payload):
+            raise _malformed_index()
+        cursor += 40 + hash_size
+        flags = struct.unpack(">H", payload[cursor : cursor + 2])[0]
+        cursor += 2
+        if flags & 0x4000:
+            if version == 2 or cursor + 2 > len(payload):
+                raise _malformed_index()
+            extended_flags = struct.unpack(">H", payload[cursor : cursor + 2])[0]
+            if extended_flags & ~0x6000:
+                raise _malformed_index()
+            cursor += 2
+
+        declared_name_length = flags & 0x0FFF
+        if version == 4:
+            strip_count, cursor = _decode_v4_strip_count(
+                payload,
+                cursor,
+                len(payload),
+            )
+            if strip_count > len(previous_path):
+                raise _malformed_index()
+            name_end = payload.find(b"\0", cursor)
+            if name_end < 0:
+                raise _malformed_index()
+            path = previous_path[: len(previous_path) - strip_count]
+            path += payload[cursor:name_end]
+            cursor = name_end + 1
+            previous_path = path
+        else:
+            if declared_name_length < 0x0FFF:
+                name_end = cursor + declared_name_length
+                if name_end >= len(payload) or payload[name_end] != 0:
+                    raise _malformed_index()
+            else:
+                name_end = payload.find(b"\0", cursor)
+                if name_end < 0:
+                    raise _malformed_index()
+            path = payload[cursor:name_end]
+            cursor = name_end + 1
+            aligned_cursor = entry_start + (
+                ((cursor - entry_start + 7) // 8) * 8
+            )
+            if (
+                aligned_cursor > len(payload)
+                or any(payload[cursor:aligned_cursor])
+            ):
+                raise _malformed_index()
+            cursor = aligned_cursor
+
+        if (
+            declared_name_length < 0x0FFF
+            and declared_name_length != len(path)
+        ):
+            raise _malformed_index()
+
+    while cursor < len(payload):
+        if cursor + 8 > len(payload):
+            raise _malformed_index()
+        signature = payload[cursor : cursor + 4]
+        extension_size = struct.unpack(">I", payload[cursor + 4 : cursor + 8])[0]
+        cursor += 8
+        if extension_size > len(payload) - cursor:
+            raise _malformed_index()
+        if signature == b"FSMN":
+            raise SafetyViolation("unsafe fsmonitor index extension is forbidden")
+        cursor += extension_size
+
+
+def _index_file_path(root: Path) -> Path:
+    output = _git_output(
+        root,
+        ["rev-parse", "--path-format=absolute", "--git-path", "index"],
+    )
+    if (
+        not output.endswith(b"\n")
+        or b"\0" in output
+        or b"\n" in output[:-1]
+    ):
+        raise SafetyViolation("Git returned an invalid index path")
+    path = Path(os.fsdecode(output[:-1]))
+    if not path.is_absolute():
+        raise SafetyViolation("Git returned a non-absolute index path")
+    return path
+
+
+def _read_index_file(path: Path) -> bytes:
+    flags = os.O_RDONLY | getattr(os, "O_BINARY", 0)
+    flags |= getattr(os, "O_NOFOLLOW", 0)
+    try:
+        if path.is_symlink():
+            raise SafetyViolation("Git index file must not be a symlink")
+        descriptor = os.open(path, flags)
+    except FileNotFoundError:
+        return b""
+    except SafetyViolation:
+        raise
+    except OSError as error:
+        raise SafetyViolation("unable to read Git index file") from error
+
+    try:
+        file_stat = os.fstat(descriptor)
+        if not stat.S_ISREG(file_stat.st_mode):
+            raise SafetyViolation("Git index must be a regular file")
+        with os.fdopen(descriptor, "rb") as handle:
+            descriptor = -1
+            snapshot = handle.read(MAX_INDEX_BYTES + 1)
+    except (OSError, SafetyViolation) as error:
+        if isinstance(error, SafetyViolation):
+            raise
+        raise SafetyViolation("unable to read Git index file") from error
+    finally:
+        if descriptor >= 0:
+            os.close(descriptor)
+
+    if len(snapshot) > MAX_INDEX_BYTES:
+        raise SafetyViolation("Git index exceeds safety size limit")
+    return snapshot
+
+
+def index_file_snapshot(root: Path) -> tuple[Path, str, bytes]:
+    index_path = _index_file_path(root)
+    object_format = _git_output(
+        root,
+        ["rev-parse", "--show-object-format"],
+    ).strip()
+    if object_format not in {b"sha1", b"sha256"}:
+        raise SafetyViolation("Git returned an unsupported object format")
+    hash_name = object_format.decode("ascii")
+    snapshot = _read_index_file(index_path)
+    if snapshot:
+        _validate_index_bytes(snapshot, hash_name=hash_name)
+    return index_path, hash_name, snapshot
 
 
 def _tagged_index_paths(snapshot: bytes) -> list[tuple[bytes, bytes]]:
@@ -225,16 +404,10 @@ def _reject_unsafe_index_flags(
             )
 
 
-def index_flag_snapshot(root: Path) -> tuple[bytes, bytes]:
+def index_flag_snapshot(root: Path) -> bytes:
     assume_and_skip = _git_output(root, ["ls-files", "-v", "-z"])
     _reject_unsafe_index_flags(assume_and_skip, reject_skip_worktree=True)
-    fsmonitor_valid = _git_output(
-        root,
-        ["ls-files", "-f", "-z"],
-        observe_fsmonitor=True,
-    )
-    _reject_unsafe_index_flags(fsmonitor_valid, reject_skip_worktree=False)
-    return assume_and_skip, fsmonitor_valid
+    return assume_and_skip
 
 
 def parse_index_snapshot(snapshot: bytes) -> list[IndexEntry]:
@@ -358,6 +531,7 @@ def scan_entries(root: Path, entries: list[IndexEntry]) -> None:
 def scan_repository(start: Path) -> None:
     """Scan immutable index blobs and reject concurrent or worktree divergence."""
     root = repository_root(start)
+    index_file_before = index_file_snapshot(root)
     dirty_before = _worktree_differs_from_index(root)
     flags_before = index_flag_snapshot(root)
     raw_before, entries = index_snapshot(root)
@@ -365,7 +539,12 @@ def scan_repository(start: Path) -> None:
     raw_after, _ = index_snapshot(root)
     flags_after = index_flag_snapshot(root)
     dirty_after = _worktree_differs_from_index(root)
-    if raw_before != raw_after or flags_before != flags_after:
+    index_file_after = index_file_snapshot(root)
+    if (
+        raw_before != raw_after
+        or flags_before != flags_after
+        or index_file_before != index_file_after
+    ):
         raise SafetyViolation("Git index changed during scan")
     if dirty_before or dirty_after:
         raise SafetyViolation("tracked worktree differs from index")

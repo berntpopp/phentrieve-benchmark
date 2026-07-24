@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import hashlib
 import os
+import struct
 import subprocess
 import sys
 from pathlib import Path
@@ -55,9 +57,56 @@ def secret_assignment(name: bytes = b"api_key") -> bytes:
     return name + b"=" + b"q9P4m7V2x8L5n3R6\n"
 
 
+def index_bytes(
+    *,
+    extensions: tuple[tuple[bytes, bytes], ...] = (),
+    hash_name: str = "sha1",
+) -> bytes:
+    body = b"DIRC" + struct.pack(">II", 2, 0)
+    for signature, content in extensions:
+        body += signature + struct.pack(">I", len(content)) + content
+    return signed_index(body, hash_name=hash_name)
+
+
+def signed_index(payload: bytes, *, hash_name: str = "sha1") -> bytes:
+    return payload + hashlib.new(hash_name, payload).digest()
+
+
 def test_clean_index_snapshot_is_allowed(tmp_path: Path) -> None:
     initialise_repository(tmp_path)
     track(tmp_path, "src/module.py", b'MODEL = "general/nmt"\n')
+
+    scan_repository(tmp_path)
+
+
+def test_empty_repository_without_index_file_is_allowed(tmp_path: Path) -> None:
+    initialise_repository(tmp_path)
+
+    scan_repository(tmp_path)
+
+
+def test_version_four_index_is_allowed(tmp_path: Path) -> None:
+    initialise_repository(tmp_path)
+    track(tmp_path, "src/first.py", b"FIRST = 1\n")
+    track(tmp_path, "src/second.py", b"SECOND = 2\n")
+    run_git(tmp_path, "update-index", "--index-version", "4")
+    index = (tmp_path / ".git" / "index").read_bytes()
+    assert struct.unpack(">I", index[4:8])[0] == 4
+
+    scan_repository(tmp_path)
+
+
+def test_sha256_index_is_allowed_when_supported(tmp_path: Path) -> None:
+    result = subprocess.run(
+        ["git", "init", "--quiet", "--object-format=sha256"],
+        cwd=tmp_path,
+        check=False,
+        capture_output=True,
+    )
+    if result.returncode != 0:
+        pytest.skip("installed Git does not support SHA-256 repositories")
+    run_git(tmp_path, "config", "core.autocrlf", "false")
+    track(tmp_path, "safe.txt", b"safe\n")
 
     scan_repository(tmp_path)
 
@@ -139,15 +188,12 @@ def test_skip_worktree_cannot_hide_dirty_tracked_file(tmp_path: Path) -> None:
         )
 
 
-def test_real_fsmonitor_valid_index_flag_is_rejected(tmp_path: Path) -> None:
+def test_real_fsmonitor_index_extension_is_rejected(tmp_path: Path) -> None:
     initialise_repository(tmp_path)
     track(tmp_path, "config.env", b"MODEL=general/nmt\n")
     run_git(tmp_path, "config", "core.fsmonitor", "true")
     run_git(tmp_path, "update-index", "--fsmonitor")
     run_git(tmp_path, "update-index", "--fsmonitor-valid", "--", "config.env")
-
-    native = run_git(tmp_path, "ls-files", "-f", "-z").stdout
-    assert native == b"h config.env\0"
     run_git(
         tmp_path,
         "config",
@@ -156,7 +202,7 @@ def test_real_fsmonitor_valid_index_flag_is_rejected(tmp_path: Path) -> None:
     )
 
     try:
-        with pytest.raises(SafetyViolation, match="unsafe index comparison flag"):
+        with pytest.raises(SafetyViolation, match="fsmonitor index extension"):
             scan_repository(tmp_path)
     finally:
         run_git(tmp_path, "config", "core.fsmonitor", "true")
@@ -168,6 +214,105 @@ def test_real_fsmonitor_valid_index_flag_is_rejected(tmp_path: Path) -> None:
             "config.env",
         )
         run_git(tmp_path, "update-index", "--no-fsmonitor")
+
+
+def test_index_bytes_reject_fsmonitor_extension_portably() -> None:
+    snapshot = index_bytes(extensions=((b"FSMN", b"\0" * 12),))
+
+    with pytest.raises(SafetyViolation, match="fsmonitor index extension"):
+        safety._validate_index_bytes(snapshot, hash_name="sha1")
+
+
+def test_index_bytes_accept_extension_data_containing_fsmonitor_signature() -> None:
+    snapshot = index_bytes(extensions=((b"TREE", b"prefix-FSMN-suffix"),))
+
+    safety._validate_index_bytes(snapshot, hash_name="sha1")
+
+
+def test_version_four_varint_decoder_handles_multibyte_value() -> None:
+    assert safety._decode_v4_strip_count(b"\x80\x00", 0, 2) == (128, 2)
+
+
+@pytest.mark.parametrize(
+    "encoded",
+    [
+        b"",
+        b"\x80",
+        b"\xff" * 9 + b"\x00",
+        b"\x80" * 10 + b"\x00",
+    ],
+)
+def test_version_four_varint_decoder_fails_closed(encoded: bytes) -> None:
+    with pytest.raises(SafetyViolation, match="malformed"):
+        safety._decode_v4_strip_count(encoded, 0, len(encoded))
+
+
+def malformed_index_payloads() -> list[bytes]:
+    header_v2 = b"DIRC" + struct.pack(">II", 2, 1)
+    header_v3 = b"DIRC" + struct.pack(">II", 3, 1)
+    header_v4 = b"DIRC" + struct.pack(">II", 4, 1)
+    fixed = b"\0" * 40 + b"a" * 20
+    return [
+        signed_index(b"NOPE" + struct.pack(">II", 2, 0)),
+        signed_index(b"DIRC" + struct.pack(">II", 5, 0)),
+        signed_index(b"DIRC" + struct.pack(">II", 2, 1)),
+        signed_index(header_v2 + fixed + struct.pack(">H", 0x4000)),
+        signed_index(
+            header_v3
+            + fixed
+            + struct.pack(">HH", 0x4000, 0x0001)
+            + b"\0" * 8
+        ),
+        signed_index(header_v4 + fixed + struct.pack(">H", 1) + b"\x01a\0"),
+        signed_index(header_v4 + fixed + struct.pack(">H", 1) + b"\0a"),
+        signed_index(header_v4 + fixed + struct.pack(">H", 2) + b"\0a\0"),
+        signed_index(header_v2 + fixed + struct.pack(">H", 1) + b"ab"),
+        signed_index(header_v2 + fixed + struct.pack(">H", 0x0FFF) + b"a"),
+        signed_index(header_v2 + fixed + struct.pack(">H", 1) + b"a\0x\0\0\0\0\0"),
+        signed_index(
+            b"DIRC"
+            + struct.pack(">II", 2, 0)
+            + b"TREE"
+            + struct.pack(">I", 100)
+        ),
+    ]
+
+
+@pytest.mark.parametrize(
+    "snapshot",
+    [
+        b"",
+        *malformed_index_payloads(),
+    ],
+)
+def test_index_bytes_reject_malformed_structures(snapshot: bytes) -> None:
+    with pytest.raises(SafetyViolation):
+        safety._validate_index_bytes(snapshot, hash_name="sha1")
+
+
+def test_index_bytes_reject_unsupported_hash_algorithm() -> None:
+    with pytest.raises(SafetyViolation, match="object format"):
+        safety._validate_index_bytes(index_bytes(), hash_name="md5")
+
+
+@pytest.mark.parametrize(
+    ("snapshot", "message"),
+    [
+        (index_bytes()[:-1] + b"x", "checksum"),
+        (
+            index_bytes(extensions=((b"TREE", b"data"),))[:-25]
+            + hashlib.sha1(
+                index_bytes(extensions=((b"TREE", b"data"),))[:-25]
+            ).digest(),
+            "malformed",
+        ),
+    ],
+)
+def test_index_bytes_fail_closed_on_corruption(
+    snapshot: bytes, message: str
+) -> None:
+    with pytest.raises(SafetyViolation, match=message):
+        safety._validate_index_bytes(snapshot, hash_name="sha1")
 
 
 @pytest.mark.parametrize(
@@ -348,6 +493,13 @@ def test_git_environment_redirection_is_ignored(
     scan_repository(intended)
 
 
+def test_every_git_invocation_disables_fsmonitor_hooks() -> None:
+    arguments = safety._git_arguments(["rev-parse", "--show-object-format"])
+
+    assert "core.fsmonitor=false" in arguments
+    assert "core.fsmonitor=true" not in arguments
+
+
 @pytest.mark.parametrize(
     "snapshot",
     [
@@ -516,7 +668,7 @@ def test_fsmonitor_flag_enabled_during_scan_fails_closed(
 
     monkeypatch.setattr(safety, "scan_entries", enable_fsmonitor_after_scan)
 
-    with pytest.raises(SafetyViolation, match="unsafe index comparison flag"):
+    with pytest.raises(SafetyViolation, match="fsmonitor index extension"):
         scan_repository(tmp_path)
 
 
