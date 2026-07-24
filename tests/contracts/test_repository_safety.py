@@ -101,6 +101,52 @@ def test_dirty_tracked_worktree_fails_closed(tmp_path: Path) -> None:
         scan_repository(tmp_path)
 
 
+def test_assume_unchanged_cannot_hide_dirty_tracked_file(tmp_path: Path) -> None:
+    initialise_repository(tmp_path)
+    path = track(tmp_path, "config.env", b"MODEL=general/nmt\n")
+    run_git(tmp_path, "update-index", "--assume-unchanged", "--", "config.env")
+    path.write_bytes(secret_assignment())
+
+    try:
+        with pytest.raises(SafetyViolation, match="unsafe index comparison flag"):
+            scan_repository(tmp_path)
+    finally:
+        run_git(
+            tmp_path,
+            "update-index",
+            "--no-assume-unchanged",
+            "--",
+            "config.env",
+        )
+
+
+def test_skip_worktree_cannot_hide_dirty_tracked_file(tmp_path: Path) -> None:
+    initialise_repository(tmp_path)
+    path = track(tmp_path, "config.env", b"MODEL=general/nmt\n")
+    run_git(tmp_path, "update-index", "--skip-worktree", "--", "config.env")
+    path.write_bytes(secret_assignment())
+
+    try:
+        with pytest.raises(SafetyViolation, match="unsafe index comparison flag"):
+            scan_repository(tmp_path)
+    finally:
+        run_git(
+            tmp_path,
+            "update-index",
+            "--no-skip-worktree",
+            "--",
+            "config.env",
+        )
+
+
+def test_fsmonitor_valid_tag_is_rejected_if_git_reports_it() -> None:
+    with pytest.raises(SafetyViolation, match="unsafe index comparison flag"):
+        safety._reject_unsafe_index_flags(
+            b"h config.env\0",
+            reject_skip_worktree=False,
+        )
+
+
 @pytest.mark.parametrize(
     ("name", "value"),
     [
@@ -124,6 +170,40 @@ def test_generic_env_and_yaml_assignments_are_detected(
     assert contains_credential(env_content)
     assert contains_credential(yaml_content)
     assert contains_credential(unquoted_content)
+
+
+@pytest.mark.parametrize(
+    ("name", "value"),
+    [
+        (b"OPENAI" + b"_API_KEY", b"sk-live-9Pq4mN7xT2vK"),
+        (
+            b"AWS" + b"_SECRET_ACCESS_KEY",
+            b"wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+        ),
+    ],
+)
+def test_prefixed_provider_credentials_are_detected(
+    name: bytes, value: bytes
+) -> None:
+    assert contains_credential(name + b"=" + value + b"\n")
+
+
+def test_aws_temporary_access_key_id_is_detected() -> None:
+    assert contains_credential(b"ASIA" + b"1A2B3C4D5E6F7G8H")
+
+
+def test_json_credential_assignment_with_comma_is_detected() -> None:
+    name = b"api" + b"_key"
+    value = b"q9P4m7V2x8L5n3R6"
+
+    assert contains_credential(b'"' + name + b'": "' + value + b'",\n')
+
+
+def test_yaml_credential_assignment_with_comment_is_detected() -> None:
+    name = b"openai" + b"_api_key"
+    value = b"q9P4m7V2x8L5n3R6"
+
+    assert contains_credential(name + b": " + value + b"  # local only\n")
 
 
 @pytest.mark.parametrize(
@@ -177,6 +257,20 @@ def test_utf16_credentials_are_detected(encoding: str) -> None:
     ],
 )
 def test_documented_placeholders_are_allowed(content: bytes) -> None:
+    assert not contains_credential(content)
+
+
+@pytest.mark.parametrize(
+    "content",
+    [
+        (b"OPENAI" + b'_API_KEY="<your-api-key>"\n'),
+        (b'"api' + b'_key": "placeholder",\n'),
+        (b"ASIA" + b"TOO_SHORT"),
+        b"secret = secret_assignment()\n",
+        b"OPENAI_API_KEY_FINGERPRINT=sha256:0123456789abcdef\n",
+    ],
+)
+def test_provider_detector_boundaries_remain_allowed(content: bytes) -> None:
     assert not contains_credential(content)
 
 

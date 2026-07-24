@@ -1707,11 +1707,16 @@ git commit -m "feat: add safe structured run events"
 >   differ. Check tracked worktree-to-index divergence at both boundaries.
 >   Credential findings take precedence so a staged secret is still reported
 >   when its working-tree copy has been replaced.
+> - Inspect raw NUL-delimited `git ls-files -v` and `git ls-files -f` output at
+>   both boundaries. Reject assume-unchanged, skip-worktree, and any reported
+>   fsmonitor-valid flags because they can suppress worktree comparison;
+>   continue forcing `core.fsmonitor=false` for every check.
 > - Reject `.artifacts`, `records/local`, `releases/local`, and
 >   `configs/providers/local`. Detect generic quoted or unquoted credential
->   assignments, GitHub/AWS/Bearer token families, common private-key headers,
->   and UTF-8 or UTF-16 text. Permit only explicit placeholder forms and short
->   examples.
+>   assignments in env, YAML, and JSON forms, including provider-prefixed
+>   names. Detect GitHub, AWS permanent and temporary, Bearer, and private-key
+>   signatures in UTF-8 or UTF-16 text. Permit only explicit placeholder forms
+>   and short examples.
 > - Escape arbitrary path bytes with reversible percent encoding in
 >   diagnostics. Never print matched content, raw control characters, or Git
 >   stderr.

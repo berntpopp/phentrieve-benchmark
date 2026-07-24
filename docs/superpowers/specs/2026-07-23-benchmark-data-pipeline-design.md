@@ -90,6 +90,9 @@ the immutable Git index blobs, not mutable working-tree files. This scanner is
 not a semantic clinical-text or licensing classifier. Prevention of
 third-party clinical text entering Git additionally depends on the artifact
 layout, dataset licensing gates, review policy, and release eligibility checks.
+The scanner also rejects index flags such as assume-unchanged and
+skip-worktree that could hide tracked working-tree divergence; fsmonitor is
+disabled for checks and any reported fsmonitor-valid entry is rejected.
 
 ## 4. Repository Structure
 

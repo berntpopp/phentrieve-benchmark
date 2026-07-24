@@ -27,14 +27,18 @@ ASSIGNMENT_PATTERN = re.compile(
     (?:export[ \t]+)?
     ["']?
     (?P<name>
-        api[-_]?key
-        |client[-_]?secret
-        |secret
-        |token
-        |password
-        |credential
-        |private[-_]?key
-        |access[-_]?key(?:[-_]?id)?
+        (?:[A-Za-z][A-Za-z0-9]*[-_]){0,2}
+        (?:
+            api[-_]?key
+            |client[-_]?secret
+            |secret[-_]?access[-_]?key
+            |secret
+            |token
+            |password
+            |credential
+            |private[-_]?key
+            |access[-_]?key(?:[-_]?id)?
+        )
     )
     ["']?
     [ \t]*[:=][ \t]*
@@ -43,13 +47,13 @@ ASSIGNMENT_PATTERN = re.compile(
         |'[^'\r\n]*'
         |[A-Za-z0-9_./+~=@:%-]+
     )
-    [ \t]*(?:\#[^\r\n]*)?$
+    [ \t]*,?[ \t]*(?:\#[^\r\n]*)?$
     """
 )
 SIGNATURE_PATTERNS = (
     re.compile(r"(?<![A-Za-z0-9])gh[pousr]_[A-Za-z0-9]{36}(?![A-Za-z0-9])"),
     re.compile(r"(?<![A-Za-z0-9])github_pat_[A-Za-z0-9_]{50,}"),
-    re.compile(r"(?<![A-Z0-9])AKIA[A-Z0-9]{16}(?![A-Z0-9])"),
+    re.compile(r"(?<![A-Z0-9])(?:AKIA|ASIA)[A-Z0-9]{16}(?![A-Z0-9])"),
     re.compile(r"(?i)\bBearer[ \t]+[A-Za-z0-9._~+/=-]{20,}"),
     re.compile(
         r"-----BEGIN (?:(?:RSA|EC|OPENSSH|DSA|ENCRYPTED) )?PRIVATE KEY-----"
@@ -175,6 +179,41 @@ def _worktree_differs_from_index(root: Path) -> bool:
     return result.returncode == 1
 
 
+def _tagged_index_paths(snapshot: bytes) -> list[tuple[bytes, bytes]]:
+    if snapshot and not snapshot.endswith(b"\0"):
+        raise SafetyViolation("Git returned malformed index flag output")
+    tagged_paths: list[tuple[bytes, bytes]] = []
+    for record in (item for item in snapshot.split(b"\0") if item):
+        if len(record) < 3 or record[1:2] != b" ":
+            raise SafetyViolation("Git returned malformed index flag entry")
+        tag, path = record[:1], record[2:]
+        if not path:
+            raise SafetyViolation("Git returned an empty index flag path")
+        tagged_paths.append((tag, path))
+    return tagged_paths
+
+
+def _reject_unsafe_index_flags(
+    snapshot: bytes,
+    *,
+    reject_skip_worktree: bool,
+) -> None:
+    for tag, path in _tagged_index_paths(snapshot):
+        lowercase = tag.lower() == tag and tag.upper() != tag
+        if lowercase or (reject_skip_worktree and tag == b"S"):
+            raise SafetyViolation(
+                f"unsafe index comparison flag: {escape_path(path)}"
+            )
+
+
+def index_flag_snapshot(root: Path) -> tuple[bytes, bytes]:
+    assume_and_skip = _git_output(root, ["ls-files", "-v", "-z"])
+    _reject_unsafe_index_flags(assume_and_skip, reject_skip_worktree=True)
+    fsmonitor_valid = _git_output(root, ["ls-files", "-f", "-z"])
+    _reject_unsafe_index_flags(fsmonitor_valid, reject_skip_worktree=False)
+    return assume_and_skip, fsmonitor_valid
+
+
 def parse_index_snapshot(snapshot: bytes) -> list[IndexEntry]:
     """Parse one raw `git ls-files --stage -z` snapshot deterministically."""
     if snapshot and not snapshot.endswith(b"\0"):
@@ -297,11 +336,13 @@ def scan_repository(start: Path) -> None:
     """Scan immutable index blobs and reject concurrent or worktree divergence."""
     root = repository_root(start)
     dirty_before = _worktree_differs_from_index(root)
+    flags_before = index_flag_snapshot(root)
     raw_before, entries = index_snapshot(root)
     scan_entries(root, entries)
     raw_after, _ = index_snapshot(root)
+    flags_after = index_flag_snapshot(root)
     dirty_after = _worktree_differs_from_index(root)
-    if raw_before != raw_after:
+    if raw_before != raw_after or flags_before != flags_after:
         raise SafetyViolation("Git index changed during scan")
     if dirty_before or dirty_after:
         raise SafetyViolation("tracked worktree differs from index")
