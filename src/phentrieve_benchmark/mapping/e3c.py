@@ -26,6 +26,7 @@ def _summary(
     records: tuple[UmlsHpoMappingRecord, ...],
     *,
     document_count: int,
+    ontology_warnings: tuple[str, ...],
 ) -> UmlsHpoMappingSummary:
     counts = Counter(record.classification for record in records)
     return UmlsHpoMappingSummary(
@@ -44,6 +45,7 @@ def _summary(
             MappingCount(classification=classification, count=counts[classification])
             for classification in MappingClassification
         ),
+        ontology_warnings=ontology_warnings,
     )
 
 
@@ -68,7 +70,8 @@ def map_e3c_umls_to_hpo(
     documents: tuple[Document, ...],
     annotation_sets: tuple[SourceAnnotationSet, ...],
     hpo_index: HpoIndex,
-    normalization_sha256: str,
+    documents_sha256: str,
+    source_annotations_sha256: str,
 ) -> UmlsHpoMappingManifest:
     by_hash: dict[str, Document] = {}
     for document in documents:
@@ -153,12 +156,17 @@ def map_e3c_umls_to_hpo(
     )
     return UmlsHpoMappingManifest(
         mapping_id=f"e3c-l1-umls-hpo-{hpo_index.release}-v1",
-        normalization_sha256=normalization_sha256,
+        documents_sha256=documents_sha256,
+        source_annotations_sha256=source_annotations_sha256,
         hpo_release=hpo_index.release,
         ontology_sha256=hpo_index.ontology_sha256,
         population_case_ids=population_case_ids,
         records=ordered,
-        summary=_summary(ordered, document_count=len(population_case_ids)),
+        summary=_summary(
+            ordered,
+            document_count=len(population_case_ids),
+            ontology_warnings=hpo_index.umls_xref_warnings,
+        ),
     )
 
 
@@ -182,12 +190,17 @@ def select_mapping_manifest(
     )
     return UmlsHpoMappingManifest(
         mapping_id=f"{complete.mapping_id}:{selection_id}",
-        normalization_sha256=complete.normalization_sha256,
+        documents_sha256=complete.documents_sha256,
+        source_annotations_sha256=complete.source_annotations_sha256,
         hpo_release=complete.hpo_release,
         ontology_sha256=complete.ontology_sha256,
         selection_id=selection_id,
         selection_sha256=selection_sha256,
         population_case_ids=population_case_ids,
         records=records,
-        summary=_summary(records, document_count=len(population_case_ids)),
+        summary=_summary(
+            records,
+            document_count=len(population_case_ids),
+            ontology_warnings=complete.summary.ontology_warnings,
+        ),
     )

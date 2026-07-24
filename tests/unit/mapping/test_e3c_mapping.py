@@ -89,7 +89,8 @@ def test_maps_all_closed_classifications_and_ignores_other_types() -> None:
         documents=(document,),
         annotation_sets=(annotations,),
         hpo_index=_index(),
-        normalization_sha256="a" * 64,
+        documents_sha256="a" * 64,
+        source_annotations_sha256="b" * 64,
     )
 
     assert [record.classification for record in manifest.records] == [
@@ -117,7 +118,8 @@ def test_mapping_manifest_hashes_span_text_without_serializing_it() -> None:
         documents=(document,),
         annotation_sets=(annotations,),
         hpo_index=_index(),
-        normalization_sha256="a" * 64,
+        documents_sha256="a" * 64,
+        source_annotations_sha256="b" * 64,
     )
 
     payload = manifest.canonical_bytes()
@@ -137,7 +139,8 @@ def test_selected_manifest_is_exact_case_subset() -> None:
             _annotation_set(second, (("a2", "C0000009", "CLINENTITY"),)),
         ),
         hpo_index=_index(),
-        normalization_sha256="a" * 64,
+        documents_sha256="a" * 64,
+        source_annotations_sha256="b" * 64,
     )
 
     selected = select_mapping_manifest(
@@ -165,7 +168,8 @@ def test_documents_without_clinentity_remain_in_population() -> None:
             _annotation_set(document, (("event", None, "EVENT"),)),
         ),
         hpo_index=_index(),
-        normalization_sha256="a" * 64,
+        documents_sha256="a" * 64,
+        source_annotations_sha256="b" * 64,
     )
 
     selected = select_mapping_manifest(
@@ -178,3 +182,31 @@ def test_documents_without_clinentity_remain_in_population() -> None:
     assert complete.summary.document_count == 1
     assert complete.records == ()
     assert selected.population_case_ids == ("EN1",)
+
+
+def test_mapping_summary_retains_ontology_xref_warnings() -> None:
+    body = (
+        synthetic_hpo_obo()
+        + b"\n[Term]\nid: HP:0000008\nname: Bad xref\n"
+        + b"xref: UMLS:0189573\n"
+    )
+    index = load_hpo_index(
+        body,
+        release="v2026-06-23",
+        ontology_sha256=sha256(body).hexdigest(),
+    )
+    document = _document("EN1", "fever")
+
+    manifest = map_e3c_umls_to_hpo(
+        documents=(document,),
+        annotation_sets=(
+            _annotation_set(document, (("a1", "C0000002", "CLINENTITY"),)),
+        ),
+        hpo_index=index,
+        documents_sha256="a" * 64,
+        source_annotations_sha256="b" * 64,
+    )
+
+    assert manifest.summary.ontology_warnings == (
+        "HP:0000008:malformed_umls_xref:0189573",
+    )

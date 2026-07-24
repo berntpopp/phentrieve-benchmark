@@ -9,6 +9,7 @@ from phentrieve_benchmark.artifacts.store import (
     ArtifactCorruptionError,
     ArtifactStore,
 )
+from phentrieve_benchmark.models.mapping import E3cMappingStageManifest
 from phentrieve_benchmark.models.pipeline import (
     NormalizationManifest,
     ProvenanceSubjectRole,
@@ -67,7 +68,13 @@ class StageState:
     def path_for(
         self, stage: str, target: str, semantic_hashes: dict[str, str]
     ) -> Path:
-        if stage not in {"acquire", "normalize", "select", "translate"}:
+        if stage not in {
+            "acquire",
+            "normalize",
+            "select",
+            "translate",
+            "map-hpo",
+        }:
             raise ValueError("invalid stage")
         if target not in {"e3c", "raghpo", "csc", "gsc"}:
             raise ValueError("invalid target")
@@ -169,3 +176,18 @@ class StageState:
             for record in manifest.records:
                 self.store.read_bytes(record.source_sha256)
                 self.store.read_bytes(record.translation_sha256)
+        elif (
+            pointer.subject_role
+            is ProvenanceSubjectRole.UMLS_HPO_MAPPING_MANIFEST
+        ):
+            mapping_manifest = E3cMappingStageManifest.model_validate_json(
+                subject, strict=True
+            )
+            for reference in (
+                mapping_manifest.complete,
+                mapping_manifest.selected,
+                mapping_manifest.summary,
+            ):
+                value = self.store.read_bytes(reference.sha256)
+                if len(value) != reference.byte_length:
+                    raise ValueError("mapping artifact byte length mismatch")

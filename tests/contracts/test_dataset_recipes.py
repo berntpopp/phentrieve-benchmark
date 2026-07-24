@@ -1,6 +1,8 @@
 from decimal import Decimal
 from pathlib import Path
 
+import yaml  # type: ignore[import-untyped]
+
 from phentrieve_benchmark.acquisition.recipes import (
     E3cAdapterContract,
     load_license_evidence,
@@ -109,3 +111,19 @@ def test_e3c_google_nmt_recipe_is_pinned() -> None:
     assert recipe.location == "global"
     assert recipe.target_language == "de"
     assert recipe.pricing.price_per_million_input_characters == Decimal("20")
+
+
+def test_e3c_umls_hpo_mapping_recipe_is_pinned() -> None:
+    payload = yaml.safe_load(
+        (ROOT / "datasets/e3c-de/mapping.yaml").read_text("utf-8")
+    )
+
+    assert payload == {
+        "schema_version": "e3c-umls-hpo-mapping-recipe/v1",
+        "mapping_id": "e3c-l1-umls-hpo-v2026-06-23-v1",
+        "method": "hpo-umls-xref",
+        "hpo_release": "v2026-06-23",
+        "hpo_recipe": "../../configs/ontologies/hpo-v2026-06-23.yaml",
+        "complete_population": "all-e3c-l1",
+        "selected_population": "e3c-de-feasibility-30-v1",
+    }

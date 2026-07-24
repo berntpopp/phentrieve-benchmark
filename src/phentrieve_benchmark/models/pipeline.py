@@ -197,6 +197,7 @@ class ProvenanceSubjectRole(StrEnum):
     NORMALIZATION_MANIFEST = "normalization_manifest"
     SELECTION_MANIFEST = "selection_manifest"
     TRANSLATION_MANIFEST = "translation_manifest"
+    UMLS_HPO_MAPPING_MANIFEST = "umls_hpo_mapping_manifest"
 
 
 class ProvenanceRunLink(BaseModel):

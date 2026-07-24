@@ -56,6 +56,7 @@ def test_pipeline_command_groups_are_exposed() -> None:
         "select",
         "prepare",
         "translate",
+        "map-hpo",
         "smoke",
     ):
         assert command in help_text
@@ -139,6 +140,37 @@ def test_translate_command_delegates_after_confirmation(
     assert invocation.exit_code == 0, invocation.exception
     assert calls[0]["prepared"] is prepared
     assert calls[0]["context"] is context
+
+
+def test_map_hpo_command_delegates_to_independent_stage(
+    monkeypatch: object,
+) -> None:
+    context = object()
+    monkeypatch.setattr(cli, "_pipeline_context", lambda *_: context)  # type: ignore[attr-defined]
+    calls: list[object] = []
+    monkeypatch.setattr(
+        cli,
+        "map_hpo_e3c",
+        lambda value: calls.append(value)
+        or type(
+            "Result",
+            (),
+            {
+                "complete_sha256": "a" * 64,
+                "selected_sha256": "b" * 64,
+                    "summary_sha256": "c" * 64,
+                    "record_count": 12,
+                    "selected_record_count": 3,
+                    "reused": False,
+            },
+        )(),
+    )  # type: ignore[attr-defined]
+
+    invocation = CliRunner().invoke(cli.app, ["map-hpo", "e3c"])
+
+    assert invocation.exit_code == 0, invocation.exception
+    assert calls == [context]
+    assert "records=12" in invocation.stdout
 
 
 def test_all_thin_commands_delegate_to_stage_services(

@@ -79,10 +79,15 @@ Status:
 
 ### UMLS-zu-HPO-Mapping und deutsche Annotationen
 
-- [ ] UMLS-CUIs der E3C-Annotationen gegen die gepinnte HPO-Version auf
+- [x] UMLS-CUIs aller 246 E3C-L1-Texte gegen die gepinnte HPO-Version auf
       HPO-Kandidaten abbilden.
-- [ ] Eindeutige, mehrdeutige, fehlende und obsolete Zuordnungen unterscheiden.
-- [ ] Problematische Zuordnungen zur manuellen Prüfung ausgeben.
+- [x] Eindeutige, mehrdeutige, fehlende, obsolete und ungültige Zuordnungen
+      unterscheiden.
+- [x] Vollständiges textfreies Manifest und exakte 30-Fälle-Teilansicht
+      erzeugen.
+- [x] Problematische Zuordnungen zur manuellen Prüfung kennzeichnen.
+- [x] Den einzelnen malformed HPO-Cross-Reference dokumentieren und ohne
+      automatische Korrektur ausschließen.
 - [ ] HPO-Annotationen und Evidenzspannen für die deutschen Texte erzeugen.
 - [ ] HPO-Identität, Evidenzspanne, Negation und Kontext fachlich prüfen.
 - [ ] Konflikte adjudizieren und eine akzeptierte deutsche Annotationsfassung

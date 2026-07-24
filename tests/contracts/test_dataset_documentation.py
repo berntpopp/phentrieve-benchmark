@@ -7,6 +7,7 @@ def test_target_documentation_records_commands_counts_and_limits() -> None:
     paths = (
         ROOT / "datasets/e3c-de/README.md",
         ROOT / "datasets/e3c-de/selection-policy.md",
+        ROOT / "datasets/e3c-de/mappings/README.md",
         ROOT / "datasets/raghpo/README.md",
         ROOT / "datasets/raghpo/csc/README.md",
         ROOT / "datasets/raghpo/gsc/README.md",
@@ -29,5 +30,7 @@ def test_target_documentation_records_commands_counts_and_limits() -> None:
         "len(canonical_text.split())",
         "empty evidence spans",
         "local",
+        "map-hpo e3c",
+        "3,696",
     ):
         assert required in combined

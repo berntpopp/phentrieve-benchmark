@@ -50,23 +50,33 @@ def test_loads_strict_immutable_hpo_index() -> None:
     assert index.umls_to_hpo["C0000003"] == ("HP:0000003",)
 
 
-@pytest.mark.parametrize(
-    "xref_lines",
-    [
-        b"xref: UMLS:not-a-cui\n",
-        b"xref: UMLS:C0000001\nxref: UMLS:C0000001\n",
-    ],
-)
-def test_rejects_malformed_and_duplicate_umls_xrefs(
-    xref_lines: bytes,
-) -> None:
+def test_ignores_and_reports_malformed_umls_xref() -> None:
     body = (
         synthetic_hpo_obo()
         + b"\n[Term]\nid: HP:0000008\nname: Bad xref\n"
-        + xref_lines
+        + b"xref: UMLS:0189573\n"
     )
 
-    with pytest.raises(HpoIndexError, match="UMLS"):
+    index = load_hpo_index(
+        body,
+        release="v2026-06-23",
+        ontology_sha256=sha256(body).hexdigest(),
+    )
+
+    assert index.terms["HP:0000008"].umls_cuis == ()
+    assert index.umls_xref_warnings == (
+        "HP:0000008:malformed_umls_xref:0189573",
+    )
+
+
+def test_rejects_duplicate_valid_umls_xref() -> None:
+    body = (
+        synthetic_hpo_obo()
+        + b"\n[Term]\nid: HP:0000008\nname: Duplicate xref\n"
+        + b"xref: UMLS:C0000008\nxref: UMLS:C0000008\n"
+    )
+
+    with pytest.raises(HpoIndexError, match="duplicate UMLS"):
         load_hpo_index(
             body,
             release="v2026-06-23",

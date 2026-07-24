@@ -73,6 +73,7 @@ class HpoIndex:
     terms: Mapping[str, HpoTermRecord]
     alternate_to_primary: Mapping[str, str]
     umls_to_hpo: Mapping[str, tuple[str, ...]]
+    umls_xref_warnings: tuple[str, ...]
 
 
 def _validate_id(value: str) -> str:
@@ -99,11 +100,14 @@ def _assert_unique_primary_stanzas(ontology_bytes: bytes) -> None:
         raise HpoIndexError("duplicate primary HPO identifier")
 
 
-def _umls_xrefs_by_term(ontology_bytes: bytes) -> dict[str, tuple[str, ...]]:
+def _umls_xrefs_by_term(
+    ontology_bytes: bytes,
+) -> tuple[dict[str, tuple[str, ...]], tuple[str, ...]]:
     text = ontology_bytes.decode("utf-8")
     result: dict[str, tuple[str, ...]] = {}
     term_id: str | None = None
     cuis: list[str] = []
+    warnings_found: list[str] = []
 
     def publish() -> None:
         if term_id is None:
@@ -122,11 +126,14 @@ def _umls_xrefs_by_term(ontology_bytes: bytes) -> dict[str, tuple[str, ...]]:
         elif line.startswith("xref: UMLS:"):
             value = line.removeprefix("xref: UMLS:")
             if _UMLS_CUI.fullmatch(value) is None:
-                raise HpoIndexError(
-                    f"malformed UMLS cross-reference: {value!r}"
+                if term_id is None:
+                    raise HpoIndexError("UMLS cross-reference precedes term ID")
+                warnings_found.append(
+                    f"{term_id}:malformed_umls_xref:{value}"
                 )
+                continue
             cuis.append(value)
-    return result
+    return result, tuple(sorted(warnings_found))
 
 
 def _validate_graph(terms: dict[str, HpoTermRecord]) -> None:
@@ -170,7 +177,7 @@ def load_hpo_index(
     ):
         raise HpoIndexError("ontology SHA-256 mismatch")
     _assert_unique_primary_stanzas(ontology_bytes)
-    umls_xrefs = _umls_xrefs_by_term(ontology_bytes)
+    umls_xrefs, umls_xref_warnings = _umls_xrefs_by_term(ontology_bytes)
     try:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore", UnicodeWarning)
@@ -246,4 +253,5 @@ def load_hpo_index(
                 for cui, identifiers in sorted(reverse_umls.items())
             }
         ),
+        umls_xref_warnings=umls_xref_warnings,
     )

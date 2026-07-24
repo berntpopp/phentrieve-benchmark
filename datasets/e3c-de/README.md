@@ -29,3 +29,8 @@ NMT. Its pinned configuration is in `translation.yaml`, and operation,
 costing, artifact separation, and review boundaries are documented in
 `translations/README.md`. Translation is never part of the regular offline
 CI and requires an explicit confirmation after the cost preview.
+
+UMLS-to-HPO mapping is an independent, local stage and does not require a
+translation or Google credentials. Run
+`uv run phentrieve-benchmark map-hpo e3c`; exact results and classification
+counts are documented under `mappings/`.

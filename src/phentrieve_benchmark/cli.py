@@ -6,6 +6,7 @@ import typer
 
 from phentrieve_benchmark import __version__
 from phentrieve_benchmark.artifacts.store import ArtifactStore
+from phentrieve_benchmark.pipeline.map_hpo import map_hpo_e3c
 from phentrieve_benchmark.pipeline.prepare import (
     PipelineContext,
     StageResult,
@@ -29,6 +30,7 @@ select_app = typer.Typer(no_args_is_help=True)
 prepare_app = typer.Typer(no_args_is_help=True)
 smoke_app = typer.Typer(no_args_is_help=True)
 translate_app = typer.Typer(no_args_is_help=True)
+map_hpo_app = typer.Typer(no_args_is_help=True)
 DatasetRoot = Annotated[Path, typer.Option()]
 ArtifactRoot = Annotated[Path, typer.Option()]
 Cohort = Annotated[Literal["feasibility-30"], typer.Option()]
@@ -38,6 +40,7 @@ app.add_typer(select_app, name="select")
 app.add_typer(prepare_app, name="prepare")
 app.add_typer(smoke_app, name="smoke")
 app.add_typer(translate_app, name="translate")
+app.add_typer(map_hpo_app, name="map-hpo")
 
 
 @app.callback()
@@ -86,6 +89,22 @@ def _emit(result: StageResult) -> None:
     typer.echo(
         f"stage={result.stage} target={result.target} "
         f"subject_sha256={result.subject_sha256} "
+        f"reused={str(result.reused).lower()}"
+    )
+
+
+@map_hpo_app.command("e3c")
+def map_hpo_e3c_command(
+    dataset_root: DatasetRoot = Path("datasets"),
+    artifact_root: ArtifactRoot = Path(".artifacts"),
+) -> None:
+    result = map_hpo_e3c(_pipeline_context(dataset_root, artifact_root))
+    typer.echo(
+        f"complete_sha256={result.complete_sha256} "
+        f"selected_sha256={result.selected_sha256} "
+        f"summary_sha256={result.summary_sha256} "
+        f"records={result.record_count} "
+        f"selected_records={result.selected_record_count} "
         f"reused={str(result.reused).lower()}"
     )
 

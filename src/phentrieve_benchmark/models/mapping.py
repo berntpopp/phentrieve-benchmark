@@ -4,6 +4,7 @@ from typing import Literal, Self
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from phentrieve_benchmark.models.identifiers import HpoRelease
+from phentrieve_benchmark.models.pipeline import ArtifactReference
 from phentrieve_benchmark.provenance.canonical import canonical_json_bytes
 from phentrieve_benchmark.provenance.digests import Sha256Hex, sha256_bytes
 
@@ -92,6 +93,7 @@ class UmlsHpoMappingSummary(BaseModel):
     unique_cui_count: int = Field(ge=0)
     candidate_count: int = Field(ge=0)
     classifications: tuple[MappingCount, ...]
+    ontology_warnings: tuple[str, ...] = ()
 
 
 class UmlsHpoMappingManifest(BaseModel):
@@ -101,7 +103,8 @@ class UmlsHpoMappingManifest(BaseModel):
         "umls-hpo-mapping-manifest/v1"
     )
     mapping_id: str = Field(min_length=1)
-    normalization_sha256: Sha256Hex
+    documents_sha256: Sha256Hex
+    source_annotations_sha256: Sha256Hex
     hpo_release: HpoRelease
     ontology_sha256: Sha256Hex
     selection_id: str | None = None
@@ -145,3 +148,22 @@ class UmlsHpoMappingManifest(BaseModel):
 
     def sha256(self) -> str:
         return sha256_bytes(self.canonical_bytes())
+
+
+class E3cMappingStageManifest(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True, strict=True)
+
+    schema_version: Literal["e3c-mapping-stage-manifest/v1"] = (
+        "e3c-mapping-stage-manifest/v1"
+    )
+    mapping_id: str = Field(min_length=1)
+    normalization_sha256: Sha256Hex
+    selection_sha256: Sha256Hex
+    ontology_sha256: Sha256Hex
+    recipe_sha256: Sha256Hex
+    complete: ArtifactReference
+    selected: ArtifactReference
+    summary: ArtifactReference
+
+    def canonical_bytes(self) -> bytes:
+        return canonical_json_bytes(self.model_dump(mode="json"))

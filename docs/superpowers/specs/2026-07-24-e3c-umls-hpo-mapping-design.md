@@ -37,7 +37,8 @@ The parser:
 
 - accepts only exact `UMLS:C[0-9]{7}` cross-references for this index;
 - ignores cross-references from other namespaces;
-- rejects malformed values that claim the `UMLS:` namespace;
+- excludes malformed values that claim the `UMLS:` namespace and retains
+  them as deterministic ontology warnings;
 - retains the primary HPO ID, label, active/obsolete state, `replaced_by`, and
   `consider` values for every candidate;
 - sorts CUIs and candidates deterministically; and
@@ -139,12 +140,13 @@ The mapping fails closed when:
 - source evidence spans no longer match normalized source text;
 - annotation or mapping identities are duplicated;
 - HPO release or ontology hashes differ from the pinned recipe;
-- a claimed UMLS cross-reference is malformed;
+- duplicate valid UMLS cross-references occur within one HPO term;
 - a selected case cannot be found in the complete mapping population; or
 - manifest counts disagree with their records.
 
 Missing HPO coverage for a valid CUI is a `missing` result, not a pipeline
-failure.
+failure. A malformed HPO UMLS cross-reference is excluded and reported as an
+ontology warning rather than silently normalized.
 
 ## Testing
 
