@@ -158,6 +158,35 @@ def test_staged_compact_nested_json_credential_is_scanned(
         scan_repository(tmp_path)
 
 
+@pytest.mark.parametrize(
+    ("relative", "content"),
+    [
+        (
+            "providers.yaml",
+            b"providers:\r\n  - {name: primary, api" + b"_key: "
+            + b"q9P4m7V2x8L5n3R6, enabled: true}\r\n",
+        ),
+        (
+            "providers.json",
+            b'{"providers":[{"name":"primary","api' + b'_key":\r\n  "'
+            + b"q9P4m7V2x8L5n3R6"
+            + b'",\r\n  "enabled":true}]}',
+        ),
+    ],
+)
+def test_staged_structured_credential_assignments_are_scanned(
+    tmp_path: Path,
+    relative: str,
+    content: bytes,
+) -> None:
+    initialise_repository(tmp_path)
+    path = track(tmp_path, relative, content)
+    path.write_bytes(b"providers: []\n")
+
+    with pytest.raises(SafetyViolation, match="possible credential"):
+        scan_repository(tmp_path)
+
+
 def test_dirty_tracked_worktree_fails_closed(tmp_path: Path) -> None:
     initialise_repository(tmp_path)
     path = track(tmp_path, "config.env", b"MODEL=general/nmt\n")
@@ -414,6 +443,20 @@ def test_json_credential_assignment_with_comma_is_detected() -> None:
     ],
 )
 def test_compact_json_credential_detector_preserves_boundaries(content: bytes) -> None:
+    assert not contains_credential(content)
+
+
+@pytest.mark.parametrize(
+    "content",
+    [
+        b"providers: [{api" + b"_key: placeholder, enabled: true}]\r\n",
+        b"providers: [{api" + b"_key: ${API_KEY}, enabled: true}]\r\n",
+        b"providers: [{api" + b"_key: short, enabled: true}]\r\n",
+        b"providers: [{api" + b"_key_fingerprint: sha256:0123456789abcdef}]\r\n",
+        b'{"api' + b"_key': q9P4m7V2x8L5n3R6}",
+    ],
+)
+def test_structured_credential_detector_preserves_boundaries(content: bytes) -> None:
     assert not contains_credential(content)
 
 

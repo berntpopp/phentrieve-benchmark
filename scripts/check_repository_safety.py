@@ -30,7 +30,7 @@ ASSIGNMENT_PATTERN = re.compile(
     r"""(?imx)
     ^[ \t]*
     (?:export[ \t]+)?
-    ["']?
+    (?P<quote>["']?)
     (?P<name>
         (?:[A-Za-z][A-Za-z0-9]*[-_]){0,2}
         (?:
@@ -45,7 +45,7 @@ ASSIGNMENT_PATTERN = re.compile(
             |access[-_]?key(?:[-_]?id)?
         )
     )
-    ["']?
+    (?P=quote)
     [ \t]*[:=][ \t]*
     (?P<value>
         "[^"\r\n]*"
@@ -55,9 +55,11 @@ ASSIGNMENT_PATTERN = re.compile(
     [ \t]*,?[ \t]*(?:\#[^\r\n]*)?$
     """
 )
-JSON_ASSIGNMENT_PATTERN = re.compile(
+STRUCTURED_ASSIGNMENT_PATTERN = re.compile(
     r'''(?ix)
-    "
+    (?:(?<=\{)|(?<=,))
+    [ \t\r\n]*
+    (?P<quote>["']?)
     (?P<name>
         (?:[A-Za-z][A-Za-z0-9]*[-_]){0,2}
         (?:
@@ -72,13 +74,14 @@ JSON_ASSIGNMENT_PATTERN = re.compile(
             |access[-_]?key(?:[-_]?id)?
         )
     )
-    "
-    [ \t]*:[ \t]*
+    (?P=quote)
+    [ \t\r\n]*:[ \t\r\n]*
     (?P<value>
         "(?:\\.|[^"\\\r\n])*"
+        |'(?:\\.|[^'\\\r\n])*'
         |[A-Za-z0-9_./+~=@:%-]+
     )
-    (?=[ \t]*(?:[,}]))
+    (?=[ \t\r\n]*(?:[,}\]#]|$))
     '''
 )
 SIGNATURE_PATTERNS = (
@@ -516,7 +519,7 @@ def contains_credential(content: bytes) -> bool:
             return True
         assignments = (
             *ASSIGNMENT_PATTERN.finditer(text),
-            *JSON_ASSIGNMENT_PATTERN.finditer(text),
+            *STRUCTURED_ASSIGNMENT_PATTERN.finditer(text),
         )
         if any(not _placeholder(match.group("value")) for match in assignments):
             return True
