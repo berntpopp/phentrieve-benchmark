@@ -1,0 +1,8 @@
+schema_version: hpo-source-recipe/v1
+release: v2026-06-23
+url: https://github.com/obophenotype/human-phenotype-ontology/releases/download/v2026-06-23/hp.obo
+expected_byte_length: 11222341
+maximum_byte_length: 12000000
+sha256: a5092cbdf605f568403cf7380d9173014015692433b2cc631bc5c1b053876b1b
+format: obo-1.4
+parser: pronto-2
