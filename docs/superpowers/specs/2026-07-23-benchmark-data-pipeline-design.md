@@ -83,6 +83,14 @@ The repository uses one local content-addressed artifact store under
 records refer to artifacts by digest and logical role, not by mutable local
 filename.
 
+The repository safety scanner enforces two narrow, automatable boundaries: it
+rejects tracked entries under the declared local-only paths, and it rejects
+high-confidence credential assignments and provider/key signatures. It scans
+the immutable Git index blobs, not mutable working-tree files. This scanner is
+not a semantic clinical-text or licensing classifier. Prevention of
+third-party clinical text entering Git additionally depends on the artifact
+layout, dataset licensing gates, review policy, and release eligibility checks.
+
 ## 4. Repository Structure
 
 ```text
@@ -784,7 +792,10 @@ Required coverage includes:
 - byte-identical repeated dataset and release-manifest builds while run
   manifests retain execution-specific fields;
 - RFC 8785 serialization, stable JSONL ordering, and aggregate-hash fixtures;
-- prevention of third-party text, secrets, and local artifacts entering Git.
+- rejection of tracked local-only artifact paths and high-confidence
+  credential signatures;
+- licensing and release gates that prevent unapproved third-party text from
+  entering public bundles.
 
 Live provider tests are excluded from continuous integration and require the
 same interactive cost display and confirmation as normal paid stages.

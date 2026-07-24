@@ -1685,6 +1685,41 @@ git commit -m "feat: add safe structured run events"
 - Create: `.github/workflows/ci.yml`
 - Modify: `pyproject.toml`
 
+> **Authoritative hardened contract:** The initial TDD sketch retained below
+> records the first implementation increment only. The completed Task 10
+> scanner MUST use the following post-review behavior instead of reading
+> working-tree paths:
+>
+> - Find the intended worktree by ascending from the supplied path to the
+>   nearest `.git` file or directory. Do not use redirectable Git environment
+>   state to choose the root.
+> - Remove all inherited `GIT_*` variables, disable system/global Git
+>   configuration and filesystem monitors, and use that trusted environment
+>   for every Git subprocess.
+> - Capture raw `git ls-files --stage -z` bytes, parse mode, object identity,
+>   stage, and arbitrary path bytes, and scan entries deterministically.
+>   Reject unmerged/duplicate stages, gitlinks, malformed paths, and modes
+>   other than regular, executable, and symbolic-link blobs.
+> - Read each immutable blob by object identity. Check its declared size first
+>   and fail closed above the 4 MiB limit; never read tracked content through a
+>   working-tree path.
+> - Compare raw index snapshots before and after scanning and fail if they
+>   differ. Check tracked worktree-to-index divergence at both boundaries.
+>   Credential findings take precedence so a staged secret is still reported
+>   when its working-tree copy has been replaced.
+> - Reject `.artifacts`, `records/local`, `releases/local`, and
+>   `configs/providers/local`. Detect generic quoted or unquoted credential
+>   assignments, GitHub/AWS/Bearer token families, common private-key headers,
+>   and UTF-8 or UTF-16 text. Permit only explicit placeholder forms and short
+>   examples.
+> - Escape arbitrary path bytes with reversible percent encoding in
+>   diagnostics. Never print matched content, raw control characters, or Git
+>   stderr.
+> - Contract tests use temporary Git repositories and synthetic fixtures. They
+>   cover staged-versus-worktree divergence, concurrent index mutation,
+>   redirection variables, modes/gitlinks, blob limits, raw POSIX filenames,
+>   detector boundaries, and end-to-end failure output.
+
 - [ ] **Step 1: Write failing repository-safety tests**
 
 ```python
@@ -1719,7 +1754,10 @@ Run: `uv run pytest tests/contracts/test_repository_safety.py -v`
 Expected: FAIL during collection because `scripts.check_repository_safety`
 does not exist.
 
-- [ ] **Step 3: Implement the tracked-file safety scanner**
+- [ ] **Step 3: Implement the initial scanner increment**
+
+The following code is the historical minimal increment. The authoritative
+hardened contract above supersedes it before Task 10 is complete.
 
 Create `scripts/check_repository_safety.py`:
 
@@ -1817,16 +1855,27 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v6
+      # actions/checkout v4.3.0
+      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
+        with:
+          persist-credentials: false
+      # astral-sh/setup-uv v8.1.0
+      - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b
         with:
           enable-cache: true
+          version: "0.11.28"
       - run: uv sync --locked --all-groups
+      - run: uv run python scripts/check_repository_safety.py
       - run: uv run ruff check .
       - run: uv run mypy
-      - run: uv run pytest --cov=phentrieve_benchmark --cov-report=term-missing
-      - run: uv run python scripts/check_repository_safety.py
+      - run: >-
+          uv run pytest
+          --cov=phentrieve_benchmark
+          --cov=scripts
+          --cov-report=term-missing
+          --cov-fail-under=90
 ```
 
 - [ ] **Step 5: Run all foundation verification**
@@ -1837,8 +1886,9 @@ Run:
 uv lock --check
 uv run ruff check .
 uv run mypy
-uv run pytest --cov=phentrieve_benchmark --cov-report=term-missing
 uv run python scripts/check_repository_safety.py
+uv run pytest --cov=phentrieve_benchmark --cov=scripts \
+  --cov-report=term-missing --cov-fail-under=90
 ```
 
 Expected: the lockfile is current, static checks succeed, all tests pass, and

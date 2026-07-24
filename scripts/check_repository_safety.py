@@ -1,140 +1,320 @@
 from __future__ import annotations
 
+import os
 import re
 import subprocess
 import sys
-from collections.abc import Sequence
-from pathlib import Path, PurePosixPath
+from dataclasses import dataclass
+from pathlib import Path
 
 
 class SafetyViolation(RuntimeError):
-    """A tracked repository entry violates the public-repository boundary."""
+    """A Git index entry violates the public-repository boundary."""
 
 
-FORBIDDEN_PARTS = (
-    ".artifacts",
-    "records/local",
-    "releases/local",
-    "configs/providers/local",
+MAX_BLOB_BYTES = 4 * 1024 * 1024
+GIT_TIMEOUT_SECONDS = 30
+SUPPORTED_MODES = frozenset({b"100644", b"100755", b"120000"})
+FORBIDDEN_PATHS = (
+    b".artifacts",
+    b"records/local",
+    b"releases/local",
+    b"configs/providers/local",
 )
-SECRET_PATTERNS = (
-    re.compile(rb"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
+ASSIGNMENT_PATTERN = re.compile(
+    r"""(?imx)
+    ^[ \t]*
+    (?:export[ \t]+)?
+    ["']?
+    (?P<name>
+        api[-_]?key
+        |client[-_]?secret
+        |secret
+        |token
+        |password
+        |credential
+        |private[-_]?key
+        |access[-_]?key(?:[-_]?id)?
+    )
+    ["']?
+    [ \t]*[:=][ \t]*
+    (?P<value>
+        "[^"\r\n]*"
+        |'[^'\r\n]*'
+        |[A-Za-z0-9_./+~=@:%-]+
+    )
+    [ \t]*(?:\#[^\r\n]*)?$
+    """
+)
+SIGNATURE_PATTERNS = (
+    re.compile(r"(?<![A-Za-z0-9])gh[pousr]_[A-Za-z0-9]{36}(?![A-Za-z0-9])"),
+    re.compile(r"(?<![A-Za-z0-9])github_pat_[A-Za-z0-9_]{50,}"),
+    re.compile(r"(?<![A-Z0-9])AKIA[A-Z0-9]{16}(?![A-Z0-9])"),
+    re.compile(r"(?i)\bBearer[ \t]+[A-Za-z0-9._~+/=-]{20,}"),
     re.compile(
-        rb"(?i)(?:api[_-]?key|client[_-]?secret)\s*[:=]\s*['\"][^'\"]{12,}"
+        r"-----BEGIN (?:(?:RSA|EC|OPENSSH|DSA|ENCRYPTED) )?PRIVATE KEY-----"
     ),
+    re.compile(r"-----BEGIN PGP " + r"PRIVATE KEY BLOCK-----"),
+)
+PLACEHOLDERS = frozenset(
+    {
+        "changeme",
+        "dummy",
+        "example",
+        "placeholder",
+        "redacted",
+        "replace-me",
+        "replace_me",
+        "short",
+        "test-only",
+        "test_only",
+    }
 )
 
 
-def _resolved_directory(root: Path) -> Path:
-    try:
-        resolved = root.resolve(strict=True)
-    except OSError as error:
-        raise SafetyViolation("unable to resolve repository root") from error
-    if not resolved.is_dir():
-        raise SafetyViolation("repository root is not a directory")
-    return resolved
+@dataclass(frozen=True, slots=True)
+class IndexEntry:
+    mode: bytes
+    oid: bytes
+    path: bytes
 
 
-def _relative_file(root: Path, path: Path) -> Path:
-    candidate = path if path.is_absolute() else root / path
-    try:
-        if candidate.is_symlink():
-            raise SafetyViolation("tracked path is a symlink")
-        resolved = candidate.resolve(strict=True)
-        relative = resolved.relative_to(root)
-    except SafetyViolation:
-        raise
-    except (OSError, ValueError) as error:
-        message = "tracked path is missing or outside repository"
-        raise SafetyViolation(message) from error
-    if not resolved.is_file():
-        message = f"tracked path is not a regular file: {relative.as_posix()}"
-        raise SafetyViolation(message)
-    return relative
-
-
-def _is_forbidden(relative: str) -> bool:
-    return any(
-        relative == forbidden or relative.startswith(f"{forbidden}/")
-        for forbidden in FORBIDDEN_PARTS
+def escape_path(path: bytes) -> str:
+    """Return a reversible, single-line representation safe for CI diagnostics."""
+    safe = b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._/-"
+    return "".join(
+        chr(byte) if byte in safe else f"%{byte:02X}" for byte in path
     )
 
 
-def check_paths(root: Path, paths: Sequence[Path]) -> None:
-    """Reject unsafe tracked paths and possible credentials without exposing values."""
-    resolved_root = _resolved_directory(root)
-    for path in paths:
-        relative_path = _relative_file(resolved_root, path)
-        relative = relative_path.as_posix()
-        if _is_forbidden(relative):
-            raise SafetyViolation(f"forbidden tracked path: {relative}")
+def repository_root(start: Path) -> Path:
+    """Find the nearest worktree marker without consulting redirectable Git state."""
+    try:
+        current = start.absolute()
+        if current.is_file():
+            current = current.parent
+    except OSError as error:
+        raise SafetyViolation("unable to inspect candidate Git repository") from error
+
+    for candidate in (current, *current.parents):
+        marker = candidate / ".git"
         try:
-            content = (resolved_root / relative_path).read_bytes()
+            if marker.is_symlink():
+                raise SafetyViolation("Git repository marker must not be a symlink")
+            if marker.is_dir() or marker.is_file():
+                return candidate
         except OSError as error:
-            raise SafetyViolation(f"unable to read tracked file: {relative}") from error
-        if any(pattern.search(content) for pattern in SECRET_PATTERNS):
-            raise SafetyViolation(f"possible secret in tracked file: {relative}")
+            raise SafetyViolation("unable to inspect Git repository marker") from error
+    raise SafetyViolation("no Git repository found from supplied path")
+
+
+def trusted_git_environment() -> dict[str, str]:
+    """Copy the process environment while removing every inherited GIT_* override."""
+    environment = {
+        key: value
+        for key, value in os.environ.items()
+        if not key.upper().startswith("GIT_")
+    }
+    environment.update(
+        {
+            "GIT_CONFIG_GLOBAL": os.devnull,
+            "GIT_CONFIG_NOSYSTEM": "1",
+            "GIT_OPTIONAL_LOCKS": "0",
+            "GIT_PAGER": "cat",
+            "GIT_TERMINAL_PROMPT": "0",
+        }
+    )
+    return environment
+
+
+def _git_arguments(arguments: list[str]) -> list[str]:
+    return [
+        "git",
+        "--no-pager",
+        "--no-replace-objects",
+        "--literal-pathspecs",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.untrackedCache=false",
+        *arguments,
+    ]
+
+
+def _git_process(
+    root: Path,
+    arguments: list[str],
+) -> subprocess.CompletedProcess[bytes]:
+    try:
+        return subprocess.run(
+            _git_arguments(arguments),
+            cwd=root,
+            env=trusted_git_environment(),
+            check=False,
+            capture_output=True,
+            timeout=GIT_TIMEOUT_SECONDS,
+        )
+    except (OSError, subprocess.SubprocessError) as error:
+        raise SafetyViolation("unable to read trusted Git repository state") from error
 
 
 def _git_output(root: Path, arguments: list[str]) -> bytes:
-    try:
-        return subprocess.run(
-            ["git", *arguments],
-            cwd=root,
-            check=True,
-            capture_output=True,
-        ).stdout
-    except (OSError, subprocess.SubprocessError) as error:
-        raise SafetyViolation("unable to read Git tracked files") from error
+    result = _git_process(root, arguments)
+    if result.returncode != 0:
+        raise SafetyViolation("unable to read trusted Git repository state")
+    return result.stdout
 
 
-def repository_root(start: Path) -> Path:
-    output = _git_output(start, ["rev-parse", "--show-toplevel"])
-    location = output.rstrip(b"\r\n")
-    if not location or b"\0" in location:
-        raise SafetyViolation("Git returned an invalid repository root")
-    try:
-        return _resolved_directory(Path(location.decode("utf-8")))
-    except UnicodeDecodeError as error:
-        raise SafetyViolation("Git returned a non-UTF-8 repository root") from error
+def _worktree_differs_from_index(root: Path) -> bool:
+    result = _git_process(
+        root,
+        ["diff-files", "--quiet", "--ignore-submodules=none", "--"],
+    )
+    if result.returncode not in {0, 1}:
+        raise SafetyViolation("unable to compare tracked worktree with Git index")
+    return result.returncode == 1
 
 
-def _tracked_relative_paths(root: Path) -> list[PurePosixPath]:
-    output = _git_output(root, ["ls-files", "-z"])
-    if output and not output.endswith(b"\0"):
-        raise SafetyViolation("Git returned malformed tracked-file output")
-    paths: list[PurePosixPath] = []
-    for item in sorted(part for part in output.split(b"\0") if part):
-        try:
-            text = item.decode("utf-8")
-        except UnicodeDecodeError as error:
-            message = "Git returned a non-UTF-8 tracked filename"
-            raise SafetyViolation(message) from error
-        parts = text.split("/")
+def parse_index_snapshot(snapshot: bytes) -> list[IndexEntry]:
+    """Parse one raw `git ls-files --stage -z` snapshot deterministically."""
+    if snapshot and not snapshot.endswith(b"\0"):
+        raise SafetyViolation("Git returned a malformed index snapshot")
+
+    entries: list[IndexEntry] = []
+    paths: set[bytes] = set()
+    for record in (item for item in snapshot.split(b"\0") if item):
+        header, separator, path = record.partition(b"\t")
+        fields = header.split(b" ")
+        if not separator or len(fields) != 3 or not path:
+            raise SafetyViolation("Git returned a malformed index entry")
+        mode, oid, stage = fields
+        if stage != b"0":
+            raise SafetyViolation("unmerged index entries are forbidden")
+        if mode == b"160000":
+            raise SafetyViolation(f"Gitlink is forbidden: {escape_path(path)}")
+        if mode not in SUPPORTED_MODES:
+            raise SafetyViolation(
+                f"unsupported tracked mode for path: {escape_path(path)}"
+            )
         if (
-            not text
-            or text.startswith(("/", "\\"))
-            or "\\" in text
-            or any(part in {"", ".", ".."} for part in parts)
+            len(oid) not in {40, 64}
+            or not all(byte in b"0123456789abcdef" for byte in oid)
         ):
-            raise SafetyViolation("Git returned a tracked path outside repository")
-        paths.append(PurePosixPath(*parts))
-    return paths
+            raise SafetyViolation("Git returned an invalid object identity")
+        components = path.split(b"/")
+        if (
+            path.startswith(b"/")
+            or any(component in {b"", b".", b".."} for component in components)
+        ):
+            raise SafetyViolation("Git returned an invalid tracked path")
+        if path in paths:
+            raise SafetyViolation(f"duplicate index path: {escape_path(path)}")
+        paths.add(path)
+        entries.append(IndexEntry(mode=mode, oid=oid, path=path))
+    return sorted(entries, key=lambda entry: entry.path)
 
 
-def tracked_paths(root: Path) -> list[Path]:
-    """Return Git-index paths rooted at the resolved repository top level."""
-    top_level = repository_root(root)
-    relative_paths = _tracked_relative_paths(top_level)
-    return [top_level.joinpath(*path.parts) for path in relative_paths]
+def index_snapshot(root: Path) -> tuple[bytes, list[IndexEntry]]:
+    raw = _git_output(root, ["ls-files", "--stage", "-z"])
+    return raw, parse_index_snapshot(raw)
+
+
+def _text_views(content: bytes) -> list[str]:
+    views = [content.decode("utf-8", errors="ignore").lstrip("\ufeff")]
+    if len(content) % 2 == 0 and b"\0" in content:
+        for encoding in ("utf-16-le", "utf-16-be"):
+            try:
+                view = content.decode(encoding).lstrip("\ufeff")
+            except UnicodeDecodeError:
+                continue
+            if view not in views:
+                views.append(view)
+    return views
+
+
+def _placeholder(value: str) -> bool:
+    normalized = value.strip().strip("\"'").strip()
+    lowered = normalized.casefold()
+    if len(normalized) < 12 or lowered in PLACEHOLDERS:
+        return True
+    return bool(
+        (normalized.startswith("<") and normalized.endswith(">"))
+        or (normalized.startswith("${") and normalized.endswith("}"))
+        or re.fullmatch(r"\$[A-Za-z_][A-Za-z0-9_]*", normalized)
+        or re.fullmatch(r"(?i)(?:x+|0+|\*+)", normalized)
+    )
+
+
+def contains_credential(content: bytes) -> bool:
+    """Detect credential assignments and high-confidence provider signatures."""
+    for text in _text_views(content):
+        if any(pattern.search(text) for pattern in SIGNATURE_PATTERNS):
+            return True
+        if any(
+            not _placeholder(match.group("value"))
+            for match in ASSIGNMENT_PATTERN.finditer(text)
+        ):
+            return True
+    return False
+
+
+def _forbidden_path(path: bytes) -> bool:
+    return any(
+        path == forbidden or path.startswith(forbidden + b"/")
+        for forbidden in FORBIDDEN_PATHS
+    )
+
+
+def read_blob(root: Path, entry: IndexEntry) -> bytes:
+    oid = entry.oid.decode("ascii")
+    size_output = _git_output(root, ["cat-file", "-s", oid]).strip()
+    if not size_output.isdigit():
+        raise SafetyViolation("Git returned an invalid tracked blob size")
+    size = int(size_output)
+    if size > MAX_BLOB_BYTES:
+        raise SafetyViolation(
+            f"tracked blob exceeds safety size limit: {escape_path(entry.path)}"
+        )
+    content = _git_output(root, ["cat-file", "blob", oid])
+    if len(content) != size:
+        raise SafetyViolation("Git returned inconsistent tracked blob bytes")
+    return content
+
+
+def scan_entries(root: Path, entries: list[IndexEntry]) -> None:
+    for entry in entries:
+        if _forbidden_path(entry.path):
+            raise SafetyViolation(
+                f"forbidden tracked path: {escape_path(entry.path)}"
+            )
+        if contains_credential(read_blob(root, entry)):
+            raise SafetyViolation(
+                f"possible credential in tracked file: {escape_path(entry.path)}"
+            )
+
+
+def scan_repository(start: Path) -> None:
+    """Scan immutable index blobs and reject concurrent or worktree divergence."""
+    root = repository_root(start)
+    dirty_before = _worktree_differs_from_index(root)
+    raw_before, entries = index_snapshot(root)
+    scan_entries(root, entries)
+    raw_after, _ = index_snapshot(root)
+    dirty_after = _worktree_differs_from_index(root)
+    if raw_before != raw_after:
+        raise SafetyViolation("Git index changed during scan")
+    if dirty_before or dirty_after:
+        raise SafetyViolation("tracked worktree differs from index")
 
 
 def main() -> int:
     try:
-        paths = tracked_paths(Path.cwd())
-        check_paths(repository_root(Path.cwd()), paths)
+        scan_repository(Path.cwd())
     except SafetyViolation as error:
         print(str(error), file=sys.stderr)
+        return 1
+    except Exception:
+        print("repository safety check failed", file=sys.stderr)
         return 1
     print("repository safety check passed")
     return 0
