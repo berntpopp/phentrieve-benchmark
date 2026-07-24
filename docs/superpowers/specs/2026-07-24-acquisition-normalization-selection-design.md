@@ -467,13 +467,23 @@ For each target it:
 - uses the declared manuscript ontology context `v2026-06-23` without
   asserting that identifiers have passed the later HPO-revision policy.
 
-RAG-HPO identities retain the exact upstream case identifier:
+RAG-HPO identities retain the exact upstream identifiers. CSC has one
+upstream `Case` identity. GSC identifies a document by the exact composite
+`(patient_id, ID)` key while retaining `patient_id` as its source case:
 
 ```text
-source_case_id     = upstream case identifier
-document_id        = raghpo:<source-commit>:<target>:<source_case_id>:native
-annotation_set_id  = raghpo:<source-commit>:<target>:<source_case_id>:hpo:v1
+CSC source_case_id     = Case
+CSC document_id        = raghpo:<source-commit>:csc:<Case>:native
+CSC annotation_set_id  = raghpo:<source-commit>:csc:<Case>:hpo:v1
+
+GSC source_case_id     = patient_id
+GSC document_id        = raghpo:<source-commit>:gsc:<patient_id>:<ID>:native
+GSC annotation_set_id  = raghpo:<source-commit>:gsc:<patient_id>:<ID>:hpo:v1
 ```
+
+Each upstream value remains exact in its record field. When embedded into a
+colon-delimited constructed ID, its NFC UTF-8 bytes use injective percent
+encoding, so punctuation inside one component cannot create an ID collision.
 
 CSC joins `Test_Cases.csv` and `CSC Input` on `Case`, then joins manual
 annotations by exact `Patient ID`. GSC joins input and manual rows on the exact
