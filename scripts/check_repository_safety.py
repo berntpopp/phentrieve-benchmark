@@ -306,6 +306,8 @@ def _validate_index_bytes(snapshot: bytes, *, hash_name: str) -> None:
         cursor += 8
         if extension_size > len(payload) - cursor:
             raise _malformed_index()
+        if 0x61 <= signature[0] <= 0x7A:
+            raise SafetyViolation("required index extension is unsupported")
         if signature == b"FSMN":
             raise SafetyViolation("unsafe fsmonitor index extension is forbidden")
         cursor += extension_size

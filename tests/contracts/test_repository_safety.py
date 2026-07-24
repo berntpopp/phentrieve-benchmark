@@ -216,10 +216,31 @@ def test_real_fsmonitor_index_extension_is_rejected(tmp_path: Path) -> None:
         run_git(tmp_path, "update-index", "--no-fsmonitor")
 
 
+def test_real_split_index_is_rejected(tmp_path: Path) -> None:
+    initialise_repository(tmp_path)
+    track(tmp_path, "safe.txt", b"safe\n")
+    run_git(tmp_path, "update-index", "--split-index")
+
+    primary_index = (tmp_path / ".git" / "index").read_bytes()
+    assert b"link" in primary_index
+    assert list((tmp_path / ".git").glob("sharedindex.*"))
+
+    with pytest.raises(SafetyViolation, match="required index extension"):
+        scan_repository(tmp_path)
+
+
 def test_index_bytes_reject_fsmonitor_extension_portably() -> None:
     snapshot = index_bytes(extensions=((b"FSMN", b"\0" * 12),))
 
     with pytest.raises(SafetyViolation, match="fsmonitor index extension"):
+        safety._validate_index_bytes(snapshot, hash_name="sha1")
+
+
+@pytest.mark.parametrize("signature", [b"link", b"sdir", b"xnew"])
+def test_index_bytes_reject_required_extensions(signature: bytes) -> None:
+    snapshot = index_bytes(extensions=((signature, b""),))
+
+    with pytest.raises(SafetyViolation, match="required index extension"):
         safety._validate_index_bytes(snapshot, hash_name="sha1")
 
 

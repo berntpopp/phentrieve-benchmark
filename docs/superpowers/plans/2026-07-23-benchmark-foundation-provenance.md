@@ -1710,11 +1710,14 @@ git commit -m "feat: add safe structured run events"
 > - Inspect raw NUL-delimited `git ls-files -v` output at both boundaries and
 >   reject assume-unchanged and skip-worktree entries. Also read the bounded
 >   on-disk index at both boundaries, verify its SHA-1 or SHA-256 checksum,
->   strictly parse documented index versions 2 through 4, and reject the
->   `FSMN` extension conservatively. Git versions that lack fsmonitor daemon
->   support can hide per-entry valid bits from `ls-files`, but cannot hide this
->   extension. Force `core.fsmonitor=false` for every Git subprocess so a
->   repository-local fsmonitor hook path is never executed.
+>   strictly parse documented index versions 2 through 4, reject the `FSMN`
+>   extension conservatively, and reject every lowercase required extension.
+>   Split (`link`), sparse (`sdir`), and future mandatory extension semantics
+>   are unsupported and fail closed; bounded uppercase optional extensions may
+>   be skipped. Git versions that lack fsmonitor daemon support can hide
+>   per-entry valid bits from `ls-files`, but cannot hide the extension. Force
+>   `core.fsmonitor=false` for every Git subprocess so a repository-local
+>   fsmonitor hook path is never executed.
 > - Reject `.artifacts`, `records/local`, `releases/local`, and
 >   `configs/providers/local`. Detect generic quoted or unquoted credential
 >   assignments in env, YAML, and JSON forms, including provider-prefixed

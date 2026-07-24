@@ -94,9 +94,11 @@ The scanner also rejects index flags such as assume-unchanged and
 skip-worktree that could hide tracked working-tree divergence. It validates the
 bounded on-disk index structure and checksum at both scan boundaries and rejects
 the `FSMN` extension, because some Git versions suppress its per-entry valid
-bits in plumbing output when the built-in daemon is unavailable. Every Git
-subprocess forces `core.fsmonitor=false`, so a repository-local hook path is
-never executed.
+bits in plumbing output when the built-in daemon is unavailable. Lowercase
+required index extensions, including split-index `link` and sparse-index
+`sdir`, are unsupported and fail closed so mandatory semantics cannot be hidden
+outside the validated primary index. Every Git subprocess forces
+`core.fsmonitor=false`, so a repository-local hook path is never executed.
 
 ## 4. Repository Structure
 
