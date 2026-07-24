@@ -75,6 +75,14 @@ def test_models_package_exports_manifest_contracts() -> None:
     assert expected <= set(benchmark_models.__all__)
 
 
+def test_usage_metrics_default_cost_is_a_float_in_direct_and_json_models() -> None:
+    direct = UsageMetrics()
+    parsed = UsageMetrics.model_validate_json("{}")
+
+    assert type(direct.estimated_cost) is float
+    assert type(parsed.estimated_cost) is float
+
+
 def test_release_canonical_bytes_and_hash_are_stable_fixture() -> None:
     release = ReleaseManifest(
         physician_review_coverage=0.1,
@@ -116,16 +124,21 @@ def test_release_run_link_separates_execution_identity() -> None:
     release = release_manifest()
     first = ReleaseRunLink(
         release_sha256=release.sha256(),
-        run_manifest_sha256=("e" * 64,),
+        run_manifest_sha256=("f" * 64, "e" * 64),
     )
     second = ReleaseRunLink(
         release_sha256=release.sha256(),
-        run_manifest_sha256=("f" * 64,),
+        run_manifest_sha256=("e" * 64, "f" * 64),
+    )
+    third = ReleaseRunLink(
+        release_sha256=release.sha256(),
+        run_manifest_sha256=("d" * 64,),
     )
 
-    assert release.canonical_bytes() == release.canonical_bytes()
-    assert first != second
-    assert first.release_sha256 == second.release_sha256
+    assert first == second
+    assert first.run_manifest_sha256 == ("e" * 64, "f" * 64)
+    assert first != third
+    assert first.release_sha256 == third.release_sha256 == release.sha256()
 
 
 def test_run_manifest_retains_volatile_execution_fields() -> None:
