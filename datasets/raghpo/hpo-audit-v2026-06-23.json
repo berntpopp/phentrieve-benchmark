@@ -1,0 +1,56 @@
+{
+  "schema_version": "hpo-source-id-audit/v1",
+  "source_commit": "080fc3a04c91ee45c8986076765f4d4b4f14ddd9",
+  "source_workbook_sha256": "b5516972c6459542ac92059c6f5d78fc1b016adce80633779b54515972d1af14",
+  "ontology_release": "v2026-06-23",
+  "ontology_sha256": "a5092cbdf605f568403cf7380d9173014015692433b2cc631bc5c1b053876b1b",
+  "targets": [
+    {
+      "target_id": "csc",
+      "source_rows": 1789,
+      "source_annotations": 1795,
+      "counts": {
+        "active": 1779,
+        "alt_id": 0,
+        "obsolete_replaced": 15,
+        "obsolete_ambiguous": 1,
+        "obsolete_unresolved": 0,
+        "unknown": 0,
+        "invalid_format": 0
+      },
+      "manual_review": [
+        {"source_row_ordinal": 49, "source_hpo_id": "HP:0002355", "status": "obsolete_replaced", "proposed_hpo_ids": ["HP:0001288"]},
+        {"source_row_ordinal": 131, "source_hpo_id": "HP:0002355", "status": "obsolete_replaced", "proposed_hpo_ids": ["HP:0001288"]},
+        {"source_row_ordinal": 177, "source_hpo_id": "HP:0002355", "status": "obsolete_replaced", "proposed_hpo_ids": ["HP:0001288"]},
+        {"source_row_ordinal": 261, "source_hpo_id": "HP:0001388", "status": "obsolete_replaced", "proposed_hpo_ids": ["HP:0001382"]},
+        {"source_row_ordinal": 312, "source_hpo_id": "HP:0002355", "status": "obsolete_replaced", "proposed_hpo_ids": ["HP:0001288"]},
+        {"source_row_ordinal": 871, "source_hpo_id": "HP:0002355", "status": "obsolete_replaced", "proposed_hpo_ids": ["HP:0001288"]},
+        {"source_row_ordinal": 1270, "source_hpo_id": "HP:0002355", "status": "obsolete_replaced", "proposed_hpo_ids": ["HP:0001288"]},
+        {"source_row_ordinal": 1466, "source_hpo_id": "HP:0025237", "status": "obsolete_ambiguous", "proposed_hpo_ids": ["HP:0000708"]},
+        {"source_row_ordinal": 1468, "source_hpo_id": "HP:0030214", "status": "obsolete_replaced", "proposed_hpo_ids": ["HP:5200321"]},
+        {"source_row_ordinal": 1476, "source_hpo_id": "HP:0000735", "status": "obsolete_replaced", "proposed_hpo_ids": ["HP:0012760"]},
+        {"source_row_ordinal": 1525, "source_hpo_id": "HP:0001388", "status": "obsolete_replaced", "proposed_hpo_ids": ["HP:0001382"]},
+        {"source_row_ordinal": 1597, "source_hpo_id": "HP:0005407", "status": "obsolete_replaced", "proposed_hpo_ids": ["HP:0032218"]},
+        {"source_row_ordinal": 1609, "source_hpo_id": "HP:0045080", "status": "obsolete_replaced", "proposed_hpo_ids": ["HP:0005403"]},
+        {"source_row_ordinal": 1697, "source_hpo_id": "HP:0032172", "status": "obsolete_replaced", "proposed_hpo_ids": ["HP:0033661"]},
+        {"source_row_ordinal": 1778, "source_hpo_id": "HP:0002355", "status": "obsolete_replaced", "proposed_hpo_ids": ["HP:0001288"]},
+        {"source_row_ordinal": 1785, "source_hpo_id": "HP:0008826", "status": "obsolete_replaced", "proposed_hpo_ids": ["HP:0002827"]}
+      ]
+    },
+    {
+      "target_id": "gsc",
+      "source_rows": 1012,
+      "source_annotations": 1012,
+      "counts": {
+        "active": 1012,
+        "alt_id": 0,
+        "obsolete_replaced": 0,
+        "obsolete_ambiguous": 0,
+        "obsolete_unresolved": 0,
+        "unknown": 0,
+        "invalid_format": 0
+      },
+      "manual_review": []
+    }
+  ]
+}
