@@ -14,13 +14,63 @@ _PATH_SAFE_BYTES = frozenset(
 _READ_ATTEMPTS = 3
 
 
-def _git(repo: Path, *arguments: str) -> bytes:
+def _trusted_git_environment() -> dict[str, str]:
+    environment = {
+        key: value
+        for key, value in os.environ.items()
+        if not key.upper().startswith("GIT_")
+    }
+    environment.update(
+        {
+            "GIT_CONFIG_GLOBAL": os.devnull,
+            "GIT_CONFIG_NOSYSTEM": "1",
+            "GIT_OPTIONAL_LOCKS": "0",
+            "GIT_PAGER": "cat",
+            "GIT_TERMINAL_PROMPT": "0",
+        }
+    )
+    return environment
+
+
+def _git_arguments(arguments: tuple[str, ...]) -> list[str]:
+    return [
+        "git",
+        "--no-pager",
+        "--no-replace-objects",
+        "--literal-pathspecs",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.untrackedCache=false",
+        *arguments,
+    ]
+
+
+def _git_process(
+    repo: Path,
+    *arguments: str,
+    input_bytes: bytes | None = None,
+) -> subprocess.CompletedProcess[bytes]:
     return subprocess.run(
-        ["git", *arguments],
+        _git_arguments(arguments),
         cwd=repo,
-        check=True,
+        input=input_bytes,
+        check=False,
         capture_output=True,
-    ).stdout
+        env=_trusted_git_environment(),
+    )
+
+
+def _git(repo: Path, *arguments: str) -> bytes:
+    result = _git_process(repo, *arguments)
+    if result.returncode != 0:
+        raise subprocess.CalledProcessError(
+            result.returncode,
+            result.args,
+            output=result.stdout,
+            stderr=result.stderr,
+        )
+    return result.stdout
 
 
 def _repository_top_level(repo: Path) -> Path:
@@ -61,12 +111,14 @@ def _is_in_worktree_gitignore(repo: Path, source: bytes) -> bool:
 
 
 def _is_project_ignored(repo: Path, raw_path: bytes) -> bool:
-    result = subprocess.run(
-        ["git", "check-ignore", "-z", "-v", "--no-index", "--stdin"],
-        cwd=repo,
-        input=raw_path + b"\0",
-        check=False,
-        capture_output=True,
+    result = _git_process(
+        repo,
+        "check-ignore",
+        "-z",
+        "-v",
+        "--no-index",
+        "--stdin",
+        input_bytes=raw_path + b"\0",
     )
     if result.returncode == 1:
         return False

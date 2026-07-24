@@ -55,6 +55,32 @@ ASSIGNMENT_PATTERN = re.compile(
     [ \t]*,?[ \t]*(?:\#[^\r\n]*)?$
     """
 )
+JSON_ASSIGNMENT_PATTERN = re.compile(
+    r'''(?ix)
+    "
+    (?P<name>
+        (?:[A-Za-z][A-Za-z0-9]*[-_]){0,2}
+        (?:
+            api[-_]?key
+            |client[-_]?secret
+            |secret[-_]?access[-_]?key
+            |secret
+            |token
+            |password
+            |credential
+            |private[-_]?key
+            |access[-_]?key(?:[-_]?id)?
+        )
+    )
+    "
+    [ \t]*:[ \t]*
+    (?P<value>
+        "(?:\\.|[^"\\\r\n])*"
+        |[A-Za-z0-9_./+~=@:%-]+
+    )
+    (?=[ \t]*(?:[,}]))
+    '''
+)
 SIGNATURE_PATTERNS = (
     re.compile(r"(?<![A-Za-z0-9])gh[pousr]_[A-Za-z0-9]{36}(?![A-Za-z0-9])"),
     re.compile(r"(?<![A-Za-z0-9])github_pat_[A-Za-z0-9_]{50,}"),
@@ -70,6 +96,7 @@ PLACEHOLDERS = frozenset(
         "changeme",
         "dummy",
         "example",
+        "must not be logged",
         "placeholder",
         "redacted",
         "replace-me",
@@ -487,10 +514,11 @@ def contains_credential(content: bytes) -> bool:
     for text in _text_views(content):
         if any(pattern.search(text) for pattern in SIGNATURE_PATTERNS):
             return True
-        if any(
-            not _placeholder(match.group("value"))
-            for match in ASSIGNMENT_PATTERN.finditer(text)
-        ):
+        assignments = (
+            *ASSIGNMENT_PATTERN.finditer(text),
+            *JSON_ASSIGNMENT_PATTERN.finditer(text),
+        )
+        if any(not _placeholder(match.group("value")) for match in assignments):
             return True
     return False
 

@@ -40,7 +40,7 @@ def test_annotation_set_validates_unicode_half_open_span() -> None:
                     EvidenceSpan(
                         start_char=start,
                         end_char=end,
-                        snippet="große",
+                        text_snippet="große",
                     ),
                 ),
             ),
@@ -68,7 +68,9 @@ def test_annotation_set_rejects_mismatched_span_text() -> None:
                 annotation_id="annotation-1",
                 hpo_id="HP:0001251",
                 evidence_spans=(
-                    EvidenceSpan(start_char=6, end_char=12, snippet="Ataxia"),
+                    EvidenceSpan(
+                        start_char=6, end_char=12, text_snippet="Ataxia"
+                    ),
                 ),
             ),
         ),
@@ -96,7 +98,7 @@ def test_annotation_set_rejects_span_ending_past_document_eof() -> None:
                 annotation_id="annotation-past-eof",
                 hpo_id="HP:0001251",
                 evidence_spans=(
-                    EvidenceSpan(start_char=0, end_char=6, snippet="Ärger"),
+                    EvidenceSpan(start_char=0, end_char=6, text_snippet="Ärger"),
                 ),
             ),
         ),
@@ -124,7 +126,7 @@ def test_annotation_set_accepts_unicode_span_ending_at_document_eof() -> None:
                 annotation_id="annotation-eof",
                 hpo_id="HP:0001251",
                 evidence_spans=(
-                    EvidenceSpan(start_char=2, end_char=5, snippet="ger"),
+                    EvidenceSpan(start_char=2, end_char=5, text_snippet="ger"),
                 ),
             ),
         ),
@@ -183,11 +185,11 @@ def test_annotation_rejects_non_ascii_hpo_digits() -> None:
 def test_not_selected_not_applicable_review_is_not_manual_acceptance() -> None:
     record = ReviewRecord(
         review_id="review-1",
-        kind=ReviewKind.BILINGUAL,
+        review_kind=ReviewKind.BILINGUAL,
         subject_sha256="a" * 64,
         review_policy_id="policy-1",
-        requirement=ManualReviewRequirement.NOT_SELECTED,
-        status=ManualReviewStatus.NOT_APPLICABLE,
+        manual_requirement=ManualReviewRequirement.NOT_SELECTED,
+        manual_status=ManualReviewStatus.NOT_APPLICABLE,
         reviewer_role="reviewer",
     )
 
@@ -198,10 +200,73 @@ def test_not_selected_review_cannot_be_accepted() -> None:
     with pytest.raises(ValueError, match="not_selected requires not_applicable"):
         ReviewRecord(
             review_id="review-1",
-            kind=ReviewKind.BILINGUAL,
+            review_kind=ReviewKind.BILINGUAL,
             subject_sha256="a" * 64,
             review_policy_id="policy-1",
-            requirement=ManualReviewRequirement.NOT_SELECTED,
-            status=ManualReviewStatus.ACCEPTED,
+            manual_requirement=ManualReviewRequirement.NOT_SELECTED,
+            manual_status=ManualReviewStatus.ACCEPTED,
             reviewer_role="reviewer",
         )
+
+
+def test_public_model_schema_uses_only_contract_field_names() -> None:
+    span = EvidenceSpan(start_char=0, end_char=6, text_snippet="Ataxia")
+    review = ReviewRecord(
+        review_id="review-1",
+        review_kind=ReviewKind.BILINGUAL,
+        subject_sha256="a" * 64,
+        review_policy_id="policy-1",
+        manual_requirement=ManualReviewRequirement.REQUIRED,
+        manual_status=ManualReviewStatus.ACCEPTED,
+        reviewer_role="reviewer",
+    )
+
+    assert span.model_dump(mode="json") == {
+        "start_char": 0,
+        "end_char": 6,
+        "text_snippet": "Ataxia",
+    }
+    assert set(ReviewRecord.model_json_schema()["properties"]) == {
+        "review_id",
+        "review_kind",
+        "subject_sha256",
+        "review_policy_id",
+        "manual_requirement",
+        "manual_status",
+        "reviewer_role",
+    }
+    assert review.model_dump(mode="json")["review_kind"] == "bilingual"
+    assert EvidenceSpan.model_validate_json(
+        '{"start_char":0,"end_char":6,"text_snippet":"Ataxia"}'
+    ) == span
+    assert ReviewRecord.model_validate_json(
+        json.dumps(review.model_dump(mode="json"))
+    ) == review
+
+
+@pytest.mark.parametrize(
+    ("model", "payload"),
+    [
+        (
+            EvidenceSpan,
+            {"start_char": 0, "end_char": 6, "snippet": "Ataxia"},
+        ),
+        (
+            ReviewRecord,
+            {
+                "review_id": "review-1",
+                "kind": "bilingual",
+                "subject_sha256": "a" * 64,
+                "review_policy_id": "policy-1",
+                "requirement": "required",
+                "status": "accepted",
+                "reviewer_role": "reviewer",
+            },
+        ),
+    ],
+)
+def test_legacy_public_model_field_names_are_rejected(
+    model: type[EvidenceSpan] | type[ReviewRecord], payload: dict[str, object]
+) -> None:
+    with pytest.raises(ValueError, match="Extra inputs are not permitted"):
+        model.model_validate_json(json.dumps(payload))

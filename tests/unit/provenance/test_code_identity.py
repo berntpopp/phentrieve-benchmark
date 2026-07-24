@@ -69,6 +69,31 @@ def test_dirty_and_untracked_sources_change_code_identity(tmp_path: Path) -> Non
     assert len({clean, dirty, untracked}) == 3
 
 
+def test_git_environment_cannot_redirect_code_identity(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    _initialized_repo(tmp_path)
+    source = tmp_path / "module.py"
+    source.write_text("VALUE = 1\n", encoding="utf-8")
+    _git(tmp_path, "add", ".")
+    _git(tmp_path, "commit", "-m", "initial")
+    clean = code_sha256(tmp_path)
+
+    elsewhere = tmp_path / "elsewhere"
+    elsewhere.mkdir()
+    monkeypatch.setenv("GIT_INDEX_FILE", os.fspath(tmp_path / "missing-index"))
+    monkeypatch.setenv("GIT_DIR", os.fspath(tmp_path / "missing-git-dir"))
+    monkeypatch.setenv("GIT_WORK_TREE", os.fspath(elsewhere))
+    monkeypatch.setenv("GIT_CONFIG_COUNT", "1")
+    monkeypatch.setenv("GIT_CONFIG_KEY_0", "core.excludesFile")
+    monkeypatch.setenv("GIT_CONFIG_VALUE_0", os.fspath(tmp_path / "exclude-all"))
+
+    assert code_sha256(tmp_path) == clean
+    source.write_text("VALUE = 2\n", encoding="utf-8")
+    assert code_sha256(tmp_path) != clean
+
+
 def test_ignored_artifacts_do_not_change_code_identity(tmp_path: Path) -> None:
     _initialized_repo(tmp_path)
     (tmp_path / ".gitignore").write_text(".artifacts/\n", encoding="utf-8")

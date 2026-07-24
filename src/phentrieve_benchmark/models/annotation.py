@@ -10,7 +10,7 @@ class EvidenceSpan(BaseModel):
 
     start_char: int = Field(ge=0)
     end_char: int = Field(gt=0)
-    snippet: str = Field(min_length=1)
+    text_snippet: str = Field(min_length=1)
 
     @model_validator(mode="after")
     def has_nonempty_range(self) -> "EvidenceSpan":
@@ -50,8 +50,8 @@ def validate_annotation_set(document: Document, annotation_set: AnnotationSet) -
                     f"{annotation.annotation_id}"
                 )
             actual = document.text[span.start_char : span.end_char]
-            if actual != span.snippet:
+            if actual != span.text_snippet:
                 raise ValueError(
                     f"span text mismatch for annotation {annotation.annotation_id}: "
-                    f"expected {span.snippet!r}, got {actual!r}"
+                    f"expected {span.text_snippet!r}, got {actual!r}"
                 )

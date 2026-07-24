@@ -141,6 +141,23 @@ def test_staged_secret_is_scanned_even_when_worktree_copy_is_safe(
         scan_repository(tmp_path)
 
 
+def test_staged_compact_nested_json_credential_is_scanned(
+    tmp_path: Path,
+) -> None:
+    initialise_repository(tmp_path)
+    path = track(
+        tmp_path,
+        "providers.json",
+        b'{"providers":[{"name":"primary","api' + b'_key":"'
+        + b"q9P4m7V2x8L5n3R6"
+        + b'","enabled":true}]}',
+    )
+    path.write_bytes(b'{"providers":[{"name":"primary","enabled":true}]}')
+
+    with pytest.raises(SafetyViolation, match="possible credential"):
+        scan_repository(tmp_path)
+
+
 def test_dirty_tracked_worktree_fails_closed(tmp_path: Path) -> None:
     initialise_repository(tmp_path)
     path = track(tmp_path, "config.env", b"MODEL=general/nmt\n")
@@ -388,6 +405,18 @@ def test_json_credential_assignment_with_comma_is_detected() -> None:
     assert contains_credential(b'"' + name + b'": "' + value + b'",\n')
 
 
+@pytest.mark.parametrize(
+    "content",
+    [
+        b'{"providers":[{"api' + b'_key":"placeholder","enabled":true}]}',
+        b'{"providers":[{"api' + b'_key":"${API_KEY}","enabled":true}]}',
+        b'{"api' + b'_key_fingerprint":"sha256:0123456789abcdef"}',
+    ],
+)
+def test_compact_json_credential_detector_preserves_boundaries(content: bytes) -> None:
+    assert not contains_credential(content)
+
+
 def test_yaml_credential_assignment_with_comment_is_detected() -> None:
     name = b"openai" + b"_api_key"
     value = b"q9P4m7V2x8L5n3R6"
@@ -443,6 +472,7 @@ def test_utf16_credentials_are_detected(encoding: str) -> None:
         b"secret: placeholder\n",
         b"credential = example\n",
         b"client_secret = short\n",
+        b'{"credential":"must not be logged"}',
     ],
 )
 def test_documented_placeholders_are_allowed(content: bytes) -> None:
