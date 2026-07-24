@@ -7,6 +7,7 @@ from pydantic import (
     BaseModel,
     ConfigDict,
     Field,
+    ValidationInfo,
     field_serializer,
     field_validator,
     model_validator,
@@ -62,7 +63,17 @@ class TranslationRecord(BaseModel):
         mode="before",
     )
     @classmethod
-    def money_is_decimal(cls, value: object) -> Decimal:
+    def money_is_decimal(
+        cls, value: object, info: ValidationInfo
+    ) -> Decimal:
+        if info.mode == "json" and isinstance(value, str):
+            try:
+                parsed = Decimal(value)
+            except ArithmeticError as error:
+                raise ValueError("money string is invalid") from error
+            if not parsed.is_finite():
+                raise ValueError("money must be finite")
+            return parsed
         if not isinstance(value, Decimal):
             raise ValueError("money must be represented as Decimal")
         if not value.is_finite():
@@ -118,4 +129,3 @@ class TranslationManifest(BaseModel):
 
     def sha256(self) -> str:
         return sha256_bytes(self.canonical_bytes())
-

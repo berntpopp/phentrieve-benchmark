@@ -68,3 +68,17 @@ def test_manifest_rejects_duplicate_cases() -> None:
             records=(record, record),
         )
 
+
+def test_translation_manifest_round_trips_through_canonical_json() -> None:
+    manifest = TranslationManifest(
+        selection_id="e3c-de-feasibility-30-v1",
+        selection_sha256="c" * 64,
+        recipe_sha256="d" * 64,
+        records=(TranslationRecord(**_record_values()),),
+    )
+
+    restored = TranslationManifest.model_validate_json(
+        manifest.canonical_bytes(), strict=True
+    )
+
+    assert restored == manifest
