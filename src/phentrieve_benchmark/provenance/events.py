@@ -55,6 +55,20 @@ def _validate_event_name(event: object) -> str:
     return event
 
 
+def _supports_buffer_protocol(value: object) -> bool:
+    """Probe the buffer protocol without requiring Python 3.12's Buffer ABC."""
+    if isinstance(value, memoryview):
+        return True
+    try:
+        view = memoryview(value)  # type: ignore[arg-type]
+    except TypeError:
+        return False
+    except Exception:
+        return True
+    view.release()
+    return True
+
+
 def _snapshot_sequence(
     sequence: Sequence[object],
     *,
@@ -188,13 +202,17 @@ def _snapshot_value(
         if math.isfinite(value):
             return value
         raise UnsafeEventError(f"unsafe event value at {location}: non-finite float")
+    if _supports_buffer_protocol(value):
+        raise UnsafeEventError(
+            f"unsafe event value at {location}: buffer container is not JSON"
+        )
     if isinstance(value, Mapping):
         return _snapshot_mapping(
             value, location=location, active=active, memo=memo
         )
-    if isinstance(value, (str, bytes, bytearray)):
+    if isinstance(value, str):
         raise UnsafeEventError(
-            f"unsafe event value at {location}: byte/text container is not JSON"
+            f"unsafe event value at {location}: text container is not JSON"
         )
     if isinstance(value, Sequence):
         return _snapshot_sequence(

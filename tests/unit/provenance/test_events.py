@@ -1,4 +1,5 @@
 import math
+from array import array
 from collections.abc import Iterator, Mapping, Sequence
 from pathlib import Path
 from typing import Any, overload
@@ -336,4 +337,50 @@ def test_writer_snapshots_general_sequences_once_and_serializes_tuples(
     assert path.read_bytes() == (
         b'{"codes":["HP:0001250","ok"],"event":"case_complete",'
         b'"statuses":["ok"]}\n'
+    )
+
+
+@pytest.mark.parametrize(
+    "buffer_value",
+    [
+        memoryview(b"not JSON"),
+        array("B", [1, 2, 3]),
+        array("b", [-1, 0, 1]),
+    ],
+    ids=["memoryview", "unsigned-byte-array", "signed-byte-array"],
+)
+@pytest.mark.parametrize("nested", [False, True], ids=["top-level", "nested"])
+def test_writer_rejects_buffer_containers_without_file_mutation(
+    tmp_path: Path, buffer_value: object, nested: bool
+) -> None:
+    path = tmp_path / "events.jsonl"
+    existing = b'{"event":"existing"}\n'
+    fields: Mapping[str, Any]
+    if nested:
+        path.write_bytes(existing)
+        fields = {"details": [{"data": buffer_value}]}
+    else:
+        fields = {"data": buffer_value}
+
+    with pytest.raises(UnsafeEventError, match="buffer"):
+        EventWriter(path).write(event="case_complete", fields=fields)
+
+    if nested:
+        assert path.read_bytes() == existing
+    else:
+        assert not path.exists()
+
+
+def test_writer_keeps_ordinary_integer_sequences_as_json_arrays(
+    tmp_path: Path,
+) -> None:
+    path = tmp_path / "events.jsonl"
+
+    EventWriter(path).write(
+        event="case_complete",
+        fields={"list_values": [1, 2], "tuple_values": (3, 4)},
+    )
+
+    assert path.read_bytes() == (
+        b'{"event":"case_complete","list_values":[1,2],"tuple_values":[3,4]}\n'
     )
