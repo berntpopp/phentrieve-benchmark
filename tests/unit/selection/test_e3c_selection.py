@@ -1,6 +1,10 @@
 from fractions import Fraction
 
-from phentrieve_benchmark.selection.e3c import select_e3c_feasibility
+from phentrieve_benchmark.provenance.digests import sha256_bytes
+from phentrieve_benchmark.selection.e3c import (
+    canonical_e3c_inventory_bytes,
+    select_e3c_feasibility,
+)
 from phentrieve_benchmark.selection.metrics import (
     E3cInventoryRecord,
     LengthStratum,
@@ -49,3 +53,18 @@ def test_selects_exact_language_and_stratum_allocation_deterministically() -> No
         assert [item.stratum for item in selected].count(LengthStratum.SHORT) == 3
         assert [item.stratum for item in selected].count(LengthStratum.MEDIUM) == 4
         assert [item.stratum for item in selected].count(LengthStratum.LONG) == 3
+
+
+def test_selection_inventory_hash_identifies_the_persisted_representation() -> None:
+    records = [
+        _record(language, stratum, index)
+        for language in ("en", "fr", "es")
+        for stratum in LengthStratum
+        for index in range(7)
+    ]
+
+    manifest = select_e3c_feasibility(records)
+
+    assert manifest.inventory_sha256 == sha256_bytes(
+        canonical_e3c_inventory_bytes(records)
+    )

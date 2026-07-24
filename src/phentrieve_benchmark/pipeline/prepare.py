@@ -5,6 +5,8 @@ from pathlib import Path
 from typing import Literal
 from uuid import uuid4
 
+from pydantic import TypeAdapter
+
 from phentrieve_benchmark.acquisition.archives import publish_source_snapshot
 from phentrieve_benchmark.acquisition.downloader import download_archive
 from phentrieve_benchmark.acquisition.recipes import (
@@ -33,7 +35,10 @@ from phentrieve_benchmark.provenance.canonical import (
     canonical_json_bytes,
     canonical_jsonl_bytes,
 )
-from phentrieve_benchmark.selection.e3c import select_e3c_feasibility
+from phentrieve_benchmark.selection.e3c import (
+    canonical_e3c_inventory_bytes,
+    select_e3c_feasibility,
+)
 from phentrieve_benchmark.selection.metrics import (
     E3cInventoryRecord,
     build_e3c_inventory_record,
@@ -279,15 +284,18 @@ def _publish_normalization(
             for language, case_id, kind, count in normalized.source_structure_counts
             if kind == "sentences"
         }
-        inventory_records = [
+        inventory_models = [
             build_e3c_inventory_record(
                 document,
                 by_document[document.document_sha256],
                 sentence_count=sentence_counts[
                     (document.language, document.source_case_id)
                 ],
-            ).model_dump(mode="json")
+            )
             for document in normalized.documents
+        ]
+        inventory_records = [
+            value.model_dump(mode="json") for value in inventory_models
         ]
         inventory_schema = "e3c-inventory-record/v1"
         inventory_identity = "source_case_id"
@@ -302,12 +310,23 @@ def _publish_normalization(
         ]
         inventory_schema = "normalized-document-inventory/v1"
         inventory_identity = "document_id"
-    inventory = _publish_records(
-        inventory_records,
-        identity_key=inventory_identity,
-        schema_id=inventory_schema,
-        context=context,
-    )
+    if target_id == "e3c":
+        inventory_payload = canonical_e3c_inventory_bytes(
+            inventory_models
+        )
+        inventory = ArtifactReference(
+            schema_id=inventory_schema,
+            sha256=context.store.put_bytes(inventory_payload),
+            byte_length=len(inventory_payload),
+            record_count=len(inventory_records),
+        )
+    else:
+        inventory = _publish_records(
+            inventory_records,
+            identity_key=inventory_identity,
+            schema_id=inventory_schema,
+            context=context,
+        )
     adapter_id = source_recipe.value.adapter_id
     if isinstance(target_recipe.value, NormalizationRecipe):
         adapter_id = target_recipe.value.adapter_id
@@ -449,10 +468,10 @@ def select_e3c(cohort: CohortId, context: PipelineContext) -> StageResult:
     reused = pointer is not None
     if pointer is None:
         records = tuple(
-            E3cInventoryRecord.model_validate_json(line, strict=True)
-            for line in context.store.read_bytes(
-                normalization.inventory.sha256
-            ).splitlines()
+            TypeAdapter(list[E3cInventoryRecord]).validate_json(
+                context.store.read_bytes(normalization.inventory.sha256),
+                strict=True,
+            )
         )
         selection = select_e3c_feasibility(records)
         subject_sha256 = context.store.put_bytes(selection.canonical_bytes())

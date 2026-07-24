@@ -167,15 +167,7 @@ def select_e3c_feasibility(
     ]
     if len(identities) != len(set(identities)):
         raise ValueError("duplicate E3C inventory identity")
-    inventory_bytes = canonical_json_bytes(
-        [
-            record.model_dump(mode="json")
-            for record in sorted(
-                records,
-                key=lambda item: (item.language, item.source_case_id),
-            )
-        ]
-    )
+    inventory_bytes = canonical_e3c_inventory_bytes(records)
     selected: list[E3cInventoryRecord] = []
     for language in ("en", "fr", "es"):
         for stratum in LengthStratum:
@@ -211,4 +203,24 @@ def select_e3c_feasibility(
         inventory_sha256=sha256_bytes(inventory_bytes),
         records=output_records,
         aggregate_sha256=aggregate,
+    )
+
+
+def canonical_e3c_inventory_bytes(
+    inventory: Iterable[E3cInventoryRecord],
+) -> bytes:
+    records = list(inventory)
+    identities = [
+        (record.language, record.source_case_id) for record in records
+    ]
+    if len(identities) != len(set(identities)):
+        raise ValueError("duplicate E3C inventory identity")
+    return canonical_json_bytes(
+        [
+            record.model_dump(mode="json")
+            for record in sorted(
+                records,
+                key=lambda item: (item.language, item.source_case_id),
+            )
+        ]
     )
