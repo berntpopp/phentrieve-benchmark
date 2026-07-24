@@ -429,9 +429,11 @@ artifacts are never overwritten in place.
 ### 8.1 Code identity
 
 `code_sha256` identifies the exact executable repository state using the
-`code-identity/v2` canonical JSON payload. It first resolves the supplied path
-to the Git top-level, so calling it from a subdirectory fingerprints the whole
-repository. The payload contains `head`, `exclusion_policy` set to
+`code-identity/v2` canonical JSON payload. It resolves the supplied path, then
+ascends to the nearest `.git` file or directory and validates that worktree, so
+calling it from a subdirectory fingerprints the whole repository without
+parsing newline-terminated Git path output. The payload contains `head`,
+`exclusion_policy` set to
 `repository-gitignore/v1`, `path_encoding` set to
 `percent-encoded-git-path-bytes/v1`, and path-sorted `entries`.
 
@@ -453,6 +455,12 @@ Tracked files and relevant untracked files are enumerated with only repository
 configuration and `.git/info/exclude` never affect this identity. Gitlinks,
 merge-conflicted duplicate index paths, device files, FIFOs, sockets, and other
 unsupported kinds fail closed rather than being represented as deletions.
+Before Git enumeration, a raw, non-following filesystem scan also detects
+FIFOs, sockets, devices, and other special entries Git may omit. It never
+traverses `.git` metadata or symlink directories. A special entry is ignored
+only when `git check-ignore` identifies a non-negated, in-worktree
+`.gitignore` rule as its winning exclusion; global excludes and
+`.git/info/exclude` never hide it.
 Regular files are read through a non-following, non-blocking descriptor where
 the platform supports those flags. Their digest and executable bit come from
 the same validated descriptor snapshot. Path and descriptor identity, kind,

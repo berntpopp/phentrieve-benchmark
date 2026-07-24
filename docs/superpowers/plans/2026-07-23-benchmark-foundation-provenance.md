@@ -985,8 +985,9 @@ Expected: FAIL during collection because `code_identity` does not exist.
 
 Create `src/phentrieve_benchmark/provenance/code_identity.py` with
 `_git(repo, *arguments)` using `subprocess.run(..., check=True,
-capture_output=True).stdout`. Resolve `repo` with `git rev-parse
---show-toplevel` before every identity operation. Read raw NUL-delimited paths
+capture_output=True).stdout`. Resolve `repo`, ascend to the nearest `.git`
+file or directory, and validate that worktree before every identity operation;
+do not parse newline-terminated Git root-path output. Read raw NUL-delimited paths
 from `git ls-files -z --cached --others --exclude-per-directory=.gitignore`;
 do not use `--exclude-standard`, `.git/info/exclude`, or global excludes.
 
@@ -1004,6 +1005,13 @@ derive the executable bit and digest from the same descriptor snapshot; compare
 path and descriptor identity, kind, mode, size, mtime, and stable ctime where
 available before and after reading; retry boundedly, then raise on detected
 concurrent mutation.
+
+Before Git enumeration, scan raw filesystem entries without following symlink
+directories and skip `.git` metadata. Reject FIFOs, sockets, devices, and all
+other unsupported kinds unless `git check-ignore -z -v --no-index` identifies
+a non-negated winning pattern from an in-worktree `.gitignore`; never accept a
+global exclude or `.git/info/exclude` as authorization to ignore a special
+entry.
 
 Hash canonical JSON with this exact payload shape:
 

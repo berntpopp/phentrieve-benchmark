@@ -24,12 +24,17 @@ def _git(repo: Path, *arguments: str) -> bytes:
 
 
 def _repository_top_level(repo: Path) -> Path:
-    top_level = _git(repo, "rev-parse", "--show-toplevel")
-    if top_level.endswith(b"\r\n"):
-        top_level = top_level[:-2]
-    elif top_level.endswith((b"\n", b"\r")):
-        top_level = top_level[:-1]
-    return Path(os.fsdecode(top_level))
+    candidate = repo.resolve()
+    if candidate.is_file():
+        candidate = candidate.parent
+    while candidate != candidate.parent:
+        marker = candidate / ".git"
+        if marker.is_dir() or marker.is_file():
+            if _git(candidate, "rev-parse", "--is-inside-work-tree") != b"true\n":
+                raise ValueError(f"not a Git worktree: {candidate}")
+            return candidate
+        candidate = candidate.parent
+    raise ValueError(f"unable to find a Git worktree for {repo}")
 
 
 def _encode_path(raw_path: bytes) -> str:
@@ -43,6 +48,68 @@ def _filesystem_path(repo: Path, raw_path: bytes) -> str | bytes:
     if os.name == "posix":
         return os.fsencode(repo) + b"/" + raw_path
     return os.fspath(repo / os.fsdecode(raw_path))
+
+
+def _is_in_worktree_gitignore(repo: Path, source: bytes) -> bool:
+    source_path = Path(os.fsdecode(source))
+    candidate = source_path if source_path.is_absolute() else repo / source_path
+    try:
+        candidate.resolve().relative_to(repo.resolve())
+    except ValueError:
+        return False
+    return candidate.name == ".gitignore" and candidate.is_file()
+
+
+def _is_project_ignored(repo: Path, raw_path: bytes) -> bool:
+    result = subprocess.run(
+        ["git", "check-ignore", "-z", "-v", "--no-index", "--stdin"],
+        cwd=repo,
+        input=raw_path + b"\0",
+        check=False,
+        capture_output=True,
+    )
+    if result.returncode == 1:
+        return False
+    if result.returncode != 0:
+        raise subprocess.CalledProcessError(
+            result.returncode,
+            result.args,
+            output=result.stdout,
+            stderr=result.stderr,
+        )
+    fields = [field for field in result.stdout.split(b"\0") if field]
+    if len(fields) != 4:
+        raise ValueError("unexpected git check-ignore output")
+    source, _, pattern, matched_path = fields
+    if matched_path != raw_path:
+        raise ValueError("git check-ignore matched an unexpected path")
+    return not pattern.startswith(b"!") and _is_in_worktree_gitignore(repo, source)
+
+
+def _reject_relevant_special_entries(repo: Path) -> None:
+    def scan(directory: bytes, relative: bytes) -> None:
+        with os.scandir(directory) as entries:
+            for entry in entries:
+                name = entry.name
+                raw_name = name if isinstance(name, bytes) else os.fsencode(name)
+                if raw_name == b".git":
+                    continue
+                raw_path = raw_name if not relative else relative + b"/" + raw_name
+                try:
+                    entry_stat = entry.stat(follow_symlinks=False)
+                except FileNotFoundError:
+                    encoded_path = _encode_path(raw_path)
+                    message = f"filesystem entry vanished at {encoded_path!r}"
+                    raise ValueError(message) from None
+                if stat.S_ISDIR(entry_stat.st_mode):
+                    scan(os.path.join(directory, name), raw_path)
+                elif not (
+                    stat.S_ISREG(entry_stat.st_mode) or stat.S_ISLNK(entry_stat.st_mode)
+                ) and not _is_project_ignored(repo, raw_path):
+                    encoded_path = _encode_path(raw_path)
+                    raise ValueError(f"unsupported file kind at {encoded_path!r}")
+
+    scan(os.fsencode(repo), b"")
 
 
 def _index_modes(repo: Path) -> dict[bytes, bytes]:
@@ -165,6 +232,7 @@ def _entry(
 def code_sha256(repo: Path) -> str:
     top_level = _repository_top_level(repo)
     head = _git(top_level, "rev-parse", "HEAD").decode().strip()
+    _reject_relevant_special_entries(top_level)
     listed = _git(
         top_level,
         "ls-files",

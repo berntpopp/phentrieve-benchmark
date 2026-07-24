@@ -1,5 +1,6 @@
 import errno
 import os
+import socket
 import subprocess
 from pathlib import Path
 
@@ -142,6 +143,24 @@ def test_top_level_resolution_preserves_leading_and_trailing_whitespace(
     _git(repo, "commit", "-m", "initial")
 
     assert code_sha256(repo) == code_sha256(repo)
+
+
+@POSIX_ONLY
+@pytest.mark.parametrize("suffix", ["space ", "carriage\r", "linefeed\n"])
+def test_top_level_resolution_preserves_terminal_control_bytes(
+    tmp_path: Path,
+    suffix: str,
+) -> None:
+    repo = tmp_path / suffix
+    repo.mkdir()
+    _initialized_repo(repo)
+    (repo / "module.py").write_text("VALUE = 1\n", encoding="utf-8")
+    nested = repo / "nested"
+    nested.mkdir()
+    _git(repo, "add", ".")
+    _git(repo, "commit", "-m", "initial")
+
+    assert code_sha256(nested) == code_sha256(repo)
 
 
 def test_repository_gitignore_is_the_only_untracked_exclusion_source(
@@ -341,6 +360,66 @@ def test_unsupported_special_file_kind_fails_closed(tmp_path: Path) -> None:
     (tmp_path / "seed.py").write_bytes(b"SEED = True\n")
     _git(tmp_path, "add", ".")
     _git(tmp_path, "commit", "-m", "initial")
+    os.mkfifo(tmp_path / "pipe")
+
+    with pytest.raises(ValueError, match="unsupported file kind"):
+        code_sha256(tmp_path)
+
+
+@POSIX_ONLY
+def test_relevant_unix_socket_fails_closed(tmp_path: Path) -> None:
+    if not hasattr(socket, "AF_UNIX"):
+        pytest.skip("Unix sockets are unavailable")
+    _initialized_repo(tmp_path)
+    (tmp_path / "seed.py").write_bytes(b"SEED = True\n")
+    _git(tmp_path, "add", ".")
+    _git(tmp_path, "commit", "-m", "initial")
+
+    with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as server:
+        server.bind(os.fspath(tmp_path / "socket"))
+        with pytest.raises(ValueError, match="unsupported file kind"):
+            code_sha256(tmp_path)
+
+
+@POSIX_ONLY
+def test_project_ignored_special_file_does_not_fail_code_identity(
+    tmp_path: Path,
+) -> None:
+    if not hasattr(os, "mkfifo"):
+        pytest.skip("mkfifo is unavailable")
+    _initialized_repo(tmp_path)
+    (tmp_path / ".gitignore").write_text(".artifacts/\n", encoding="utf-8")
+    (tmp_path / "seed.py").write_bytes(b"SEED = True\n")
+    _git(tmp_path, "add", ".")
+    _git(tmp_path, "commit", "-m", "initial")
+    before = code_sha256(tmp_path)
+    artifacts = tmp_path / ".artifacts"
+    artifacts.mkdir()
+    os.mkfifo(artifacts / "pipe")
+
+    assert code_sha256(tmp_path) == before
+
+
+@POSIX_ONLY
+@pytest.mark.parametrize("exclude_source", ["global", "info"])
+def test_external_exclude_does_not_hide_special_file(
+    tmp_path: Path,
+    exclude_source: str,
+) -> None:
+    if not hasattr(os, "mkfifo"):
+        pytest.skip("mkfifo is unavailable")
+    _initialized_repo(tmp_path)
+    (tmp_path / "seed.py").write_bytes(b"SEED = True\n")
+    _git(tmp_path, "add", ".")
+    _git(tmp_path, "commit", "-m", "initial")
+    if exclude_source == "global":
+        global_exclude = tmp_path.parent / "global-excludes"
+        global_exclude.write_text("pipe\n", encoding="utf-8")
+        _git(tmp_path, "config", "core.excludesFile", str(global_exclude))
+    else:
+        (tmp_path / ".git" / "info" / "exclude").write_text(
+            "pipe\n", encoding="utf-8"
+        )
     os.mkfifo(tmp_path / "pipe")
 
     with pytest.raises(ValueError, match="unsupported file kind"):
