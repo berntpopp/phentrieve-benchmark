@@ -1,7 +1,6 @@
 import io
 from pathlib import Path
 
-import pytest
 from openpyxl import Workbook
 
 from phentrieve_benchmark.acquisition.recipes import (
@@ -10,10 +9,7 @@ from phentrieve_benchmark.acquisition.recipes import (
     load_source_recipe,
     load_target_recipe,
 )
-from phentrieve_benchmark.normalization.raghpo import (
-    RaghpoNormalizationError,
-    normalize_raghpo_target,
-)
+from phentrieve_benchmark.normalization.raghpo import normalize_raghpo_target
 
 ROOT = Path(__file__).parents[3]
 
@@ -47,11 +43,6 @@ def _target(target: str):
     ).value
     if target == "csc":
         tables = (
-            ExpectedTable(
-                source_path="Test_Cases.csv",
-                columns=("Case", "clinical_note"),
-                data_rows=1,
-            ),
             ExpectedTable(
                 source_path="RAG-HPO Tests and Data Analysis copy.xlsx",
                 sheet_name="CSC Input",
@@ -102,7 +93,6 @@ def _target(target: str):
 def test_csc_splits_ascii_comma_and_preserves_empty_evidence() -> None:
     source = load_source_recipe(ROOT / "datasets/raghpo/source.yaml").value
     result = normalize_raghpo_target(
-        csv_bytes=b"Case,clinical_note\r\n1,Note A\r\n",
         workbook_bytes=_workbook(),
         source_recipe=source,
         target_recipe=_target("csc"),
@@ -118,18 +108,16 @@ def test_csc_splits_ascii_comma_and_preserves_empty_evidence() -> None:
     )
 
 
-def test_csc_fails_on_note_disagreement_but_gsc_remains_independent() -> None:
+def test_csc_uses_workbook_text_and_gsc_is_independent() -> None:
     source = load_source_recipe(ROOT / "datasets/raghpo/source.yaml").value
-    with pytest.raises(RaghpoNormalizationError, match="notes disagree"):
-        normalize_raghpo_target(
-            csv_bytes=b"Case,clinical_note\r\n1,Different\r\n",
-            workbook_bytes=_workbook(),
-            source_recipe=source,
-            target_recipe=_target("csc"),
-        )
+    csc = normalize_raghpo_target(
+        workbook_bytes=_workbook(),
+        source_recipe=source,
+        target_recipe=_target("csc"),
+    )
+    assert csc.documents[0].text == "Note A"
 
     gsc = normalize_raghpo_target(
-        csv_bytes=b"unused",
         workbook_bytes=_workbook(),
         source_recipe=source,
         target_recipe=_target("gsc"),

@@ -4,11 +4,7 @@ source_id: raghpo
 adapter_id: raghpo-csc/v1
 required_paths:
   - RAG-HPO Tests and Data Analysis copy.xlsx
-  - Test_Cases.csv
 expected_tables:
-  - source_path: Test_Cases.csv
-    columns: [Case, clinical_note]
-    data_rows: 116
   - source_path: RAG-HPO Tests and Data Analysis copy.xlsx
     sheet_name: CSC Input
     columns: [Case, clinical_note]

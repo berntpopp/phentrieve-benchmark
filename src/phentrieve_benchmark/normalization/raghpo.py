@@ -1,5 +1,3 @@
-import csv
-import io
 import re
 from collections.abc import Iterable
 from unicodedata import category, normalize
@@ -88,20 +86,6 @@ def _rows(
     return rows
 
 
-def _csv_rows(value: bytes, contract: ExpectedTable) -> list[dict[str, object]]:
-    try:
-        text = value.decode("utf-8-sig")
-        reader = csv.DictReader(io.StringIO(text, newline=""), strict=True)
-        if tuple(reader.fieldnames or ()) != contract.columns:
-            raise RaghpoNormalizationError("CSV headers do not match exactly")
-        rows = [dict(row) for row in reader]
-    except (UnicodeError, csv.Error) as error:
-        raise RaghpoNormalizationError("invalid source CSV") from error
-    if len(rows) != contract.data_rows:
-        raise RaghpoNormalizationError("CSV data-row count mismatch")
-    return rows
-
-
 def _hpo_ids(raw: object) -> tuple[str, ...]:
     if not isinstance(raw, str):
         raise RaghpoNormalizationError("HPO term cell must be text")
@@ -125,7 +109,6 @@ def _unique_map(
 
 def normalize_raghpo_target(
     *,
-    csv_bytes: bytes,
     workbook_bytes: bytes,
     source_recipe: SourceRecipe,
     target_recipe: NormalizationRecipe,
@@ -142,12 +125,6 @@ def normalize_raghpo_target(
     )
     try:
         if target_recipe.target_id == "csc":
-            csv_contract = next(
-                table
-                for table in target_recipe.expected_tables
-                if table.source_path == "Test_Cases.csv"
-            )
-            csv_rows = _csv_rows(csv_bytes, csv_contract)
             input_rows = _rows(
                 workbook["CSC Input"], _table(target_recipe, "CSC Input")
             )
@@ -155,16 +132,8 @@ def normalize_raghpo_target(
                 workbook["CSC Manual Annotations"],
                 _table(target_recipe, "CSC Manual Annotations"),
             )
-            csv_map = _unique_map(csv_rows, ("Case",))
             input_map = _unique_map(input_rows, ("Case",))
-            if set(csv_map) != set(input_map):
-                raise RaghpoNormalizationError("CSC case inventories disagree")
-            for identity in csv_map:
-                if _text(csv_map[identity]["clinical_note"]) != _text(
-                    input_map[identity]["clinical_note"]
-                ):
-                    raise RaghpoNormalizationError("CSC clinical notes disagree")
-            document_rows = csv_map
+            document_rows = input_map
             manual_keys: tuple[str, ...] = ("Patient ID",)
         else:
             input_rows = _rows(

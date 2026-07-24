@@ -87,6 +87,9 @@ def test_raghpo_inventory_tables_and_hpo_release_are_exact() -> None:
     )
     csc = load_target_recipe(ROOT / "datasets/raghpo/csc/dataset.yaml").value
     gsc = load_target_recipe(ROOT / "datasets/raghpo/gsc/dataset.yaml").value
-    assert sorted(table.data_rows for table in csc.expected_tables) == [116, 116, 1789]
+    assert sorted(table.data_rows for table in csc.expected_tables) == [116, 1789]
     assert sorted(table.data_rows for table in gsc.expected_tables) == [114, 1012]
     assert str(csc.hpo_release) == str(gsc.hpo_release) == "v2026-06-23"
+    assert csc.required_paths == (
+        "RAG-HPO Tests and Data Analysis copy.xlsx",
+    )
