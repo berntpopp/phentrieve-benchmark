@@ -115,9 +115,11 @@ phentrieve-benchmark/
 │   │   ├── license-evidence.yaml
 │   │   └── README.md
 │   └── raghpo/
-│       ├── dataset.yaml
+│       ├── source.yaml
 │       ├── csc/
+│       │   └── dataset.yaml
 │       ├── gsc/
+│       │   └── dataset.yaml
 │       ├── LICENSES.md
 │       ├── license-evidence.yaml
 │       └── README.md
@@ -148,10 +150,12 @@ phentrieve-benchmark/
 ```
 
 `datasets/e3c-de/dataset.yaml` is the single recipe for the E3C German
-parallel-text dataset. `datasets/raghpo/dataset.yaml` is the single shared
-recipe for CSC and GSC because they originate from the same upstream
-repository and conversion workflow. Selection manifests are immutable records
-of chosen case identifiers, not additional dataset configuration systems.
+parallel-text dataset. `datasets/raghpo/source.yaml` is the single shared
+source recipe for CSC and GSC because they originate from the same upstream
+repository. Target recipes under `datasets/raghpo/csc/` and
+`datasets/raghpo/gsc/` keep their normalization outputs independently
+executable and identifiable. Selection manifests are immutable records of
+chosen case identifiers, not additional dataset configuration systems.
 
 ## 5. Dataset Scope and Selection
 
@@ -179,8 +183,13 @@ Selection is deterministic and stratified by:
 - source language;
 - document length;
 - phenotype annotation density;
-- organ-system coverage;
+- source-native annotation-type diversity and Bodypart-marker coverage as an
+  explicitly provisional proxy;
 - assertion and factuality complexity.
+
+True HPO-based organ-system coverage is calculated only after UMLS-to-HPO
+mapping and must not be claimed by the acquisition, normalization, and
+selection phase.
 
 The selection command records the eligible source inventory, metric values,
 selection algorithm version, fixed seed, selected identifiers, manual
@@ -194,9 +203,10 @@ No selection manifest contains clinical text.
 ### 5.2 CSC and GSC
 
 CSC and GSC retain their upstream document identifiers. The revised datasets
-are separate subsets of one RAG-HPO recipe. Their initial ontology context is
-HPO `v2026-06-23`, matching the current manuscript benchmark assets. Every
-build requires an explicit HPO release; `latest` is rejected.
+are separate targets that share one RAG-HPO source recipe and use independent
+target recipes. Their initial ontology context is HPO `v2026-06-23`, matching
+the current manuscript benchmark assets. Every build requires an explicit HPO
+release; `latest` is rejected.
 
 ## 6. Core Data Model
 
@@ -270,8 +280,8 @@ The pipeline exposes independently executable stages:
 
 ```text
 acquire
-→ select
 → normalize
+→ select
 → map-umls-hpo
 → estimate-cost
 → translate
