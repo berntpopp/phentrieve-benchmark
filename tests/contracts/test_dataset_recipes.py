@@ -1,3 +1,4 @@
+from decimal import Decimal
 from pathlib import Path
 
 from phentrieve_benchmark.acquisition.recipes import (
@@ -6,6 +7,7 @@ from phentrieve_benchmark.acquisition.recipes import (
     load_source_recipe,
     load_target_recipe,
 )
+from phentrieve_benchmark.translation.pricing import load_translation_recipe
 
 ROOT = Path(__file__).parents[2]
 E3C_COMMIT = "f74bdf9eaaef7f08437d0c5b930c6dbbc25bbffc"
@@ -93,3 +95,17 @@ def test_raghpo_inventory_tables_and_hpo_release_are_exact() -> None:
     assert csc.required_paths == (
         "RAG-HPO Tests and Data Analysis copy.xlsx",
     )
+
+
+def test_e3c_google_nmt_recipe_is_pinned() -> None:
+    recipe = load_translation_recipe(
+        ROOT / "datasets/e3c-de/translation.yaml"
+    ).value
+
+    assert recipe.selection_id == "e3c-de-feasibility-30-v1"
+    assert recipe.provider == "google-cloud-translation"
+    assert recipe.api_version == "v3"
+    assert recipe.model == "general/nmt"
+    assert recipe.location == "global"
+    assert recipe.target_language == "de"
+    assert recipe.pricing.price_per_million_input_characters == Decimal("20")
