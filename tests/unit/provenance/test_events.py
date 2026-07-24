@@ -1,10 +1,70 @@
 import math
+from collections.abc import Iterator, Mapping, Sequence
 from pathlib import Path
-from typing import Any
+from typing import Any, overload
 
 import pytest
 
 from phentrieve_benchmark.provenance.events import EventWriter, UnsafeEventError
+
+
+class StatefulMapping(Mapping[str, object]):
+    def __init__(self, *, unsafe_first: bool = False) -> None:
+        self.iterations = 0
+        self.unsafe_first = unsafe_first
+
+    def __getitem__(self, key: str) -> object:
+        values: dict[str, object] = {
+            "case_id": "synthetic-1",
+            "prompt": "must-not-be-written",
+        }
+        return values[key]
+
+    def __iter__(self) -> Iterator[str]:
+        self.iterations += 1
+        if self.unsafe_first or self.iterations > 1:
+            return iter(("prompt",))
+        return iter(("case_id",))
+
+    def __len__(self) -> int:
+        return 1
+
+
+class StatefulSequence(Sequence[str]):
+    def __init__(self) -> None:
+        self.iterations = 0
+        self._safe = ("ok",)
+
+    @overload
+    def __getitem__(self, index: int) -> str: ...
+
+    @overload
+    def __getitem__(self, index: slice) -> Sequence[str]: ...
+
+    def __getitem__(self, index: int | slice) -> str | Sequence[str]:
+        return self._safe[index]
+
+    def __iter__(self) -> Iterator[str]:
+        self.iterations += 1
+        if self.iterations > 1:
+            return iter(("must-not-be-written",))
+        return iter(self._safe)
+
+    def __len__(self) -> int:
+        return len(self._safe)
+
+
+class DuplicateKeyMapping(Mapping[str, object]):
+    def __getitem__(self, key: str) -> object:
+        if key != "status":
+            raise KeyError(key)
+        return "ok"
+
+    def __iter__(self) -> Iterator[str]:
+        return iter(("status", "status"))
+
+    def __len__(self) -> int:
+        return 2
 
 
 def test_writer_emits_canonical_text_free_jsonl(tmp_path: Path) -> None:
@@ -85,6 +145,7 @@ def test_writer_rejects_structure_injection_and_reserved_key_collisions(
         -math.inf,
         ValueError("do not log raw exceptions"),
         b"not JSON",
+        bytearray(b"not JSON"),
         {"set values are not JSON"},
     ],
 )
@@ -108,3 +169,171 @@ def test_writer_leaves_existing_file_unchanged_when_event_is_rejected(
         )
 
     assert path.read_bytes() == existing
+
+
+@pytest.mark.parametrize("nested", [False, True])
+def test_writer_snapshots_stateful_mapping_without_second_iteration(
+    tmp_path: Path, nested: bool
+) -> None:
+    path = tmp_path / "events.jsonl"
+    mapping = StatefulMapping()
+    fields: Mapping[str, Any] = {"details": mapping} if nested else mapping
+
+    EventWriter(path).write(event="case_complete", fields=fields)
+
+    assert mapping.iterations == 1
+    assert b"prompt" not in path.read_bytes()
+    assert b"must-not-be-written" not in path.read_bytes()
+
+
+def test_writer_rejects_unsafe_first_custom_mapping_without_mutation(
+    tmp_path: Path,
+) -> None:
+    path = tmp_path / "events.jsonl"
+    existing = b'{"event":"existing"}\n'
+    path.write_bytes(existing)
+    mapping = StatefulMapping(unsafe_first=True)
+
+    with pytest.raises(UnsafeEventError, match="prompt"):
+        EventWriter(path).write(event="case_complete", fields={"details": mapping})
+
+    assert mapping.iterations == 1
+    assert path.read_bytes() == existing
+
+
+def test_writer_snapshots_shared_stateful_container_only_once(tmp_path: Path) -> None:
+    path = tmp_path / "events.jsonl"
+    mapping = StatefulMapping()
+
+    EventWriter(path).write(
+        event="case_complete", fields={"first": mapping, "second": mapping}
+    )
+
+    assert mapping.iterations == 1
+    assert b"prompt" not in path.read_bytes()
+    assert path.read_bytes().count(b"synthetic-1") == 2
+
+
+def test_writer_rejects_duplicate_mapping_items_without_mutation(
+    tmp_path: Path,
+) -> None:
+    path = tmp_path / "events.jsonl"
+    existing = b'{"event":"existing"}\n'
+    path.write_bytes(existing)
+
+    with pytest.raises(UnsafeEventError, match="normalized key collision"):
+        EventWriter(path).write(event="case_complete", fields=DuplicateKeyMapping())
+
+    assert path.read_bytes() == existing
+
+
+@pytest.mark.parametrize("container_kind", ["mapping", "sequence"])
+def test_writer_rejects_cyclic_containers_without_mutation(
+    tmp_path: Path, container_kind: str
+) -> None:
+    path = tmp_path / "events.jsonl"
+    existing = b'{"event":"existing"}\n'
+    path.write_bytes(existing)
+    if container_kind == "mapping":
+        cyclic_mapping: dict[str, Any] = {}
+        cyclic_mapping["details"] = cyclic_mapping
+        fields: Mapping[str, Any] = cyclic_mapping
+    else:
+        cyclic_sequence: list[Any] = []
+        cyclic_sequence.append(cyclic_sequence)
+        fields = {"details": cyclic_sequence}
+
+    with pytest.raises(UnsafeEventError, match="cyclic"):
+        EventWriter(path).write(event="case_complete", fields=fields)
+
+    assert path.read_bytes() == existing
+
+
+@pytest.mark.parametrize(
+    "key",
+    [
+        "clinical_text",
+        "source_text",
+        "context",
+        "prompt_id",
+        "credential_hint",
+        "raw_exception",
+        "secret_name",
+        "password_hash",
+        "api_key",
+        "access_token",
+        "refresh_token",
+        "authorization",
+        "cookie",
+        "private_key",
+        "token",
+    ],
+)
+def test_writer_rejects_sensitive_key_names_recursively(
+    tmp_path: Path, key: str
+) -> None:
+    with pytest.raises(UnsafeEventError, match="unsafe event field"):
+        EventWriter(tmp_path / "events.jsonl").write(
+            event="unsafe", fields={"details": [{key: "safe-code"}]}
+        )
+
+
+@pytest.mark.parametrize(
+    "key",
+    [
+        "Case_Id",
+        "case-id",
+        "case\u0301_id",
+        "case_id\ufe0f",
+        "\u0441ase_id",
+    ],
+)
+def test_writer_rejects_non_lowercase_ascii_metadata_keys(
+    tmp_path: Path, key: str
+) -> None:
+    with pytest.raises(UnsafeEventError, match="metadata key"):
+        EventWriter(tmp_path / "events.jsonl").write(
+            event="unsafe", fields={key: "safe-code"}
+        )
+
+
+@pytest.mark.parametrize(
+    "value",
+    [
+        "patient has severe headache",
+        "Größe",
+        "two words",
+        "ok\nunsafe",
+        "",
+        "x" * 257,
+    ],
+)
+def test_writer_rejects_free_text_string_values_recursively(
+    tmp_path: Path, value: str
+) -> None:
+    path = tmp_path / "events.jsonl"
+
+    with pytest.raises(UnsafeEventError, match="string value"):
+        EventWriter(path).write(
+            event="unsafe", fields={"details": [{"status": value}]}
+        )
+
+    assert not path.exists()
+
+
+def test_writer_snapshots_general_sequences_once_and_serializes_tuples(
+    tmp_path: Path,
+) -> None:
+    path = tmp_path / "events.jsonl"
+    sequence = StatefulSequence()
+
+    EventWriter(path).write(
+        event="case_complete",
+        fields={"codes": ("HP:0001250", "ok"), "statuses": sequence},
+    )
+
+    assert sequence.iterations == 1
+    assert path.read_bytes() == (
+        b'{"codes":["HP:0001250","ok"],"event":"case_complete",'
+        b'"statuses":["ok"]}\n'
+    )

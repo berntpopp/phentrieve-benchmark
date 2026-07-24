@@ -1564,6 +1564,21 @@ git commit -m "feat: require interactive paid-run authorization"
 - Create: `src/phentrieve_benchmark/provenance/events.py`
 - Create: `tests/unit/provenance/test_events.py`
 
+**Security contract amendment:** Event names are lowercase ASCII identifiers
+matching `[a-z][a-z0-9_.:-]{0,63}`. Metadata keys match
+`[a-z][a-z0-9_]{0,63}` and reject reserved `event`, any occurrence of `text`,
+`prompt`, `credential`, `exception`, `secret`, or `password`, and the exact
+credential fields `api_key`, `access_token`, `refresh_token`, `authorization`,
+`cookie`, `private_key`, and `token`. String values are text-free ASCII
+identifiers, codes, or hashes matching
+`[A-Za-z0-9][A-Za-z0-9._/@:+-]{0,255}`; free prose, whitespace, Unicode, and
+empty strings are rejected. Caller-owned mappings and non-byte sequences are
+consumed at most once into memoized built-in dict/list snapshots, including at
+nested and shared references. Duplicate normalized keys, cycles, byte
+containers, raw exceptions, non-finite numbers, and non-JSON values fail
+closed. Validation and canonical rendering of the isolated snapshot complete
+before the event path is created or opened.
+
 - [ ] **Step 1: Write failing event-safety tests**
 
 ```python
