@@ -75,7 +75,7 @@ adapter_contract:
         - {name: EVENTTLINKLink, count: 4096}
         - {name: EVENTALINKLink, count: 92}
   sofa_type: cas:Sofa
-  structural_types: [Token, Sentence]
+  structural_types: [METADATA, Sentence, Token]
   semantic_types:
     - name: CLINENTITY
       kind: annotation
