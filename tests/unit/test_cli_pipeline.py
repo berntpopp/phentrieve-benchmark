@@ -1,3 +1,4 @@
+from decimal import Decimal
 from pathlib import Path
 
 from typer.testing import CliRunner
@@ -5,6 +6,11 @@ from typer.testing import CliRunner
 from phentrieve_benchmark import cli
 from phentrieve_benchmark.models.pipeline import ProvenanceSubjectRole
 from phentrieve_benchmark.pipeline.prepare import StageResult
+from phentrieve_benchmark.pipeline.translate import (
+    TranslationEstimate,
+    TranslationStageResult,
+)
+from phentrieve_benchmark.policies.paid_operations import CostEstimate
 
 
 def test_acquire_command_prints_only_stable_stage_identity(
@@ -44,8 +50,95 @@ def test_acquire_command_prints_only_stable_stage_identity(
 def test_pipeline_command_groups_are_exposed() -> None:
     help_text = CliRunner().invoke(cli.app, ["--help"]).stdout
 
-    for command in ("acquire", "normalize", "select", "prepare", "smoke"):
+    for command in (
+        "acquire",
+        "normalize",
+        "select",
+        "prepare",
+        "translate",
+        "smoke",
+    ):
         assert command in help_text
+
+
+def test_translate_command_stops_before_provider_when_declined(
+    monkeypatch: object,
+) -> None:
+    monkeypatch.setattr(cli, "_pipeline_context", lambda *_: object())  # type: ignore[attr-defined]
+    monkeypatch.setattr(
+        cli, "prepare_e3c_translation", lambda *_: object()
+    )  # type: ignore[attr-defined]
+    monkeypatch.setattr(
+        cli,
+        "estimate_prepared_translation",
+        lambda *_: TranslationEstimate(
+            case_count=30,
+            input_codepoints=59_517,
+            cost=CostEstimate(
+                currency="USD",
+                estimated_cost=Decimal("1.19034"),
+                upper_bound=Decimal("1.19034"),
+                pricing_snapshot_id="google-cloud-translation-2026-07-24",
+            ),
+        ),
+    )  # type: ignore[attr-defined]
+    calls: list[object] = []
+    monkeypatch.setattr(
+        cli, "translate_e3c", lambda **_: calls.append(object())
+    )  # type: ignore[attr-defined]
+
+    invocation = CliRunner().invoke(
+        cli.app,
+        ["translate", "e3c", "--project-id", "benchmark-project"],
+        input="n\n",
+    )
+
+    assert invocation.exit_code == 1
+    assert "59517" in invocation.stdout
+    assert "USD 1.19034" in invocation.stdout
+    assert calls == []
+
+
+def test_translate_command_delegates_after_confirmation(
+    monkeypatch: object,
+) -> None:
+    prepared = object()
+    context = object()
+    monkeypatch.setattr(cli, "_pipeline_context", lambda *_: context)  # type: ignore[attr-defined]
+    monkeypatch.setattr(
+        cli, "prepare_e3c_translation", lambda *_: prepared
+    )  # type: ignore[attr-defined]
+    monkeypatch.setattr(
+        cli,
+        "estimate_prepared_translation",
+        lambda *_: TranslationEstimate(
+            case_count=1,
+            input_codepoints=22,
+            cost=CostEstimate(
+                currency="USD",
+                estimated_cost=Decimal("0.00044"),
+                upper_bound=Decimal("0.00044"),
+                pricing_snapshot_id="google-cloud-translation-2026-07-24",
+            ),
+        ),
+    )  # type: ignore[attr-defined]
+    calls: list[dict[str, object]] = []
+    monkeypatch.setattr(
+        cli,
+        "translate_e3c",
+        lambda **kwargs: calls.append(kwargs)
+        or TranslationStageResult(authorized=True, subject_sha256="a" * 64),
+    )  # type: ignore[attr-defined]
+
+    invocation = CliRunner().invoke(
+        cli.app,
+        ["translate", "e3c", "--project-id", "benchmark-project"],
+        input="y\n",
+    )
+
+    assert invocation.exit_code == 0, invocation.exception
+    assert calls[0]["prepared"] is prepared
+    assert calls[0]["context"] is context
 
 
 def test_all_thin_commands_delegate_to_stage_services(

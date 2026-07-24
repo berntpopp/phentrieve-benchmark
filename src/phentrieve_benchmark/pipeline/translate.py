@@ -1,0 +1,273 @@
+from collections.abc import Callable
+from dataclasses import dataclass
+from typing import cast
+
+from phentrieve_benchmark.acquisition.recipes import load_source_recipe
+from phentrieve_benchmark.models.document import Document
+from phentrieve_benchmark.models.manifest import (
+    RunManifest,
+    RunStatus,
+    UsageMetrics,
+)
+from phentrieve_benchmark.models.pipeline import (
+    NormalizationManifest,
+    ProvenanceRunLink,
+    ProvenanceSubjectRole,
+)
+from phentrieve_benchmark.models.translation import TranslationManifest
+from phentrieve_benchmark.pipeline.prepare import PipelineContext
+from phentrieve_benchmark.pipeline.state import StageState
+from phentrieve_benchmark.policies.paid_operations import CostEstimate
+from phentrieve_benchmark.provenance.canonical import canonical_json_bytes
+from phentrieve_benchmark.selection.e3c import E3cSelectionManifest
+from phentrieve_benchmark.translation.checks import detect_supported_language
+from phentrieve_benchmark.translation.e3c import (
+    TranslationInput,
+    translate_documents,
+)
+from phentrieve_benchmark.translation.google_nmt import TranslationProvider
+from phentrieve_benchmark.translation.pricing import (
+    E3cTranslationRecipe,
+    estimate_google_nmt,
+    load_translation_recipe,
+)
+
+
+@dataclass(frozen=True)
+class PreparedE3cTranslation:
+    inputs: tuple[TranslationInput, ...]
+    recipe: E3cTranslationRecipe
+    recipe_sha256: str
+    selection_sha256: str
+    previous_manifest: TranslationManifest | None
+
+
+@dataclass(frozen=True)
+class TranslationEstimate:
+    case_count: int
+    input_codepoints: int
+    cost: CostEstimate
+
+
+@dataclass(frozen=True)
+class TranslationStageResult:
+    authorized: bool
+    subject_sha256: str | None = None
+    run_manifest_sha256: str | None = None
+    provenance_link_sha256: str | None = None
+    translated_count: int = 0
+    failed_count: int = 0
+    reused_count: int = 0
+
+
+def _semantic_hashes(
+    prepared: PreparedE3cTranslation,
+    context: PipelineContext,
+    project_id: str,
+) -> dict[str, str]:
+    return {
+        "selection_sha256": prepared.selection_sha256,
+        "recipe_sha256": prepared.recipe_sha256,
+        "project_sha256": context.store.put_bytes(project_id.encode("utf-8")),
+        "code_sha256": context.code_sha256,
+    }
+
+
+def _jsonl_documents(payload: bytes) -> tuple[Document, ...]:
+    return tuple(
+        Document.model_validate_json(line, strict=True)
+        for line in payload.splitlines()
+        if line
+    )
+
+
+def prepare_e3c_translation(
+    context: PipelineContext, project_id: str
+) -> PreparedE3cTranslation:
+    source_recipe = load_source_recipe(
+        context.dataset_root / "e3c-de" / "dataset.yaml"
+    )
+    state = StageState(context.artifact_root / "state", context.store)
+    source_pointer = state.reuse(
+        stage="acquire",
+        target="e3c",
+        semantic_hashes={
+            "recipe_sha256": source_recipe.sha256,
+            "code_sha256": context.code_sha256,
+        },
+    )
+    if source_pointer is None:
+        raise ValueError("missing verified E3C acquisition")
+    normalization_pointer = state.reuse(
+        stage="normalize",
+        target="e3c",
+        semantic_hashes={
+            "recipe_sha256": source_recipe.sha256,
+            "source_snapshot_sha256": source_pointer.subject_sha256,
+            "code_sha256": context.code_sha256,
+        },
+    )
+    if normalization_pointer is None:
+        raise ValueError("missing verified E3C normalization")
+    normalization = NormalizationManifest.model_validate_json(
+        context.store.read_bytes(normalization_pointer.subject_sha256),
+        strict=True,
+    )
+    seed_sha256 = context.store.put_bytes(
+        b"phentrieve-e3c-de-feasibility-30-v1"
+    )
+    override_sha256 = context.store.put_bytes(canonical_json_bytes([]))
+    selection_pointer = state.reuse(
+        stage="select",
+        target="e3c",
+        semantic_hashes={
+            "input_sha256": normalization.inventory.sha256,
+            "selection_seed_sha256": seed_sha256,
+            "override_sha256": override_sha256,
+            "code_sha256": context.code_sha256,
+        },
+    )
+    if selection_pointer is None:
+        raise ValueError("missing verified E3C selection")
+    selection = E3cSelectionManifest.model_validate_json(
+        context.store.read_bytes(selection_pointer.subject_sha256),
+        strict=True,
+    )
+    documents = _jsonl_documents(
+        context.store.read_bytes(normalization.documents.sha256)
+    )
+    by_case = {
+        (document.source_case_id, document.language): document
+        for document in documents
+    }
+    inputs: list[TranslationInput] = []
+    for record in selection.records:
+        document = by_case.get((record.source_case_id, record.language))
+        if document is None:
+            raise ValueError(
+                f"selected E3C document is missing: {record.source_case_id}"
+            )
+        inputs.append(
+            TranslationInput(
+                document=document,
+                expected_source_sha256=record.metrics.document_sha256,
+            )
+        )
+    loaded_recipe = load_translation_recipe(
+        context.dataset_root / "e3c-de" / "translation.yaml"
+    )
+    prepared = PreparedE3cTranslation(
+        inputs=tuple(inputs),
+        recipe=loaded_recipe.value,
+        recipe_sha256=loaded_recipe.sha256,
+        selection_sha256=selection_pointer.subject_sha256,
+        previous_manifest=None,
+    )
+    previous_pointer = state.reuse(
+        stage="translate",
+        target="e3c",
+        semantic_hashes=_semantic_hashes(prepared, context, project_id),
+    )
+    previous_manifest = (
+        TranslationManifest.model_validate_json(
+            context.store.read_bytes(previous_pointer.subject_sha256),
+            strict=True,
+        )
+        if previous_pointer is not None
+        else None
+    )
+    return PreparedE3cTranslation(
+        inputs=prepared.inputs,
+        recipe=prepared.recipe,
+        recipe_sha256=prepared.recipe_sha256,
+        selection_sha256=prepared.selection_sha256,
+        previous_manifest=previous_manifest,
+    )
+
+
+def estimate_prepared_translation(
+    prepared: PreparedE3cTranslation,
+) -> TranslationEstimate:
+    codepoints = sum(len(item.document.text) for item in prepared.inputs)
+    return TranslationEstimate(
+        case_count=len(prepared.inputs),
+        input_codepoints=codepoints,
+        cost=estimate_google_nmt(codepoints, prepared.recipe.pricing),
+    )
+
+
+def translate_e3c(
+    *,
+    prepared: PreparedE3cTranslation,
+    context: PipelineContext,
+    project_id: str,
+    authorized: bool,
+    provider_factory: Callable[[], object],
+) -> TranslationStageResult:
+    if not authorized:
+        return TranslationStageResult(authorized=False)
+
+    provider = cast(TranslationProvider, provider_factory())
+    translated = translate_documents(
+        inputs=prepared.inputs,
+        provider=provider,
+        store=context.store,
+        recipe=prepared.recipe,
+        recipe_sha256=prepared.recipe_sha256,
+        selection_sha256=prepared.selection_sha256,
+        project_id=project_id,
+        created_at=context.clock(),
+        language_detector=detect_supported_language,
+        previous_manifest=prepared.previous_manifest,
+    )
+    manifest_bytes = translated.manifest.canonical_bytes()
+    subject_sha256 = context.store.put_bytes(manifest_bytes)
+    estimate = estimate_prepared_translation(prepared)
+    finished = context.clock()
+    run = RunManifest(
+        run_id=context.run_id_provider(),
+        stage="translate",
+        status=RunStatus.COMPLETE,
+        started_at=finished,
+        finished_at=finished,
+        pipeline_commit=context.pipeline_commit,
+        dirty_state=context.dirty_state,
+        code_sha256=context.code_sha256,
+        config_sha256=prepared.recipe_sha256,
+        input_sha256=(prepared.selection_sha256,),
+        output_sha256=(subject_sha256,),
+        selection_id=prepared.recipe.selection_id,
+        pricing_snapshot_id=(
+            prepared.recipe.pricing.pricing_snapshot_id
+        ),
+        usage=UsageMetrics(
+            input_characters=estimate.input_codepoints,
+            estimated_cost=float(estimate.cost.estimated_cost),
+        ),
+    )
+    run_sha256 = context.store.put_bytes(
+        canonical_json_bytes(run.model_dump(mode="json"))
+    )
+    link = ProvenanceRunLink(
+        subject_role=ProvenanceSubjectRole.TRANSLATION_MANIFEST,
+        subject_sha256=subject_sha256,
+        run_manifest_sha256=run_sha256,
+    )
+    link_sha256 = context.store.put_bytes(link.canonical_bytes())
+    semantic = _semantic_hashes(prepared, context, project_id)
+    StageState(context.artifact_root / "state", context.store).publish(
+        stage="translate",
+        target="e3c",
+        subject_role=ProvenanceSubjectRole.TRANSLATION_MANIFEST,
+        subject_sha256=subject_sha256,
+        semantic_hashes=semantic,
+    )
+    return TranslationStageResult(
+        authorized=True,
+        subject_sha256=subject_sha256,
+        run_manifest_sha256=run_sha256,
+        provenance_link_sha256=link_sha256,
+        translated_count=len(translated.translated_case_ids),
+        failed_count=len(translated.failed_case_ids),
+        reused_count=len(translated.reused_case_ids),
+    )

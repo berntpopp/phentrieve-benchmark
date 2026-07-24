@@ -14,6 +14,7 @@ from phentrieve_benchmark.models.pipeline import (
     ProvenanceSubjectRole,
     SourceSnapshotManifest,
 )
+from phentrieve_benchmark.models.translation import TranslationManifest
 from phentrieve_benchmark.provenance.canonical import canonical_json_bytes
 from phentrieve_benchmark.provenance.digests import Sha256Hex, sha256_bytes
 
@@ -66,7 +67,7 @@ class StageState:
     def path_for(
         self, stage: str, target: str, semantic_hashes: dict[str, str]
     ) -> Path:
-        if stage not in {"acquire", "normalize", "select"}:
+        if stage not in {"acquire", "normalize", "select", "translate"}:
             raise ValueError("invalid stage")
         if target not in {"e3c", "raghpo", "csc", "gsc"}:
             raise ValueError("invalid target")
@@ -161,3 +162,10 @@ class StageState:
                 value = self.store.read_bytes(reference.sha256)
                 if len(value) != reference.byte_length:
                     raise ValueError("normalized artifact byte length mismatch")
+        elif pointer.subject_role is ProvenanceSubjectRole.TRANSLATION_MANIFEST:
+            manifest = TranslationManifest.model_validate_json(
+                subject, strict=True
+            )
+            for record in manifest.records:
+                self.store.read_bytes(record.source_sha256)
+                self.store.read_bytes(record.translation_sha256)

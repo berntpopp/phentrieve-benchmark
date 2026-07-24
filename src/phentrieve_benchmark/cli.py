@@ -14,7 +14,13 @@ from phentrieve_benchmark.pipeline.prepare import (
     prepare_target,
     select_e3c,
 )
+from phentrieve_benchmark.pipeline.translate import (
+    estimate_prepared_translation,
+    prepare_e3c_translation,
+    translate_e3c,
+)
 from phentrieve_benchmark.provenance.code_identity import code_sha256
+from phentrieve_benchmark.translation.google_nmt import create_google_nmt_adapter
 
 app = typer.Typer(no_args_is_help=True)
 acquire_app = typer.Typer(no_args_is_help=True)
@@ -22,6 +28,7 @@ normalize_app = typer.Typer(no_args_is_help=True)
 select_app = typer.Typer(no_args_is_help=True)
 prepare_app = typer.Typer(no_args_is_help=True)
 smoke_app = typer.Typer(no_args_is_help=True)
+translate_app = typer.Typer(no_args_is_help=True)
 DatasetRoot = Annotated[Path, typer.Option()]
 ArtifactRoot = Annotated[Path, typer.Option()]
 Cohort = Annotated[Literal["feasibility-30"], typer.Option()]
@@ -30,6 +37,7 @@ app.add_typer(normalize_app, name="normalize")
 app.add_typer(select_app, name="select")
 app.add_typer(prepare_app, name="prepare")
 app.add_typer(smoke_app, name="smoke")
+app.add_typer(translate_app, name="translate")
 
 
 @app.callback()
@@ -79,6 +87,40 @@ def _emit(result: StageResult) -> None:
         f"stage={result.stage} target={result.target} "
         f"subject_sha256={result.subject_sha256} "
         f"reused={str(result.reused).lower()}"
+    )
+
+
+@translate_app.command("e3c")
+def translate_e3c_command(
+    project_id: Annotated[str, typer.Option()],
+    location: Annotated[str, typer.Option()] = "global",
+    dataset_root: DatasetRoot = Path("datasets"),
+    artifact_root: ArtifactRoot = Path(".artifacts"),
+) -> None:
+    context = _pipeline_context(dataset_root, artifact_root)
+    prepared = prepare_e3c_translation(context, project_id)
+    estimate = estimate_prepared_translation(prepared)
+    typer.echo(
+        f"cases={estimate.case_count} "
+        f"input_characters={estimate.input_codepoints} "
+        f"upper_bound={estimate.cost.currency} "
+        f"{estimate.cost.upper_bound:f}"
+    )
+    if not typer.confirm("Google NMT translation starten?"):
+        raise typer.Exit(code=1)
+    result = translate_e3c(
+        prepared=prepared,
+        context=context,
+        project_id=project_id,
+        authorized=True,
+        provider_factory=lambda: create_google_nmt_adapter(
+            project_id=project_id, location=location
+        ),
+    )
+    typer.echo(
+        f"subject_sha256={result.subject_sha256} "
+        f"translated={result.translated_count} "
+        f"failed={result.failed_count} reused={result.reused_count}"
     )
 
 

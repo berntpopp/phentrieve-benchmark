@@ -196,6 +196,7 @@ class ProvenanceSubjectRole(StrEnum):
     SOURCE_SNAPSHOT = "source_snapshot"
     NORMALIZATION_MANIFEST = "normalization_manifest"
     SELECTION_MANIFEST = "selection_manifest"
+    TRANSLATION_MANIFEST = "translation_manifest"
 
 
 class ProvenanceRunLink(BaseModel):
