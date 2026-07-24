@@ -1564,20 +1564,22 @@ git commit -m "feat: require interactive paid-run authorization"
 - Create: `src/phentrieve_benchmark/provenance/events.py`
 - Create: `tests/unit/provenance/test_events.py`
 
-**Security contract amendment:** Event names are lowercase ASCII identifiers
-matching `[a-z][a-z0-9_.:-]{0,63}`. Metadata keys match
-`[a-z][a-z0-9_]{0,63}` and reject reserved `event`, any occurrence of `text`,
-`prompt`, `credential`, `exception`, `secret`, or `password`, and the exact
-credential fields `api_key`, `access_token`, `refresh_token`, `authorization`,
-`cookie`, `private_key`, and `token`. String values are text-free ASCII
-identifiers, codes, or hashes matching
-`[A-Za-z0-9][A-Za-z0-9._/@:+-]{0,255}`; free prose, whitespace, Unicode, and
-empty strings are rejected. Caller-owned mappings and non-byte sequences are
-consumed at most once into memoized built-in dict/list snapshots, including at
-nested and shared references. Duplicate normalized keys, cycles,
+**Security contract amendment:** Structured events use a closed, field-specific
+schema allowlist; a denylist or generic value grammar is not evidence that an
+event is text-free. The only current event is `case_complete`, and it requires
+exactly `case_id`, `duration_ms`, and `status`. `case_id` matches
+`[A-Za-z0-9][A-Za-z0-9_-]{0,127}`, `duration_ms` is a strict non-boolean
+integer greater than or equal to zero, and `status` is exactly `ok`. Missing or
+extra fields and unknown event types fail closed. Every future event type
+requires a reviewed schema and event-specific tests before it can be written.
+
+As defense in depth, caller-owned mappings and non-byte sequences are consumed
+at most once into memoized built-in dict/list snapshots, including nested and
+shared references. A recursive sensitive-key precheck runs during snapshotting
+and before semantic schema validation. Duplicate normalized keys, cycles,
 buffer-protocol and byte-oriented containers, raw exceptions, non-finite
-numbers, and non-JSON values fail closed. Validation and canonical rendering of
-the isolated snapshot complete before the event path is created or opened.
+numbers, and non-JSON values fail closed. Snapshotting, field validation, and
+canonical rendering all complete before the event path is created or opened.
 
 - [ ] **Step 1: Write failing event-safety tests**
 

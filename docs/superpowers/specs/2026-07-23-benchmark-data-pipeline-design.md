@@ -561,6 +561,16 @@ Clinical text and credentials never appear in console output. Every run also
 writes structured `events.jsonl` records for later analysis. `Ctrl+C` produces
 an `incomplete` manifest and leaves validated artifacts resumable.
 
+Structured event logging uses closed, field-specific schemas rather than
+accepting generic metadata. The first implementation supports only
+`case_complete`, with all three fields required: an opaque conservative-ASCII
+`case_id`, a strict non-negative integer `duration_ms`, and `status` fixed to
+the reviewed lifecycle code `ok`. Unknown event types and fields are rejected.
+Every new event type requires a design review, an explicit field schema, and
+event-specific tests before it can be emitted. Caller containers are first
+snapshotted once into built-in values, then semantic validation and canonical
+rendering complete before the event file is opened.
+
 ## 11. Error and Resume Semantics
 
 - Provider failures never become empty valid translations.

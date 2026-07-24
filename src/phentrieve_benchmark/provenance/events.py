@@ -1,14 +1,14 @@
 """Safe append-only structured event logging.
 
-``EventWriter`` accepts a caller-supplied, trusted local path.  It validates an
-entire event into an isolated built-in snapshot and renders its canonical JSON
-record before opening that path. Metadata keys use ``[a-z][a-z0-9_]{0,63}``;
-string values use bounded (1--256 byte) ASCII identifier/code characters and
-cannot contain whitespace or prose. A single pre-rendered record is appended
-with one write while the file is opened in append mode. This preserves prior
-content and relies on the operating system's normal append semantics;
-coordinating independent processes beyond that is intentionally outside this
-small, local event-log boundary.
+``EventWriter`` accepts a caller-supplied, trusted local path. It snapshots
+caller-owned containers once, then validates the isolated built-ins against an
+explicit event schema before rendering canonical JSON. The only current schema
+is ``case_complete(case_id, duration_ms, status)``; every field is required and
+``status`` is exactly ``"ok"``. New event types require a reviewed schema rather
+than accepting arbitrary metadata. One pre-rendered record is appended with one
+write in append mode. This preserves prior content and relies on the operating
+system's normal append semantics; coordinating independent processes is outside
+this small, local event-log boundary.
 """
 
 import math
@@ -36,17 +36,25 @@ _FORBIDDEN_KEY_FRAGMENTS = (
 _FORBIDDEN_EXACT_KEYS = frozenset(
     {
         "api_key",
+        "api_token",
         "access_token",
+        "auth_header",
         "refresh_token",
         "authorization",
+        "client_key",
         "cookie",
+        "id_token",
+        "oauth_token",
         "private_key",
+        "session_cookie",
         "token",
     }
 )
 _SAFE_EVENT_NAME = re.compile(r"[a-z][a-z0-9_.:-]{0,63}", re.ASCII)
 _SAFE_METADATA_KEY = re.compile(r"[a-z][a-z0-9_]{0,63}", re.ASCII)
-_SAFE_STRING_VALUE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._/@:+-]{0,255}", re.ASCII)
+_CASE_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9_-]{0,127}", re.ASCII)
+_CASE_COMPLETE_FIELDS = frozenset({"case_id", "duration_ms", "status"})
+_CASE_COMPLETE_STATUSES = frozenset({"ok"})
 
 
 def _validate_event_name(event: object) -> str:
@@ -193,10 +201,6 @@ def _snapshot_value(
     if value is None or type(value) in (bool, int):
         return value
     if type(value) is str:
-        if _SAFE_STRING_VALUE.fullmatch(value) is None:
-            raise UnsafeEventError(
-                f"unsafe string value at {location}: expected bounded ASCII code"
-            )
         return value
     if type(value) is float:
         if math.isfinite(value):
@@ -223,6 +227,42 @@ def _snapshot_value(
     )
 
 
+def _validate_case_complete(fields: dict[str, Any]) -> None:
+    unknown = sorted(fields.keys() - _CASE_COMPLETE_FIELDS)
+    if unknown:
+        raise UnsafeEventError(
+            f"case_complete field not allowed: {', '.join(unknown)}"
+        )
+
+    missing = sorted(_CASE_COMPLETE_FIELDS - fields.keys())
+    if missing:
+        raise UnsafeEventError(
+            f"case_complete missing required field: {', '.join(missing)}"
+        )
+
+    case_id = fields["case_id"]
+    if type(case_id) is not str or _CASE_ID.fullmatch(case_id) is None:
+        raise UnsafeEventError(
+            "case_complete case_id must match [A-Za-z0-9][A-Za-z0-9_-]{0,127}"
+        )
+
+    duration_ms = fields["duration_ms"]
+    if type(duration_ms) is not int or duration_ms < 0:
+        raise UnsafeEventError(
+            "case_complete duration_ms must be a non-negative integer"
+        )
+
+    status = fields["status"]
+    if type(status) is not str or status not in _CASE_COMPLETE_STATUSES:
+        raise UnsafeEventError("case_complete status must be exactly 'ok'")
+
+
+def _validate_event_schema(event: str, fields: dict[str, Any]) -> None:
+    if event != "case_complete":
+        raise UnsafeEventError(f"unknown event type: {event}")
+    _validate_case_complete(fields)
+
+
 class EventWriter:
     """Append validated canonical JSON events to one trusted local file."""
 
@@ -240,6 +280,7 @@ class EventWriter:
         snapshot = _snapshot_mapping(
             fields, location="fields", active=set(), memo={}
         )
+        _validate_event_schema(event_name, snapshot)
         record: dict[str, Any] = {"event": event_name, **snapshot}
         try:
             encoded_record = canonical_json_bytes(record)

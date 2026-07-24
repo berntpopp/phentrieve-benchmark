@@ -17,6 +17,8 @@ class StatefulMapping(Mapping[str, object]):
     def __getitem__(self, key: str) -> object:
         values: dict[str, object] = {
             "case_id": "synthetic-1",
+            "duration_ms": 12,
+            "status": "ok",
             "prompt": "must-not-be-written",
         }
         return values[key]
@@ -25,10 +27,10 @@ class StatefulMapping(Mapping[str, object]):
         self.iterations += 1
         if self.unsafe_first or self.iterations > 1:
             return iter(("prompt",))
-        return iter(("case_id",))
+        return iter(("case_id", "duration_ms", "status"))
 
     def __len__(self) -> int:
-        return 1
+        return 3
 
 
 class StatefulSequence(Sequence[str]):
@@ -89,11 +91,15 @@ def test_writer_appends_one_lf_terminated_event_without_rewriting_content(
     path = tmp_path / "events.jsonl"
     path.write_bytes(b'{"event":"existing"}\n')
 
-    EventWriter(path).write(event="case_complete", fields={"case_id": "synthetic-1"})
+    EventWriter(path).write(
+        event="case_complete",
+        fields={"case_id": "synthetic-1", "duration_ms": 12, "status": "ok"},
+    )
 
     assert path.read_bytes() == (
         b'{"event":"existing"}\n'
-        b'{"case_id":"synthetic-1","event":"case_complete"}\n'
+        b'{"case_id":"synthetic-1","duration_ms":12,'
+        b'"event":"case_complete","status":"ok"}\n'
     )
 
 
@@ -180,7 +186,15 @@ def test_writer_snapshots_stateful_mapping_without_second_iteration(
     mapping = StatefulMapping()
     fields: Mapping[str, Any] = {"details": mapping} if nested else mapping
 
-    EventWriter(path).write(event="case_complete", fields=fields)
+    if nested:
+        existing = b'{"event":"existing"}\n'
+        path.write_bytes(existing)
+        with pytest.raises(UnsafeEventError, match="details"):
+            EventWriter(path).write(event="case_complete", fields=fields)
+        assert path.read_bytes() == existing
+    else:
+        EventWriter(path).write(event="case_complete", fields=fields)
+        assert b"synthetic-1" in path.read_bytes()
 
     assert mapping.iterations == 1
     assert b"prompt" not in path.read_bytes()
@@ -204,15 +218,17 @@ def test_writer_rejects_unsafe_first_custom_mapping_without_mutation(
 
 def test_writer_snapshots_shared_stateful_container_only_once(tmp_path: Path) -> None:
     path = tmp_path / "events.jsonl"
+    existing = b'{"event":"existing"}\n'
+    path.write_bytes(existing)
     mapping = StatefulMapping()
 
-    EventWriter(path).write(
-        event="case_complete", fields={"first": mapping, "second": mapping}
-    )
+    with pytest.raises(UnsafeEventError, match="field"):
+        EventWriter(path).write(
+            event="case_complete", fields={"first": mapping, "second": mapping}
+        )
 
     assert mapping.iterations == 1
-    assert b"prompt" not in path.read_bytes()
-    assert path.read_bytes().count(b"synthetic-1") == 2
+    assert path.read_bytes() == existing
 
 
 def test_writer_rejects_duplicate_mapping_items_without_mutation(
@@ -298,46 +314,27 @@ def test_writer_rejects_non_lowercase_ascii_metadata_keys(
         )
 
 
-@pytest.mark.parametrize(
-    "value",
-    [
-        "patient has severe headache",
-        "Größe",
-        "two words",
-        "ok\nunsafe",
-        "",
-        "x" * 257,
-    ],
-)
-def test_writer_rejects_free_text_string_values_recursively(
-    tmp_path: Path, value: str
-) -> None:
-    path = tmp_path / "events.jsonl"
-
-    with pytest.raises(UnsafeEventError, match="string value"):
-        EventWriter(path).write(
-            event="unsafe", fields={"details": [{"status": value}]}
-        )
-
-    assert not path.exists()
-
-
-def test_writer_snapshots_general_sequences_once_and_serializes_tuples(
+def test_writer_snapshots_disallowed_sequence_once_before_schema_rejection(
     tmp_path: Path,
 ) -> None:
     path = tmp_path / "events.jsonl"
+    existing = b'{"event":"existing"}\n'
+    path.write_bytes(existing)
     sequence = StatefulSequence()
 
-    EventWriter(path).write(
-        event="case_complete",
-        fields={"codes": ("HP:0001250", "ok"), "statuses": sequence},
-    )
+    with pytest.raises(UnsafeEventError, match="statuses"):
+        EventWriter(path).write(
+            event="case_complete",
+            fields={
+                "case_id": "synthetic-1",
+                "duration_ms": 12,
+                "status": "ok",
+                "statuses": sequence,
+            },
+        )
 
     assert sequence.iterations == 1
-    assert path.read_bytes() == (
-        b'{"codes":["HP:0001250","ok"],"event":"case_complete",'
-        b'"statuses":["ok"]}\n'
-    )
+    assert path.read_bytes() == existing
 
 
 @pytest.mark.parametrize(
@@ -371,16 +368,178 @@ def test_writer_rejects_buffer_containers_without_file_mutation(
         assert not path.exists()
 
 
-def test_writer_keeps_ordinary_integer_sequences_as_json_arrays(
+def test_writer_rejects_unreviewed_integer_sequence_fields(
     tmp_path: Path,
 ) -> None:
     path = tmp_path / "events.jsonl"
+    existing = b'{"event":"existing"}\n'
+    path.write_bytes(existing)
 
-    EventWriter(path).write(
-        event="case_complete",
-        fields={"list_values": [1, 2], "tuple_values": (3, 4)},
-    )
+    with pytest.raises(UnsafeEventError, match="list_values"):
+        EventWriter(path).write(
+            event="case_complete",
+            fields={
+                "case_id": "synthetic-1",
+                "duration_ms": 12,
+                "status": "ok",
+                "list_values": [1, 2],
+                "tuple_values": (3, 4),
+            },
+        )
 
-    assert path.read_bytes() == (
-        b'{"event":"case_complete","list_values":[1,2],"tuple_values":[3,4]}\n'
-    )
+    assert path.read_bytes() == existing
+
+
+@pytest.mark.parametrize(
+    "field",
+    [
+        "api_token",
+        "oauth_token",
+        "id_token",
+        "session_cookie",
+        "client_key",
+        "auth_header",
+    ],
+)
+def test_sensitive_precheck_precedes_unknown_event_schema(
+    tmp_path: Path, field: str
+) -> None:
+    path = tmp_path / "events.jsonl"
+    existing = b'{"event":"existing"}\n'
+    path.write_bytes(existing)
+
+    with pytest.raises(UnsafeEventError, match=rf"unsafe event field.*{field}"):
+        EventWriter(path).write(event="unsafe", fields={field: "opaque"})
+
+    assert path.read_bytes() == existing
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [("diagnosis", "headache"), ("patient_name", "Alice")],
+)
+def test_writer_rejects_unreviewed_clinical_fields_without_mutation(
+    tmp_path: Path, field: str, value: object
+) -> None:
+    path = tmp_path / "events.jsonl"
+    existing = b'{"event":"existing"}\n'
+    path.write_bytes(existing)
+    fields: dict[str, object] = {
+        "case_id": "synthetic-1",
+        "duration_ms": 12,
+        "status": "ok",
+        field: value,
+    }
+
+    with pytest.raises(UnsafeEventError, match=rf"field not allowed: {field}"):
+        EventWriter(path).write(event="case_complete", fields=fields)
+
+    assert path.read_bytes() == existing
+
+
+def test_writer_rejects_unknown_event_before_file_mutation(tmp_path: Path) -> None:
+    path = tmp_path / "events.jsonl"
+
+    with pytest.raises(UnsafeEventError, match="unknown event"):
+        EventWriter(path).write(
+            event="stage_complete",
+            fields={"case_id": "synthetic-1", "duration_ms": 12, "status": "ok"},
+        )
+
+    assert not path.exists()
+
+
+def test_writer_rejects_unknown_field_before_file_mutation(tmp_path: Path) -> None:
+    path = tmp_path / "events.jsonl"
+
+    with pytest.raises(UnsafeEventError, match="attempt_count"):
+        EventWriter(path).write(
+            event="case_complete",
+            fields={
+                "case_id": "synthetic-1",
+                "duration_ms": 12,
+                "status": "ok",
+                "attempt_count": 1,
+            },
+        )
+
+    assert not path.exists()
+
+
+@pytest.mark.parametrize(
+    "case_id",
+    [
+        "",
+        "patient one",
+        "patient@example",
+        "patient.name",
+        "Größe",
+        "-synthetic-1",
+        "x" * 129,
+        1,
+    ],
+)
+def test_writer_rejects_invalid_case_id(tmp_path: Path, case_id: object) -> None:
+    path = tmp_path / "events.jsonl"
+
+    with pytest.raises(UnsafeEventError, match="case_id"):
+        EventWriter(path).write(
+            event="case_complete",
+            fields={"case_id": case_id, "duration_ms": 12, "status": "ok"},
+        )
+
+    assert not path.exists()
+
+
+@pytest.mark.parametrize("duration_ms", [-1, True, False, 1.0, "1"])
+def test_writer_rejects_invalid_duration_ms(
+    tmp_path: Path, duration_ms: object
+) -> None:
+    path = tmp_path / "events.jsonl"
+
+    with pytest.raises(UnsafeEventError, match="duration_ms"):
+        EventWriter(path).write(
+            event="case_complete",
+            fields={
+                "case_id": "synthetic-1",
+                "duration_ms": duration_ms,
+                "status": "ok",
+            },
+        )
+
+    assert not path.exists()
+
+
+@pytest.mark.parametrize("status", ["failed", "headache", "OK", "", 1])
+def test_writer_rejects_invalid_status(tmp_path: Path, status: object) -> None:
+    path = tmp_path / "events.jsonl"
+
+    with pytest.raises(UnsafeEventError, match="status"):
+        EventWriter(path).write(
+            event="case_complete",
+            fields={
+                "case_id": "synthetic-1",
+                "duration_ms": 12,
+                "status": status,
+            },
+        )
+
+    assert not path.exists()
+
+
+@pytest.mark.parametrize("missing", ["case_id", "duration_ms", "status"])
+def test_writer_requires_all_case_complete_fields(
+    tmp_path: Path, missing: str
+) -> None:
+    path = tmp_path / "events.jsonl"
+    fields: dict[str, object] = {
+        "case_id": "synthetic-1",
+        "duration_ms": 12,
+        "status": "ok",
+    }
+    del fields[missing]
+
+    with pytest.raises(UnsafeEventError, match=missing):
+        EventWriter(path).write(event="case_complete", fields=fields)
+
+    assert not path.exists()
