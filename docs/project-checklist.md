@@ -45,6 +45,16 @@ Status:
 
 ### Deutsche Übersetzung
 
+- [x] Google Cloud Translation Advanced v3 mit `general/nmt` als
+      Übersetzungsweg spezifizieren.
+- [x] Textmenge der 30 Fälle bestimmen: 59.517 Zeichen und 8.977 Wörter.
+- [x] Kostenobergrenze anhand des gepinnten Listenpreises grob bestimmen:
+      1,19034 USD vor einem möglichen monatlichen Guthaben.
+- [x] Getrennte unveränderliche Original- und Übersetzungsartefakte,
+      textfreies Manifest und Revisionsmodell implementieren.
+- [x] Kostenanzeige und ausdrückliche Bestätigung vor Erzeugung des
+      Google-Clients implementieren.
+- [x] Providerzugriff und Übersetzungsablauf offline testbar vorbereiten.
 - [ ] Die 30 ausgewählten englischen, französischen und spanischen Volltexte
       nach Deutsch übersetzen.
 - [ ] Originaltexte und deutsche Übersetzungen als getrennte unveränderliche
@@ -170,7 +180,8 @@ GSC-Fassungen erzeugt.
 
 ## Aktuelle Priorität
 
-1. E3C-Übersetzungsphase spezifizieren und Kosten grob bestimmen.
+1. Den vorbereiteten Google-NMT-Lauf nach erneuter Kostenanzeige und
+   ausdrücklicher Freigabe ausführen.
 2. Umfang und Auswahl der bilingualen/fachsprachlichen Prüfung klären.
-3. Danach die 30 E3C-Fälle übersetzen.
+3. Die erzeugten deutschen Übersetzungen prüfen.
 4. CSC und GSC bleiben bis zu einer ausdrücklichen Wiederaufnahme pausiert.

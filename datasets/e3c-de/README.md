@@ -23,3 +23,9 @@ removed according to the adapter contract.
 Only the text-free inventory and selection manifest are tracked. Upstream
 licensing is recorded in `license-evidence.yaml` and `LICENSES.md`; the source
 corpus is not redistributed.
+
+The next independent stage translates the selected 30 reports with Google
+NMT. Its pinned configuration is in `translation.yaml`, and operation,
+costing, artifact separation, and review boundaries are documented in
+`translations/README.md`. Translation is never part of the regular offline
+CI and requires an explicit confirmation after the cost preview.
