@@ -169,6 +169,19 @@ def test_estimate_json_uses_exact_decimal_strings() -> None:
     }
 
 
+def test_estimate_validation_schema_advertises_plain_decimal_strings() -> None:
+    validation_schema = CostEstimate.model_json_schema(mode="validation")
+    serialization_schema = CostEstimate.model_json_schema(mode="serialization")
+
+    for field in ("estimated_cost", "upper_bound"):
+        money_schema = validation_schema["properties"][field]
+
+        assert money_schema["type"] == "string"
+        assert money_schema["pattern"] == r"-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?"
+        assert "anyOf" not in money_schema
+        assert serialization_schema["properties"][field]["type"] == "string"
+
+
 def test_estimate_canonicalizes_signed_zero() -> None:
     estimate = CostEstimate(
         currency="USD",

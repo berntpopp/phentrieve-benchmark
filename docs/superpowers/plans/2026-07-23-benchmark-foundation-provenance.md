@@ -1277,22 +1277,26 @@ git commit -m "feat: separate run and release manifests"
 
 **Security contract amendment:** Python callers construct monetary fields with
 finite, non-negative `Decimal` instances; JSON represents them as plain
-decimal strings. Values are normalized for display without currency-specific
-rounding, so the displayed upper bound is never understated. A signed zero is
-canonicalized to zero. Every prompt-displayed identifier (`stage`, `provider`,
-`model`, and `pricing_snapshot_id`) is a nonempty ASCII identifier composed
-only of letters, digits, and `._/@:+-`; this rejects whitespace, controls,
-bidi characters, ANSI escapes, and prompt delimiters. Authorization invokes
-`confirm` only when `interactive is True` and accepts only a literal boolean
-`True` result. Adapters must convert their explicitly documented UI input to
-that boolean before calling this function.
+decimal strings matching `-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?`; the validation
+JSON Schema advertises only that string form. Values are normalized for display
+without currency-specific rounding, so the displayed upper bound is never
+understated. A signed zero is canonicalized to zero. Every prompt-displayed
+identifier (`stage`, `provider`, `model`, and `pricing_snapshot_id`) is a
+nonempty ASCII identifier composed only of letters, digits, and `._/@:+-`; this
+rejects whitespace, controls, bidi characters, ANSI escapes, and prompt
+delimiters. Currency is exactly three uppercase ASCII letters. Authorization
+invokes `confirm` only when `interactive is True` and accepts only a literal
+boolean `True` result. Adapters must convert their explicitly documented UI
+input to that boolean before calling this function.
 
 - [ ] **Step 1: Write failing authorization tests**
 
 ```python
+import json
 from decimal import Decimal
 
 import pytest
+from pydantic import ValidationError
 
 from phentrieve_benchmark.policies.paid_operations import (
     CostEstimate,
@@ -1301,19 +1305,21 @@ from phentrieve_benchmark.policies.paid_operations import (
 )
 
 
-def request() -> PaidRunRequest:
-    return PaidRunRequest(
-        stage="translate",
-        provider="google",
-        model="general/nmt",
-        case_count=30,
-        estimate=CostEstimate(
+def request(**updates: object) -> PaidRunRequest:
+    values: dict[str, object] = {
+        "stage": "translate",
+        "provider": "google",
+        "model": "general/nmt",
+        "case_count": 30,
+        "estimate": CostEstimate(
             currency="USD",
             estimated_cost=Decimal("2.83"),
-            upper_bound=Decimal("2.83"),
+            upper_bound=Decimal("3.00"),
             pricing_snapshot_id="google-2026-07-23",
         ),
-    )
+    }
+    values.update(updates)
+    return PaidRunRequest(**values)
 
 
 def test_non_interactive_paid_run_fails_without_prompting() -> None:
@@ -1327,16 +1333,66 @@ def test_non_interactive_paid_run_fails_without_prompting() -> None:
     assert prompts == []
 
 
-def test_interactive_paid_run_requires_explicit_yes() -> None:
-    messages: list[str] = []
+@pytest.mark.parametrize("interactive", [False, 1, "false", object(), None])
+def test_only_literal_boolean_true_can_prompt_for_paid_run(interactive: object) -> None:
+    prompts: list[str] = []
 
-    assert authorize_paid_run(
+    assert not authorize_paid_run(
         request(),
-        interactive=True,
-        confirm=lambda message: messages.append(message) or True,
+        interactive=interactive,
+        confirm=lambda message: prompts.append(message) or True,
     )
-    assert "Estimated cost" in messages[0]
-    assert "Start paid run?" in messages[0]
+    assert prompts == []
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("stage", "translate\nStart paid run?"),
+        ("provider", "google\rStart paid run?"),
+        ("model", "general/nmt\x1b[2J"),
+        ("pricing_snapshot_id", "snapshot|Start paid run?"),
+    ],
+)
+def test_prompt_identifiers_reject_control_and_deceptive_text(
+    field: str, value: str
+) -> None:
+    estimate_values = request().estimate.model_dump()
+    request_values = request().model_dump()
+    if field == "pricing_snapshot_id":
+        estimate_values[field] = value
+        request_values["estimate"] = estimate_values
+    else:
+        request_values[field] = value
+
+    with pytest.raises(ValidationError, match=field):
+        PaidRunRequest(**request_values)
+
+
+def test_estimate_json_uses_exact_decimal_strings() -> None:
+    estimate = CostEstimate.model_validate_json(
+        json.dumps(
+            {
+                "currency": "USD",
+                "estimated_cost": "2.675",
+                "upper_bound": "3.00",
+                "pricing_snapshot_id": "google-2026-07-23",
+            }
+        )
+    )
+
+    assert estimate.estimated_cost == Decimal("2.675")
+    assert estimate.upper_bound == Decimal("3")
+
+
+def test_estimate_validation_schema_advertises_plain_decimal_strings() -> None:
+    schema = CostEstimate.model_json_schema(mode="validation")
+
+    for field in ("estimated_cost", "upper_bound"):
+        money_schema = schema["properties"][field]
+        assert money_schema["type"] == "string"
+        assert money_schema["pattern"] == r"-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?"
+        assert "anyOf" not in money_schema
 
 
 def test_estimate_rejects_upper_bound_below_estimate() -> None:
@@ -1357,15 +1413,46 @@ Expected: FAIL during collection because the `policies` package does not exist.
 
 - [ ] **Step 3: Implement authorization without provider side effects**
 
-Create `src/phentrieve_benchmark/policies/__init__.py` as an empty file.
+Create `src/phentrieve_benchmark/policies/__init__.py` as the package marker.
 
 Create `src/phentrieve_benchmark/policies/paid_operations.py`:
 
 ```python
+import re
 from collections.abc import Callable
 from decimal import Decimal
+from typing import Self
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    ValidationInfo,
+    field_validator,
+    model_validator,
+)
+
+_SAFE_IDENTIFIER = re.compile(r"[A-Za-z0-9._/@:+-]+", re.ASCII)
+_DECIMAL_JSON = re.compile(r"-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?", re.ASCII)
+
+
+def _validate_safe_identifier(value: str) -> str:
+    if _SAFE_IDENTIFIER.fullmatch(value) is None:
+        raise ValueError("must use safe ASCII identifier characters")
+    return value
+
+
+def _canonical_decimal(value: Decimal) -> Decimal:
+    if not value.is_finite():
+        raise ValueError("monetary amount must be finite")
+    if value < 0:
+        raise ValueError("monetary amount must be non-negative")
+    if value.is_zero():
+        return Decimal(0)
+    rendered = format(value, "f")
+    if "." in rendered:
+        rendered = rendered.rstrip("0").rstrip(".")
+    return Decimal(rendered)
 
 
 class CostEstimate(BaseModel):
@@ -1374,12 +1461,43 @@ class CostEstimate(BaseModel):
     )
 
     currency: str
-    estimated_cost: Decimal = Field(ge=0)
-    upper_bound: Decimal = Field(ge=0)
+    estimated_cost: Decimal = Field(
+        ge=0, json_schema_extra={"pattern": _DECIMAL_JSON.pattern}
+    )
+    upper_bound: Decimal = Field(
+        ge=0, json_schema_extra={"pattern": _DECIMAL_JSON.pattern}
+    )
     pricing_snapshot_id: str = Field(min_length=1)
 
+    @field_validator("currency")
+    @classmethod
+    def currency_is_three_uppercase_ascii_letters(cls, currency: str) -> str:
+        if re.fullmatch(r"[A-Z]{3}", currency, flags=re.ASCII) is None:
+            raise ValueError("currency must be three uppercase ASCII letters")
+        return currency
+
+    @field_validator(
+        "estimated_cost", "upper_bound", mode="before", json_schema_input_type=str
+    )
+    @classmethod
+    def require_exact_decimal_money(
+        cls, value: object, info: ValidationInfo
+    ) -> Decimal:
+        if info.mode == "python":
+            if not isinstance(value, Decimal):
+                raise ValueError("monetary amount must be a Decimal")
+            return _canonical_decimal(value)
+        if not isinstance(value, str) or _DECIMAL_JSON.fullmatch(value) is None:
+            raise ValueError("JSON monetary amount must be a plain decimal string")
+        return _canonical_decimal(Decimal(value))
+
+    @field_validator("pricing_snapshot_id")
+    @classmethod
+    def pricing_snapshot_id_is_prompt_safe(cls, value: str) -> str:
+        return _validate_safe_identifier(value)
+
     @model_validator(mode="after")
-    def upper_bound_covers_estimate(self) -> "CostEstimate":
+    def upper_bound_covers_estimate(self) -> Self:
         if self.upper_bound < self.estimated_cost:
             raise ValueError("upper_bound must be at least estimated_cost")
         return self
@@ -1393,6 +1511,11 @@ class PaidRunRequest(BaseModel):
     model: str = Field(min_length=1)
     case_count: int = Field(gt=0)
     estimate: CostEstimate
+
+    @field_validator("stage", "provider", "model")
+    @classmethod
+    def prompt_identifiers_are_safe(cls, value: str) -> str:
+        return _validate_safe_identifier(value)
 
 
 def authorize_paid_run(
@@ -1425,7 +1548,8 @@ uv run ruff check src/phentrieve_benchmark/policies tests/unit/policies
 uv run mypy
 ```
 
-Expected: two policy tests pass and static checks succeed.
+Expected: 37 policy tests pass, including the validation-schema assertion, and
+the static checks succeed.
 
 - [ ] **Step 5: Commit paid-operation safety**
 

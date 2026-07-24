@@ -52,8 +52,12 @@ class CostEstimate(BaseModel):
     )
 
     currency: str
-    estimated_cost: Decimal = Field(ge=0)
-    upper_bound: Decimal = Field(ge=0)
+    estimated_cost: Decimal = Field(
+        ge=0, json_schema_extra={"pattern": _DECIMAL_JSON.pattern}
+    )
+    upper_bound: Decimal = Field(
+        ge=0, json_schema_extra={"pattern": _DECIMAL_JSON.pattern}
+    )
     pricing_snapshot_id: str = Field(min_length=1)
 
     @field_validator("currency")
@@ -63,7 +67,9 @@ class CostEstimate(BaseModel):
             raise ValueError("currency must be three uppercase ASCII letters")
         return currency
 
-    @field_validator("estimated_cost", "upper_bound", mode="before")
+    @field_validator(
+        "estimated_cost", "upper_bound", mode="before", json_schema_input_type=str
+    )
     @classmethod
     def require_exact_decimal_money(
         cls, value: object, info: ValidationInfo
