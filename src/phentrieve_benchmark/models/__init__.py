@@ -13,20 +13,45 @@ from phentrieve_benchmark.models.manifest import (
     RunStatus,
     UsageMetrics,
 )
+from phentrieve_benchmark.models.pipeline import (
+    ArchiveFormat,
+    ArtifactReference,
+    NormalizationCount,
+    NormalizationManifest,
+    ProvenanceRunLink,
+    ProvenanceSubjectRole,
+    SourceMember,
+    SourceSnapshotManifest,
+    WarningCount,
+)
 from phentrieve_benchmark.models.review import (
     ManualReviewRequirement,
     ManualReviewStatus,
     ReviewKind,
     ReviewRecord,
 )
+from phentrieve_benchmark.models.source_annotation import (
+    SourceAnnotation,
+    SourceAnnotationSet,
+    SourceAttribute,
+    SourceRelation,
+    SourceRelationArgument,
+    validate_source_annotation_set,
+)
 
 __all__ = [
     "Annotation",
     "AnnotationSet",
+    "ArchiveFormat",
+    "ArtifactReference",
     "Document",
     "EvidenceSpan",
     "ManualReviewRequirement",
     "ManualReviewStatus",
+    "NormalizationCount",
+    "NormalizationManifest",
+    "ProvenanceRunLink",
+    "ProvenanceSubjectRole",
     "ProviderRunIdentity",
     "ReleaseManifest",
     "ReleaseRunLink",
@@ -34,7 +59,16 @@ __all__ = [
     "ReviewRecord",
     "RunManifest",
     "RunStatus",
+    "SourceAnnotation",
+    "SourceAnnotationSet",
+    "SourceAttribute",
+    "SourceMember",
+    "SourceRelation",
+    "SourceRelationArgument",
+    "SourceSnapshotManifest",
     "TranslationStatus",
     "UsageMetrics",
+    "WarningCount",
     "validate_annotation_set",
+    "validate_source_annotation_set",
 ]
