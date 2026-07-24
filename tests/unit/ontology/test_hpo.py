@@ -42,6 +42,36 @@ def test_loads_strict_immutable_hpo_index() -> None:
     assert index.terms["HP:0000005"].consider == ("HP:0000001",)
     assert index.alternate_to_primary["HP:1000002"] == "HP:0000002"
     assert "HP:0000006" not in index.alternate_to_primary
+    assert index.terms["HP:0000001"].umls_cuis == ("C0000001",)
+    assert index.umls_to_hpo["C0000001"] == (
+        "HP:0000001",
+        "HP:0000002",
+    )
+    assert index.umls_to_hpo["C0000003"] == ("HP:0000003",)
+
+
+@pytest.mark.parametrize(
+    "xref_lines",
+    [
+        b"xref: UMLS:not-a-cui\n",
+        b"xref: UMLS:C0000001\nxref: UMLS:C0000001\n",
+    ],
+)
+def test_rejects_malformed_and_duplicate_umls_xrefs(
+    xref_lines: bytes,
+) -> None:
+    body = (
+        synthetic_hpo_obo()
+        + b"\n[Term]\nid: HP:0000008\nname: Bad xref\n"
+        + xref_lines
+    )
+
+    with pytest.raises(HpoIndexError, match="UMLS"):
+        load_hpo_index(
+            body,
+            release="v2026-06-23",
+            ontology_sha256=sha256(body).hexdigest(),
+        )
 
 
 @pytest.mark.parametrize(

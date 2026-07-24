@@ -5,16 +5,20 @@ ontology: hp
 [Term]
 id: HP:0000001
 name: Active root
+xref: UMLS:C0000001
 
 [Term]
 id: HP:0000002
 name: Active with alternate
+xref: UMLS:C0000001
+xref: SNOMEDCT_US:123
 alt_id: HP:1000002
 alt_id: HP:0000006
 
 [Term]
 id: HP:0000003
 name: Obsolete single
+xref: UMLS:C0000003
 is_obsolete: true
 replaced_by: HP:0000002
 

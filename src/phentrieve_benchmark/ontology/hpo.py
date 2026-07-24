@@ -15,6 +15,7 @@ from phentrieve_benchmark.acquisition.recipes import LoadedRecipe, _load_model
 from phentrieve_benchmark.provenance.digests import Sha256Hex
 
 _HPO_ID = re.compile(r"HP:[0-9]{7}", re.ASCII)
+_UMLS_CUI = re.compile(r"C[0-9]{7}", re.ASCII)
 _SHA256 = re.compile(r"[0-9a-f]{64}", re.ASCII)
 _RELEASE = re.compile(r"v[0-9]{4}-[0-9]{2}-[0-9]{2}", re.ASCII)
 
@@ -62,6 +63,7 @@ class HpoTermRecord:
     alternate_ids: tuple[str, ...]
     replaced_by: tuple[str, ...]
     consider: tuple[str, ...]
+    umls_cuis: tuple[str, ...]
 
 
 @dataclass(frozen=True)
@@ -70,6 +72,7 @@ class HpoIndex:
     ontology_sha256: str
     terms: Mapping[str, HpoTermRecord]
     alternate_to_primary: Mapping[str, str]
+    umls_to_hpo: Mapping[str, tuple[str, ...]]
 
 
 def _validate_id(value: str) -> str:
@@ -94,6 +97,36 @@ def _assert_unique_primary_stanzas(ontology_bytes: bytes) -> None:
             identifiers.append(line[4:])
     if len(identifiers) != len(set(identifiers)):
         raise HpoIndexError("duplicate primary HPO identifier")
+
+
+def _umls_xrefs_by_term(ontology_bytes: bytes) -> dict[str, tuple[str, ...]]:
+    text = ontology_bytes.decode("utf-8")
+    result: dict[str, tuple[str, ...]] = {}
+    term_id: str | None = None
+    cuis: list[str] = []
+
+    def publish() -> None:
+        if term_id is None:
+            return
+        if len(cuis) != len(set(cuis)):
+            raise HpoIndexError(f"duplicate UMLS cross-reference on {term_id}")
+        result[term_id] = tuple(sorted(cuis))
+
+    for line in (*text.splitlines(), "[End]"):
+        if line == "[Term]" or line.startswith("["):
+            publish()
+            term_id = None
+            cuis = []
+        elif term_id is None and line.startswith("id: HP:"):
+            term_id = line[4:]
+        elif line.startswith("xref: UMLS:"):
+            value = line.removeprefix("xref: UMLS:")
+            if _UMLS_CUI.fullmatch(value) is None:
+                raise HpoIndexError(
+                    f"malformed UMLS cross-reference: {value!r}"
+                )
+            cuis.append(value)
+    return result
 
 
 def _validate_graph(terms: dict[str, HpoTermRecord]) -> None:
@@ -137,6 +170,7 @@ def load_hpo_index(
     ):
         raise HpoIndexError("ontology SHA-256 mismatch")
     _assert_unique_primary_stanzas(ontology_bytes)
+    umls_xrefs = _umls_xrefs_by_term(ontology_bytes)
     try:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore", UnicodeWarning)
@@ -167,6 +201,7 @@ def load_hpo_index(
                 alternate_ids=alternate_ids,
                 replaced_by=replaced_by,
                 consider=consider,
+                umls_cuis=umls_xrefs.get(identifier, ()),
             )
             if identifier in terms:
                 raise HpoIndexError("duplicate primary HPO identifier")
@@ -194,11 +229,21 @@ def load_hpo_index(
         if previous is not None and previous != owner:
             raise HpoIndexError("alternate HPO identifier collision")
         alternate_to_primary[alternate] = owner
+    reverse_umls: dict[str, list[str]] = {}
+    for record in terms.values():
+        for cui in record.umls_cuis:
+            reverse_umls.setdefault(cui, []).append(record.hpo_id)
     return HpoIndex(
         release=release,
         ontology_sha256=ontology_sha256,
         terms=MappingProxyType(dict(sorted(terms.items()))),
         alternate_to_primary=MappingProxyType(
             dict(sorted(alternate_to_primary.items()))
+        ),
+        umls_to_hpo=MappingProxyType(
+            {
+                cui: tuple(sorted(identifiers))
+                for cui, identifiers in sorted(reverse_umls.items())
+            }
         ),
     )
