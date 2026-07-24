@@ -32,6 +32,7 @@ packages = ["src/phentrieve_benchmark"]
 [tool.pytest.ini_options]
 addopts = "-ra --strict-config --strict-markers"
 testpaths = ["tests"]
+pythonpath = ["."]
 
 [tool.ruff]
 line-length = 88
@@ -43,5 +44,5 @@ select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
 [tool.mypy]
 python_version = "3.11"
 strict = true
-packages = ["phentrieve_benchmark"]
+packages = ["phentrieve_benchmark", "scripts"]
 mypy_path = ["src"]
