@@ -34,7 +34,7 @@ class AnnotationSet(BaseModel):
 
     annotation_set_id: str = Field(min_length=1)
     document_sha256: Sha256Hex
-    hpo_release: str = Field(pattern=r"^v\d{4}-\d{2}-\d{2}$")
+    hpo_release: str = Field(pattern=r"^v[0-9]{4}-[0-9]{2}-[0-9]{2}$")
     annotations: tuple[Annotation, ...] = ()
 
 
