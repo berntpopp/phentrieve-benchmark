@@ -58,6 +58,15 @@ from phentrieve_benchmark.models.review import (
     ReviewKind,
     ReviewRecord,
 )
+from phentrieve_benchmark.models.review_decision import (
+    DecisionReference,
+    ReviewDecision,
+    ReviewDecisionSet,
+    ReviewOutcome,
+    ReviewScope,
+    review_decision_id,
+    validate_review_decision_set,
+)
 from phentrieve_benchmark.models.source_annotation import (
     SourceAnnotation,
     SourceAnnotationSet,
@@ -79,6 +88,7 @@ __all__ = [
     "CuratedAnnotation",
     "CuratedAnnotationReference",
     "CuratedAnnotationSet",
+    "DecisionReference",
     "DerivationActivity",
     "DerivationMethod",
     "Document",
@@ -101,8 +111,12 @@ __all__ = [
     "RagHpoSourceAnnotationReference",
     "ReleaseManifest",
     "ReleaseRunLink",
+    "ReviewDecision",
+    "ReviewDecisionSet",
     "ReviewKind",
+    "ReviewOutcome",
     "ReviewRecord",
+    "ReviewScope",
     "RunManifest",
     "RunStatus",
     "SourceAnnotation",
@@ -121,6 +135,8 @@ __all__ = [
     "UsageMetrics",
     "WarningCount",
     "curated_annotation_id",
+    "review_decision_id",
     "validate_annotation_set",
+    "validate_review_decision_set",
     "validate_source_annotation_set",
 ]
