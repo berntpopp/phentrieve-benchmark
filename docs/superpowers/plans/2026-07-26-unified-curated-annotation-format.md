@@ -275,5 +275,5 @@ git commit -m "docs: record unified annotation infrastructure"
 - [x] Review the full branch diff against the approved design.
 - [x] Confirm no code computes review sufficiency or release acceptance.
 - [x] Confirm every new deterministic output has canonical bytes and SHA-256.
-- [ ] Push the completed commits to the existing draft PR branch after all
+- [x] Push the completed commits to the existing draft PR branch after all
   verification passes.
