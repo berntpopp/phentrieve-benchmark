@@ -67,6 +67,13 @@ from phentrieve_benchmark.models.review_decision import (
     review_decision_id,
     validate_review_decision_set,
 )
+from phentrieve_benchmark.models.single_term import (
+    SingleTermRecord,
+    SingleTermSelection,
+    SingleTermSelectionRecord,
+    SingleTermSet,
+    single_term_id,
+)
 from phentrieve_benchmark.models.source_annotation import (
     SourceAnnotation,
     SourceAnnotationSet,
@@ -119,6 +126,10 @@ __all__ = [
     "ReviewScope",
     "RunManifest",
     "RunStatus",
+    "SingleTermRecord",
+    "SingleTermSelection",
+    "SingleTermSelectionRecord",
+    "SingleTermSet",
     "SourceAnnotation",
     "SourceAnnotationSet",
     "SourceAttribute",
@@ -136,6 +147,7 @@ __all__ = [
     "WarningCount",
     "curated_annotation_id",
     "review_decision_id",
+    "single_term_id",
     "validate_annotation_set",
     "validate_review_decision_set",
     "validate_source_annotation_set",
