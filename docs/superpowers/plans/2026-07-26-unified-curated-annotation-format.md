@@ -30,11 +30,11 @@
 - Produces: `DocumentReference`, `OntologyReference`, `AnnotationReference`, typed derivation-source models, `DerivationActivity`, `CuratedAnnotation`, `CuratedAnnotationSet`, `curated_annotation_id`.
 - Consumes: existing `EvidenceSpan`, `HpoRelease`, canonical JSON and SHA-256 helpers.
 
-- [ ] **Step 1: Write failing contract tests**
+- [x] **Step 1: Write failing contract tests**
 
 Cover strict enums, canonical ordering/deduplication of spans, activities and sources, content-derived annotation IDs, multi-source E3C mapping provenance, logical set identity, canonical bytes/hash, and rejection of extra fields or wrong IDs.
 
-- [ ] **Step 2: Verify RED**
+- [x] **Step 2: Verify RED**
 
 Run:
 
@@ -44,7 +44,7 @@ uv run pytest -q tests/unit/models/test_curated_annotation.py
 
 Expected: import failure because the new model module does not exist.
 
-- [ ] **Step 3: Implement minimal strict models**
+- [x] **Step 3: Implement minimal strict models**
 
 Use discriminated `source_kind` variants and compute IDs from:
 
@@ -60,12 +60,12 @@ identifier = "curated-ann-" + sha256_bytes(
 Canonicalize every set-like tuple with exact sort keys and reject duplicates.
 Expose canonical bytes and SHA-256 on `CuratedAnnotationSet`.
 
-- [ ] **Step 4: Verify GREEN**
+- [x] **Step 4: Verify GREEN**
 
 Run the focused test, Ruff on touched files, and strict mypy on the model
 module.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```text
 git add src/phentrieve_benchmark/models tests/unit/models/test_curated_annotation.py
@@ -85,7 +85,7 @@ git commit -m "feat: add curated annotation contracts"
   `RagHpoSourceAnnotationRecord`, `UmlsHpoMappingManifest`, and `HpoIndex`
   artifacts indexed by their declared SHA-256 values.
 
-- [ ] **Step 1: Write failing validation tests**
+- [x] **Step 1: Write failing validation tests**
 
 Use synthetic documents, source annotations, RAG-HPO sidecars, mapping
 manifests, and a miniature `HpoIndex`. Cover exact document/ontology binding,
@@ -94,7 +94,7 @@ source-HPO row consistency, revision resolution, manual bound-document
 derivation, missing dependency failure, and preservation of obsolete HPO
 proposals without implicit acceptance.
 
-- [ ] **Step 2: Verify RED**
+- [x] **Step 2: Verify RED**
 
 Run:
 
@@ -104,18 +104,18 @@ uv run pytest -q tests/unit/curation/test_validation.py
 
 Expected: import failure for `phentrieve_benchmark.curation.validation`.
 
-- [ ] **Step 3: Implement typed dependency validation**
+- [x] **Step 3: Implement typed dependency validation**
 
 Use a focused `CuratedDependencies` dataclass containing exact typed mappings;
 do not introduce a persisted universal registry. Resolve each source variant
 with its variant-specific compound key and fail closed on missing or
 contradictory records.
 
-- [ ] **Step 4: Verify GREEN**
+- [x] **Step 4: Verify GREEN**
 
 Run focused tests, then Task 1 and Task 2 tests together.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```text
 git add src/phentrieve_benchmark/curation tests/unit/curation
@@ -138,34 +138,34 @@ git commit -m "feat: validate curated annotation provenance"
   `merge_review_decision_sets`.
 - Consumes: exact curated annotation-set and earlier decision-set hashes.
 
-- [ ] **Step 1: Write failing decision-model tests**
+- [x] **Step 1: Write failing decision-model tests**
 
 Cover namespaced reviewer/stage identifiers, human/tool actor kinds, sorted
 nonempty scopes, `confirmed`/`rejected`/`changes_requested`, canonical UTC
 timestamps, content-derived IDs, counterproposal and supersession references,
 and rejection of a confirmed decision carrying a counterproposal.
 
-- [ ] **Step 2: Verify RED**
+- [x] **Step 2: Verify RED**
 
 Run the model test and confirm the missing-module failure.
 
-- [ ] **Step 3: Implement review models and cross-artifact checks**
+- [x] **Step 3: Implement review models and cross-artifact checks**
 
 Validate target and superseded-decision resolution when dependencies are
 provided. Counterproposals must resolve to the same document as the target.
 Do not calculate an effective decision.
 
-- [ ] **Step 4: Write failing merge tests**
+- [x] **Step 4: Write failing merge tests**
 
 Demonstrate that merge is associative, commutative, idempotent, canonical,
 collapses exact duplicates, rejects ID/content collisions, retains
 contradictions, and can merge without loading annotation targets.
 
-- [ ] **Step 5: Verify RED and implement minimal merge**
+- [x] **Step 5: Verify RED and implement minimal merge**
 
 Merge directly to `ReviewDecisionSet`; do not add `ReviewCollection`.
 
-- [ ] **Step 6: Verify GREEN and commit**
+- [x] **Step 6: Verify GREEN and commit**
 
 Run both focused test modules, Ruff, and mypy, then commit:
 
@@ -191,30 +191,30 @@ git commit -m "feat: add independent annotation reviews"
 - Consumes: dataset-level explicit selections, referenced curated annotation
   sets, exact documents, reviewed decision-set hashes, and one exact HPO index.
 
-- [ ] **Step 1: Write failing selection/output model tests**
+- [x] **Step 1: Write failing selection/output model tests**
 
 Cover selector identity, actor kind, method identity, canonical review hashes,
 dataset-wide record ordering, canonical serialization, strict output fields,
 and content-derived single-term IDs.
 
-- [ ] **Step 2: Verify RED and implement minimal models**
+- [x] **Step 2: Verify RED and implement minimal models**
 
 Run the model test first, then add only the contracts needed by the expected
 API.
 
-- [ ] **Step 3: Write failing extraction tests**
+- [x] **Step 3: Write failing extraction tests**
 
 Use two synthetic documents. Prove exact span slicing, copied-and-validated HPO
 and context values, stable output independent of input mapping order, exact
 ontology binding, and failure for empty/missing/out-of-range/duplicate spans,
 wrong documents, missing reviews, or mismatched ontology.
 
-- [ ] **Step 4: Verify RED and implement extraction**
+- [x] **Step 4: Verify RED and implement extraction**
 
 The function recomputes every materialized output field from documents and
 curated annotations. It does not inspect review outcomes or infer eligibility.
 
-- [ ] **Step 5: Verify GREEN and commit**
+- [x] **Step 5: Verify GREEN and commit**
 
 Run focused tests, Ruff, and mypy, then commit:
 
@@ -238,22 +238,22 @@ git commit -m "feat: derive explicit single term records"
   decision sets, single-term selections, and single-term sets.
 - Consumes: all outputs from Tasks 1–4.
 
-- [ ] **Step 1: Write failing provenance-role test**
+- [x] **Step 1: Write failing provenance-role test**
 
 Prove the four new deterministic subject roles serialize exactly and are
 accepted by `ProvenanceRunLink`.
 
-- [ ] **Step 2: Verify RED and add minimal enum values**
+- [x] **Step 2: Verify RED and add minimal enum values**
 
 Do not add pipeline stages, CLI commands, or provider behavior.
 
-- [ ] **Step 3: Update the project checklist**
+- [x] **Step 3: Update the project checklist**
 
 Record that the common format infrastructure and deterministic merge/extractor
 are implemented, while actual E3C annotation, GSC/CSC span alignment, review
 policies, and real single-term release data remain open.
 
-- [ ] **Step 4: Run full verification**
+- [x] **Step 4: Run full verification**
 
 ```text
 uv run pytest -q
@@ -262,7 +262,7 @@ uv run mypy src
 git diff --check
 ```
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```text
 git add src/phentrieve_benchmark/models docs/project-checklist.md tests
@@ -271,9 +271,9 @@ git commit -m "docs: record unified annotation infrastructure"
 
 ## Final review
 
-- [ ] Confirm the worktree contains no unrelated changes.
-- [ ] Review the full branch diff against the approved design.
-- [ ] Confirm no code computes review sufficiency or release acceptance.
-- [ ] Confirm every new deterministic output has canonical bytes and SHA-256.
+- [x] Confirm the worktree contains no unrelated changes.
+- [x] Review the full branch diff against the approved design.
+- [x] Confirm no code computes review sufficiency or release acceptance.
+- [x] Confirm every new deterministic output has canonical bytes and SHA-256.
 - [ ] Push the completed commits to the existing draft PR branch after all
   verification passes.

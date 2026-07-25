@@ -17,6 +17,14 @@ Status:
 - [x] Deterministische Wiederverwendung mit erneuter Artefaktprüfung umsetzen.
 - [x] Run-Manifeste und Provenienz-Links getrennt von deterministischen
       Datenmanifesten speichern.
+- [x] Ein gemeinsames kuratiertes Annotationsformat für E3C, GSC und CSC mit
+      Evidenzspannen, Kontext und typisierten Herleitungsquellen umsetzen.
+- [x] Unabhängige Reviewentscheidungen und deren deterministische,
+      konfliktbewahrende Zusammenführung als gemeinsames Format umsetzen.
+- [x] Explizite datensatzweite Single-Term-Auswahl und deterministische
+      Ableitung selbstständiger Single-Term-Datensätze implementieren.
+- [x] Exakte Dokument-, Ontologie-, Quell-, Review- und Auswahlprovenienz
+      sowie Run-Links für alle neuen Artefaktarten abbilden.
 - [x] Gepinnte Quellrezepte, Checksummen und Lizenznachweise dokumentieren.
 - [x] Offline-CI mit synthetischen Testdaten einrichten.
 - [x] Expliziten Live-Smoke-Test für echte Downloads bereitstellen.

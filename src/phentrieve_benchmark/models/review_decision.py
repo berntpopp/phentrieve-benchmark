@@ -209,6 +209,8 @@ def _annotation(
     annotation_set = annotation_sets.get(reference.annotation_set_sha256)
     if annotation_set is None:
         raise ValueError("review target annotation set is missing")
+    if annotation_set.sha256() != reference.annotation_set_sha256:
+        raise ValueError("review target annotation set SHA-256 mismatch")
     matches = [
         annotation
         for annotation in annotation_set.annotations
@@ -240,7 +242,14 @@ def validate_review_decision_set(
             previous_set = decision_sets.get(
                 decision.supersedes.decision_set_sha256
             )
-            if previous_set is None or not any(
+            if previous_set is None:
+                raise ValueError("superseded decision does not resolve")
+            if (
+                previous_set.sha256()
+                != decision.supersedes.decision_set_sha256
+            ):
+                raise ValueError("superseded decision set SHA-256 mismatch")
+            if not any(
                 previous.decision_id == decision.supersedes.decision_id
                 for previous in previous_set.decisions
             ):

@@ -198,6 +198,10 @@ class ProvenanceSubjectRole(StrEnum):
     SELECTION_MANIFEST = "selection_manifest"
     TRANSLATION_MANIFEST = "translation_manifest"
     UMLS_HPO_MAPPING_MANIFEST = "umls_hpo_mapping_manifest"
+    CURATED_ANNOTATION_SET = "curated_annotation_set"
+    REVIEW_DECISION_SET = "review_decision_set"
+    SINGLE_TERM_SELECTION = "single_term_selection"
+    SINGLE_TERM_SET = "single_term_set"
 
 
 class ProvenanceRunLink(BaseModel):

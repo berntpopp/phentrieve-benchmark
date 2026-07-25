@@ -1,6 +1,7 @@
 from hashlib import sha256
 
 import pytest
+from pydantic import BaseModel
 
 from phentrieve_benchmark.curation.validation import (
     CuratedDependencies,
@@ -38,10 +39,20 @@ from phentrieve_benchmark.normalization.contracts import (
     RagHpoSourceAnnotationRecord,
 )
 from phentrieve_benchmark.ontology.hpo import HpoIndex, load_hpo_index
+from phentrieve_benchmark.provenance.canonical import canonical_jsonl_bytes
+from phentrieve_benchmark.provenance.digests import sha256_bytes
 from tests.fixtures.hpo import synthetic_hpo_obo
 
-DOCUMENTS_SHA = "a" * 64
-SOURCE_ANNOTATIONS_SHA = "b" * 64
+
+def _artifact_sha(
+    records: tuple[BaseModel, ...], identity_key: str
+) -> str:
+    return sha256_bytes(
+        canonical_jsonl_bytes(
+            [record.model_dump(mode="json") for record in records],
+            identity_key=identity_key,
+        )
+    )
 
 
 def _document() -> Document:
@@ -95,13 +106,17 @@ def _direct_fixture() -> tuple[
 ]:
     document = _document()
     source = _source(document)
+    documents_sha = _artifact_sha((document,), "document_id")
+    source_annotations_sha = _artifact_sha(
+        (source,), "annotation_set_id"
+    )
     index = _index()
     mapping = map_e3c_umls_to_hpo(
         documents=(document,),
         annotation_sets=(source,),
         hpo_index=index,
-        documents_sha256=DOCUMENTS_SHA,
-        source_annotations_sha256=SOURCE_ANNOTATIONS_SHA,
+        documents_sha256=documents_sha,
+        source_annotations_sha256=source_annotations_sha,
     )
     annotation = CuratedAnnotation.create(
         hpo_id="HP:0000002",
@@ -118,7 +133,7 @@ def _direct_fixture() -> tuple[
                 actor_kind=ActorKind.TOOL,
                 sources=(
                     E3cSourceAnnotationReference(
-                        source_annotations_sha256=SOURCE_ANNOTATIONS_SHA,
+                        source_annotations_sha256=source_annotations_sha,
                         source_annotation_set_id=source.annotation_set_id,
                         source_annotation_id="source-ann-1",
                     ),
@@ -133,7 +148,7 @@ def _direct_fixture() -> tuple[
     curated = CuratedAnnotationSet(
         annotation_set_id="curated-set-1",
         document=DocumentReference(
-            documents_sha256=DOCUMENTS_SHA,
+            documents_sha256=documents_sha,
             document_id=document.document_id,
             document_sha256=document.document_sha256,
         ),
@@ -150,8 +165,12 @@ def _dependencies() -> tuple[CuratedDependencies, CuratedAnnotationSet]:
     document, source, index, mapping, curated = _direct_fixture()
     return (
         CuratedDependencies(
-            documents={DOCUMENTS_SHA: (document,)},
-            source_annotations={SOURCE_ANNOTATIONS_SHA: (source,)},
+            documents={
+                _artifact_sha((document,), "document_id"): (document,)
+            },
+            source_annotations={
+                _artifact_sha((source,), "annotation_set_id"): (source,)
+            },
             mappings={mapping.sha256(): mapping},
             raghpo_annotations={},
             raghpo_sidecars={},
@@ -238,6 +257,34 @@ def test_rejects_span_mismatch_and_unknown_hpo_id() -> None:
         )
 
 
+def test_rejects_dependency_stored_under_a_false_artifact_hash() -> None:
+    dependencies, curated = _dependencies()
+    false_hash = "f" * 64
+    false_reference = curated.model_copy(
+        update={
+            "document": curated.document.model_copy(
+                update={"documents_sha256": false_hash}
+            )
+        }
+    )
+    false_dependencies = CuratedDependencies(
+        documents={
+            false_hash: next(iter(dependencies.documents.values()))
+        },
+        source_annotations=dependencies.source_annotations,
+        mappings=dependencies.mappings,
+        raghpo_annotations={},
+        raghpo_sidecars={},
+        curated_sets={},
+        hpo_indexes=dependencies.hpo_indexes,
+    )
+
+    with pytest.raises(ValueError, match="artifact SHA-256 mismatch"):
+        validate_curated_annotation_set(
+            false_reference, false_dependencies
+        )
+
+
 def test_validates_raghpo_annotation_and_sidecar_linkage() -> None:
     dependencies, curated = _dependencies()
     source_annotation = Annotation(
@@ -257,6 +304,8 @@ def test_validates_raghpo_annotation_and_sidecar_linkage() -> None:
         raw_hpo_term="HP:0000002",
         derived_annotation_ids=("rag-ann-1",),
     )
+    annotations_sha = _artifact_sha((source_set,), "annotation_set_id")
+    sidecar_sha = _artifact_sha((sidecar,), "source_row_id")
     annotation = CuratedAnnotation.create(
         hpo_id="HP:0000002",
         assertion=AssertionStatus.PRESENT,
@@ -270,10 +319,10 @@ def test_validates_raghpo_annotation_and_sidecar_linkage() -> None:
                 actor_kind=ActorKind.TOOL,
                 sources=(
                     RagHpoSourceAnnotationReference(
-                        annotations_sha256="c" * 64,
+                        annotations_sha256=annotations_sha,
                         annotation_set_id="rag-set-1",
                         annotation_id="rag-ann-1",
-                        source_sidecar_sha256="d" * 64,
+                        source_sidecar_sha256=sidecar_sha,
                         source_row_id="row-1",
                     ),
                 ),
@@ -284,8 +333,8 @@ def test_validates_raghpo_annotation_and_sidecar_linkage() -> None:
         documents=dependencies.documents,
         source_annotations={},
         mappings={},
-        raghpo_annotations={"c" * 64: (source_set,)},
-        raghpo_sidecars={"d" * 64: (sidecar,)},
+        raghpo_annotations={annotations_sha: (source_set,)},
+        raghpo_sidecars={sidecar_sha: (sidecar,)},
         curated_sets={},
         hpo_indexes=dependencies.hpo_indexes,
     )

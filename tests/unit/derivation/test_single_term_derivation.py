@@ -1,6 +1,7 @@
 from hashlib import sha256
 
 import pytest
+from pydantic import BaseModel
 
 from phentrieve_benchmark.curation.validation import CuratedDependencies
 from phentrieve_benchmark.derivation.single_term import derive_single_terms
@@ -26,7 +27,20 @@ from phentrieve_benchmark.models.single_term import (
     SingleTermSelectionRecord,
 )
 from phentrieve_benchmark.ontology.hpo import HpoIndex, load_hpo_index
+from phentrieve_benchmark.provenance.canonical import canonical_jsonl_bytes
+from phentrieve_benchmark.provenance.digests import sha256_bytes
 from tests.fixtures.hpo import synthetic_hpo_obo
+
+
+def _artifact_sha(
+    records: tuple[BaseModel, ...], identity_key: str
+) -> str:
+    return sha256_bytes(
+        canonical_jsonl_bytes(
+            [record.model_dump(mode="json") for record in records],
+            identity_key=identity_key,
+        )
+    )
 
 
 def _index() -> HpoIndex:
@@ -103,7 +117,9 @@ def _fixture() -> tuple[
     index = _index()
     first_doc = _document("case-1", "Keine Ataxie.")
     second_doc = _document("case-2", "Tremor vorhanden.")
-    documents_sha = "a" * 64
+    documents_sha = _artifact_sha(
+        (first_doc, second_doc), "document_id"
+    )
     first = _curated(
         first_doc,
         index,

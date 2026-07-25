@@ -6,6 +6,16 @@ from pydantic import ValidationError
 from phentrieve_benchmark.models.curated_annotation import (
     ActorKind,
     AnnotationReference,
+    AssertionStatus,
+    BoundDocumentReference,
+    CuratedAnnotation,
+    CuratedAnnotationSet,
+    DerivationActivity,
+    DerivationMethod,
+    DocumentReference,
+    Experiencer,
+    OntologyReference,
+    Temporality,
 )
 from phentrieve_benchmark.models.review_decision import (
     DecisionReference,
@@ -13,6 +23,7 @@ from phentrieve_benchmark.models.review_decision import (
     ReviewDecisionSet,
     ReviewOutcome,
     ReviewScope,
+    validate_review_decision_set,
 )
 
 
@@ -20,6 +31,37 @@ def _target(suffix: str = "a") -> AnnotationReference:
     return AnnotationReference(
         annotation_set_sha256=suffix * 64,
         annotation_id="curated-ann-" + suffix * 64,
+    )
+
+
+def _curated_set(suffix: str) -> CuratedAnnotationSet:
+    annotation = CuratedAnnotation.create(
+        hpo_id="HP:0000001",
+        assertion=AssertionStatus.PRESENT,
+        experiencer=Experiencer.PATIENT,
+        temporality=Temporality.CURRENT,
+        evidence_spans=(),
+        derivations=(
+            DerivationActivity(
+                method=DerivationMethod.MANUAL_ANNOTATION,
+                agent_id="human:curator-1",
+                actor_kind=ActorKind.HUMAN,
+                sources=(BoundDocumentReference(),),
+            ),
+        ),
+    )
+    return CuratedAnnotationSet(
+        annotation_set_id=f"curated:{suffix}",
+        document=DocumentReference(
+            documents_sha256="a" * 64,
+            document_id=f"document:{suffix}",
+            document_sha256=suffix * 64,
+        ),
+        ontology=OntologyReference(
+            hpo_release="v2026-06-23",
+            ontology_sha256="b" * 64,
+        ),
+        annotations=(annotation,),
     )
 
 
@@ -139,3 +181,63 @@ def test_review_decision_set_is_canonical_and_hashed() -> None:
         decision_set.canonical_bytes()
     ) == decision_set
     assert len(decision_set.sha256()) == 64
+
+
+def test_review_validation_binds_exact_annotation_and_prior_decision_sets() -> None:
+    curated = _curated_set("c")
+    target = AnnotationReference(
+        annotation_set_sha256=curated.sha256(),
+        annotation_id=curated.annotations[0].annotation_id,
+    )
+    previous = ReviewDecision.create(
+        target=target,
+        reviewer_id="human:reviewer-1",
+        actor_kind=ActorKind.HUMAN,
+        reviewer_role=None,
+        stage_id="e3c:annotation-review/v1",
+        scopes=(ReviewScope.COMPLETE,),
+        outcome=ReviewOutcome.REJECTED,
+        decided_at=datetime(2026, 7, 26, 10, 30, tzinfo=UTC),
+        rationale=None,
+        counterproposal=None,
+        supersedes=None,
+    )
+    previous_set = ReviewDecisionSet(decisions=(previous,))
+    replacement = ReviewDecision.create(
+        target=target,
+        reviewer_id="human:reviewer-1",
+        actor_kind=ActorKind.HUMAN,
+        reviewer_role=None,
+        stage_id="e3c:annotation-review/v1",
+        scopes=(ReviewScope.COMPLETE,),
+        outcome=ReviewOutcome.CONFIRMED,
+        decided_at=datetime(2026, 7, 26, 11, 30, tzinfo=UTC),
+        rationale="Corrected the previous decision.",
+        counterproposal=None,
+        supersedes=DecisionReference(
+            decision_set_sha256=previous_set.sha256(),
+            decision_id=previous.decision_id,
+        ),
+    )
+    replacement_set = ReviewDecisionSet(decisions=(replacement,))
+
+    validate_review_decision_set(
+        replacement_set,
+        annotation_sets={curated.sha256(): curated},
+        decision_sets={previous_set.sha256(): previous_set},
+    )
+
+    with pytest.raises(ValueError, match="annotation set SHA-256"):
+        validate_review_decision_set(
+            replacement_set,
+            annotation_sets={curated.sha256(): _curated_set("d")},
+            decision_sets={previous_set.sha256(): previous_set},
+        )
+    with pytest.raises(ValueError, match="decision set SHA-256"):
+        validate_review_decision_set(
+            replacement_set,
+            annotation_sets={curated.sha256(): curated},
+            decision_sets={
+                previous_set.sha256(): ReviewDecisionSet()
+            },
+        )

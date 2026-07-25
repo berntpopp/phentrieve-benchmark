@@ -2,6 +2,8 @@ from collections.abc import Callable, Mapping
 from dataclasses import dataclass
 from typing import TypeVar
 
+from pydantic import BaseModel
+
 from phentrieve_benchmark.models.annotation import AnnotationSet
 from phentrieve_benchmark.models.curated_annotation import (
     BoundDocumentReference,
@@ -24,8 +26,10 @@ from phentrieve_benchmark.normalization.contracts import (
     RagHpoSourceAnnotationRecord,
 )
 from phentrieve_benchmark.ontology.hpo import HpoIndex
+from phentrieve_benchmark.provenance.canonical import canonical_jsonl_bytes
+from phentrieve_benchmark.provenance.digests import sha256_bytes
 
-T = TypeVar("T")
+T = TypeVar("T", bound=BaseModel)
 
 
 @dataclass(frozen=True)
@@ -37,6 +41,25 @@ class CuratedDependencies:
     raghpo_sidecars: Mapping[str, tuple[RagHpoSourceAnnotationRecord, ...]]
     curated_sets: Mapping[str, CuratedAnnotationSet]
     hpo_indexes: Mapping[str, HpoIndex]
+
+
+def _jsonl_sha256(records: tuple[T, ...], *, identity_key: str) -> str:
+    payload = canonical_jsonl_bytes(
+        [record.model_dump(mode="json") for record in records],
+        identity_key=identity_key,
+    )
+    return sha256_bytes(payload)
+
+
+def _require_jsonl_hash(
+    records: tuple[T, ...],
+    *,
+    expected: str,
+    identity_key: str,
+    description: str,
+) -> None:
+    if _jsonl_sha256(records, identity_key=identity_key) != expected:
+        raise ValueError(f"{description} SHA-256 mismatch")
 
 
 def _one_by_id(
@@ -63,6 +86,12 @@ def _document(
     )
     if records is None:
         raise ValueError("document artifact is missing")
+    _require_jsonl_hash(
+        records,
+        expected=annotation_set.document.documents_sha256,
+        identity_key="document_id",
+        description="document artifact",
+    )
     document = _one_by_id(
         records,
         identity=annotation_set.document.document_id,
@@ -83,6 +112,12 @@ def _source_annotation(
     )
     if records is None:
         raise ValueError("source annotation artifact is missing")
+    _require_jsonl_hash(
+        records,
+        expected=reference.source_annotations_sha256,
+        identity_key="annotation_set_id",
+        description="source annotation artifact",
+    )
     annotation_set = _one_by_id(
         records,
         identity=reference.source_annotation_set_id,
@@ -101,27 +136,38 @@ def _source_annotation(
 def _mapping_record(
     reference: UmlsHpoMappingReference,
     dependencies: CuratedDependencies,
-) -> UmlsHpoMappingRecord:
+) -> tuple[UmlsHpoMappingManifest, UmlsHpoMappingRecord]:
     manifest = dependencies.mappings.get(reference.mapping_manifest_sha256)
     if manifest is None:
         raise ValueError("mapping manifest is missing")
-    return _one_by_id(
-        manifest.records,
-        identity=reference.mapping_record_id,
-        identity_of=lambda record: record.mapping_record_id,
-        description="mapping record",
+    if manifest.sha256() != reference.mapping_manifest_sha256:
+        raise ValueError("mapping manifest SHA-256 mismatch")
+    return (
+        manifest,
+        _one_by_id(
+            manifest.records,
+            identity=reference.mapping_record_id,
+            identity_of=lambda record: record.mapping_record_id,
+            description="mapping record",
+        ),
     )
 
 
 def _raghpo_hpo_id(
     reference: RagHpoSourceAnnotationReference,
     dependencies: CuratedDependencies,
-) -> str:
+) -> tuple[AnnotationSet, str]:
     annotation_sets = dependencies.raghpo_annotations.get(
         reference.annotations_sha256
     )
     if annotation_sets is None:
         raise ValueError("RAG-HPO annotation artifact is missing")
+    _require_jsonl_hash(
+        annotation_sets,
+        expected=reference.annotations_sha256,
+        identity_key="annotation_set_id",
+        description="RAG-HPO annotation artifact",
+    )
     annotation_set = _one_by_id(
         annotation_sets,
         identity=reference.annotation_set_id,
@@ -137,6 +183,12 @@ def _raghpo_hpo_id(
     sidecars = dependencies.raghpo_sidecars.get(reference.source_sidecar_sha256)
     if sidecars is None:
         raise ValueError("RAG-HPO sidecar artifact is missing")
+    _require_jsonl_hash(
+        sidecars,
+        expected=reference.source_sidecar_sha256,
+        identity_key="source_row_id",
+        description="RAG-HPO sidecar artifact",
+    )
     sidecar = _one_by_id(
         sidecars,
         identity=reference.source_row_id,
@@ -145,27 +197,33 @@ def _raghpo_hpo_id(
     )
     if annotation.annotation_id not in sidecar.derived_annotation_ids:
         raise ValueError("RAG-HPO source row does not derive annotation")
-    return annotation.hpo_id
+    return annotation_set, annotation.hpo_id
 
 
 def _curated_annotation(
     reference: CuratedAnnotationReference,
     dependencies: CuratedDependencies,
-) -> CuratedAnnotation:
+) -> tuple[CuratedAnnotationSet, CuratedAnnotation]:
     annotation_set = dependencies.curated_sets.get(
         reference.annotation.annotation_set_sha256
     )
     if annotation_set is None:
         raise ValueError("curated annotation artifact is missing")
-    return _one_by_id(
-        annotation_set.annotations,
-        identity=reference.annotation.annotation_id,
-        identity_of=lambda record: record.annotation_id,
-        description="curated annotation",
+    if annotation_set.sha256() != reference.annotation.annotation_set_sha256:
+        raise ValueError("curated annotation artifact SHA-256 mismatch")
+    return (
+        annotation_set,
+        _one_by_id(
+            annotation_set.annotations,
+            identity=reference.annotation.annotation_id,
+            identity_of=lambda record: record.annotation_id,
+            description="curated annotation",
+        ),
     )
 
 
 def _validate_activity(
+    annotation_set: CuratedAnnotationSet,
     annotation: CuratedAnnotation,
     activity: DerivationActivity,
     dependencies: CuratedDependencies,
@@ -174,7 +232,11 @@ def _validate_activity(
         tuple[E3cSourceAnnotationReference, SourceAnnotationSet, str | None]
     ] = []
     mapping_records: list[
-        tuple[UmlsHpoMappingReference, UmlsHpoMappingRecord]
+        tuple[
+            UmlsHpoMappingReference,
+            UmlsHpoMappingManifest,
+            UmlsHpoMappingRecord,
+        ]
     ] = []
     raghpo_hpo_ids: list[str] = []
     curated_sources = 0
@@ -182,16 +244,59 @@ def _validate_activity(
 
     for source in activity.sources:
         if isinstance(source, E3cSourceAnnotationReference):
-            source_set, concept_id = _source_annotation(source, dependencies)
-            source_annotations.append((source, source_set, concept_id))
+            e3c_source_set, concept_id = _source_annotation(
+                source, dependencies
+            )
+            if (
+                e3c_source_set.document_sha256
+                != annotation_set.document.document_sha256
+            ):
+                raise ValueError(
+                    "source annotation belongs to another document"
+                )
+            source_annotations.append(
+                (source, e3c_source_set, concept_id)
+            )
         elif isinstance(source, UmlsHpoMappingReference):
+            manifest, record = _mapping_record(source, dependencies)
+            if (
+                manifest.documents_sha256
+                != annotation_set.document.documents_sha256
+                or manifest.hpo_release
+                != annotation_set.ontology.hpo_release
+                or manifest.ontology_sha256
+                != annotation_set.ontology.ontology_sha256
+            ):
+                raise ValueError(
+                    "mapping manifest inputs do not match curated set"
+                )
             mapping_records.append(
-                (source, _mapping_record(source, dependencies))
+                (source, manifest, record)
             )
         elif isinstance(source, RagHpoSourceAnnotationReference):
-            raghpo_hpo_ids.append(_raghpo_hpo_id(source, dependencies))
+            rag_source_set, hpo_id = _raghpo_hpo_id(source, dependencies)
+            if (
+                rag_source_set.document_sha256
+                != annotation_set.document.document_sha256
+                or rag_source_set.hpo_release
+                != annotation_set.ontology.hpo_release
+            ):
+                raise ValueError(
+                    "RAG-HPO annotation inputs do not match curated set"
+                )
+            raghpo_hpo_ids.append(hpo_id)
         elif isinstance(source, CuratedAnnotationReference):
-            _curated_annotation(source, dependencies)
+            curated_source_set, _ = _curated_annotation(
+                source, dependencies
+            )
+            if (
+                curated_source_set.document.document_sha256
+                != annotation_set.document.document_sha256
+                or curated_source_set.ontology != annotation_set.ontology
+            ):
+                raise ValueError(
+                    "curated source inputs do not match curated set"
+                )
             curated_sources += 1
         elif isinstance(source, BoundDocumentReference):
             bound_documents += 1
@@ -203,8 +308,11 @@ def _validate_activity(
             )
         matched = False
         for source_ref, _, concept_id in source_annotations:
-            for _, record in mapping_records:
+            for _, manifest, record in mapping_records:
                 same_source = (
+                    manifest.source_annotations_sha256
+                    == source_ref.source_annotations_sha256
+                    and
                     record.source_annotation_set_id
                     == source_ref.source_annotation_set_id
                     and record.source_annotation_id
@@ -254,4 +362,6 @@ def validate_curated_annotation_set(
             if document.text[span.start_char : span.end_char] != span.text_snippet:
                 raise ValueError("span text mismatch")
         for activity in annotation.derivations:
-            _validate_activity(annotation, activity, dependencies)
+            _validate_activity(
+                annotation_set, annotation, activity, dependencies
+            )
