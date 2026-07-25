@@ -19,3 +19,17 @@ The audit is text-free and deterministic. It records ontology identity,
 source annotation identity, status, canonical ID where automatic
 canonicalization is permitted, proposed replacements, and reason codes. It
 does not claim clinical or physician approval.
+
+## Interpretation of annotation quality
+
+CSC and GSC contain manually selected, case-level HPO terms and are therefore
+more specific for HPO evaluation than an automatic conversion of E3C's UMLS
+annotations. The revision audit confirms identifier validity, not whether an
+annotation is supported by a particular phrase in its clinical note.
+
+The source workbook supplies no text offsets. Consequently, an annotation
+cannot be linked automatically to an exact evidence span or checked locally
+for negation, uncertainty, or subject context. CSC/GSC are treated as
+case-level HPO gold annotations, not as a complete span-based gold standard.
+This limitation is complementary to E3C: E3C supplies source spans, but its
+UMLS concepts can be substantially less specific than the accompanying text.

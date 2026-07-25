@@ -138,3 +138,36 @@ sources. They account for 1,650 source annotations. Frequent examples are
 (infiltration; 27), `C0018944` (hematoma; 21), and `C0010709` (cyst; 17).
 Many are generic findings, processes, or diseases for which a safe one-to-one
 HPO assignment should not be assumed.
+
+## Source-annotation granularity
+
+The missing mappings are not solely a coverage problem in the mapping
+sources. E3C sometimes assigns a generic UMLS concept even when the text
+contains a more specific description. For example, all 75 annotations of
+`C0221198` represent only `lesion`, although their contexts include lytic,
+necrotic, vascular, cystic, furuncle-like, and expansile lesions. These
+qualifiers are not consistently represented by separate CUIs.
+
+Of the 75 `C0221198` annotations, 47 have at least one other valid coded
+clinical concept in the same sentence and 28 do not. The additional concept
+is not necessarily a refinement of the lesion: it may instead denote a
+comorbidity, symptom, investigation result, or later diagnosis. Even when a
+useful refinement is present, the source annotation does not explicitly link
+it to the generic lesion annotation. A CUI-only conversion would therefore
+lose clinically relevant specificity and cannot safely infer number,
+negation, or lesion type from `C0221198`.
+
+This differs from CSC and GSC, whose manual annotations already assign
+case-level HPO terms. Against HPO `v2026-06-23`, all 1,012 GSC annotations are
+active; CSC has 1,779 active annotations, 15 obsolete annotations with a
+single proposed successor, and one obsolete annotation requiring focused
+review. They are consequently stronger than E3C at the concept-selection
+level.
+
+The comparison also exposes a complementary limitation: the CSC/GSC workbook
+does not provide text offsets. Its HPO annotations cannot be tied
+automatically to an exact evidence span or checked locally for wording,
+negation, uncertainty, and subject context. CSC/GSC should therefore be
+treated as curated case-level HPO gold annotations, while E3C provides
+span-level source evidence with less reliable concept granularity. Neither
+source alone is a complete span-based HPO gold standard.
