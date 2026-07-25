@@ -1,6 +1,6 @@
 # Unified Curated Annotation Format
 
-**Status:** Agent-reviewed; pending user approval
+**Status:** Multi-perspective reviewed; pending final user review
 
 **Date:** 2026-07-25
 
@@ -9,35 +9,40 @@
 Define one immutable, canonical format for curated HPO annotations from E3C,
 GSC, and CSC. The format must:
 
-- preserve the exact document and HPO release being annotated;
-- retain the derivation of every annotation from source records or earlier
-  annotation proposals;
-- support independent confirmations, rejections, change requests, and
-  counterproposals from multiple reviewers and tools;
-- combine review files deterministically without resolving disagreements; and
-- provide an unambiguous basis for deterministic extraction of single-term
-  records from explicit text spans.
+- bind every annotation to the exact document and HPO ontology;
+- preserve record-level derivation from all source annotations, mappings, or
+  earlier proposals used together;
+- support independent confirmations, rejections, change requests,
+  counterproposals, and corrections from multiple people and tools;
+- merge separately produced review files deterministically without resolving
+  disagreements;
+- preserve complete provenance for annotation creation, review merging, and
+  single-term selection; and
+- derive self-contained single-term records deterministically from explicitly
+  selected text spans.
 
 This phase implements format infrastructure only. It does not align GSC/CSC
 annotations to text, create German E3C annotations, define review sufficiency,
-resolve review conflicts, or decide release eligibility.
+resolve review conflicts, calculate an effective acceptance status, or decide
+release eligibility.
 
 ## 2. Existing contracts and compatibility
 
-The existing contracts keep their current meanings and remain byte-compatible:
+The existing contracts retain their current meanings and remain
+byte-compatible:
 
 - `Document` represents one exact canonical text.
 - `SourceAnnotationSet` preserves E3C source annotations and relations.
-- `AnnotationSet` preserves normalized RAG-HPO HPO assignments. Its empty
-  evidence spans accurately represent the missing offsets in the workbook.
+- `AnnotationSet` preserves normalized RAG-HPO HPO assignments. Empty evidence
+  spans accurately represent the missing offsets in the workbook.
 - `UmlsHpoMappingManifest` preserves E3C UMLS-to-HPO candidates.
 - `RagHpoSourceAnnotationRecord` links normalized GSC/CSC annotations to
   workbook rows.
 - `ReviewRecord` continues to describe the existing coarse workflow review
-  state and is not silently repurposed.
+  state and is not repurposed.
 
-No existing normalized artifact is rewritten or relabelled as curated gold
-data. A new `CuratedAnnotationSet/v1` is the common downstream contract.
+No normalized artifact is rewritten or relabelled as curated gold data. A new
+`CuratedAnnotationSet/v1` is the common downstream contract.
 
 ```text
 E3C SourceAnnotationSet ─┐
@@ -46,40 +51,102 @@ GSC/CSC AnnotationSet ───┤
 RAG-HPO source sidecar ──┘
 ```
 
-## 3. Character and identity rules
+## 3. Provenance architecture
 
-All evidence offsets remain zero-based, half-open Unicode code-point offsets:
+Semantic data and execution provenance remain separate immutable artifacts:
+
+```text
+deterministic data artifact
+        │
+        └── ProvenanceRunLink
+                 └── RunManifest
+                       ├── exact input hashes
+                       ├── exact output hashes
+                       ├── pipeline stage
+                       ├── code hash
+                       ├── configuration hash
+                       ├── provider/model identity when applicable
+                       └── execution timestamps
+```
+
+Record-level semantic provenance remains inside the relevant data:
+
+- a curated annotation contains derivation activities and their exact sources;
+- a review decision identifies reviewer/tool, pipeline stage, reviewed fields,
+  target, outcome, and corrections;
+- a single-term selection identifies its selector, method, review inputs, and
+  exact selected spans.
+
+The implementation extends the existing provenance subject roles for curated
+annotation sets, review decision sets, single-term selections, and single-term
+sets. Review-file merging emits the normal run manifest with every input
+decision-set hash and the merged output hash. Equivalent unions can therefore
+produce the same deterministic data artifact while separate executions retain
+their own provenance.
+
+## 4. Common identities and canonicalization
+
+Evidence offsets are zero-based, half-open Unicode code-point offsets:
 
 ```text
 document.text[start_char:end_char] == text_snippet
 ```
 
-Every curated annotation set binds to:
+Cross-artifact record references always use an exact artifact hash plus a
+record ID:
 
-- one exact `document_sha256`;
-- one exact `hpo_release`;
-- one exact `ontology_sha256`; and
-- immutable annotation content.
+```text
+AnnotationReference
+├── annotation_set_sha256
+└── annotation_id
 
-Cross-artifact references use both an artifact hash and an in-artifact record
-ID. A record ID alone is never sufficient to identify a reviewed subject.
+DecisionReference
+├── decision_set_sha256
+└── decision_id
+```
 
-All persisted models use strict, closed schemas, canonical JSON, deterministic
-tuple ordering, and SHA-256 identities following the repository's existing
-canonicalization rules.
+All persisted models use strict, closed schemas and canonical JSON. Set-like
+tuples are unique and sorted by explicitly defined keys. SHA-256 is the
+authoritative immutable artifact identity.
 
-## 4. Curated annotation model
+`annotation_set_id` is retained as a human-readable logical identity for
+compatibility with the existing common `AnnotationSet`. Cross-artifact
+references still use the artifact hash, never the logical ID alone.
 
-`CuratedAnnotationSet/v1` contains:
+Record IDs generated by this phase are content-derived. Each is a prefix plus
+the SHA-256 of a schema-tagged canonical payload that excludes the ID itself:
+
+- `curated-ann-<sha256>` for curated annotations;
+- `review-decision-<sha256>` for review decisions; and
+- `single-term-<sha256>` for single-term records.
+
+## 5. Curated annotation set
 
 ```text
 CuratedAnnotationSet
 ├── schema_version = "curated-annotation-set/v1"
 ├── annotation_set_id
-├── document_sha256
-├── hpo_release
-├── ontology_sha256
+├── document: DocumentReference
+├── ontology: OntologyReference
 └── annotations[]
+```
+
+`DocumentReference` locates and verifies the exact text:
+
+```text
+DocumentReference
+├── documents_sha256
+├── document_id
+└── document_sha256
+```
+
+`OntologyReference` identifies both the human-readable release and exact
+ontology bytes:
+
+```text
+OntologyReference
+├── hpo_release
+└── ontology_sha256
 ```
 
 Each `CuratedAnnotation` contains:
@@ -95,43 +162,51 @@ CuratedAnnotation
 └── derivations[]
 ```
 
-The initial closed values retain the semantics of the current common
-`Annotation` model:
+The initial closed context values are:
 
 - `assertion`: `present`, `absent`, or `uncertain`;
 - `experiencer`: `patient` or `other`;
 - `temporality`: `current`, `historical`, or `future`.
 
-The new model uses enums rather than unrestricted strings. Expansion requires
-a schema revision or an explicitly backward-compatible enum addition with
-tests.
+These values are not expanded in v1.
 
 Evidence spans use the existing `EvidenceSpan` contract. They are unique and
 sorted by `(start_char, end_char, text_snippet)`. Empty evidence spans are
-structurally valid because a GSC/CSC HPO assignment may be imported as a
-curation proposal before later span annotation. Empty spans are not implicitly
-eligible for single-term derivation.
+structurally valid because a GSC/CSC HPO assignment may enter curation before
+later span annotation. Empty spans are not implicitly eligible for single-term
+derivation.
 
-Annotations are sorted by `annotation_id`. Annotation IDs must be unique
-within a set. A changed HPO identity, span, assertion, experiencer, or
-temporality creates a new annotation proposal with a new annotation ID; it
-never mutates an immutable stored artifact.
+Annotations are sorted by `annotation_id`, and IDs must be unique within a
+set. Changing the HPO ID, context, spans, or derivation creates a new
+content-derived annotation ID and a new immutable annotation-set artifact.
 
-## 5. Annotation derivation
+## 6. Annotation derivation activities
 
-Every curated annotation contains one or more
-`AnnotationDerivationRecord/v1` values:
+A derivation activity records one semantic operation and all sources used
+together:
 
 ```text
-AnnotationDerivationRecord
-├── schema_version = "annotation-derivation-record/v1"
-├── derivation_id
+DerivationActivity
 ├── method
-└── source: DerivationSourceReference
+├── agent_id
+├── actor_kind: human | tool
+└── sources[]
 ```
 
-`DerivationSourceReference` is a strict tagged union. Each variant defines an
-unambiguous lookup in an existing artifact:
+`agent_id` is a stable namespaced pseudonym or software identifier. It contains
+no credential or secret. Exact code, tool, model, and configuration identities
+remain in the run manifest linked to the containing annotation-set artifact.
+
+`method` is one of:
+
+- `direct_mapping`;
+- `contextual_refinement`;
+- `source_hpo`;
+- `manual_annotation`; or
+- `revision`.
+
+`sources` is a nonempty, unique, canonically sorted tuple of this strict tagged
+union:
 
 ```text
 E3cSourceAnnotationReference
@@ -157,231 +232,176 @@ CuratedAnnotationReference
 ├── source_kind = "curated_annotation"
 └── annotation: AnnotationReference
 
-DocumentReference
-├── source_kind = "document"
-├── documents_sha256
-├── document_id
-└── document_sha256
+BoundDocumentReference
+└── source_kind = "bound_document"
 ```
 
-The E3C reference uses both set and annotation IDs because source annotation
-IDs are local to a `SourceAnnotationSet`. The RAG-HPO reference binds both the
-normalized HPO annotation and its workbook-sidecar row. The mapping reference
-identifies one exact mapping record. The curated reference is the only
-annotation-revision reference; there is no second `previous_annotation` field
-that could contradict it. The document reference binds both the aggregate
-document artifact and the exact document record and text identities.
+The E3C reference uses both source-set and annotation IDs because source
+annotation IDs are local to a `SourceAnnotationSet`. The RAG-HPO reference
+binds both the normalized HPO annotation and its workbook row.
+`BoundDocumentReference` explicitly records manual derivation from the
+document already bound by the parent set without duplicating its identities.
 
-`method` is one of:
+Activities are sorted and deduplicated by canonical content. They have no
+nested schema version or arbitrary derivation ID because they are not
+referenced independently.
 
-- `direct_mapping`;
-- `contextual_refinement`;
-- `source_hpo`;
-- `manual_annotation`; or
-- `revision`.
+Cross-artifact integrity checks include:
 
-`AnnotationReference` is:
+- `direct_mapping` resolves the E3C source annotation and mapping record used
+  together, and the resulting HPO ID is among the record's candidates;
+- `source_hpo` resolves the normalized RAG-HPO annotation and sidecar row and
+  agrees with the proposed HPO ID;
+- `revision` includes the exact earlier curated annotation;
+- `manual_annotation` includes the bound document; and
+- every source hash and record key resolves against the supplied typed
+  dependencies.
 
-```text
-AnnotationReference
-├── annotation_set_sha256
-└── annotation_id
-```
+These checks verify derivation claims; they do not accept an annotation.
 
-Derivations are unique and sorted by `derivation_id`. Derivation IDs must be
-unique within an annotation. A revision uses method `revision` with a
-`CuratedAnnotationReference` to the proposal being revised. A manual
-annotation without another annotation source uses method `manual_annotation`
-with a `DocumentReference`.
+## 7. Independent review decisions
 
-Derivation records describe origin, not review or acceptance. Reviewer
-identity and decisions belong only in review artifacts.
-
-## 6. Independent review decisions
-
-Reviews are stored separately from annotations so a reviewer or tool can emit
-a new immutable file without rewriting the annotation proposal.
-
-`ReviewDecisionSet/v1` contains:
+Reviews are stored separately so people and tools can write immutable files
+without rewriting annotation proposals.
 
 ```text
 ReviewDecisionSet
 ├── schema_version = "review-decision-set/v1"
-├── decision_set_id
 └── decisions[]
 ```
 
-Each `ReviewDecision` contains:
+The artifact hash is the decision-set identity. Each decision contains:
 
 ```text
 ReviewDecision
 ├── decision_id
 ├── target: AnnotationReference
 ├── reviewer_id
-├── reviewer_role
-├── review_kind
-├── created_at
-├── review_scope
+├── actor_kind: human | tool
+├── reviewer_role?
+├── stage_id
+├── scopes[]
 ├── outcome
-├── review_stage
-├── review_policy_id?
+├── decided_at
 ├── rationale?
-└── counterproposal?
+├── counterproposal?
+└── supersedes?
 ```
 
-Reviewer metadata belongs to each decision so a materialized review
-collection remains self-describing even when one file contains decisions from
-multiple tools or reviewers. `reviewer_id` is an opaque, non-secret identity
-or stable pseudonym. It must not contain credentials. `reviewer_role`
-describes the capacity in which the review was performed.
+`reviewer_id` is a stable namespaced pseudonym or tool identifier.
+`reviewer_role` is an optional namespaced qualification or capacity, such as a
+bilingual clinical reviewer or physician. It does not grant precedence.
 
-`review_kind` is one of:
+`stage_id` is a required namespaced, versioned pipeline-point identifier, for
+example `e3c:hpo-mapping-review/v1`. It records where the decision was made
+without defining a workflow transition.
 
-- `automated`;
-- `bilingual`;
-- `medical`;
-- `annotation`; or
-- `adjudication`.
-
-`review_scope` is one of:
+`scopes` is a nonempty, unique, sorted tuple containing:
 
 - `hpo_identity`;
 - `evidence`;
 - `assertion`;
-- `context`; or
+- `experiencer`;
+- `temporality`; or
 - `complete`.
 
 `outcome` is one of:
 
-- `accepted`;
-- `rejected`;
+- `confirmed`;
+- `rejected`; or
 - `changes_requested`.
 
-`counterproposal`, when present, is an `AnnotationReference`. It may refer to
-an annotation in another curated annotation set. A counterproposal is a new
-immutable annotation, not replacement fields embedded in the review.
+`confirmed` applies only to the stated scopes. It never means globally
+accepted, release-ready, or sufficient under a review policy.
 
-A counterproposal must bind to the same `document_sha256`, `hpo_release`, and
-`ontology_sha256` as the reviewed target. It must contain a derivation with
-method `revision` and a `CuratedAnnotationReference` back to that exact target.
-This is referential integrity, not an acceptance rule.
+`decided_at` is an asserted audit timestamp serialized as canonical
+whole-second UTC `YYYY-MM-DDTHH:MM:SSZ`. It is never used for merge ordering,
+precedence, vote counting, or effective-status calculation.
 
-The schema permits multiple independent decisions for the same annotation and
-scope. It does not assign priority to reviewer kinds, count approvals, infer a
-current status, or require particular outcome/counterproposal combinations.
-Those are later review-policy concerns.
+`counterproposal`, when present, is an `AnnotationReference` resolving to an
+annotation for the same document. The proposed annotation may additionally
+record a `revision` derivation, but that reverse edge is not required because
+an independently created alternative can also be proposed.
 
-`created_at` is canonical UTC at whole-second precision, serialized exactly as
-`YYYY-MM-DDTHH:MM:SSZ`. Decisions are unique and sorted by `decision_id`
-within each `ReviewDecisionSet`.
+`supersedes`, when present, is a `DecisionReference`. It records an intentional
+correction or withdrawal without deleting the earlier immutable decision. The
+format does not calculate which decision is effective.
 
-```text
-AnnotationReference
-├── bilingual review: evidence accepted
-├── medical review: HPO identity accepted
-└── automated review: assertion changes requested
-```
+Structural validation rejects a counterproposal on a `confirmed` decision.
+Targets, counterproposals, and superseded decisions must resolve when full
+cross-artifact validation is requested.
 
-## 7. Deterministic collection of review files
+Decisions are sorted by `decision_id`. The ID is derived from every semantic
+field above, including `decided_at`, excluding only `decision_id`.
 
-Different reviewers and tools may create separate decision-set files.
-`ReviewCollection/v1` materializes their deterministic union:
+## 8. Deterministic review-file merging
+
+No separate `ReviewCollection` format is introduced. The pure merge operation
+consumes any number of `ReviewDecisionSet` artifacts and emits the same schema:
 
 ```text
 ReviewDecisionSet A ─┐
-ReviewDecisionSet B ─┼──> ReviewCollection/v1
+ReviewDecisionSet B ─┼──> ReviewDecisionSet
 ReviewDecisionSet C ─┘
 ```
 
-The collection contains:
+The merge is associative, commutative, and idempotent:
 
-```text
-ReviewCollection
-├── schema_version = "review-collection/v1"
-├── collection_id
-├── annotation_set_sha256s[]
-├── decision_set_sha256s[]
-└── decisions[]
-```
+1. Decisions are sorted by `decision_id`.
+2. A byte-identical repeated decision collapses to one record.
+3. The same `decision_id` with different canonical content is an error.
+4. Semantically distinct decisions remain independent.
+5. Contradictory outcomes remain side by side.
+6. Targets need not resolve merely to combine offline review files; full
+   cross-artifact validation resolves them before downstream use.
 
-Collection rules:
+The merge run manifest records all input decision-set hashes and the output
+hash. Input partitioning and execution history therefore remain auditable
+without changing the deterministic union.
 
-1. Input annotation-set hashes and decision-set hashes are unique and sorted.
-2. Decisions are sorted by `decision_id`.
-3. Repeated byte-identical decisions with the same `decision_id` collapse to
-   one materialized decision.
-4. The same `decision_id` with different canonical content is an error.
-5. Semantically similar decisions with different IDs remain independent.
-6. Every target and counterproposal reference must resolve in the supplied
-   curated annotation sets.
-7. Different versions of an annotation remain distinct because their
-   `annotation_set_sha256` values differ.
-8. Conflicting outcomes remain side by side and are never resolved by the
-   collector.
+## 9. Single-term selection
 
-The collection hash is a pure function of canonical inputs. Repeating the
-collection with the same files produces byte-identical output regardless of
-input file order.
-
-`collection_id` is generated, never supplied by the caller. It is
-`review-collection-` followed by the SHA-256 of canonical JSON containing the
-schema version plus the sorted annotation-set and decision-set hashes. The ID
-is computed before serializing the collection and is not included in its own
-identity payload.
-
-## 8. Single-term derivation contract
-
-This phase does not implement an acceptance policy. Therefore the extractor
-does not inspect review counts or calculate whether an annotation is eligible.
-It consumes an explicit, document-scoped `SingleTermSelection/v1`:
+No acceptance policy exists in this phase. The extractor therefore consumes an
+explicit dataset-level selection:
 
 ```text
 SingleTermSelection
 ├── schema_version = "single-term-selection/v1"
-├── selection_id
-├── document_sha256
-├── hpo_release
-├── ontology_sha256
+├── selector_id
+├── actor_kind: human | tool
+├── method_id
+├── source_review_set_sha256s[]
 └── records[]
       ├── annotation: AnnotationReference
       └── evidence_span_index
 ```
 
-Each selection record chooses exactly one evidence span of one exact curated
-annotation. The selection is a policy output or manual input; defining how it
-is produced is outside this phase. Records are unique and sorted by
-`(annotation_set_sha256, annotation_id, evidence_span_index)`. Because curated
-evidence spans have canonical ordering, the index is stable for an immutable
-annotation set.
+`selector_id` and `method_id` are namespaced identifiers. The sorted,
+deduplicated `source_review_set_sha256s` record exactly which review artifacts
+were consulted; the tuple may be empty when selection is intentionally
+independent of review. This field records inputs, not sufficiency or approval.
+The linked run manifest records code and configuration identities.
 
-The deterministic extractor receives:
+Selection records are unique and sorted by
+`(annotation_set_sha256, annotation_id, evidence_span_index)`. Each chooses one
+canonical evidence span from one exact annotation. The selection may span
+multiple documents but all referenced annotation sets must use the same
+ontology identity.
 
-- the exact `Document`;
-- all referenced `CuratedAnnotationSet` artifacts; and
-- one `SingleTermSelection`.
+## 10. Deterministic single-term output
 
-For each selection record it validates:
-
-- the annotation reference resolves;
-- the referenced set binds to the supplied document hash;
-- every referenced annotation set uses the selection's HPO release;
-- every referenced annotation set uses the selection's ontology hash;
-- the span index exists;
-- the stored span matches the document exactly; and
-- no `(annotation reference, span index)` pair is duplicated.
-
-It emits `SingleTermSet/v1`:
+The extractor receives the selection plus every referenced annotation set,
+document, ontology, and review set. It validates all hashes and references
+before producing:
 
 ```text
 SingleTermSet
 ├── schema_version = "single-term-set/v1"
-├── single_term_set_id
 ├── selection_sha256
-├── document_sha256
-├── hpo_release
-├── ontology_sha256
+├── ontology: OntologyReference
 └── records[]
       ├── single_term_id
+      ├── document_sha256
       ├── annotation: AnnotationReference
       ├── evidence_span_index
       ├── hpo_id
@@ -393,117 +413,122 @@ SingleTermSet
       └── term_text
 ```
 
+The output deliberately materializes HPO and context fields so a benchmark
+consumer can use `SingleTermSet` without loading internal curation artifacts.
+They are recomputed from the referenced annotation and validated rather than
+accepted as independent caller input.
+
 `term_text` is always computed as
-`document.text[start_char:end_char]`; it is never copied from an unverified
-caller value. One selected span produces one single-term record. Discontinuous
-or multi-span expressions require explicit selection of each independently
-usable span; no synthetic joining rule is introduced.
+`document.text[start_char:end_char]`. One selected span produces one record;
+no synthetic joining rule is introduced for discontinuous spans.
 
-Records and stable IDs are sorted deterministically by annotation-set hash,
-annotation ID, and span index.
+`single_term_id` is derived from canonical JSON containing the document hash,
+annotation-set hash, annotation ID, and span index. Records are sorted by the
+same fields.
 
-`single_term_id` is generated as `single-term-` plus the SHA-256 of canonical
-JSON containing the annotation-set hash, annotation ID, and span index.
-`single_term_set_id` is generated as `single-term-set-` plus the SHA-256 of
-canonical JSON containing the schema version, selection hash, document hash,
-HPO release, and ontology hash. Neither generated ID is included in its own
-identity payload.
+The extractor additionally verifies:
 
-## 9. Validation boundaries
+- every annotation and selected span resolves;
+- every annotation set resolves its exact document;
+- every stored span matches the document;
+- every selected annotation set uses the output ontology;
+- every HPO ID exists in that exact ontology;
+- the ontology release label agrees with the ontology artifact;
+- mapping and source-HPO derivation claims agree with the HPO ID; and
+- every materialized output field equals its referenced source value.
 
-Pure model validation enforces local structure, closed values, ordering,
-uniqueness, and digest syntax.
+An obsolete HPO term may remain a reviewable proposal. Term activity is not
+converted into acceptance or release policy in this phase.
 
-Full provenance validation requires an artifact registry keyed by SHA-256.
-Every hash referenced by a typed derivation, annotation reference, decision
-set, or selection must be present in that registry with the schema required by
-the reference variant. Cross-artifact validators then enforce:
+## 11. Validation boundary
 
-- curated evidence spans match the bound document;
-- every typed derivation resolves through its variant-specific lookup key;
-- review targets and counterproposals resolve;
-- counterproposals match the target document, HPO release, and ontology
-  identity and derive from the target;
-- collection decision IDs do not collide;
-- review collections contain exactly the union of their decision sets; and
-- single-term outputs exactly match their document, selection, annotations,
-  and HPO/context fields.
+Pure model parsing validates local closed schemas, identifier syntax, tuple
+ordering, uniqueness, and digest syntax.
 
-Parsing one model can validate only its local closed schema. A requested full
-provenance validation without every referenced artifact in the registry fails
-closed. Unresolved references, mismatched hashes, out-of-range spans, and
-identifier collisions also fail closed. A disagreement between valid reviews
-is data, not a validation failure.
+Cross-artifact validators accept the exact typed dependency bundle required by
+the requested operation. No persisted universal artifact-registry format or
+public registry API is introduced. Requested full validation fails closed when
+a referenced artifact or record is absent, has the wrong schema, has a
+mismatched hash, or contradicts a declared derivation.
 
-## 10. Pipeline and tool boundary
+A disagreement between valid reviews is data, not a validation error.
 
-This format phase provides pure read, validate, canonicalize, collect, and
-derive functions. It does not add an interactive review interface.
+## 12. Pipeline and future tool boundary
 
-A later review tool can:
+This phase provides pure model, validation, canonicalization, review-merge,
+and single-term derivation functions. It does not add an interactive review
+interface.
+
+A later tool can:
 
 ```text
-read CuratedAnnotationSet
+read CuratedAnnotationSet and its DocumentReference
 → display annotation and document context
 → write ReviewDecisionSet
 → optionally write a counterproposal CuratedAnnotationSet
-→ combine independent files into ReviewCollection
+→ merge independent ReviewDecisionSet files
+→ write or consume SingleTermSelection
 ```
 
-Because review decisions contain exact annotation references, the tool cannot
-silently apply a decision to a changed proposal.
+Exact annotation and decision references prevent a review or correction from
+being silently applied to a changed proposal.
 
-## 11. Explicit non-goals
+## 13. Explicit non-goals
 
 - No GSC/CSC span alignment.
 - No German E3C annotation generation.
 - No automatic promotion of UMLS-to-HPO candidates.
 - No rule defining how many reviews are sufficient.
-- No rule requiring bilingual, medical, or adjudication review.
+- No mandatory bilingual, medical, or adjudication review.
 - No majority vote or reviewer precedence.
-- No effective `draft`, `accepted`, or `release-ready` status calculation.
-- No automatic conversion of accepted reviews into a single-term selection.
+- No effective `draft`, `accepted`, or `release-ready` status.
+- No automatic conversion of review outcomes into a single-term selection.
 - No review user interface.
 - No release or publication operation.
 
-## 12. Testing
+## 14. Testing
 
-Offline tests use synthetic documents and cover:
+Offline synthetic tests cover:
 
-- compatibility of existing source models;
-- strict curated annotation enums and canonical ordering;
+- byte-compatibility of existing source models;
+- curated annotation context enums and canonical ordering;
 - exact Unicode evidence-span validation;
-- source derivations and revision references;
-- independent decisions from multiple reviewer kinds;
-- accepted, rejected, change-requested, and counterproposal records without
-  policy evaluation;
-- deterministic collection independent of file order;
-- exact duplicate collapse and conflicting-ID rejection;
-- retention of contradictory reviews;
-- separation of reviews for different annotation-set hashes;
-- unresolved target and counterproposal rejection;
-- cross-document, cross-release, and non-derived counterproposal rejection;
-- canonical whole-second UTC decision timestamps;
-- explicit single-term span selection;
-- exact term extraction from Unicode text;
-- empty, missing, out-of-range, and duplicate span-selection failures;
+- content-derived annotation, decision, and single-term IDs;
+- multi-source E3C derivation activities;
+- RAG-HPO annotation/sidecar linkage;
+- exact ontology release/hash and HPO-term validation;
+- independent human and tool decisions at different stage IDs;
+- scoped confirmations, rejections, and change requests;
+- counterproposals and decision supersession without status calculation;
+- deterministic merge independent of input order and partitioning;
+- duplicate collapse, ID/content collision rejection, and contradictory-review
+  retention;
+- dataset-level explicit span selection with selection provenance;
+- deterministic exact term extraction across multiple documents;
+- missing, empty, out-of-range, and duplicate span-selection failures;
 - byte-identical canonical outputs and stable hashes; and
 - Ruff, mypy, and the complete offline pytest suite.
 
-## 13. Acceptance criteria
+## 15. Acceptance criteria
 
 The format phase is complete when:
 
-1. E3C, GSC, and CSC can all produce the same curated annotation contract
-   without changing their existing normalized artifacts.
-2. Every curated annotation can retain machine-verifiable source derivation.
-3. Multiple people or tools can independently record scoped decisions against
-   the exact same or different annotation revisions.
-4. Rejections and change requests can reference immutable counterproposals.
-5. Separate decision files combine deterministically and preserve unresolved
-   disagreement.
-6. No review-sufficiency or release policy is encoded.
-7. An explicit span selection can be converted deterministically into exact
-   single-term records.
-8. All new contracts are strict, canonical, offline tested, and linked by
-   SHA-256 identities.
+1. E3C, GSC, and CSC can produce the same curated annotation contract without
+   changing their normalized artifacts.
+2. Every curated annotation records all jointly used source records and its
+   responsible person or tool.
+3. Every deterministic artifact links through existing run provenance to exact
+   inputs, code, configuration, and output hashes.
+4. Multiple people or tools can independently record scoped decisions at
+   different pipeline points.
+5. Rejections and change requests can reference counterproposals, and mistaken
+   decisions can reference the decisions they supersede.
+6. Separate review files merge deterministically into the same format while
+   preserving unresolved disagreement and merge-run provenance.
+7. No review-sufficiency, precedence, or release policy is encoded.
+8. Every single-term selection records its selector, method, consulted review
+   artifacts, and exact annotation spans.
+9. A dataset-level selection derives byte-identical, self-contained
+   single-term records from exact documents and annotation sets.
+10. All contracts are strict, canonical, offline tested, and linked by
+    SHA-256 identities.
