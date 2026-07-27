@@ -113,6 +113,23 @@ def test_e3c_google_nmt_recipe_is_pinned() -> None:
     assert recipe.pricing.price_per_million_input_characters == Decimal("20")
 
 
+def test_e3c_translation_llm_recipe_is_pinned() -> None:
+    recipe = load_translation_recipe(
+        ROOT / "datasets/e3c-de/translation-llm.yaml"
+    ).value
+
+    assert recipe.translation_id == "e3c-de-feasibility-30-google-tllm-v1"
+    assert recipe.selection_id == "e3c-de-feasibility-30-v1"
+    assert recipe.provider == "google-cloud-translation"
+    assert recipe.api_version == "v3"
+    assert recipe.model == "general/translation-llm"
+    assert recipe.location == "us-central1"
+    assert recipe.target_language == "de"
+    assert recipe.pricing.price_per_million_input_characters == Decimal("10")
+    assert recipe.pricing.price_per_million_output_characters == Decimal("10")
+    assert recipe.pricing.output_expansion_factor == Decimal("1.30")
+
+
 def test_e3c_google_nmt_recipe_hash_is_frozen() -> None:
     loaded = load_translation_recipe(ROOT / "datasets/e3c-de/translation.yaml")
 
