@@ -16,7 +16,7 @@ from phentrieve_benchmark.models.pipeline import (
 )
 from phentrieve_benchmark.models.translation import TranslationManifest
 from phentrieve_benchmark.pipeline.prepare import PipelineContext
-from phentrieve_benchmark.pipeline.state import StageState
+from phentrieve_benchmark.pipeline.state import StagePointer, StageState
 from phentrieve_benchmark.policies.paid_operations import CostEstimate
 from phentrieve_benchmark.provenance.canonical import canonical_json_bytes
 from phentrieve_benchmark.selection.e3c import E3cSelectionManifest
@@ -31,6 +31,7 @@ from phentrieve_benchmark.translation.pricing import (
     estimate_google_nmt,
     load_translation_recipe,
 )
+from phentrieve_benchmark.translation.recheck import recheck_translations
 from phentrieve_benchmark.translation.view import materialize_translation_view
 
 
@@ -59,6 +60,16 @@ class TranslationStageResult:
     translated_count: int = 0
     failed_count: int = 0
     reused_count: int = 0
+
+
+@dataclass(frozen=True)
+class TranslationRecheckStageResult:
+    subject_sha256: str
+    run_manifest_sha256: str | None
+    provenance_link_sha256: str | None
+    case_count: int
+    changed_count: int
+    failed_count: int
 
 
 def _semantic_hashes(
@@ -276,4 +287,105 @@ def translate_e3c(
         translated_count=len(translated.translated_case_ids),
         failed_count=len(translated.failed_case_ids),
         reused_count=len(translated.reused_case_ids),
+    )
+
+
+def _latest_translation_pointer(context: PipelineContext) -> StagePointer:
+    state_root = context.artifact_root / "state" / "translate" / "e3c"
+    candidates = sorted(
+        state_root.glob("*.json"),
+        key=lambda path: (path.stat().st_mtime_ns, path.name),
+        reverse=True,
+    )
+    if not candidates:
+        raise ValueError("missing published E3C translation manifest")
+    pointer = StagePointer.model_validate_json(candidates[0].read_bytes())
+    if pointer.subject_role is not ProvenanceSubjectRole.TRANSLATION_MANIFEST:
+        raise ValueError("published E3C state is not a translation manifest")
+    return pointer
+
+
+def recheck_e3c_translations(
+    context: PipelineContext,
+) -> TranslationRecheckStageResult:
+    """Re-run the automatic checks over already translated artifacts.
+
+    Contacts no provider and spends nothing. When the verdicts are unchanged
+    the existing manifest is returned untouched rather than republished.
+    """
+    pointer = _latest_translation_pointer(context)
+    manifest = TranslationManifest.model_validate_json(
+        context.store.read_bytes(pointer.subject_sha256), strict=True
+    )
+    result = recheck_translations(
+        manifest=manifest,
+        store=context.store,
+        language_detector=detect_supported_language,
+    )
+    if not result.changed:
+        return TranslationRecheckStageResult(
+            subject_sha256=pointer.subject_sha256,
+            run_manifest_sha256=None,
+            provenance_link_sha256=None,
+            case_count=len(manifest.records),
+            changed_count=0,
+            failed_count=len(result.failed_case_ids),
+        )
+
+    subject_sha256 = context.store.put_bytes(
+        result.manifest.canonical_bytes()
+    )
+    finished = context.clock()
+    run = RunManifest(
+        run_id=context.run_id_provider(),
+        stage="translate-recheck",
+        status=RunStatus.COMPLETE,
+        started_at=finished,
+        finished_at=finished,
+        pipeline_commit=context.pipeline_commit,
+        dirty_state=context.dirty_state,
+        code_sha256=context.code_sha256,
+        config_sha256=manifest.recipe_sha256,
+        input_sha256=(pointer.subject_sha256,),
+        output_sha256=(subject_sha256,),
+        selection_id=manifest.selection_id,
+    )
+    run_sha256 = context.store.put_bytes(
+        canonical_json_bytes(run.model_dump(mode="json"))
+    )
+    link = ProvenanceRunLink(
+        subject_role=ProvenanceSubjectRole.TRANSLATION_MANIFEST,
+        subject_sha256=subject_sha256,
+        run_manifest_sha256=run_sha256,
+    )
+    link_sha256 = context.store.put_bytes(link.canonical_bytes())
+    project_ids = {record.project_id for record in manifest.records}
+    if len(project_ids) != 1:
+        raise ValueError("translation manifest spans multiple projects")
+    StageState(context.artifact_root / "state", context.store).publish(
+        stage="translate",
+        target="e3c",
+        subject_role=ProvenanceSubjectRole.TRANSLATION_MANIFEST,
+        subject_sha256=subject_sha256,
+        semantic_hashes={
+            "selection_sha256": manifest.selection_sha256,
+            "recipe_sha256": manifest.recipe_sha256,
+            "project_sha256": context.store.put_bytes(
+                project_ids.pop().encode("utf-8")
+            ),
+            "code_sha256": context.code_sha256,
+        },
+    )
+    materialize_translation_view(
+        manifest=result.manifest,
+        store=context.store,
+        destination=context.artifact_root / "views" / "e3c-de",
+    )
+    return TranslationRecheckStageResult(
+        subject_sha256=subject_sha256,
+        run_manifest_sha256=run_sha256,
+        provenance_link_sha256=link_sha256,
+        case_count=len(result.manifest.records),
+        changed_count=len(result.changed_case_ids),
+        failed_count=len(result.failed_case_ids),
     )

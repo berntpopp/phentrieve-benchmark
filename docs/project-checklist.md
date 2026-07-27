@@ -75,8 +75,18 @@ Status:
 
 ### Übersetzungsprüfung
 
-- [ ] Jede Übersetzung automatisiert auf Vollständigkeit, medizinische
-      Bedeutung, Negation, Zahlen, Einheiten und Auslassungen prüfen.
+- [x] Automatische Prüfung auf leere Ausgabe, unveränderte Quelle,
+      Längenverhältnis, erfundene Einheiten und Zielsprache; Absatzzahlen
+      werden ohne Gate mitgeschrieben.
+- ⚠ Zahlen werden nicht mehr automatisch geprüft. `numbers_preserved` und
+  `units_preserved` verglichen Multimengen über Sprachgrenzen hinweg, maßen
+  damit Typografie statt Bedeutung und markierten 28 von 30 Texten, ohne einen
+  der 24 klinisch relevanten Fehler zu finden. Die Zahlentreue liegt jetzt beim
+  manuellen Review.
+- ⏸ Vollständigkeit, medizinische Bedeutung, Negation und Auslassungen sind
+  regelbasiert nicht erreichbar; dafür ist eine semantische Prüfstufe
+  (Rückübersetzung oder Entailment) zu entwerfen — offene Architekturfrage
+  wegen Determinismus und gepinnter Modellidentität.
 - ⚠ Den anfänglichen Anteil bilingualer und fachsprachlich/ärztlicher Prüfung
   verbindlich festlegen.
 - [ ] Zunächst den im Issue vorgesehenen anteiligen Review anvisieren.

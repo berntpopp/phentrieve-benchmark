@@ -18,6 +18,7 @@ from phentrieve_benchmark.pipeline.prepare import (
 from phentrieve_benchmark.pipeline.translate import (
     estimate_prepared_translation,
     prepare_e3c_translation,
+    recheck_e3c_translations,
     translate_e3c,
 )
 from phentrieve_benchmark.provenance.code_identity import code_sha256
@@ -35,6 +36,8 @@ smoke_app = typer.Typer(no_args_is_help=True)
 translate_app = typer.Typer(no_args_is_help=True)
 materialize_app = typer.Typer(no_args_is_help=True)
 materialize_translations_app = typer.Typer(no_args_is_help=True)
+recheck_app = typer.Typer(no_args_is_help=True)
+recheck_translations_app = typer.Typer(no_args_is_help=True)
 map_hpo_app = typer.Typer(no_args_is_help=True)
 DatasetRoot = Annotated[Path, typer.Option()]
 ArtifactRoot = Annotated[Path, typer.Option()]
@@ -47,6 +50,8 @@ app.add_typer(smoke_app, name="smoke")
 app.add_typer(translate_app, name="translate")
 app.add_typer(materialize_app, name="materialize")
 materialize_app.add_typer(materialize_translations_app, name="translations")
+app.add_typer(recheck_app, name="recheck")
+recheck_app.add_typer(recheck_translations_app, name="translations")
 app.add_typer(map_hpo_app, name="map-hpo")
 
 
@@ -162,6 +167,21 @@ def materialize_e3c_translations_command(
     )
     typer.echo(
         f"destination={result.destination} cases={result.case_count}"
+    )
+
+
+@recheck_translations_app.command("e3c")
+def recheck_e3c_translations_command(
+    dataset_root: DatasetRoot = Path("datasets"),
+    artifact_root: ArtifactRoot = Path(".artifacts"),
+) -> None:
+    """Re-run the automatic checks over already translated artifacts."""
+    context = _pipeline_context(dataset_root, artifact_root)
+    result = recheck_e3c_translations(context)
+    typer.echo(
+        f"subject_sha256={result.subject_sha256} "
+        f"cases={result.case_count} changed={result.changed_count} "
+        f"failed={result.failed_count}"
     )
 
 
