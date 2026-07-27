@@ -119,6 +119,10 @@ def estimate_google_nmt(
         * pricing.price_per_million_input_characters
         / _MILLION
     )
+    output_price = pricing.price_per_million_output_characters
+    factor = pricing.output_expansion_factor
+    if output_price is not None and factor is not None:
+        cost += Decimal(input_codepoints) * factor * output_price / _MILLION
     return CostEstimate(
         currency=pricing.currency,
         estimated_cost=cost,
