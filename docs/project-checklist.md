@@ -72,6 +72,10 @@ Status:
 - [ ] Fehlgeschlagene oder leere Providerantworten sicher zurückweisen.
 - [ ] Korrekturen als neue Artefakte speichern, ohne frühere Fassungen zu
       überschreiben.
+- [x] Zweiten Übersetzungsweg mit `general/translation-llm` als eigene
+      Rezeptidentität neben `general/nmt` bereitstellen.
+- ⚠ Welche Variante die Grundlage des manuellen Reviews wird, ist bis zum
+  Vergleich beider Fassungen offen.
 
 ### Übersetzungsprüfung
 
@@ -203,8 +207,8 @@ GSC-Fassungen erzeugt.
 
 ## Aktuelle Priorität
 
-1. Den vorbereiteten Google-NMT-Lauf nach erneuter Kostenanzeige und
-   ausdrücklicher Freigabe ausführen.
+1. Den vorbereiteten Translation-LLM-Lauf nach Kostenanzeige und
+   ausdrücklicher Freigabe ausführen und beide Fassungen vergleichen.
 2. Umfang und Auswahl der bilingualen/fachsprachlichen Prüfung klären.
 3. Die erzeugten deutschen Übersetzungen prüfen.
 4. CSC und GSC bleiben bis zu einer ausdrücklichen Wiederaufnahme pausiert.
