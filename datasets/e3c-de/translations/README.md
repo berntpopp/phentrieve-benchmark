@@ -44,3 +44,18 @@ after a complete authorized run. Machine translation is only
 `ready_for_review`; it is not `accepted` until the planned manual review has
 been documented.
 
+## Readable local view
+
+After a successful translation run, the pipeline automatically materializes a
+non-canonical, human-readable view in `.artifacts/views/e3c-de/`. It contains
+flat `CASE.source.LANG.txt` and `CASE.translation.de.txt` files plus an
+`index.csv` with hashes, provider metadata, status, and failed check codes.
+
+Rebuild a deleted view without contacting Google:
+
+```text
+uv run phentrieve-benchmark materialize translations e3c
+```
+
+The rebuild verifies existing artifacts and never modifies canonical objects
+or provenance state.

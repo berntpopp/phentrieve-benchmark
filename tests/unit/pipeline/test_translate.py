@@ -16,6 +16,7 @@ from phentrieve_benchmark.pipeline.translate import (
     translate_e3c,
 )
 from phentrieve_benchmark.translation.e3c import TranslationInput
+from phentrieve_benchmark.translation.google_nmt import ProviderTranslation
 from phentrieve_benchmark.translation.pricing import (
     E3cTranslationRecipe,
     GoogleNmtPricing,
@@ -97,3 +98,22 @@ def test_denied_translation_does_not_construct_provider(tmp_path: Path) -> None:
     assert providers == []
     assert result.subject_sha256 is None
 
+
+def test_successful_translation_materializes_readable_view(tmp_path: Path) -> None:
+    class Provider:
+        def translate(self, *args: object, **kwargs: object) -> ProviderTranslation:
+            return ProviderTranslation(text="Der Patient hatte Fieber.")
+
+    result = translate_e3c(
+        prepared=_prepared(),
+        context=_context(tmp_path),
+        project_id="benchmark-project",
+        authorized=True,
+        provider_factory=Provider,
+    )
+
+    view = tmp_path / "artifacts" / "views" / "e3c-de"
+    assert result.translated_count == 1
+    assert (view / "EN101318.translation.de.txt").read_text() == (
+        "Der Patient hatte Fieber."
+    )

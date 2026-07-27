@@ -31,6 +31,7 @@ from phentrieve_benchmark.translation.pricing import (
     estimate_google_nmt,
     load_translation_recipe,
 )
+from phentrieve_benchmark.translation.view import materialize_translation_view
 
 
 @dataclass(frozen=True)
@@ -261,6 +262,11 @@ def translate_e3c(
         subject_role=ProvenanceSubjectRole.TRANSLATION_MANIFEST,
         subject_sha256=subject_sha256,
         semantic_hashes=semantic,
+    )
+    materialize_translation_view(
+        manifest=translated.manifest,
+        store=context.store,
+        destination=context.artifact_root / "views" / "e3c-de",
     )
     return TranslationStageResult(
         authorized=True,

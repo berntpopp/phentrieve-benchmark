@@ -142,6 +142,32 @@ def test_translate_command_delegates_after_confirmation(
     assert calls[0]["context"] is context
 
 
+def test_materialize_translation_command_rebuilds_existing_view(
+    monkeypatch: object,
+) -> None:
+    context = type(
+        "Context",
+        (),
+        {"store": object(), "artifact_root": Path("artifacts")},
+    )()
+    monkeypatch.setattr(cli, "_pipeline_context", lambda *_: context)  # type: ignore[attr-defined]
+    calls: list[dict[str, object]] = []
+    monkeypatch.setattr(
+        cli,
+        "materialize_latest_translation_view",
+        lambda **kw: calls.append(kw)
+        or type("Result", (), {"destination": Path("view"), "case_count": 1})(),
+    )  # type: ignore[attr-defined]
+
+    invocation = CliRunner().invoke(
+        cli.app,
+        ["materialize", "translations", "e3c"],
+    )
+
+    assert invocation.exit_code == 0, invocation.exception
+    assert calls[0]["artifact_root"] == Path("artifacts")
+
+
 def test_map_hpo_command_delegates_to_independent_stage(
     monkeypatch: object,
 ) -> None:

@@ -22,6 +22,9 @@ from phentrieve_benchmark.pipeline.translate import (
 )
 from phentrieve_benchmark.provenance.code_identity import code_sha256
 from phentrieve_benchmark.translation.google_nmt import create_google_nmt_adapter
+from phentrieve_benchmark.translation.view import (
+    materialize_latest_translation_view,
+)
 
 app = typer.Typer(no_args_is_help=True)
 acquire_app = typer.Typer(no_args_is_help=True)
@@ -30,6 +33,8 @@ select_app = typer.Typer(no_args_is_help=True)
 prepare_app = typer.Typer(no_args_is_help=True)
 smoke_app = typer.Typer(no_args_is_help=True)
 translate_app = typer.Typer(no_args_is_help=True)
+materialize_app = typer.Typer(no_args_is_help=True)
+materialize_translations_app = typer.Typer(no_args_is_help=True)
 map_hpo_app = typer.Typer(no_args_is_help=True)
 DatasetRoot = Annotated[Path, typer.Option()]
 ArtifactRoot = Annotated[Path, typer.Option()]
@@ -40,6 +45,8 @@ app.add_typer(select_app, name="select")
 app.add_typer(prepare_app, name="prepare")
 app.add_typer(smoke_app, name="smoke")
 app.add_typer(translate_app, name="translate")
+app.add_typer(materialize_app, name="materialize")
+materialize_app.add_typer(materialize_translations_app, name="translations")
 app.add_typer(map_hpo_app, name="map-hpo")
 
 
@@ -140,6 +147,21 @@ def translate_e3c_command(
         f"subject_sha256={result.subject_sha256} "
         f"translated={result.translated_count} "
         f"failed={result.failed_count} reused={result.reused_count}"
+    )
+
+
+@materialize_translations_app.command("e3c")
+def materialize_e3c_translations_command(
+    dataset_root: DatasetRoot = Path("datasets"),
+    artifact_root: ArtifactRoot = Path(".artifacts"),
+) -> None:
+    context = _pipeline_context(dataset_root, artifact_root)
+    result = materialize_latest_translation_view(
+        artifact_root=context.artifact_root,
+        store=context.store,
+    )
+    typer.echo(
+        f"destination={result.destination} cases={result.case_count}"
     )
 
 
