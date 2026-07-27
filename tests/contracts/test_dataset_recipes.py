@@ -113,6 +113,14 @@ def test_e3c_google_nmt_recipe_is_pinned() -> None:
     assert recipe.pricing.price_per_million_input_characters == Decimal("20")
 
 
+def test_e3c_google_nmt_recipe_hash_is_frozen() -> None:
+    loaded = load_translation_recipe(ROOT / "datasets/e3c-de/translation.yaml")
+
+    assert loaded.sha256 == (
+        "abb8542fd1d2362bc714c3c9f1a59cf941fd1f74f4cd3812ddf587abe490c8b0"
+    )
+
+
 def test_e3c_umls_hpo_mapping_recipe_is_pinned() -> None:
     payload = yaml.safe_load(
         (ROOT / "datasets/e3c-de/mapping.yaml").read_text("utf-8")
