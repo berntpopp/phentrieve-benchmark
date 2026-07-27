@@ -29,7 +29,15 @@ estimate would not be an upper bound. The recipe therefore pins
 `output_expansion_factor: "1.30"`. That number is measured, not guessed: the
 30 completed NMT translations produced 64,614 output codepoints from 59,517
 input codepoints, a ratio of 1.0856, with a worst single case of 1.2151. The
-pinned 1.30 sits above the observed maximum.
+pinned 1.30 sits above that observed maximum.
+
+The completed TLLM run produced 67,679 output codepoints, a ratio of 1.1371,
+and actually cost USD 1.27196 against the predicted bound of USD 1.368891.
+The total estimate therefore held. One single case reached 1.3021 and thereby
+exceeded the pinned factor, so that record's per-case `estimated_max_cost` was
+not an upper bound. The recipe is deliberately left unchanged: its hash is
+part of the published identity of this run, and correcting the factor
+afterwards would rewrite history to look more accurate than it was.
 
 Run the existing preparation first:
 
