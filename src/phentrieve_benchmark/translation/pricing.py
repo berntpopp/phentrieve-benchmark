@@ -1,9 +1,15 @@
 from decimal import Decimal
 from pathlib import Path
-from typing import Literal
+from typing import Literal, Self
 
 import yaml  # type: ignore[import-untyped]
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    field_validator,
+    model_validator,
+)
 
 from phentrieve_benchmark.acquisition.recipes import LoadedRecipe
 from phentrieve_benchmark.policies.paid_operations import CostEstimate
@@ -18,16 +24,38 @@ class GoogleNmtPricing(BaseModel):
 
     currency: str = Field(pattern=r"^[A-Z]{3}$")
     price_per_million_input_characters: Decimal = Field(ge=0)
+    price_per_million_output_characters: Decimal | None = None
+    output_expansion_factor: Decimal | None = None
     pricing_snapshot_id: str = Field(min_length=1)
 
-    @field_validator("price_per_million_input_characters", mode="before")
+    @field_validator(
+        "price_per_million_input_characters",
+        "price_per_million_output_characters",
+        "output_expansion_factor",
+        mode="before",
+    )
     @classmethod
-    def price_is_decimal(cls, value: object) -> Decimal:
+    def price_is_decimal(cls, value: object) -> Decimal | None:
+        if value is None:
+            return None
         if not isinstance(value, Decimal):
             raise ValueError("price must be represented as Decimal")
-        if not value.is_finite():
-            raise ValueError("price must be finite")
+        if not value.is_finite() or value < 0:
+            raise ValueError("price must be finite and non-negative")
         return value
+
+    @model_validator(mode="after")
+    def output_pricing_is_complete(self) -> Self:
+        price = self.price_per_million_output_characters
+        factor = self.output_expansion_factor
+        if (price is None) != (factor is None):
+            raise ValueError(
+                "output pricing requires an output price and an "
+                "expansion factor together"
+            )
+        if factor is not None and factor <= 0:
+            raise ValueError("expansion factor must be positive")
+        return self
 
 
 class E3cTranslationRecipe(BaseModel):
@@ -56,15 +84,28 @@ def load_translation_recipe(
     pricing = payload.get("pricing")
     if not isinstance(pricing, dict):
         raise ValueError("translation recipe pricing must be a mapping")
-    raw_price = pricing.get("price_per_million_input_characters")
-    if not isinstance(raw_price, str):
-        raise ValueError("translation recipe price must be a decimal string")
-    try:
-        pricing["price_per_million_input_characters"] = Decimal(raw_price)
-    except ArithmeticError as error:
-        raise ValueError("translation recipe price is invalid") from error
+    for name in (
+        "price_per_million_input_characters",
+        "price_per_million_output_characters",
+        "output_expansion_factor",
+    ):
+        raw_value = pricing.get(name)
+        if raw_value is None:
+            if name == "price_per_million_input_characters":
+                raise ValueError(
+                    "translation recipe price must be a decimal string"
+                )
+            continue
+        if not isinstance(raw_value, str):
+            raise ValueError("translation recipe price must be a decimal string")
+        try:
+            pricing[name] = Decimal(raw_value)
+        except ArithmeticError as error:
+            raise ValueError("translation recipe price is invalid") from error
     value = E3cTranslationRecipe.model_validate(payload, strict=True)
-    semantic = canonical_json_bytes(value.model_dump(mode="json"))
+    semantic = canonical_json_bytes(
+        value.model_dump(mode="json", exclude_none=True)
+    )
     return LoadedRecipe(value=value, sha256=sha256_bytes(semantic))
 
 
