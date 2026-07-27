@@ -134,3 +134,31 @@ def test_runner_reuses_compatible_successful_record(tmp_path: Path) -> None:
     assert second_provider.calls == []
     assert second.reused_case_ids == ("EN101318",)
 
+
+def test_record_carries_the_recipe_model(tmp_path: Path) -> None:
+    document = _document()
+    store = ArtifactStore(tmp_path / "objects")
+    recipe = _recipe().model_copy(
+        update={"model": "general/translation-llm", "location": "us-central1"}
+    )
+
+    result = translate_documents(
+        inputs=(
+            TranslationInput(
+                document=document,
+                expected_source_sha256=document.document_sha256,
+            ),
+        ),
+        provider=_Provider(),
+        store=store,
+        recipe=recipe,
+        selection_sha256="c" * 64,
+        project_id="benchmark-project",
+        created_at=datetime(2026, 7, 27, tzinfo=UTC),
+        language_detector=lambda _text: "de",
+    )
+
+    record = result.manifest.records[0]
+    assert record.model == "general/translation-llm"
+    assert record.location == "us-central1"
+

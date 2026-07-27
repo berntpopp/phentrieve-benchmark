@@ -45,7 +45,7 @@ class TranslationRecord(BaseModel):
     translation_sha256: Sha256Hex
     provider: Literal["google-cloud-translation"]
     api_version: Literal["v3"]
-    model: Literal["general/nmt"]
+    model: Literal["general/nmt", "general/translation-llm"]
     project_id: str = Field(min_length=1)
     location: str = Field(min_length=1)
     created_at: datetime

@@ -145,7 +145,7 @@ def translate_documents(
                 translation_sha256=translation_sha256,
                 provider="google-cloud-translation",
                 api_version="v3",
-                model="general/nmt",
+                model=recipe.model,
                 project_id=project_id,
                 location=recipe.location,
                 created_at=created_at,

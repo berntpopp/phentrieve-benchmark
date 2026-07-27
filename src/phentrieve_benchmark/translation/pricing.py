@@ -38,7 +38,7 @@ class E3cTranslationRecipe(BaseModel):
     selection_id: str = Field(min_length=1)
     provider: Literal["google-cloud-translation"]
     api_version: Literal["v3"]
-    model: Literal["general/nmt"]
+    model: Literal["general/nmt", "general/translation-llm"]
     location: str = Field(min_length=1)
     target_language: Literal["de"]
     pricing: GoogleNmtPricing
