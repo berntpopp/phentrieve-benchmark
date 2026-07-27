@@ -23,8 +23,10 @@ from phentrieve_benchmark.pipeline.translate import (
 )
 from phentrieve_benchmark.provenance.code_identity import code_sha256
 from phentrieve_benchmark.translation.google_nmt import create_google_nmt_adapter
+from phentrieve_benchmark.translation.pricing import load_translation_recipe
+from phentrieve_benchmark.translation.variants import translation_recipe_path
 from phentrieve_benchmark.translation.view import (
-    materialize_latest_translation_view,
+    materialize_published_translation_view,
 )
 
 app = typer.Typer(no_args_is_help=True)
@@ -42,6 +44,7 @@ map_hpo_app = typer.Typer(no_args_is_help=True)
 DatasetRoot = Annotated[Path, typer.Option()]
 ArtifactRoot = Annotated[Path, typer.Option()]
 Cohort = Annotated[Literal["feasibility-30"], typer.Option()]
+Variant = Annotated[str, typer.Option()]
 app.add_typer(acquire_app, name="acquire")
 app.add_typer(normalize_app, name="normalize")
 app.add_typer(select_app, name="select")
@@ -124,28 +127,34 @@ def map_hpo_e3c_command(
 @translate_app.command("e3c")
 def translate_e3c_command(
     project_id: Annotated[str, typer.Option()],
-    location: Annotated[str, typer.Option()] = "global",
+    variant: Variant = "nmt",
     dataset_root: DatasetRoot = Path("datasets"),
     artifact_root: ArtifactRoot = Path(".artifacts"),
 ) -> None:
     context = _pipeline_context(dataset_root, artifact_root)
-    prepared = prepare_e3c_translation(context, project_id)
+    prepared = prepare_e3c_translation(context, project_id, variant)
     estimate = estimate_prepared_translation(prepared)
     typer.echo(
+        f"variant={variant} model={prepared.recipe.model} "
         f"cases={estimate.case_count} "
         f"input_characters={estimate.input_codepoints} "
         f"upper_bound={estimate.cost.currency} "
         f"{estimate.cost.upper_bound:f}"
     )
-    if not typer.confirm("Google NMT translation starten?"):
+    if not typer.confirm(
+        f"Google translation ({prepared.recipe.model}) starten?"
+    ):
         raise typer.Exit(code=1)
     result = translate_e3c(
         prepared=prepared,
         context=context,
         project_id=project_id,
         authorized=True,
+        variant=variant,
         provider_factory=lambda: create_google_nmt_adapter(
-            project_id=project_id, location=location
+            project_id=project_id,
+            location=prepared.recipe.location,
+            model=prepared.recipe.model,
         ),
     )
     typer.echo(
@@ -157,13 +166,19 @@ def translate_e3c_command(
 
 @materialize_translations_app.command("e3c")
 def materialize_e3c_translations_command(
+    variant: Variant = "nmt",
     dataset_root: DatasetRoot = Path("datasets"),
     artifact_root: ArtifactRoot = Path(".artifacts"),
 ) -> None:
     context = _pipeline_context(dataset_root, artifact_root)
-    result = materialize_latest_translation_view(
+    recipe = load_translation_recipe(
+        translation_recipe_path(context.dataset_root, variant)
+    )
+    result = materialize_published_translation_view(
         artifact_root=context.artifact_root,
         store=context.store,
+        recipe_sha256=recipe.sha256,
+        variant=variant,
     )
     typer.echo(
         f"destination={result.destination} cases={result.case_count}"
@@ -172,12 +187,13 @@ def materialize_e3c_translations_command(
 
 @recheck_translations_app.command("e3c")
 def recheck_e3c_translations_command(
+    variant: Variant = "nmt",
     dataset_root: DatasetRoot = Path("datasets"),
     artifact_root: ArtifactRoot = Path(".artifacts"),
 ) -> None:
     """Re-run the automatic checks over already translated artifacts."""
     context = _pipeline_context(dataset_root, artifact_root)
-    result = recheck_e3c_translations(context)
+    result = recheck_e3c_translations(context, variant)
     typer.echo(
         f"subject_sha256={result.subject_sha256} "
         f"cases={result.case_count} changed={result.changed_count} "

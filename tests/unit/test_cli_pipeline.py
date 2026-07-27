@@ -62,12 +62,19 @@ def test_pipeline_command_groups_are_exposed() -> None:
         assert command in help_text
 
 
+def _prepared_stub() -> object:
+    recipe = type(
+        "Recipe", (), {"model": "general/nmt", "location": "global"}
+    )()
+    return type("Prepared", (), {"recipe": recipe})()
+
+
 def test_translate_command_stops_before_provider_when_declined(
     monkeypatch: object,
 ) -> None:
     monkeypatch.setattr(cli, "_pipeline_context", lambda *_: object())  # type: ignore[attr-defined]
     monkeypatch.setattr(
-        cli, "prepare_e3c_translation", lambda *_: object()
+        cli, "prepare_e3c_translation", lambda *_: _prepared_stub()
     )  # type: ignore[attr-defined]
     monkeypatch.setattr(
         cli,
@@ -103,7 +110,7 @@ def test_translate_command_stops_before_provider_when_declined(
 def test_translate_command_delegates_after_confirmation(
     monkeypatch: object,
 ) -> None:
-    prepared = object()
+    prepared = _prepared_stub()
     context = object()
     monkeypatch.setattr(cli, "_pipeline_context", lambda *_: context)  # type: ignore[attr-defined]
     monkeypatch.setattr(
@@ -148,24 +155,29 @@ def test_materialize_translation_command_rebuilds_existing_view(
     context = type(
         "Context",
         (),
-        {"store": object(), "artifact_root": Path("artifacts")},
+        {
+            "store": object(),
+            "artifact_root": Path("artifacts"),
+            "dataset_root": Path(__file__).parents[2] / "datasets",
+        },
     )()
     monkeypatch.setattr(cli, "_pipeline_context", lambda *_: context)  # type: ignore[attr-defined]
     calls: list[dict[str, object]] = []
     monkeypatch.setattr(
         cli,
-        "materialize_latest_translation_view",
+        "materialize_published_translation_view",
         lambda **kw: calls.append(kw)
         or type("Result", (), {"destination": Path("view"), "case_count": 1})(),
     )  # type: ignore[attr-defined]
 
     invocation = CliRunner().invoke(
         cli.app,
-        ["materialize", "translations", "e3c"],
+        ["materialize", "translations", "e3c", "--variant", "tllm"],
     )
 
     assert invocation.exit_code == 0, invocation.exception
     assert calls[0]["artifact_root"] == Path("artifacts")
+    assert calls[0]["variant"] == "tllm"
 
 
 def test_map_hpo_command_delegates_to_independent_stage(
@@ -240,3 +252,22 @@ def test_all_thin_commands_delegate_to_stage_services(
 
     smoke = runner.invoke(cli.app, ["smoke", "live-download", *roots])
     assert smoke.exit_code == 0, smoke.exception
+
+
+def test_translate_command_accepts_a_variant() -> None:
+    result = CliRunner().invoke(cli.app, ["translate", "e3c", "--help"])
+
+    assert result.exit_code == 0
+    assert "--variant" in result.stdout
+    assert "--location" not in result.stdout
+
+
+def test_recheck_and_materialize_accept_a_variant() -> None:
+    runner = CliRunner()
+    for command in (
+        ["recheck", "translations", "e3c", "--help"],
+        ["materialize", "translations", "e3c", "--help"],
+    ):
+        invocation = runner.invoke(cli.app, command)
+        assert invocation.exit_code == 0, invocation.exception
+        assert "--variant" in invocation.stdout
