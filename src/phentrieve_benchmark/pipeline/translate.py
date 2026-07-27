@@ -16,7 +16,7 @@ from phentrieve_benchmark.models.pipeline import (
 )
 from phentrieve_benchmark.models.translation import TranslationManifest
 from phentrieve_benchmark.pipeline.prepare import PipelineContext
-from phentrieve_benchmark.pipeline.state import StagePointer, StageState
+from phentrieve_benchmark.pipeline.state import StageState
 from phentrieve_benchmark.policies.paid_operations import CostEstimate
 from phentrieve_benchmark.provenance.canonical import canonical_json_bytes
 from phentrieve_benchmark.selection.e3c import E3cSelectionManifest
@@ -32,6 +32,11 @@ from phentrieve_benchmark.translation.pricing import (
     load_translation_recipe,
 )
 from phentrieve_benchmark.translation.recheck import recheck_translations
+from phentrieve_benchmark.translation.variants import (
+    resolve_translation_pointer,
+    translation_recipe_path,
+    translation_view_destination,
+)
 from phentrieve_benchmark.translation.view import materialize_translation_view
 
 
@@ -94,7 +99,7 @@ def _jsonl_documents(payload: bytes) -> tuple[Document, ...]:
 
 
 def prepare_e3c_translation(
-    context: PipelineContext, project_id: str
+    context: PipelineContext, project_id: str, variant: str = "nmt"
 ) -> PreparedE3cTranslation:
     source_recipe = load_source_recipe(
         context.dataset_root / "e3c-de" / "dataset.yaml"
@@ -166,7 +171,7 @@ def prepare_e3c_translation(
             )
         )
     loaded_recipe = load_translation_recipe(
-        context.dataset_root / "e3c-de" / "translation.yaml"
+        translation_recipe_path(context.dataset_root, variant)
     )
     prepared = PreparedE3cTranslation(
         inputs=tuple(inputs),
@@ -215,6 +220,7 @@ def translate_e3c(
     project_id: str,
     authorized: bool,
     provider_factory: Callable[[], object],
+    variant: str = "nmt",
 ) -> TranslationStageResult:
     if not authorized:
         return TranslationStageResult(authorized=False)
@@ -277,7 +283,9 @@ def translate_e3c(
     materialize_translation_view(
         manifest=translated.manifest,
         store=context.store,
-        destination=context.artifact_root / "views" / "e3c-de",
+        destination=translation_view_destination(
+            context.artifact_root, variant
+        ),
     )
     return TranslationStageResult(
         authorized=True,
@@ -290,30 +298,22 @@ def translate_e3c(
     )
 
 
-def _latest_translation_pointer(context: PipelineContext) -> StagePointer:
-    state_root = context.artifact_root / "state" / "translate" / "e3c"
-    candidates = sorted(
-        state_root.glob("*.json"),
-        key=lambda path: (path.stat().st_mtime_ns, path.name),
-        reverse=True,
-    )
-    if not candidates:
-        raise ValueError("missing published E3C translation manifest")
-    pointer = StagePointer.model_validate_json(candidates[0].read_bytes())
-    if pointer.subject_role is not ProvenanceSubjectRole.TRANSLATION_MANIFEST:
-        raise ValueError("published E3C state is not a translation manifest")
-    return pointer
-
-
 def recheck_e3c_translations(
-    context: PipelineContext,
+    context: PipelineContext, variant: str = "nmt"
 ) -> TranslationRecheckStageResult:
     """Re-run the automatic checks over already translated artifacts.
 
     Contacts no provider and spends nothing. When the verdicts are unchanged
     the existing manifest is returned untouched rather than republished.
     """
-    pointer = _latest_translation_pointer(context)
+    recipe = load_translation_recipe(
+        translation_recipe_path(context.dataset_root, variant)
+    )
+    pointer = resolve_translation_pointer(
+        artifact_root=context.artifact_root,
+        store=context.store,
+        recipe_sha256=recipe.sha256,
+    )
     manifest = TranslationManifest.model_validate_json(
         context.store.read_bytes(pointer.subject_sha256), strict=True
     )
@@ -379,7 +379,9 @@ def recheck_e3c_translations(
     materialize_translation_view(
         manifest=result.manifest,
         store=context.store,
-        destination=context.artifact_root / "views" / "e3c-de",
+        destination=translation_view_destination(
+            context.artifact_root, variant
+        ),
     )
     return TranslationRecheckStageResult(
         subject_sha256=subject_sha256,

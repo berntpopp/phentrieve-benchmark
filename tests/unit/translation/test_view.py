@@ -11,7 +11,7 @@ from phentrieve_benchmark.models.translation import (
     TranslationStatus,
 )
 from phentrieve_benchmark.translation.view import (
-    materialize_latest_translation_view,
+    materialize_published_translation_view,
     materialize_translation_view,
 )
 
@@ -81,9 +81,7 @@ def test_refuses_to_replace_unowned_directory(tmp_path) -> None:
         )
 
 
-def test_materializes_latest_published_manifest_without_pipeline_identity(
-    tmp_path,
-) -> None:
+def test_published_view_selects_the_variant_and_directory(tmp_path) -> None:
     store = ArtifactStore(tmp_path / "objects")
     manifest = _manifest(store)
     digest = store.put_bytes(manifest.canonical_bytes())
@@ -93,11 +91,16 @@ def test_materializes_latest_published_manifest_without_pipeline_identity(
         '{"schema_version":"stage-pointer/v1",'
         '"subject_role":"translation_manifest",'
         f'"subject_sha256":"{digest}",'
-        f'"semantic_hashes":{{"recipe_sha256":"{"b" * 64}"}}}}'
+        f'"semantic_hashes":{{"recipe_sha256":"{"c" * 64}"}}}}'
     )
 
-    result = materialize_latest_translation_view(
-        artifact_root=tmp_path, store=store
+    result = materialize_published_translation_view(
+        artifact_root=tmp_path,
+        store=store,
+        recipe_sha256="b" * 64,
+        variant="tllm",
     )
 
     assert result.case_count == 1
+    assert result.destination == (tmp_path / "views" / "e3c-de-tllm").resolve()
+    assert (result.destination / "EN000001.translation.de.txt").is_file()

@@ -2,6 +2,8 @@ from datetime import UTC, datetime
 from decimal import Decimal
 from pathlib import Path
 
+import pytest
+
 from phentrieve_benchmark.artifacts.store import ArtifactStore
 from phentrieve_benchmark.models.document import (
     Document,
@@ -13,6 +15,7 @@ from phentrieve_benchmark.pipeline.prepare import PipelineContext
 from phentrieve_benchmark.pipeline.translate import (
     PreparedE3cTranslation,
     estimate_prepared_translation,
+    recheck_e3c_translations,
     translate_e3c,
 )
 from phentrieve_benchmark.translation.e3c import TranslationInput
@@ -112,8 +115,21 @@ def test_successful_translation_materializes_readable_view(tmp_path: Path) -> No
         provider_factory=Provider,
     )
 
-    view = tmp_path / "artifacts" / "views" / "e3c-de"
+    view = tmp_path / "artifacts" / "views" / "e3c-de-nmt"
     assert result.translated_count == 1
     assert (view / "EN101318.translation.de.txt").read_text() == (
         "Der Patient hatte Fieber."
     )
+
+
+def test_recheck_reports_a_missing_variant(tmp_path: Path) -> None:
+    source = Path(__file__).parents[3] / "datasets" / "e3c-de"
+    target = tmp_path / "datasets" / "e3c-de"
+    target.mkdir(parents=True)
+    (target / "translation-llm.yaml").write_bytes(
+        (source / "translation-llm.yaml").read_bytes()
+    )
+    context = _context(tmp_path)
+
+    with pytest.raises(ValueError, match="no published E3C translation"):
+        recheck_e3c_translations(context, "tllm")

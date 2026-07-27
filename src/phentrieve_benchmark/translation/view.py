@@ -7,9 +7,11 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from phentrieve_benchmark.artifacts.store import ArtifactStore
-from phentrieve_benchmark.models.pipeline import ProvenanceSubjectRole
 from phentrieve_benchmark.models.translation import TranslationManifest
-from phentrieve_benchmark.pipeline.state import StagePointer
+from phentrieve_benchmark.translation.variants import (
+    resolve_translation_pointer,
+    translation_view_destination,
+)
 
 _MARKER = ".phentrieve-translation-view.json"
 
@@ -20,27 +22,25 @@ class TranslationViewResult:
     case_count: int
 
 
-def materialize_latest_translation_view(
-    *, artifact_root: Path, store: ArtifactStore
+def materialize_published_translation_view(
+    *,
+    artifact_root: Path,
+    store: ArtifactStore,
+    recipe_sha256: str,
+    variant: str,
 ) -> TranslationViewResult:
-    state_root = artifact_root / "state" / "translate" / "e3c"
-    candidates = sorted(
-        state_root.glob("*.json"),
-        key=lambda path: (path.stat().st_mtime_ns, path.name),
-        reverse=True,
+    pointer = resolve_translation_pointer(
+        artifact_root=artifact_root,
+        store=store,
+        recipe_sha256=recipe_sha256,
     )
-    if not candidates:
-        raise ValueError("missing published E3C translation manifest")
-    pointer = StagePointer.model_validate_json(candidates[0].read_bytes())
-    if pointer.subject_role is not ProvenanceSubjectRole.TRANSLATION_MANIFEST:
-        raise ValueError("published E3C state is not a translation manifest")
     manifest = TranslationManifest.model_validate_json(
         store.read_bytes(pointer.subject_sha256)
     )
     return materialize_translation_view(
         manifest=manifest,
         store=store,
-        destination=artifact_root / "views" / "e3c-de",
+        destination=translation_view_destination(artifact_root, variant),
     )
 
 
