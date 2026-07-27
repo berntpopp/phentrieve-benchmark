@@ -1,6 +1,6 @@
 # Readable E3C Translation View
 
-**Status:** Approved for implementation
+**Status:** Approved after automatic-export revision
 
 ## Goal
 
@@ -10,14 +10,18 @@ objects, manifests, or stage state.
 
 ## Interface
 
-Add this command:
+Every successful E3C translation run automatically refreshes the readable
+view after publishing the canonical manifest and stage state. Automatic and
+manual materialization use the same implementation.
+
+Also add this recovery and rebuild command:
 
 ```text
 phentrieve-benchmark materialize translations e3c
 ```
 
-It resolves the current compatible E3C translation manifest through pipeline
-state and writes a deterministic view below:
+The command resolves the current compatible E3C translation manifest through
+pipeline state and writes the same deterministic view as the automatic path:
 
 ```text
 .artifacts/views/e3c-de/
@@ -57,6 +61,12 @@ replaces a previously generated view. It refuses to replace the directory when
 the expected generator marker is absent. Canonical data under
 `.artifacts/objects` and `.artifacts/state` is read-only throughout.
 
+Translation success is defined by publication of the canonical translation
+manifest and stage state. A subsequent view-generation failure does not roll
+back or mutate that canonical result. The translation command reports the view
+failure and exits unsuccessfully so the operator can repair the view manually
+without repeating paid translation requests.
+
 ## Failure behavior
 
 The command fails without publishing a new view when translation state,
@@ -67,9 +77,11 @@ or invalid. Error messages identify metadata and hashes, never clinical text.
 
 Unit tests cover deterministic filenames, byte-preserving contents, CSV
 metadata and ordering, failed-check serialization, missing/corrupt artifacts,
-safe regeneration, and refusal to replace an unowned directory. CLI tests
-cover command exposure. Translation documentation explains the readable view
-and its non-canonical status.
+safe regeneration, refusal to replace an unowned directory, automatic
+materialization after translation, and canonical-result preservation when
+view generation fails. CLI tests cover command exposure and failure reporting.
+Translation documentation explains the automatic readable view, recovery
+command, and non-canonical status.
 
 After implementation, the command is run once against the existing 30-case
 manifest to create the local view.
