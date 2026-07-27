@@ -43,6 +43,25 @@ def test_adapter_sends_explicit_languages_and_model() -> None:
     }
 
 
+def test_adapter_builds_a_regional_translation_llm_request() -> None:
+    client = _FakeClient("Der Patient hatte Fieber.")
+    adapter = GoogleNmtAdapter(
+        client=client,
+        project_id="benchmark-project",
+        location="us-central1",
+        model="general/translation-llm",
+    )
+
+    adapter.translate(
+        "The patient had fever.", source_language="en", target_language="de"
+    )
+
+    assert client.request is not None
+    parent = "projects/benchmark-project/locations/us-central1"
+    assert client.request["parent"] == parent
+    assert client.request["model"] == f"{parent}/models/general/translation-llm"
+
+
 @pytest.mark.parametrize("response", ["", "   "])
 def test_adapter_rejects_empty_provider_text(response: str) -> None:
     adapter = GoogleNmtAdapter(

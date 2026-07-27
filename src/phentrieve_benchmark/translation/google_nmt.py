@@ -34,10 +34,12 @@ class GoogleNmtAdapter:
         client: TranslationClient,
         project_id: str,
         location: str = "global",
+        model: str = "general/nmt",
     ) -> None:
         self._client = client
         self.project_id = project_id
         self.location = location
+        self.model = model
 
     def translate(
         self,
@@ -54,7 +56,7 @@ class GoogleNmtAdapter:
                 "source_language_code": source_language,
                 "target_language_code": target_language,
                 "mime_type": "text/plain",
-                "model": f"{parent}/models/general/nmt",
+                "model": f"{parent}/models/{self.model}",
             }
         )
         translations = tuple(getattr(response, "translations", ()))
@@ -70,7 +72,10 @@ class GoogleNmtAdapter:
 
 
 def create_google_nmt_adapter(
-    *, project_id: str, location: str = "global"
+    *,
+    project_id: str,
+    location: str = "global",
+    model: str = "general/nmt",
 ) -> GoogleNmtAdapter:
     from google.cloud import translate_v3
 
@@ -78,5 +83,6 @@ def create_google_nmt_adapter(
         client=translate_v3.TranslationServiceClient(),
         project_id=project_id,
         location=location,
+        model=model,
     )
 
