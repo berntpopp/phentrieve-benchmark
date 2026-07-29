@@ -98,6 +98,9 @@ def test_review_snapshot_has_required_notice_and_no_extra_entries() -> None:
         "non-commercial scientific review",
         "CC BY-NC",
         "f74bdf9eaaef7f08437d0c5b930c6dbbc25bbffc",
+        "https://github.com/hltfbk/E3C-Corpus/blob/"
+        "f74bdf9eaaef7f08437d0c5b930c6dbbc25bbffc/README.md",
+        "../../license-evidence.yaml",
         "`<variant>.de.txt`",
     ):
         assert required in notice

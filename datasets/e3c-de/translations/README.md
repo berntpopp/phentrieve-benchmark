@@ -81,10 +81,12 @@ paid re-translation.
 
 Regular tests use injected provider fakes and do not authenticate, contact
 Google, or incur charges. A generated text-free manifest may be tracked here
-after a complete authorized run. Machine translation is only
-`ready_for_review`; it is not `accepted` until the planned manual review has
-been documented. A review decision on one variant says nothing about the
-other.
+after a complete authorized run.
+
+Records that pass all automatic checks reach `ready_for_review`; records that
+fail remain `automatic_check_failed`. Neither status is `accepted`, and both
+still require manual review. A review decision on one variant says nothing
+about the other.
 
 ## Readable local view
 

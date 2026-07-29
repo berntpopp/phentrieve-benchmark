@@ -63,17 +63,18 @@ Status:
 - [x] Kostenanzeige und ausdrückliche Bestätigung vor Erzeugung des
       Google-Clients implementieren.
 - [x] Providerzugriff und Übersetzungsablauf offline testbar vorbereiten.
-- [ ] Die 30 ausgewählten englischen, französischen und spanischen Volltexte
+- [x] Die 30 ausgewählten englischen, französischen und spanischen Volltexte
       nach Deutsch übersetzen.
-- [ ] Originaltexte und deutsche Übersetzungen als getrennte unveränderliche
+- [x] Originaltexte und deutsche Übersetzungen als getrennte unveränderliche
       Artefakte erhalten.
-- [ ] Übersetzungsmodell, Konfiguration, Eingabehash, Nutzung und Kosten
+- [x] Übersetzungsmodell, Konfiguration, Eingabehash, Nutzung und Kosten
       protokollieren.
-- [ ] Fehlgeschlagene oder leere Providerantworten sicher zurückweisen.
+- [x] Fehlgeschlagene oder leere Providerantworten sicher zurückweisen.
 - [ ] Korrekturen als neue Artefakte speichern, ohne frühere Fassungen zu
       überschreiben.
-- [x] Zweiten Übersetzungsweg mit `general/translation-llm` als eigene
-      Rezeptidentität neben `general/nmt` bereitstellen.
+- [x] Der zweite Übersetzungsweg mit `general/translation-llm` wurde als
+      separate Rezeptidentität neben `general/nmt` bereitgestellt; die 30
+      Fälle wurden damit übersetzt.
 - ⚠ Welche Variante die Grundlage des manuellen Reviews wird, ist bis zum
   Vergleich beider Fassungen offen.
 
@@ -200,15 +201,14 @@ GSC-Fassungen erzeugt.
 - [ ] Benchmarkläufe reproduzierbar protokollieren.
 - [ ] Qualitäts-, Review- und Abdeckungskennzahlen ausgeben.
 - [ ] Release-Eignung anhand vollständiger Prüf- und Provenienzdaten prüfen.
-- [ ] Lizenz- und Redistributionsentscheidung vor einer Veröffentlichung
+- [x] Lizenz- und Redistributionsentscheidung vor einer Veröffentlichung
       festhalten.
 - [ ] Deterministische Release-Manifeste und Datenkarten erzeugen.
 - [ ] Nur geprüfte und ausdrücklich freigegebene Artefakte veröffentlichen.
 
 ## Aktuelle Priorität
 
-1. Den vorbereiteten Translation-LLM-Lauf nach Kostenanzeige und
-   ausdrücklicher Freigabe ausführen und beide Fassungen vergleichen.
+1. Die beiden vorhandenen Übersetzungsvarianten vergleichen.
 2. Umfang und Auswahl der bilingualen/fachsprachlichen Prüfung klären.
 3. Die erzeugten deutschen Übersetzungen prüfen.
 4. CSC und GSC bleiben bis zu einer ausdrücklichen Wiederaufnahme pausiert.
