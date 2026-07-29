@@ -201,11 +201,11 @@ GSC-Fassungen erzeugt.
 - [ ] Benchmarkläufe reproduzierbar protokollieren.
 - [ ] Qualitäts-, Review- und Abdeckungskennzahlen ausgeben.
 - [ ] Release-Eignung anhand vollständiger Prüf- und Provenienzdaten prüfen.
-- [x] Die Lizenz- und Redistributionsentscheidung für den ungeprüften,
-      nichtkommerziellen Review-Snapshot ist unter der dokumentierten
-      Arbeitsannahme festgehalten.
-- [ ] Lizenz- und Redistributionsentscheidung vor einer Veröffentlichung
-      festhalten.
+- [x] ⚠ Die Lizenz- und Redistributionsentscheidung für den ungeprüften,
+      nichtkommerziellen Review-Snapshot ist als dokumentierte
+      Projektarbeitsannahme festgehalten, nicht als rechtliche Freigabe.
+- [ ] Finale Lizenz- und Redistributionsentscheidung vor der Veröffentlichung
+      eines akzeptierten Benchmark-Releases festhalten.
 - [ ] Deterministische Release-Manifeste und Datenkarten erzeugen.
 - [ ] Nur geprüfte und ausdrücklich freigegebene Artefakte veröffentlichen.
 

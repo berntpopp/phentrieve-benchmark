@@ -25,11 +25,12 @@ verification. XMI offsets are interpreted as UTF-16 code-unit offsets and
 mapped to NFC-normalized canonical text. Terminal formatting newlines are
 removed according to the adapter contract.
 
-The next independent stage translates the selected 30 reports with Google
-NMT. Its pinned configuration is in `translation.yaml`, and operation,
+The selected 30 reports have been translated into German with both Google
+variants: `general/nmt`, pinned by `translation.yaml`, and
+`general/translation-llm`, pinned by `translation-llm.yaml`. Operation,
 costing, artifact separation, and review boundaries are documented in
-`translations/README.md`. Translation is never part of the regular offline
-CI and requires an explicit confirmation after the cost preview.
+`translations/README.md`. Translation runs remain outside regular offline CI
+and require explicit confirmation after the cost preview.
 
 UMLS-to-HPO mapping is an independent, local stage and does not require a
 translation or Google credentials. Run

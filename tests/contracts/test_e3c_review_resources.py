@@ -17,6 +17,11 @@ REVIEW = (
 EXPECTED_SNAPSHOT_SHA256 = (
     "680df333be1f0ea4805452daebef337f2a6dca3d080c03bb0fc825614b436fc5"
 )
+ATTRIBUTION_BEGIN = "<!-- BEGIN E3C REPORT ATTRIBUTION -->"
+ATTRIBUTION_END = "<!-- END E3C REPORT ATTRIBUTION -->"
+EXPECTED_ATTRIBUTION_SHA256 = (
+    "2501128fa5f9fc0678467910b97a837254e2488e87013aa9f50b90c959181136"
+)
 
 
 def _selected_cases() -> dict[str, str]:
@@ -33,6 +38,50 @@ def _snapshot_sha256(files: list[Path]) -> str:
         relative = path.relative_to(REVIEW).as_posix()
         content_sha256 = sha256(path.read_bytes()).hexdigest()
         entries.append(f"{relative}\0{content_sha256}\n".encode())
+    return sha256(b"".join(entries)).hexdigest()
+
+
+def _attribution_records(
+    notice: str,
+) -> dict[str, tuple[str, str, str, str]]:
+    assert notice.count(ATTRIBUTION_BEGIN) == 1
+    assert notice.count(ATTRIBUTION_END) == 1
+    appendix = notice.split(ATTRIBUTION_BEGIN, maxsplit=1)[1].split(
+        ATTRIBUTION_END,
+        maxsplit=1,
+    )[0]
+
+    rows = []
+    for line in appendix.splitlines():
+        if not line.startswith("| `"):
+            continue
+        cells = [
+            cell.strip() for cell in line.strip().strip("|").split("|")
+        ]
+        assert len(cells) == 5
+        case_id = cells[0].removeprefix("`").removesuffix("`")
+        original_license = cells[4].removeprefix("`").removesuffix("`")
+        assert cells[0] == f"`{case_id}`"
+        assert cells[4] == f"`{original_license}`"
+        rows.append(
+            (
+                case_id,
+                (cells[1], cells[2], cells[3], original_license),
+            )
+        )
+
+    records = dict(rows)
+    assert len(records) == len(rows)
+    return records
+
+
+def _attribution_sha256(
+    records: dict[str, tuple[str, str, str, str]],
+) -> str:
+    entries = []
+    for case_id, fields in sorted(records.items()):
+        entry = "\0".join((case_id, *fields)) + "\n"
+        entries.append(entry.encode())
     return sha256(b"".join(entries)).hexdigest()
 
 
@@ -104,3 +153,29 @@ def test_review_snapshot_has_required_notice_and_no_extra_entries() -> None:
         "`<variant>.de.txt`",
     ):
         assert required in notice
+
+
+def test_review_snapshot_retains_original_report_attribution() -> None:
+    selected = _selected_cases()
+    notice = (REVIEW / "README.md").read_text(encoding="utf-8")
+    for required in (
+        "Every German `*.de.txt` file is an unreviewed "
+        "machine-translated adaptation",
+        "supplied original-report attribution and license metadata "
+        "is retained verbatim",
+    ):
+        assert required in notice
+
+    records = _attribution_records(notice)
+    assert set(records) == set(selected)
+    assert all(
+        field and field == field.strip()
+        for fields in records.values()
+        for field in fields
+    )
+    assert Counter(fields[3] for fields in records.values()) == {
+        "CC BY 4.0": 14,
+        "CC BY": 6,
+        "CC-BY": 10,
+    }
+    assert _attribution_sha256(records) == EXPECTED_ATTRIBUTION_SHA256

@@ -7,6 +7,6 @@ license_url: https://github.com/hltfbk/E3C-Corpus/blob/f74bdf9eaaef7f08437d0c5b9
 access_date: 2026-07-24
 upstream_statement: The upstream README declares CC BY-NC without a license version.
 redistribution_decision: noncommercial_scientific_review_snapshot
-derivative_work_notes: A selected 30-case snapshot of upstream source text and two unreviewed German machine translations is redistributed for non-commercial scientific review; the complete upstream corpus remains local.
+derivative_work_notes: A selected 30-case snapshot of upstream source text and two unreviewed German machine translations is redistributed for non-commercial scientific review; the review README retains verbatim per-report author, DOI, URL, and original-license metadata and marks every German file as an unreviewed machine-translated adaptation; the complete upstream corpus remains local.
 unresolved_questions:
   - The upstream CC BY-NC version remains unspecified; redistribution relies on the project's documented non-commercial scientific-use assumption.
