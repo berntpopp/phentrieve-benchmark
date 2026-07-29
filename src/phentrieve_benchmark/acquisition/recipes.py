@@ -510,7 +510,10 @@ class LicenseEvidence(BaseModel):
     license_url: str
     access_date: date
     upstream_statement: str = Field(min_length=1)
-    redistribution_decision: Literal["source_not_redistributed"]
+    redistribution_decision: Literal[
+        "source_not_redistributed",
+        "noncommercial_scientific_review_snapshot",
+    ]
     derivative_work_notes: str = Field(min_length=1)
     unresolved_questions: tuple[str, ...] = ()
 

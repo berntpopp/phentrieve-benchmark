@@ -295,3 +295,32 @@ unresolved_questions: []
     assert isinstance(evidence.value, LicenseEvidence)
     assert evidence.value.license_id == "MIT"
     assert len(target.sha256) == len(evidence.sha256) == 64
+
+
+def test_license_evidence_accepts_scientific_review_snapshot(
+    tmp_path: Path,
+) -> None:
+    evidence_path = write(
+        tmp_path / "license-evidence.yaml",
+        f"""
+schema_version: license-evidence/v1
+source_id: e3c
+repository_url: https://github.com/hltfbk/E3C-Corpus
+source_commit: {"a" * 40}
+license_id: LicenseRef-E3C-CC-BY-NC-version-unspecified
+license_url: https://github.com/hltfbk/E3C-Corpus/blob/{"a" * 40}/README.md
+access_date: 2026-07-24
+upstream_statement: CC BY-NC without a version.
+redistribution_decision: noncommercial_scientific_review_snapshot
+derivative_work_notes: Selected review texts are redistributed.
+unresolved_questions:
+  - The CC BY-NC version remains unspecified.
+""",
+    )
+
+    evidence = load_license_evidence(evidence_path)
+
+    assert (
+        evidence.value.redistribution_decision
+        == "noncommercial_scientific_review_snapshot"
+    )
