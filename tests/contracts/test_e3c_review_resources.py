@@ -81,3 +81,23 @@ def test_review_snapshot_is_pinned_to_lf_in_git_attributes() -> None:
     )
 
     assert result.stdout == f"{relative_path}: eol: lf\n"
+
+
+def test_review_snapshot_has_required_notice_and_no_extra_entries() -> None:
+    selected = _selected_cases()
+    assert {path.name for path in REVIEW.iterdir()} == {
+        *selected,
+        "README.md",
+    }
+
+    notice = (REVIEW / "README.md").read_text(encoding="utf-8")
+    for required in (
+        "unreviewed machine translations",
+        "not establish clinical correctness",
+        "must not be used for clinical decisions",
+        "non-commercial scientific review",
+        "CC BY-NC",
+        "f74bdf9eaaef7f08437d0c5b930c6dbbc25bbffc",
+        "`<variant>.de.txt`",
+    ):
+        assert required in notice

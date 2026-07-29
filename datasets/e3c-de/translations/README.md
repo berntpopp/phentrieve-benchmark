@@ -68,6 +68,11 @@ records and manifests contain only identifiers, hashes, provider metadata,
 checks, counts, and costs—not report text. A retry creates a new translation
 identity; an existing compatible successful result is reused.
 
+The exact 30-case source texts and both current unreviewed translation variants
+are additionally tracked in the case-oriented `../review/` snapshot for
+non-commercial scientific review. That review snapshot is not the canonical
+artifact store and does not change translation identity or status.
+
 Reuse is keyed by a semantic hash that contains the recipe hash, so the two
 variants publish independently and neither invalidates the other. The
 published NMT recipe hash is frozen by a contract test; changing

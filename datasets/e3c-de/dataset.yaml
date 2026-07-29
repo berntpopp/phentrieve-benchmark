@@ -120,4 +120,4 @@ adapter_contract:
     - name: EVENTALINKLink
       kind: relation
       argument_attributes: [role, target]
-license_evidence_sha256: 062353d2495958bd12dfc6fd105075ce0688473d5093706785c39f1c1d4f6ea8
+license_evidence_sha256: c0c9445f60065dd0060612bc0f45e211cd55d3c804755eab6dd400ac9ec09868
