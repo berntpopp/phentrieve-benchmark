@@ -1,4 +1,5 @@
 import json
+import subprocess
 import unicodedata
 from collections import Counter
 from hashlib import sha256
@@ -64,3 +65,19 @@ def test_review_snapshot_contains_exact_selected_texts() -> None:
 
     assert len(text_files) == 90
     assert _snapshot_sha256(text_files) == EXPECTED_SNAPSHOT_SHA256
+
+
+def test_review_snapshot_is_pinned_to_lf_in_git_attributes() -> None:
+    relative_path = (
+        "datasets/e3c-de/review/e3c-de-feasibility-30-v1/"
+        "EN100310/source.en.txt"
+    )
+    result = subprocess.run(
+        ["git", "check-attr", "eol", "--", relative_path],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.stdout == f"{relative_path}: eol: lf\n"
