@@ -19,7 +19,8 @@ not establish clinical correctness: each current variant has 25 records marked
 require bilingual or clinical subject-matter review.
 These texts must not be used for clinical decisions.
 
-Attribution: E3C Corpus, hltfbk/E3C-Corpus, commit f74bdf9eaaef7f08437d0c5b930c6dbbc25bbffc, CC BY-NC (version unspecified).
+Attribution: E3C Corpus, hltfbk/E3C-Corpus, commit
+f74bdf9eaaef7f08437d0c5b930c6dbbc25bbffc, CC BY-NC (version unspecified).
 The [pinned upstream README](https://github.com/hltfbk/E3C-Corpus/blob/f74bdf9eaaef7f08437d0c5b930c6dbbc25bbffc/README.md)
 declares CC BY-NC without identifying a license version; the repository's
 [license evidence](../../license-evidence.yaml) records the redistribution
