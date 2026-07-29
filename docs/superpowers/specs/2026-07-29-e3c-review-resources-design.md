@@ -85,6 +85,18 @@ The package README states:
 No editable review table is introduced. Review decisions and corrected texts
 remain separate future work so the original machine outputs stay immutable.
 
+Existing repository documentation and machine-readable evidence must no
+longer claim that all E3C text is local-only. The root README, E3C README,
+E3C licensing notes, and translation documentation distinguish the new,
+explicitly tracked 30-case review snapshot from the full upstream corpus and
+the canonical local artifact store.
+
+`license-evidence.yaml` records the explicit
+`noncommercial_scientific_review_snapshot` redistribution decision and the
+working assumption behind it. The license-evidence model accepts that decision
+in addition to `source_not_redistributed`, and `dataset.yaml` pins the updated
+semantic evidence hash.
+
 ## Validation
 
 A focused contract test verifies:
