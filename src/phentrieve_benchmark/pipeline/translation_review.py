@@ -30,6 +30,7 @@ from phentrieve_benchmark.provenance.canonical import (
 from phentrieve_benchmark.provenance.digests import sha256_bytes
 from phentrieve_benchmark.review.translation_text import unified_text_diff
 from phentrieve_benchmark.review.translation_workbook import (
+    NMT_HEADER,
     ParsedReviewWorkbook,
     WorkbookCase,
     read_review_workbook,
@@ -314,6 +315,64 @@ def _formula_issues(workbook_path: Path) -> tuple[WorkbookValidationIssue, ...]:
     return tuple(issues)
 
 
+def _invalid_consumed_string(value: object, *, allow_empty: bool) -> bool:
+    return not isinstance(value, str) and not (allow_empty and value is None)
+
+
+def _consumed_non_string_issues(
+    workbook_path: Path,
+) -> tuple[WorkbookValidationIssue, ...]:
+    issues: list[WorkbookValidationIssue] = []
+    try:
+        workbook = load_workbook(
+            workbook_path, data_only=False, keep_links=False, read_only=True
+        )
+        try:
+            if "Anleitung" in workbook.sheetnames:
+                instructions = workbook["Anleitung"]
+                for coordinate, field in _METADATA_FIELDS_BY_COORDINATE.items():
+                    value = instructions[coordinate].value
+                    if _invalid_consumed_string(
+                        value,
+                        allow_empty=coordinate in _EMPTY_METADATA_COORDINATES,
+                    ):
+                        issues.append(
+                            _issue(
+                                sheet="Anleitung",
+                                row=instructions[coordinate].row,
+                                case_id=None,
+                                field=field,
+                                message="must contain a string",
+                            )
+                        )
+            if "Review" in workbook.sheetnames:
+                review = workbook["Review"]
+                last_column = 11 if review["K1"].value == NMT_HEADER else 10
+                for row_number in range(2, review.max_row + 1):
+                    case_value = review[f"A{row_number}"].value
+                    case_id = case_value if isinstance(case_value, str) else None
+                    for column_number in range(1, last_column + 1):
+                        cell = review.cell(row_number, column_number)
+                        if _invalid_consumed_string(
+                            cell.value,
+                            allow_empty=6 <= column_number <= 10,
+                        ):
+                            issues.append(
+                                _issue(
+                                    sheet="Review",
+                                    row=row_number,
+                                    case_id=case_id,
+                                    field=_REVIEW_FIELDS_BY_COLUMN[cell.column_letter],
+                                    message="must contain a string",
+                                )
+                            )
+        finally:
+            workbook.close()
+    except Exception:
+        return ()
+    return tuple(issues)
+
+
 def _non_string_issue(
     *, workbook_path: Path, coordinate: str
 ) -> WorkbookValidationIssue:
@@ -371,7 +430,7 @@ def _parser_error(error: Exception, *, workbook_path: Path) -> WorkbookValidatio
     )
 
 
-def _read_without_formulas(
+def _read_without_parser_cells(
     workbook_path: Path,
 ) -> tuple[ParsedReviewWorkbook | None, tuple[WorkbookValidationIssue, ...]]:
     workbook = load_workbook(workbook_path, data_only=False, keep_links=False)
@@ -383,6 +442,34 @@ def _read_without_formulas(
                     if cell.data_type == "f":
                         cell.value = (
                             f"formula removed from {worksheet.title}!{cell.coordinate}"
+                        )
+        if "Anleitung" in workbook.sheetnames:
+            instructions = workbook["Anleitung"]
+            for coordinate in _METADATA_FIELDS_BY_COORDINATE:
+                value = instructions[coordinate].value
+                if _invalid_consumed_string(
+                    value,
+                    allow_empty=coordinate in _EMPTY_METADATA_COORDINATES,
+                ):
+                    instructions[coordinate] = (
+                        ""
+                        if coordinate in _EMPTY_METADATA_COORDINATES
+                        else "invalid non-string cell"
+                    )
+        if "Review" in workbook.sheetnames:
+            review = workbook["Review"]
+            last_column = 11 if review["K1"].value == NMT_HEADER else 10
+            for row_number in range(2, review.max_row + 1):
+                for column_number in range(1, last_column + 1):
+                    cell = review.cell(row_number, column_number)
+                    if _invalid_consumed_string(
+                        cell.value,
+                        allow_empty=6 <= column_number <= 10,
+                    ):
+                        cell.value = (
+                            ""
+                            if 6 <= column_number <= 10
+                            else "invalid non-string cell"
                         )
         with tempfile.NamedTemporaryFile(suffix=".xlsx", delete=False) as temporary:
             temporary_path = Path(temporary.name)
@@ -404,16 +491,18 @@ def _read_workbook_for_import(
         return read_review_workbook(workbook_path), []
     except Exception as error:
         formula_issues = _formula_issues(workbook_path)
-        if not formula_issues:
+        non_string_issues = _consumed_non_string_issues(workbook_path)
+        parser_cell_issues = [*formula_issues, *non_string_issues]
+        if not parser_cell_issues:
             return None, list(_parser_error(error, workbook_path=workbook_path).issues)
         try:
-            workbook, parser_issues = _read_without_formulas(workbook_path)
+            workbook, parser_issues = _read_without_parser_cells(workbook_path)
         except Exception as sanitized_error:
             parser_issues = _parser_error(
                 sanitized_error, workbook_path=workbook_path
             ).issues
             workbook = None
-        return workbook, [*formula_issues, *parser_issues]
+        return workbook, [*parser_cell_issues, *parser_issues]
 
 
 def _load_export(

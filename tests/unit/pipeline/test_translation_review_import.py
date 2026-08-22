@@ -480,6 +480,39 @@ def test_import_aggregates_all_formulas_and_other_metadata_errors(
     ]
 
 
+def test_import_aggregates_non_string_consumed_cells_and_semantic_errors(
+    tmp_path: Path,
+) -> None:
+    store, workbook_path = _completed_workbook(tmp_path)
+
+    def change(workbook: Any) -> None:
+        workbook["Anleitung"]["B10"] = 45_526
+        workbook["Review"]["B2"] = 1
+        workbook["Review"]["B3"] = 2
+        workbook["Review"]["F2"] = "bad-decision"
+
+    _mutate_workbook(workbook_path, change)
+
+    error = _assert_rejected_without_writes(
+        store,
+        workbook_path,
+        fields={"review_date", "source_language", "decision"},
+    )
+
+    non_string_issues = [
+        issue for issue in error.issues if issue.message == "must contain a string"
+    ]
+    assert [
+        (issue.sheet, issue.row, issue.case_id, issue.field)
+        for issue in non_string_issues
+    ] == [
+        ("Anleitung", 10, None, "review_date"),
+        ("Review", 2, "EN1", "source_language"),
+        ("Review", 3, "FR1", "source_language"),
+    ]
+    assert any(issue.field == "decision" for issue in error.issues)
+
+
 def test_import_rejects_utf16_cell_length_overflow(tmp_path: Path) -> None:
     store, workbook_path = _completed_workbook(tmp_path)
     _mutate_workbook(
