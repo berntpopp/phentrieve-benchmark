@@ -46,18 +46,19 @@ The workbook contains two sheets.
 ### `Anleitung`
 
 This sheet explains the workflow, allowed decisions, clinical-change policy,
-and saving instructions in concise language. It also contains editable review
-metadata:
+and saving instructions in concise language. It contains these editable review
+metadata fields:
 
 - reviewer ID or name;
 - medical qualification;
 - languages reviewed;
-- review date in `YYYY-MM-DD` form;
-- review-guideline version.
+- review date as text in `YYYY-MM-DD` form.
 
-Export identity, dataset selection, and source hashes are shown as read-only
-metadata. Reviewer identity may be pseudonymous, but it must be stable and
-non-empty.
+Export ID, dataset selection, and review-policy ID are exporter-owned,
+read-only metadata. The import requires exact agreement with the authoritative
+export manifest; the reviewer cannot choose or alter the applicable policy.
+Reviewer identity may be pseudonymous, but it must be stable and non-empty.
+Qualification is recorded separately from identity.
 
 ### `Review`
 
@@ -94,8 +95,23 @@ most consequential category and summarizes all relevant changes in
 classification. Every actual textual edit remains recoverable through an
 automatically generated diff between TLLM and the corrected final text.
 
+The allowed field combinations are normative:
+
+| Decision | Final text | Clinical change | Category and rationale |
+| --- | --- | --- | --- |
+| `unverändert akzeptiert` | exactly TLLM | `keine` | empty |
+| `korrigiert akzeptiert` | different from TLLM | `keine` | empty |
+| `korrigiert akzeptiert` | different from TLLM | `vorhanden` | required |
+| `Rückfrage` | same or different | `vorhanden` | required |
+| `abgelehnt` | same or different | `vorhanden` | required |
+
+Every other combination is invalid. Acceptance is derived only from
+`Entscheidung`; `Rückfrage` maps to `changes_requested` and `abgelehnt` maps
+to `rejected` in the generic release gate.
+
 The longest current text is 4,266 characters, safely below Excel's 32,767
-character cell limit.
+UTF-16-code-unit cell limit. Export and import validate every long-text cell
+against that limit, including corrected text and optional NMT.
 
 ## Reviewer Workflow
 
@@ -115,62 +131,107 @@ not itself promote any case to a benchmark release.
 
 ## Export
 
-Export is deterministic for the same selection, translation artifacts,
-guideline version, and export options. It writes an `.xlsx` file with:
+Export first creates a canonical `translation-review-export/v1` JSON manifest.
+It contains the selection ID, review-policy ID, ordered case IDs, source
+languages, full source and TLLM artifact SHA-256 values, and, when requested,
+the NMT recipe and artifact SHA-256 values. Its canonical JSON SHA-256 is the
+export ID. The content-addressed artifact store is the authority for this
+manifest and the referenced text; hashes copied into Excel are never trusted
+on their own.
+
+The workbook contains the export ID and is semantically deterministic for the
+same manifest and export options. Byte-identical `.xlsx` ZIP output is not a
+requirement because Office metadata and ZIP timestamps can differ. It has:
 
 - frozen headers, filters, wrapped text, and practical column widths;
-- protected source cells and editable review cells;
+- protected source cells, unlocked review cells, and protection settings that
+  still allow filtering and row navigation;
 - validation lists for controlled values;
 - TLLM prefilled into every corrected-final-text cell;
 - no formulas, macros, or external links;
-- workbook metadata binding each row to the full SHA-256 identities of its
-  source and TLLM artifacts;
+- top-aligned text with a moderate fixed row height; the instructions tell the
+  reviewer to use the formula bar or cell editor for text beyond the visible
+  preview;
+- review-date cells formatted and validated as text, not locale-dependent
+  Excel date serials;
 - NMT omitted by default and added only through an explicit option.
 
 Sheet protection improves usability but is not a security or integrity
-boundary. Import verifies immutable values and hashes independently.
+boundary. Import resolves the export ID from the artifact store and compares
+every immutable cell with the referenced canonical artifact. If NMT is
+included, its displayed text is checked in the same way.
 
 ## Import and Canonical Artifacts
 
-Import is transactional: it validates the entire workbook before writing any
-artifact. A successful import produces:
+Import first parses and validates the entire workbook without publishing a
+review manifest. It then stores content-addressed immutable objects and
+publishes one canonical `translation-review-import/v1` manifest last. Objects
+written before a failure are harmless and reusable because they are addressed
+by content; without the final manifest, no review import exists.
 
-- one immutable corrected German text artifact per accepted case;
-- one canonical review record per case, bound to the reviewed TLLM hash and
-  corrected-text hash;
-- reviewer role, stable reviewer identity, decision time, policy version,
-  clinical-change flag, category, rationale, and comment;
-- an automatically derived TLLM-to-final-text diff for audit and reporting;
-- a deterministic import manifest linking the workbook export identity to all
-  produced artifacts.
+A successful import produces for every row, including `Rückfrage` and
+`abgelehnt`:
+
+- one immutable proposed German text artifact;
+- one `translation-review-record/v1`, bound to the export ID, source hash,
+  reviewed TLLM hash, proposed-text hash, reviewer ID and qualification,
+  languages, `review_date`, review-policy ID, decision, clinical-change flag,
+  category, rationale, and comment;
+- one deterministic `unified-text-diff/v1` from TLLM to proposed text;
+- one import manifest containing the ordered record and diff hashes.
+
+Only proposed texts whose decision is one of the two accepted values are
+eligible for downstream selection. Import time is operational provenance and
+does not participate in content identity; the reviewer-provided `review_date`
+is the only semantic review date.
+
+Reimporting the same completed workbook produces the same content identities
+and manifest. A revised workbook produces a new manifest and leaves the old
+one intact. Imports do not define a mutable `latest`; a later release must
+explicitly select one import manifest.
 
 The `.xlsx` file may be retained as supporting evidence, but downstream code
 consumes canonical JSON and UTF-8 text artifacts rather than Excel cells.
 Original source, TLLM, and optional NMT files are never overwritten.
 
-The implementation introduces a translation-review schema for the reviewed
-text identity, clinical-change fields, and decision. It may embed or reference
-the existing generic `ReviewRecord` for the common acceptance gate, but it does
-not encode translation decisions as annotation-review scopes.
+The translation-review record maps its decision to the existing generic
+`ReviewRecord` acceptance gate. It does not encode translation decisions as
+annotation-review scopes.
+
+## Text and Diff Canonicalization
+
+Cell text is normalized with the repository's existing
+`canonical_text_bytes`: Unicode NFC, CRLF and CR converted to LF, UTF-8 without
+a BOM, and no implicit trimming. Equality and hashes use those canonical
+bytes. This prevents Excel newline conventions from creating false changes
+while preserving intentional leading or trailing whitespace edits.
+
+`unified-text-diff/v1` is a deterministic line-based unified diff over the
+canonical TLLM and proposed-text strings, with fixed labels `tllm` and
+`reviewed`, three context lines, LF endings, and no timestamps. The schema and
+algorithm version are stored with the diff so a future renderer does not alter
+existing audit identities.
 
 ## Validation and Failure Handling
 
 Import rejects the workbook as a whole when any of these conditions holds:
 
-- workbook identity, required sheet, header, or required column is missing;
+- the file is not `.xlsx`, the two required sheets are not the only sheets, or
+  a required header or column is missing;
+- the export ID does not resolve to a valid authoritative export manifest;
 - case IDs are missing, duplicated, added, or not part of the export;
-- source language, source text, TLLM text, or embedded hash differs from the
-  export;
-- controlled values are empty or invalid;
+- source language, source text, TLLM text, or optional NMT text differs from
+  the export manifest's referenced artifacts;
+- a controlled value is missing where required or is outside its enum;
 - corrected final text is empty;
-- `vorhanden` lacks a category or rationale;
-- `keine` carries a clinical-change category or rationale;
-- `unverändert akzeptiert` has a corrected text different from TLLM;
-- `korrigiert akzeptiert` has a corrected text identical to TLLM;
-- reviewer identity, qualification, languages, date, or policy version is
-  missing;
-- a formula, macro, or external link occurs in an accepted input field;
-- a row marked `Rückfrage` or `abgelehnt` is presented as accepted.
+- any row violates the decision table above;
+- reviewer identity, qualification, languages, or valid `YYYY-MM-DD` review
+  date is missing;
+- the read-only review-policy ID differs from the export manifest;
+- any cell contains a formula, or the workbook contains VBA, external links,
+  or unexpected sheets; Excel data-validation rules generated by the exporter
+  remain allowed;
+- any long-text value exceeds Excel's 32,767 UTF-16-code-unit limit.
 
 Validation reports identify the sheet, row, case ID, and field with a concise
 remediation message. Failed validation performs no partial import.
@@ -179,15 +240,20 @@ remediation message. Failed validation performs no partial import.
 
 Automated tests cover:
 
-- deterministic workbook content for fixed inputs;
+- deterministic export manifest and semantic workbook content for fixed
+  inputs;
 - exactly 30 unique cases in the current snapshot;
 - default omission and explicit inclusion of the NMT column;
 - preservation of multiline Unicode medical text;
 - correct locking, validation lists, and prefilled final text;
 - successful round-trip of unchanged and corrected cases;
-- derived diff generation;
+- every allowed and forbidden decision-table combination;
+- canonical newline, Unicode, UTF-8, and derived-diff behavior;
 - each validation failure above;
-- atomic behavior when one row is invalid;
+- no manifest publication when validation or an injected object write fails;
+- identical reimport and distinct revised-review import;
+- optional-NMT tampering, extra sheets, formulas, macros, and external links;
+- text-length boundaries and accepted Excel text-date forms;
 - unchanged source and machine-translation artifact bytes after import.
 
 A manual smoke test opens the generated workbook in current Excel, edits and
