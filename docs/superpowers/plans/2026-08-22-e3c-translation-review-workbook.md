@@ -19,7 +19,9 @@
 - Validate the entire workbook before publishing the import manifest.
 - Preserve all source, TLLM, and NMT artifact bytes.
 - HPO review remains out of scope.
-- Do not add macros, formulas, external links, or a third sheet.
+- Do not generate macros, formulas, external links, or a third sheet.
+- YAGNI: validate the workbook fields this workflow consumes; do not build a
+  generic OOXML security scanner or multi-reviewer framework.
 
 ---
 
@@ -197,7 +199,10 @@ Use openpyxl only. Put read-only export metadata and unlocked reviewer fields in
 
 - [ ] **Step 7: Implement the workbook parser**
 
-Require `.xlsx`, exactly two sheets, exact headers for the manifest profile, string metadata, and string row values. Load once with `data_only=False`, reject any cell whose `data_type == "f"`, and inspect the ZIP relationship/content-type names to reject VBA or external-link parts. Return parsed values without publishing artifacts.
+Require `.xlsx`, exactly two sheets, exact headers for the manifest profile,
+string metadata, and string row values. Load once with `data_only=False` and
+reject any cell whose `data_type == "f"`. Return parsed values without
+publishing artifacts; do not add a separate OOXML-part scanner.
 
 - [ ] **Step 8: Run workbook and diff tests**
 
@@ -313,7 +318,10 @@ Resolve the export ID from the store; compare immutable cells to canonical sourc
 
 - [ ] **Step 4: Write failing rejection tests**
 
-Parametrize tampered source/TLLM/NMT, missing/extra/duplicate case, bad date, policy mismatch, empty final text, invalid enum, every forbidden decision combination, extra sheet, formula, macro/external link fixture, and UTF-16 length overflow. Assert no import manifest is returned and error messages identify row and field.
+Parametrize tampered source/TLLM/NMT, missing/extra/duplicate case, bad date,
+policy mismatch, empty final text, invalid enum, every forbidden decision
+combination, extra sheet, formula, and UTF-16 length overflow. Assert no import
+manifest is returned and error messages identify row and field.
 
 - [ ] **Step 5: Run rejection tests and verify failure**
 
