@@ -123,7 +123,7 @@ def _format_review_sheet(worksheet: object, *, includes_nmt: bool, rows: int) ->
     last_column = "K" if includes_nmt else "J"
     worksheet.auto_filter.ref = f"A1:{last_column}{rows + 1}"  # type: ignore[attr-defined]
     worksheet.protection.sheet = True  # type: ignore[attr-defined]
-    worksheet.protection.autoFilter = True  # type: ignore[attr-defined]
+    worksheet.protection.autoFilter = False  # type: ignore[attr-defined]
     worksheet.protection.selectLockedCells = True  # type: ignore[attr-defined]
     worksheet.protection.selectUnlockedCells = True  # type: ignore[attr-defined]
 
@@ -234,12 +234,35 @@ def write_review_workbook(
     _write_text(instructions["A8"], "Medizinische Qualifikation")
     _write_text(instructions["A9"], "Überprüfte Sprachen")
     _write_text(instructions["A10"], "Review-Datum (YYYY-MM-DD)")
+    _write_text(instructions["A12"], "Arbeitsablauf")
     _write_text(
-        instructions["A12"],
-        "Bitte jede Zeile vollständig prüfen, die Endfassung bearbeiten und die "
-        "kontrollierten Felder auswählen. Keine Formeln oder zusätzlichen Blätter "
-        "hinzufügen; als .xlsx speichern.",
+        instructions["A13"],
+        "1. Metadaten ausfüllen, dann Originaltext und TLLM-Ausgangsfassung jeder "
+        "Zeile vergleichen und die Korrigierte Endfassung vollständig bearbeiten.",
     )
+    _write_text(
+        instructions["A14"],
+        "2. Entscheidung wählen: unverändert akzeptiert, korrigiert akzeptiert, "
+        "Rückfrage oder abgelehnt.",
+    )
+    _write_text(
+        instructions["A15"],
+        "3. Bei vorhanden Hauptkategorie und Änderungsbegründung ausfüllen; bei "
+        "keine beide Felder leer lassen.",
+    )
+    _write_text(
+        instructions["A16"],
+        "4. Unverändert akzeptiert ist nur bei identischer TLLM-Endfassung mit "
+        "keine erlaubt. Korrigiert akzeptiert erfordert eine geänderte Endfassung; "
+        "Rückfrage und abgelehnt erfordern vorhanden.",
+    )
+    _write_text(
+        instructions["A17"],
+        "5. Ohne Formeln, zusätzliche Blätter oder Dateitypwechsel als .xlsx "
+        "speichern.",
+    )
+    for row in range(13, 18):
+        instructions.row_dimensions[row].height = 45
 
     headers = (*REVIEW_HEADERS, NMT_HEADER) if includes_nmt else REVIEW_HEADERS
     for column_index, header in enumerate(headers, start=1):

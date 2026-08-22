@@ -84,6 +84,7 @@ def test_writer_creates_the_minimal_review_profile(tmp_path: Path) -> None:
         assert review["E2"].protection.locked is False
         assert review.protection.sheet is True
         assert review.protection.selectLockedCells is True
+        assert review.protection.autoFilter is False
         assert review.auto_filter.ref == "A1:J3"
         assert review["A2"].alignment.wrap_text is True
         assert review["A2"].alignment.vertical == "top"
@@ -105,6 +106,17 @@ def test_writer_creates_the_minimal_review_profile(tmp_path: Path) -> None:
             validation.type == "custom" and "ISTEXT(B10)" in validation.formula1
             for validation in instructions.data_validations.dataValidation
         )
+        instruction_text = "\n".join(
+            str(instructions[f"A{row}"].value) for row in range(12, 18)
+        )
+        assert "Metadaten" in instruction_text
+        assert "Originaltext" in instruction_text
+        assert all(decision in instruction_text for decision in DECISION_VALUES)
+        assert "vorhanden" in instruction_text
+        assert "Hauptkategorie" in instruction_text
+        assert "Änderungsbegründung" in instruction_text
+        assert "unverändert akzeptiert" in instruction_text
+        assert "Rückfrage" in instruction_text
     finally:
         workbook.close()
 
