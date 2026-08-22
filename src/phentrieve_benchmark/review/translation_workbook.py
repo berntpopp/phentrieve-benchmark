@@ -238,12 +238,15 @@ def write_review_workbook(
     _write_text(
         instructions["A13"],
         "1. Metadaten ausfüllen, dann Originaltext und TLLM-Ausgangsfassung jeder "
-        "Zeile vergleichen und die Korrigierte Endfassung vollständig bearbeiten.",
+        "Zeile vergleichen und die Korrigierte Endfassung als vollständigen "
+        "deutschen Endtext bearbeiten (kein Patch, keine isolierte Ersatzphrase).",
     )
     _write_text(
         instructions["A14"],
         "2. Entscheidung wählen: unverändert akzeptiert, korrigiert akzeptiert, "
-        "Rückfrage oder abgelehnt.",
+        "Rückfrage, wenn sich Quelle oder korrekte Wiedergabe nicht auflösen "
+        "lassen, oder abgelehnt, wenn der Fall durch Review nicht geeignet "
+        "gemacht werden kann.",
     )
     _write_text(
         instructions["A15"],

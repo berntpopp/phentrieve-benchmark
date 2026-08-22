@@ -117,6 +117,10 @@ def test_writer_creates_the_minimal_review_profile(tmp_path: Path) -> None:
         assert "Änderungsbegründung" in instruction_text
         assert "unverändert akzeptiert" in instruction_text
         assert "Rückfrage" in instruction_text
+        assert "kein Patch" in instruction_text
+        assert "isolierte Ersatzphrase" in instruction_text
+        assert "nicht auflösen" in instruction_text
+        assert "nicht geeignet" in instruction_text
     finally:
         workbook.close()
 
