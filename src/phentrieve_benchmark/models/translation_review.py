@@ -1,6 +1,7 @@
 from datetime import date
 from enum import StrEnum
 from typing import Literal, Self
+from unicodedata import normalize
 
 from pydantic import (
     BaseModel,
@@ -53,6 +54,10 @@ class _CanonicalModel(BaseModel):
         return sha256_bytes(self.canonical_bytes())
 
 
+def _canonical_case_id(value: str) -> str:
+    return normalize("NFC", value)
+
+
 class TranslationReviewExportCase(_CanonicalModel):
     model_config = ConfigDict(extra="forbid", frozen=True, strict=True)
 
@@ -61,6 +66,11 @@ class TranslationReviewExportCase(_CanonicalModel):
     source_text_sha256: Sha256Hex
     tllm_text_sha256: Sha256Hex
     nmt_text_sha256: Sha256Hex | None = None
+
+    @field_validator("source_case_id")
+    @classmethod
+    def canonicalize_source_case_id(cls, value: str) -> str:
+        return _canonical_case_id(value)
 
 
 class TranslationReviewExport(_CanonicalModel):
@@ -201,6 +211,11 @@ class TranslationReviewImportEntry(_CanonicalModel):
     review_record_sha256: Sha256Hex
     proposed_text_sha256: Sha256Hex
     diff_sha256: Sha256Hex
+
+    @field_validator("source_case_id")
+    @classmethod
+    def canonicalize_source_case_id(cls, value: str) -> str:
+        return _canonical_case_id(value)
 
 
 class TranslationReviewImportManifest(_CanonicalModel):

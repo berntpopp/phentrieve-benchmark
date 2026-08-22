@@ -341,3 +341,44 @@ def test_export_and_import_manifests_canonicalize_order_and_reject_duplicates() 
         TranslationReviewImportManifest(
             export_sha256=export.sha256(), entries=(first, first)
         )
+
+
+def test_export_and_import_manifests_reject_nfc_equivalent_case_ids() -> None:
+    decomposed_case = TranslationReviewExportCase(
+        source_case_id="Cafe\u0301",
+        source_language="en",
+        source_text_sha256="1" * 64,
+        tllm_text_sha256="2" * 64,
+    )
+    composed_case = TranslationReviewExportCase(
+        source_case_id="Café",
+        source_language="fr",
+        source_text_sha256="3" * 64,
+        tllm_text_sha256="4" * 64,
+    )
+    decomposed_entry = TranslationReviewImportEntry(
+        source_case_id="Cafe\u0301",
+        record_sha256="5" * 64,
+        review_record_sha256="6" * 64,
+        proposed_text_sha256="7" * 64,
+        diff_sha256="8" * 64,
+    )
+    composed_entry = TranslationReviewImportEntry(
+        source_case_id="Café",
+        record_sha256="9" * 64,
+        review_record_sha256="a" * 64,
+        proposed_text_sha256="b" * 64,
+        diff_sha256="c" * 64,
+    )
+
+    with pytest.raises(ValidationError, match="duplicate"):
+        TranslationReviewExport(
+            selection_id="e3c-de-feasibility-30-v1",
+            review_policy_id="e3c:translation-review/v1",
+            cases=(decomposed_case, composed_case),
+        )
+    with pytest.raises(ValidationError, match="duplicate"):
+        TranslationReviewImportManifest(
+            export_sha256="d" * 64,
+            entries=(decomposed_entry, composed_entry),
+        )
