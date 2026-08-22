@@ -203,12 +203,16 @@ The `.xlsx` file may be retained as supporting evidence, but downstream code
 consumes canonical JSON and UTF-8 text artifacts rather than Excel cells.
 Original source, TLLM, and optional NMT files are never overwritten.
 
-The translation-review record maps its decision to the existing generic
-`ReviewRecord` acceptance gate. It does not encode translation decisions as
-annotation-review scopes.
+The translation-review record maps its decision to a separately stored generic
+`ReviewRecord` projection for the acceptance gate. The projection is not
+embedded in the translation-review record, avoiding a cyclic identity. Its
+`review_id` is `translation-review:<record-sha256>`, where `record-sha256` is
+the SHA-256 of the canonical `translation-review-record/v1` bytes. Translation
+decisions are not encoded as annotation-review scopes.
 
 | Generic `ReviewRecord` field | Translation-review value |
 | --- | --- |
+| `review_id` | `translation-review:<record-sha256>` |
 | `subject_sha256` | proposed-text SHA-256 |
 | `review_kind` | `bilingual` |
 | `review_policy_id` | exporter-owned policy ID |
