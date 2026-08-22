@@ -205,6 +205,21 @@ def prepare_e3c_translation(
         else None
     )
     if previous_manifest is None and variant == "tllm-full":
+        try:
+            full_pointer = resolve_translation_pointer(
+                artifact_root=context.artifact_root,
+                store=context.store,
+                recipe_sha256=prepared.recipe_sha256,
+                project_id=project_id,
+            )
+        except ValueError:
+            full_pointer = None
+        if full_pointer is not None:
+            previous_manifest = TranslationManifest.model_validate_json(
+                context.store.read_bytes(full_pointer.subject_sha256),
+                strict=True,
+            )
+    if previous_manifest is None and variant == "tllm-full":
         legacy_recipe = load_translation_recipe(
             translation_recipe_path(context.dataset_root, "tllm")
         )
@@ -213,6 +228,7 @@ def prepare_e3c_translation(
                 artifact_root=context.artifact_root,
                 store=context.store,
                 recipe_sha256=legacy_recipe.sha256,
+                project_id=project_id,
             )
         except ValueError:
             legacy_pointer = None
@@ -221,8 +237,7 @@ def prepare_e3c_translation(
                 context.store.read_bytes(legacy_pointer.subject_sha256),
                 strict=True,
             )
-            if {record.project_id for record in candidate.records} == {project_id}:
-                previous_manifest = candidate
+            previous_manifest = candidate
     return PreparedE3cTranslation(
         inputs=prepared.inputs,
         recipe=prepared.recipe,

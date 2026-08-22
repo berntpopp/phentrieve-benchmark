@@ -1,3 +1,4 @@
+import os
 from datetime import UTC, datetime
 from decimal import Decimal
 from pathlib import Path
@@ -20,7 +21,13 @@ from phentrieve_benchmark.translation.variants import (
 )
 
 
-def _manifest(store: ArtifactStore, *, recipe_sha256: str) -> str:
+def _manifest(
+    store: ArtifactStore,
+    *,
+    recipe_sha256: str,
+    project_id: str = "phentrieve",
+    identity: str = "default",
+) -> str:
     source = store.put_bytes(b"The patient had fever.\n")
     translated = store.put_bytes(b"Der Patient hatte Fieber.\n")
     manifest = TranslationManifest(
@@ -29,7 +36,7 @@ def _manifest(store: ArtifactStore, *, recipe_sha256: str) -> str:
         recipe_sha256=recipe_sha256,
         records=(
             TranslationRecord(
-                translation_id=f"translation-{recipe_sha256[:4]}",
+                translation_id=f"translation-{recipe_sha256[:4]}-{identity}",
                 selection_id="selection-1",
                 source_case_id="EN000001",
                 source_language="en",
@@ -39,7 +46,7 @@ def _manifest(store: ArtifactStore, *, recipe_sha256: str) -> str:
                 provider="google-cloud-translation",
                 api_version="v3",
                 model="general/nmt",
-                project_id="phentrieve",
+                project_id=project_id,
                 location="global",
                 created_at=datetime(2026, 7, 27, tzinfo=UTC),
                 input_codepoints=23,
@@ -101,6 +108,57 @@ def test_resolver_picks_the_pointer_matching_the_recipe(tmp_path: Path) -> None:
     )
 
     assert pointer.subject_sha256 == first
+
+
+def test_project_resolver_scans_past_newer_manifest_for_other_project(
+    tmp_path: Path,
+) -> None:
+    store = ArtifactStore(tmp_path / "objects")
+    state = StageState(tmp_path / "state", store)
+    older_requested = _manifest(
+        store,
+        recipe_sha256="1" * 64,
+        project_id="requested-project",
+        identity="older",
+    )
+    newer_requested = _manifest(
+        store,
+        recipe_sha256="1" * 64,
+        project_id="requested-project",
+        identity="newer",
+    )
+    other = _manifest(
+        store,
+        recipe_sha256="1" * 64,
+        project_id="other-project",
+        identity="newest-other",
+    )
+    semantics = (
+        ({"recipe_sha256": "2" * 64}, older_requested, 1),
+        ({"recipe_sha256": "3" * 64}, newer_requested, 2),
+        ({"recipe_sha256": "4" * 64}, other, 3),
+    )
+    for semantic_hashes, subject, timestamp in semantics:
+        state.publish(
+            stage="translate",
+            target="e3c",
+            subject_role=ProvenanceSubjectRole.TRANSLATION_MANIFEST,
+            subject_sha256=subject,
+            semantic_hashes=semantic_hashes,
+        )
+        os.utime(
+            state.path_for("translate", "e3c", semantic_hashes),
+            ns=(timestamp, timestamp),
+        )
+
+    pointer = resolve_translation_pointer(
+        artifact_root=tmp_path,
+        store=store,
+        recipe_sha256="1" * 64,
+        project_id="requested-project",
+    )
+
+    assert pointer.subject_sha256 == newer_requested
 
 
 def test_resolver_reports_a_missing_variant(tmp_path: Path) -> None:

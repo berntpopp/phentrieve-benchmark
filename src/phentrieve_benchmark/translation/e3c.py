@@ -42,6 +42,7 @@ def is_reusable_translation(
     return (
         record.status
         in {
+            TranslationStatus.AUTOMATIC_CHECK_FAILED,
             TranslationStatus.READY_FOR_REVIEW,
             TranslationStatus.REVIEWED,
             TranslationStatus.ACCEPTED,

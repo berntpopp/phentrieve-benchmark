@@ -80,6 +80,9 @@ Status:
 - [x] Explizite Vollkorpus-Variante `tllm-full` für alle 246 normalisierten
       Berichte vorbereiten; die 30 vorhandenen TLLM-Ergebnisse werden
       kompatibilitätsgeprüft wiederverwendet.
+- [x] Auch die fünf automatisch markierten TLLM-Ausgaben als bereits erzeugte
+      Provider-Ergebnisse wiederverwenden; Fehlerstatus und Prüfhinweise
+      bleiben für den medizinischen Review unverändert sichtbar.
 - [x] Kostenanzeige für die 216 verbleibenden Berichte verifizieren: 441.414
       Eingabezeichen, Kostenobergrenze 10,152522 USD.
 - [ ] Die 216 verbleibenden Berichte erst nach ausdrücklicher Bestätigung der

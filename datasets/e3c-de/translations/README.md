@@ -30,9 +30,16 @@ uv run phentrieve-benchmark translate e3c --project-id PROJECT_ID --variant tllm
 ```
 
 Declining the confirmation exits before constructing the provider client.
-The 30 reused records keep their source and translation artifacts and checks;
-the full manifest gives them the full selection identity and records the prior
-translation ID.
+The 30 reused records keep their source and translation artifacts, statuses,
+and checks; the full manifest gives them the full selection identity and
+records the prior translation ID. This includes the five records marked
+`automatic_check_failed`: they are completed provider outputs, not accepted
+translations, and their warnings remain visible for medical review.
+
+After a full manifest has been published, preparation resolves the newest
+manifest matching both the full recipe and requested Google project even when
+the pipeline code hash has changed. A manifest for another project is never a
+reuse candidate.
 
 The selected source texts contain 59,517 Unicode codepoints. At the pinned
 list prices the conservative upper bounds are USD 1.19034 for `nmt` and

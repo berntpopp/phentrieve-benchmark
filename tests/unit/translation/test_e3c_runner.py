@@ -9,6 +9,10 @@ from phentrieve_benchmark.models.document import (
 from phentrieve_benchmark.models.document import (
     TranslationStatus as DocumentTranslationStatus,
 )
+from phentrieve_benchmark.models.translation import (
+    TranslationCheck,
+    TranslationStatus,
+)
 from phentrieve_benchmark.translation.e3c import (
     TranslationInput,
     translate_documents,
@@ -195,6 +199,63 @@ def test_runner_rebinds_compatible_record_from_prior_selection(
     assert rebound.source_sha256 == old.source_sha256
     assert rebound.translation_sha256 == old.translation_sha256
     assert rebound.checks == old.checks
+
+
+def test_runner_reuses_failed_automatic_check_as_completed_provider_output(
+    tmp_path: Path,
+) -> None:
+    document = _document()
+    store = ArtifactStore(tmp_path / "objects")
+    prior_recipe = _recipe().model_copy(
+        update={"model": "general/translation-llm", "location": "us-central1"}
+    )
+    prior = translate_documents(
+        inputs=(
+            TranslationInput(
+                document=document,
+                expected_source_sha256=document.document_sha256,
+            ),
+        ),
+        provider=_Provider(),
+        store=store,
+        recipe=prior_recipe,
+        selection_sha256="c" * 64,
+        project_id="benchmark-project",
+        created_at=datetime(2026, 7, 24, tzinfo=UTC),
+        language_detector=lambda _text: "de",
+    )
+    failed_check = TranslationCheck(code="length_ratio", passed=False, detail="warning")
+    failed_record = prior.manifest.records[0].model_copy(
+        update={
+            "status": TranslationStatus.AUTOMATIC_CHECK_FAILED,
+            "checks": (failed_check,),
+        }
+    )
+    prior_manifest = prior.manifest.model_copy(update={"records": (failed_record,)})
+    provider = _Provider()
+
+    full = translate_documents(
+        inputs=(
+            TranslationInput(
+                document=document,
+                expected_source_sha256=document.document_sha256,
+            ),
+        ),
+        provider=provider,
+        store=store,
+        recipe=prior_recipe.model_copy(update={"selection_id": "e3c-de-full-246-v1"}),
+        selection_sha256="d" * 64,
+        project_id="benchmark-project",
+        created_at=datetime(2026, 8, 22, tzinfo=UTC),
+        language_detector=lambda _text: "de",
+        previous_manifest=prior_manifest,
+    )
+
+    assert provider.calls == []
+    rebound = full.manifest.records[0]
+    assert rebound.status is TranslationStatus.AUTOMATIC_CHECK_FAILED
+    assert rebound.checks == (failed_check,)
+    assert rebound.previous_translation_id == failed_record.translation_id
 
 
 def test_runner_does_not_cross_reuse_record_from_another_project(

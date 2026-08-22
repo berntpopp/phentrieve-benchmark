@@ -18,8 +18,8 @@
 
 1. `--variant tllm-full` loads a pinned recipe with selection ID `e3c-de-full-246-v1`, model `general/translation-llm`, location `us-central1`, and the existing pinned TLLM pricing.
 2. Preparation reads all normalized E3C documents and binds `selection_sha256` to the verified inventory artifact. It never contacts Google.
-3. Preparation first reuses a compatible published `tllm-full` manifest. On the first run it may seed reuse from the published 30-case `tllm` manifest for the same Google project.
-4. Cross-selection reuse requires identical source hash/language, target, provider, API, model, project, and location plus a successful prior status. Reused bytes/checks remain unchanged, while records are rebound to the full recipe selection identity with provenance to the prior translation ID. Same-selection reuse leaves the record unchanged.
+3. Preparation first reuses a compatible published `tllm-full` manifest for the same Google project, including across code-hash changes. On the first run it may seed reuse from the published 30-case `tllm` manifest for that project.
+4. Cross-selection reuse requires identical source hash/language, target, provider, API, model, project, and location plus a completed provider output. `automatic_check_failed` is reusable but remains failed: its warnings and checks stay visible for medical review. Reused bytes/checks remain unchanged, while records are rebound to the full recipe selection identity with provenance to the prior translation ID. Same-selection reuse leaves the record unchanged.
 5. The cost preview reports only non-reusable cases/codepoints. With the current artifacts it must report 216 cases, 441,414 input codepoints, and the pinned upper bound USD 10.152522.
 6. The paid provider remains behind the existing explicit CLI confirmation. No paid call occurs in tests or implementation.
 7. Tests cover variant/recipe identity, full input preparation, 30-case reuse, cross-selection rebinding, billable-only estimate, and denial before provider construction. Run focused tests, `ruff check src tests`, `mypy`, and full `pytest -q`.
