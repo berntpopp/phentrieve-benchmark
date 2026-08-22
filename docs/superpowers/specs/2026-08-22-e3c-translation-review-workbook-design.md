@@ -17,6 +17,11 @@ artifacts while preserving the original machine translations unchanged.
 This design covers the bilingual medical review of the existing
 `e3c-de-feasibility-30-v1` translation snapshot.
 
+The workbook is an internal review artifact, not a redistribution package.
+Source provenance remains resolvable through case IDs, the export manifest,
+and content hashes; license and attribution material is not duplicated in the
+workbook.
+
 It deliberately does not cover:
 
 - HPO mapping or annotation adjudication, which will use a separate workflow;
@@ -145,7 +150,8 @@ requirement because Office metadata and ZIP timestamps can differ. It has:
 
 - frozen headers, filters, wrapped text, and practical column widths;
 - protected source cells, unlocked review cells, and protection settings that
-  still allow filtering and row navigation;
+  still allow filtering, row navigation, and selection and copying of locked
+  source, TLLM, and optional NMT cells;
 - validation lists for controlled values;
 - TLLM prefilled into every corrected-final-text cell;
 - no formulas, macros, or external links;
@@ -154,7 +160,8 @@ requirement because Office metadata and ZIP timestamps can differ. It has:
   preview;
 - review-date cells formatted and validated as text, not locale-dependent
   Excel date serials;
-- NMT omitted by default and added only through an explicit option.
+- `NMT-Vergleich` present if and only if the export manifest contains NMT
+  references, with exactly one matching value per case.
 
 Sheet protection improves usability but is not a security or integrity
 boundary. Import resolves the export ID from the artifact store and compares
@@ -173,12 +180,13 @@ A successful import produces for every row, including `Rückfrage` and
 `abgelehnt`:
 
 - one immutable proposed German text artifact;
-- one `translation-review-record/v1`, bound to the export ID, source hash,
-  reviewed TLLM hash, proposed-text hash, reviewer ID and qualification,
-  languages, `review_date`, review-policy ID, decision, clinical-change flag,
-  category, rationale, and comment;
+- one `translation-review-record/v1`, containing `source_case_id` and bound to
+  the export ID, source hash, reviewed TLLM hash, proposed-text hash, reviewer
+  ID and qualification, languages, `review_date`, review-policy ID, decision,
+  clinical-change flag, category, rationale, and comment;
 - one deterministic `unified-text-diff/v1` from TLLM to proposed text;
-- one import manifest containing the ordered record and diff hashes.
+- one import manifest whose ordered entries explicitly pair each
+  `source_case_id` with its record and diff hashes.
 
 Only proposed texts whose decision is one of the two accepted values are
 eligible for downstream selection. Import time is operational provenance and
@@ -186,8 +194,9 @@ does not participate in content identity; the reviewer-provided `review_date`
 is the only semantic review date.
 
 Reimporting the same completed workbook produces the same content identities
-and manifest. A revised workbook produces a new manifest and leaves the old
-one intact. Imports do not define a mutable `latest`; a later release must
+and manifest. A workbook with revised imported semantic values produces a new
+manifest and leaves the old one intact; formatting or Office-metadata-only
+changes do not. Imports do not define a mutable `latest`; a later release must
 explicitly select one import manifest.
 
 The `.xlsx` file may be retained as supporting evidence, but downstream code
@@ -197,6 +206,18 @@ Original source, TLLM, and optional NMT files are never overwritten.
 The translation-review record maps its decision to the existing generic
 `ReviewRecord` acceptance gate. It does not encode translation decisions as
 annotation-review scopes.
+
+| Generic `ReviewRecord` field | Translation-review value |
+| --- | --- |
+| `subject_sha256` | proposed-text SHA-256 |
+| `review_kind` | `bilingual` |
+| `review_policy_id` | exporter-owned policy ID |
+| `manual_requirement` | `required` |
+| `reviewer_role` | recorded medical qualification |
+| `manual_status` for `unverändert akzeptiert` | `accepted` |
+| `manual_status` for `korrigiert akzeptiert` | `accepted` |
+| `manual_status` for `Rückfrage` | `changes_requested` |
+| `manual_status` for `abgelehnt` | `rejected` |
 
 ## Text and Diff Canonicalization
 
@@ -222,6 +243,7 @@ Import rejects the workbook as a whole when any of these conditions holds:
 - case IDs are missing, duplicated, added, or not part of the export;
 - source language, source text, TLLM text, or optional NMT text differs from
   the export manifest's referenced artifacts;
+- presence of the `NMT-Vergleich` column differs from the export manifest;
 - a controlled value is missing where required or is outside its enum;
 - corrected final text is empty;
 - any row violates the decision table above;
@@ -246,12 +268,13 @@ Automated tests cover:
 - default omission and explicit inclusion of the NMT column;
 - preservation of multiline Unicode medical text;
 - correct locking, validation lists, and prefilled final text;
+- selection and copying, but not editing, of locked text cells;
 - successful round-trip of unchanged and corrected cases;
 - every allowed and forbidden decision-table combination;
 - canonical newline, Unicode, UTF-8, and derived-diff behavior;
 - each validation failure above;
 - no manifest publication when validation or an injected object write fails;
-- identical reimport and distinct revised-review import;
+- identical semantic reimport and distinct semantically revised import;
 - optional-NMT tampering, extra sheets, formulas, macros, and external links;
 - text-length boundaries and accepted Excel text-date forms;
 - unchanged source and machine-translation artifact bytes after import.
