@@ -8,6 +8,7 @@ from phentrieve_benchmark.pipeline.state import StagePointer
 TRANSLATION_VARIANTS: dict[str, str] = {
     "nmt": "translation.yaml",
     "tllm": "translation-llm.yaml",
+    "tllm-full": "translation-llm-full.yaml",
 }
 
 

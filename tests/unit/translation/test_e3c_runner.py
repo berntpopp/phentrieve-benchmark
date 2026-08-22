@@ -86,9 +86,7 @@ def test_runner_translates_and_stores_source_and_output_separately(
     assert provider.calls == [("The patient had fever.", "en", "de")]
     record = result.manifest.records[0]
     assert store.read_bytes(record.source_sha256) == b"The patient had fever."
-    assert store.read_bytes(record.translation_sha256) == (
-        b"Der Patient hatte Fieber."
-    )
+    assert store.read_bytes(record.translation_sha256) == (b"Der Patient hatte Fieber.")
     assert record.source_sha256 != record.translation_sha256
     assert result.translated_case_ids == ("EN101318",)
 
@@ -135,6 +133,114 @@ def test_runner_reuses_compatible_successful_record(tmp_path: Path) -> None:
     assert second.reused_case_ids == ("EN101318",)
 
 
+def test_runner_rebinds_compatible_record_from_prior_selection(
+    tmp_path: Path,
+) -> None:
+    document = _document()
+    store = ArtifactStore(tmp_path / "objects")
+    prior_recipe = _recipe().model_copy(
+        update={
+            "translation_id": "e3c-de-feasibility-30-google-tllm-v1",
+            "model": "general/translation-llm",
+            "location": "us-central1",
+        }
+    )
+    prior = translate_documents(
+        inputs=(
+            TranslationInput(
+                document=document,
+                expected_source_sha256=document.document_sha256,
+            ),
+        ),
+        provider=_Provider(),
+        store=store,
+        recipe=prior_recipe,
+        selection_sha256="c" * 64,
+        project_id="benchmark-project",
+        created_at=datetime(2026, 7, 24, tzinfo=UTC),
+        language_detector=lambda _text: "de",
+    )
+    old = prior.manifest.records[0]
+    full_recipe = prior_recipe.model_copy(
+        update={
+            "translation_id": "e3c-de-full-246-google-tllm-v1",
+            "selection_id": "e3c-de-full-246-v1",
+        }
+    )
+    provider = _Provider()
+
+    full = translate_documents(
+        inputs=(
+            TranslationInput(
+                document=document,
+                expected_source_sha256=document.document_sha256,
+            ),
+        ),
+        provider=provider,
+        store=store,
+        recipe=full_recipe,
+        selection_sha256="d" * 64,
+        project_id="benchmark-project",
+        created_at=datetime(2026, 8, 22, tzinfo=UTC),
+        language_detector=lambda _text: "de",
+        previous_manifest=prior.manifest,
+    )
+
+    assert provider.calls == []
+    assert full.reused_case_ids == ("EN101318",)
+    rebound = full.manifest.records[0]
+    assert rebound.selection_id == "e3c-de-full-246-v1"
+    assert rebound.translation_id.startswith("e3c-de-full-246-google-tllm-v1-")
+    assert rebound.previous_translation_id == old.translation_id
+    assert rebound.source_sha256 == old.source_sha256
+    assert rebound.translation_sha256 == old.translation_sha256
+    assert rebound.checks == old.checks
+
+
+def test_runner_does_not_cross_reuse_record_from_another_project(
+    tmp_path: Path,
+) -> None:
+    document = _document()
+    store = ArtifactStore(tmp_path / "objects")
+    recipe = _recipe().model_copy(
+        update={"model": "general/translation-llm", "location": "us-central1"}
+    )
+    prior = translate_documents(
+        inputs=(
+            TranslationInput(
+                document=document, expected_source_sha256=document.document_sha256
+            ),
+        ),
+        provider=_Provider(),
+        store=store,
+        recipe=recipe,
+        selection_sha256="c" * 64,
+        project_id="other-project",
+        created_at=datetime(2026, 7, 24, tzinfo=UTC),
+        language_detector=lambda _text: "de",
+    )
+    provider = _Provider()
+
+    result = translate_documents(
+        inputs=(
+            TranslationInput(
+                document=document, expected_source_sha256=document.document_sha256
+            ),
+        ),
+        provider=provider,
+        store=store,
+        recipe=recipe.model_copy(update={"selection_id": "e3c-de-full-246-v1"}),
+        selection_sha256="d" * 64,
+        project_id="benchmark-project",
+        created_at=datetime(2026, 8, 22, tzinfo=UTC),
+        language_detector=lambda _text: "de",
+        previous_manifest=prior.manifest,
+    )
+
+    assert provider.calls == [("The patient had fever.", "en", "de")]
+    assert result.reused_case_ids == ()
+
+
 def test_record_carries_the_recipe_model(tmp_path: Path) -> None:
     document = _document()
     store = ArtifactStore(tmp_path / "objects")
@@ -161,4 +267,3 @@ def test_record_carries_the_recipe_model(tmp_path: Path) -> None:
     record = result.manifest.records[0]
     assert record.model == "general/translation-llm"
     assert record.location == "us-central1"
-

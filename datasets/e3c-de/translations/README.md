@@ -1,23 +1,38 @@
 # E3C German translations
 
-This directory documents the German translation stage for the 30 reports in
-`e3c-de-feasibility-30-v1`. The provider is Google Cloud Translation
-Advanced v3. Source languages are passed explicitly as English, French, or
-Spanish; the target is German.
+This directory documents the German translation stage for E3C. The provider
+is Google Cloud Translation Advanced v3. Source languages are passed
+explicitly as English, French, or Spanish; the target is German.
 
-Two translation variants exist side by side. A variant is identified entirely
-by its recipe, and each recipe produces its own manifest, artifacts, and
-readable view. Neither replaces the other.
+Three translation variants exist side by side. A variant is identified
+entirely by its recipe, and each recipe produces its own manifest, artifacts,
+and readable view. None replaces another.
 
 | Variant | Recipe | Model | Location | Price |
 |---|---|---|---|---|
 | `nmt` | `../translation.yaml` | `general/nmt` | `global` | 20 USD per million input characters |
 | `tllm` | `../translation-llm.yaml` | `general/translation-llm` | `us-central1` | 10 USD per million input **and** 10 USD per million output characters |
+| `tllm-full` | `../translation-llm-full.yaml` | `general/translation-llm` | `us-central1` | same pinned TLLM price |
 
-Which variant becomes the basis for the manual review is decided after both
-are available, not in advance.
+The 30-case `tllm` snapshot is the basis for the current manual review;
+`tllm-full` extends the same model to the complete corpus.
 
 ## Cost preview
+
+`tllm-full` binds directly to the verified 246-report normalization inventory.
+It reuses the compatible 30-case `tllm` results for the same Google project,
+so the current preview contains only the remaining 216 provider calls: 441,414
+input codepoints and a pinned upper bound of USD 10.152522. Preparation and the
+preview do not contact Google. Start it with:
+
+```text
+uv run phentrieve-benchmark translate e3c --project-id PROJECT_ID --variant tllm-full
+```
+
+Declining the confirmation exits before constructing the provider client.
+The 30 reused records keep their source and translation artifacts and checks;
+the full manifest gives them the full selection identity and records the prior
+translation ID.
 
 The selected source texts contain 59,517 Unicode codepoints. At the pinned
 list prices the conservative upper bounds are USD 1.19034 for `nmt` and
@@ -96,6 +111,7 @@ non-canonical, human-readable view, one directory per variant:
 ```text
 .artifacts/views/e3c-de-nmt/
 .artifacts/views/e3c-de-tllm/
+.artifacts/views/e3c-de-tllm-full/
 ```
 
 Each contains flat `CASE.source.LANG.txt` and `CASE.translation.de.txt` files

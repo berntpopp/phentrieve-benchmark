@@ -61,11 +61,17 @@ def test_recipe_path_and_view_destination_per_variant(tmp_path: Path) -> None:
     assert translation_recipe_path(tmp_path, "tllm") == (
         tmp_path / "e3c-de" / "translation-llm.yaml"
     )
+    assert translation_recipe_path(tmp_path, "tllm-full") == (
+        tmp_path / "e3c-de" / "translation-llm-full.yaml"
+    )
     assert translation_view_destination(tmp_path, "nmt") == (
         tmp_path / "views" / "e3c-de-nmt"
     )
     assert translation_view_destination(tmp_path, "tllm") == (
         tmp_path / "views" / "e3c-de-tllm"
+    )
+    assert translation_view_destination(tmp_path, "tllm-full") == (
+        tmp_path / "views" / "e3c-de-tllm-full"
     )
 
 

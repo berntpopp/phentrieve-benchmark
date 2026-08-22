@@ -31,9 +31,7 @@ TYPES = (
 def test_real_source_locks_and_license_hashes_are_exact() -> None:
     e3c = load_source_recipe(ROOT / "datasets/e3c-de/dataset.yaml")
     raghpo = load_source_recipe(ROOT / "datasets/raghpo/source.yaml")
-    e3c_license = load_license_evidence(
-        ROOT / "datasets/e3c-de/license-evidence.yaml"
-    )
+    e3c_license = load_license_evidence(ROOT / "datasets/e3c-de/license-evidence.yaml")
     raghpo_license = load_license_evidence(
         ROOT / "datasets/raghpo/license-evidence.yaml"
     )
@@ -66,8 +64,7 @@ def test_e3c_inventory_and_official_counts_are_exact() -> None:
     contract = source.adapter_contract
     assert isinstance(contract, E3cAdapterContract)
     assert {
-        item.language: item.expected_documents
-        for item in contract.language_paths
+        item.language: item.expected_documents for item in contract.language_paths
     } == {"en": 84, "fr": 81, "es": 81}
     expected = {
         "en": (1024, 4885, 682, 968, 380, 480, 502, 541, 4350, 114),
@@ -76,9 +73,10 @@ def test_e3c_inventory_and_official_counts_are_exact() -> None:
     }
     for language in contract.language_paths:
         assert tuple(item.name for item in language.expected_semantic_counts) == TYPES
-        assert tuple(
-            item.count for item in language.expected_semantic_counts
-        ) == expected[language.language]
+        assert (
+            tuple(item.count for item in language.expected_semantic_counts)
+            == expected[language.language]
+        )
 
 
 def test_raghpo_inventory_tables_and_hpo_release_are_exact() -> None:
@@ -94,15 +92,11 @@ def test_raghpo_inventory_tables_and_hpo_release_are_exact() -> None:
     assert sorted(table.data_rows for table in csc.expected_tables) == [116, 1789]
     assert sorted(table.data_rows for table in gsc.expected_tables) == [114, 1012]
     assert str(csc.hpo_release) == str(gsc.hpo_release) == "v2026-06-23"
-    assert csc.required_paths == (
-        "RAG-HPO Tests and Data Analysis copy.xlsx",
-    )
+    assert csc.required_paths == ("RAG-HPO Tests and Data Analysis copy.xlsx",)
 
 
 def test_e3c_google_nmt_recipe_is_pinned() -> None:
-    recipe = load_translation_recipe(
-        ROOT / "datasets/e3c-de/translation.yaml"
-    ).value
+    recipe = load_translation_recipe(ROOT / "datasets/e3c-de/translation.yaml").value
 
     assert recipe.selection_id == "e3c-de-feasibility-30-v1"
     assert recipe.provider == "google-cloud-translation"
@@ -130,6 +124,26 @@ def test_e3c_translation_llm_recipe_is_pinned() -> None:
     assert recipe.pricing.output_expansion_factor == Decimal("1.30")
 
 
+def test_e3c_full_translation_llm_recipe_is_pinned() -> None:
+    recipe = load_translation_recipe(
+        ROOT / "datasets/e3c-de/translation-llm-full.yaml"
+    ).value
+
+    assert recipe.translation_id == "e3c-de-full-246-google-tllm-v1"
+    assert recipe.selection_id == "e3c-de-full-246-v1"
+    assert recipe.provider == "google-cloud-translation"
+    assert recipe.api_version == "v3"
+    assert recipe.model == "general/translation-llm"
+    assert recipe.location == "us-central1"
+    assert recipe.target_language == "de"
+    assert recipe.pricing.price_per_million_input_characters == Decimal("10")
+    assert recipe.pricing.price_per_million_output_characters == Decimal("10")
+    assert recipe.pricing.output_expansion_factor == Decimal("1.30")
+    assert (
+        recipe.pricing.pricing_snapshot_id == "google-cloud-translation-llm-2026-07-27"
+    )
+
+
 def test_e3c_google_nmt_recipe_hash_is_frozen() -> None:
     loaded = load_translation_recipe(ROOT / "datasets/e3c-de/translation.yaml")
 
@@ -139,9 +153,7 @@ def test_e3c_google_nmt_recipe_hash_is_frozen() -> None:
 
 
 def test_e3c_umls_hpo_mapping_recipe_is_pinned() -> None:
-    payload = yaml.safe_load(
-        (ROOT / "datasets/e3c-de/mapping.yaml").read_text("utf-8")
-    )
+    payload = yaml.safe_load((ROOT / "datasets/e3c-de/mapping.yaml").read_text("utf-8"))
 
     assert payload == {
         "schema_version": "e3c-umls-hpo-mapping-recipe/v1",

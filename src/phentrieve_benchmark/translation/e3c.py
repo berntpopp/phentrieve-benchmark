@@ -32,7 +32,7 @@ class E3cTranslationResult:
     reused_case_ids: tuple[str, ...]
 
 
-def _reusable(
+def is_reusable_translation(
     record: TranslationRecord,
     *,
     item: TranslationInput,
@@ -46,7 +46,6 @@ def _reusable(
             TranslationStatus.REVIEWED,
             TranslationStatus.ACCEPTED,
         }
-        and record.selection_id == recipe.selection_id
         and record.source_sha256 == item.expected_source_sha256
         and record.source_language == item.document.language
         and record.target_language == recipe.target_language
@@ -72,10 +71,7 @@ def translate_documents(
     recipe_sha256: str = "0" * 64,
 ) -> E3cTranslationResult:
     previous = (
-        {
-            record.source_case_id: record
-            for record in previous_manifest.records
-        }
+        {record.source_case_id: record for record in previous_manifest.records}
         if previous_manifest is not None
         else {}
     )
@@ -97,16 +93,29 @@ def translate_documents(
             raise ValueError("duplicate selected E3C case")
         seen.add(document.source_case_id)
         if document.document_sha256 != item.expected_source_sha256:
-            raise ValueError(
-                f"document hash mismatch for {document.source_case_id}"
-            )
+            raise ValueError(f"document hash mismatch for {document.source_case_id}")
         old = previous.get(document.source_case_id)
-        if old is not None and _reusable(
+        if old is not None and is_reusable_translation(
             old, item=item, recipe=recipe, project_id=project_id
         ):
             store.read_bytes(old.source_sha256)
             store.read_bytes(old.translation_sha256)
-            records.append(old)
+            if old.selection_id == recipe.selection_id:
+                records.append(old)
+            else:
+                records.append(
+                    old.model_copy(
+                        update={
+                            "translation_id": (
+                                f"{recipe.translation_id}-"
+                                f"{document.source_case_id}-"
+                                f"{old.translation_sha256[:12]}"
+                            ),
+                            "selection_id": recipe.selection_id,
+                            "previous_translation_id": old.translation_id,
+                        }
+                    )
+                )
             reused.append(document.source_case_id)
             continue
 
@@ -128,9 +137,7 @@ def translate_documents(
             if all(check.passed for check in checks)
             else TranslationStatus.AUTOMATIC_CHECK_FAILED
         )
-        estimate = estimate_google_nmt(
-            len(document.text), recipe.pricing
-        ).upper_bound
+        estimate = estimate_google_nmt(len(document.text), recipe.pricing).upper_bound
         records.append(
             TranslationRecord(
                 translation_id=(

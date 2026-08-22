@@ -77,6 +77,13 @@ Status:
       Fälle wurden damit übersetzt.
 - [x] `general/translation-llm` als Grundlage des manuellen Reviews festlegen;
       NMT bleibt eine optionale Vergleichsspalte.
+- [x] Explizite Vollkorpus-Variante `tllm-full` für alle 246 normalisierten
+      Berichte vorbereiten; die 30 vorhandenen TLLM-Ergebnisse werden
+      kompatibilitätsgeprüft wiederverwendet.
+- [x] Kostenanzeige für die 216 verbleibenden Berichte verifizieren: 441.414
+      Eingabezeichen, Kostenobergrenze 10,152522 USD.
+- [ ] Die 216 verbleibenden Berichte erst nach ausdrücklicher Bestätigung der
+      angezeigten Kosten mit `tllm-full` übersetzen.
 
 ### Übersetzungsprüfung
 
@@ -217,6 +224,8 @@ GSC-Fassungen erzeugt.
 
 1. Die 30 TLLM-Übersetzungen mit der vorbereiteten Arbeitsmappe medizinisch
    prüfen.
-2. Den abgeschlossenen Review importieren und offene Rückfragen bearbeiten.
-3. Danach die deutschen HPO-Annotationen erzeugen und fachlich prüfen.
-4. CSC und GSC bleiben bis zu einer ausdrücklichen Wiederaufnahme pausiert.
+2. Parallel nach Kostenfreigabe die 216 verbleibenden E3C-Berichte mit
+   `tllm-full` übersetzen.
+3. Den abgeschlossenen Review importieren und offene Rückfragen bearbeiten.
+4. Danach die deutschen HPO-Annotationen erzeugen und fachlich prüfen.
+5. CSC und GSC bleiben bis zu einer ausdrücklichen Wiederaufnahme pausiert.

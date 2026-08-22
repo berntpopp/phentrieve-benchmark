@@ -230,12 +230,16 @@ def _prepared_stub() -> object:
     return type("Prepared", (), {"recipe": recipe})()
 
 
-def test_translate_command_stops_before_provider_when_declined(
+def test_full_tllm_command_stops_before_provider_when_declined(
     monkeypatch: object,
 ) -> None:
     monkeypatch.setattr(cli, "_pipeline_context", lambda *_: object())  # type: ignore[attr-defined]
+    prepared_variants: list[str] = []
     monkeypatch.setattr(
-        cli, "prepare_e3c_translation", lambda *_: _prepared_stub()
+        cli,
+        "prepare_e3c_translation",
+        lambda _context, _project, variant: prepared_variants.append(variant)
+        or _prepared_stub(),
     )  # type: ignore[attr-defined]
     monkeypatch.setattr(
         cli,
@@ -258,13 +262,21 @@ def test_translate_command_stops_before_provider_when_declined(
 
     invocation = CliRunner().invoke(
         cli.app,
-        ["translate", "e3c", "--project-id", "benchmark-project"],
+        [
+            "translate",
+            "e3c",
+            "--project-id",
+            "benchmark-project",
+            "--variant",
+            "tllm-full",
+        ],
         input="n\n",
     )
 
     assert invocation.exit_code == 1
     assert "59517" in invocation.stdout
     assert "USD 1.19034" in invocation.stdout
+    assert prepared_variants == ["tllm-full"]
     assert calls == []
 
 

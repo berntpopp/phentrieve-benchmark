@@ -1,0 +1,14 @@
+schema_version: e3c-translation-recipe/v1
+translation_id: e3c-de-full-246-google-tllm-v1
+selection_id: e3c-de-full-246-v1
+provider: google-cloud-translation
+api_version: v3
+model: general/translation-llm
+location: us-central1
+target_language: de
+pricing:
+  currency: USD
+  price_per_million_input_characters: "10"
+  price_per_million_output_characters: "10"
+  output_expansion_factor: "1.30"
+  pricing_snapshot_id: google-cloud-translation-llm-2026-07-27
