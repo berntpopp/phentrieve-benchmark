@@ -1,4 +1,5 @@
 import re
+import tempfile
 from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import date
@@ -29,6 +30,7 @@ from phentrieve_benchmark.provenance.canonical import (
 from phentrieve_benchmark.provenance.digests import sha256_bytes
 from phentrieve_benchmark.review.translation_text import unified_text_diff
 from phentrieve_benchmark.review.translation_workbook import (
+    ParsedReviewWorkbook,
     WorkbookCase,
     read_review_workbook,
     write_review_workbook,
@@ -97,6 +99,7 @@ _METADATA_FIELDS_BY_COORDINATE = {
     "B9": "reviewed_languages",
     "B10": "review_date",
 }
+_EMPTY_METADATA_COORDINATES = {"B7", "B8", "B9", "B10"}
 
 
 def _records_by_case(
@@ -271,7 +274,8 @@ def _cell_issue(
     )
 
 
-def _formula_issue(workbook_path: Path) -> WorkbookValidationIssue | None:
+def _formula_issues(workbook_path: Path) -> tuple[WorkbookValidationIssue, ...]:
+    issues: list[WorkbookValidationIssue] = []
     try:
         workbook = load_workbook(
             workbook_path, data_only=False, keep_links=False, read_only=True
@@ -281,41 +285,76 @@ def _formula_issue(workbook_path: Path) -> WorkbookValidationIssue | None:
                 for row in worksheet.iter_rows():
                     for cell in row:
                         if cell.data_type == "f":
-                            return _cell_issue(
-                                workbook_path=workbook_path,
-                                sheet=worksheet.title,
-                                coordinate=cell.coordinate,
-                                message="formula cells are forbidden",
+                            case_id = None
+                            if worksheet.title == "Anleitung":
+                                field = _METADATA_FIELDS_BY_COORDINATE.get(
+                                    cell.coordinate, "workbook"
+                                )
+                            elif worksheet.title == "Review":
+                                field = _REVIEW_FIELDS_BY_COLUMN.get(
+                                    cell.column_letter, "workbook"
+                                )
+                                value = worksheet[f"A{cell.row}"].value
+                                case_id = value if isinstance(value, str) else None
+                            else:
+                                field = "workbook"
+                            issues.append(
+                                _issue(
+                                    sheet=worksheet.title,
+                                    row=cell.row,
+                                    case_id=case_id,
+                                    field=field,
+                                    message="formula cells are forbidden",
+                                )
                             )
         finally:
             workbook.close()
     except Exception:
-        return None
-    return None
+        return ()
+    return tuple(issues)
+
+
+def _non_string_issue(
+    *, workbook_path: Path, coordinate: str
+) -> WorkbookValidationIssue:
+    sheet = "Review"
+    if coordinate in _METADATA_FIELDS_BY_COORDINATE:
+        try:
+            workbook = load_workbook(
+                workbook_path, data_only=False, keep_links=False, read_only=True
+            )
+            try:
+                metadata_value = workbook["Anleitung"][coordinate].value
+                metadata_is_invalid = not isinstance(metadata_value, str) and not (
+                    metadata_value is None and coordinate in _EMPTY_METADATA_COORDINATES
+                )
+                if metadata_is_invalid:
+                    sheet = "Anleitung"
+            finally:
+                workbook.close()
+        except Exception:
+            pass
+    return _cell_issue(
+        workbook_path=workbook_path,
+        sheet=sheet,
+        coordinate=coordinate,
+        message="must contain a string",
+    )
 
 
 def _parser_error(error: Exception, *, workbook_path: Path) -> WorkbookValidationError:
     message = str(error)
     if "exactly Anleitung and Review" in message:
         message = f"extra or missing sheet; {message}"
-    if "formula cells are forbidden" in message:
-        formula_issue = _formula_issue(workbook_path)
-        if formula_issue is not None:
-            return WorkbookValidationError((formula_issue,))
     cell_error = re.fullmatch(r"([A-K])(\d+) must contain a string", message)
     if cell_error is not None:
         column, row_text = cell_error.groups()
         coordinate = f"{column}{row_text}"
-        sheet = (
-            "Anleitung" if coordinate in _METADATA_FIELDS_BY_COORDINATE else "Review"
-        )
         return WorkbookValidationError(
             (
-                _cell_issue(
+                _non_string_issue(
                     workbook_path=workbook_path,
-                    sheet=sheet,
                     coordinate=coordinate,
-                    message="must contain a string",
                 ),
             )
         )
@@ -330,6 +369,51 @@ def _parser_error(error: Exception, *, workbook_path: Path) -> WorkbookValidatio
             ),
         )
     )
+
+
+def _read_without_formulas(
+    workbook_path: Path,
+) -> tuple[ParsedReviewWorkbook | None, tuple[WorkbookValidationIssue, ...]]:
+    workbook = load_workbook(workbook_path, data_only=False, keep_links=False)
+    temporary_path: Path | None = None
+    try:
+        for worksheet in workbook.worksheets:
+            for row in worksheet.iter_rows():
+                for cell in row:
+                    if cell.data_type == "f":
+                        cell.value = (
+                            f"formula removed from {worksheet.title}!{cell.coordinate}"
+                        )
+        with tempfile.NamedTemporaryFile(suffix=".xlsx", delete=False) as temporary:
+            temporary_path = Path(temporary.name)
+        workbook.save(temporary_path)
+        try:
+            return read_review_workbook(temporary_path), ()
+        except Exception as error:
+            return None, _parser_error(error, workbook_path=temporary_path).issues
+    finally:
+        workbook.close()
+        if temporary_path is not None:
+            temporary_path.unlink(missing_ok=True)
+
+
+def _read_workbook_for_import(
+    workbook_path: Path,
+) -> tuple[ParsedReviewWorkbook | None, list[WorkbookValidationIssue]]:
+    try:
+        return read_review_workbook(workbook_path), []
+    except Exception as error:
+        formula_issues = _formula_issues(workbook_path)
+        if not formula_issues:
+            return None, list(_parser_error(error, workbook_path=workbook_path).issues)
+        try:
+            workbook, parser_issues = _read_without_formulas(workbook_path)
+        except Exception as sanitized_error:
+            parser_issues = _parser_error(
+                sanitized_error, workbook_path=workbook_path
+            ).issues
+            workbook = None
+        return workbook, [*formula_issues, *parser_issues]
 
 
 def _load_export(
@@ -443,7 +527,8 @@ def _read_export_text(
     issues: list[WorkbookValidationIssue],
 ) -> str | None:
     try:
-        return store.read_bytes(digest).decode("utf-8")
+        artifact_bytes = store.read_bytes(digest)
+        text = artifact_bytes.decode("utf-8")
     except Exception as error:
         issues.append(
             _issue(
@@ -455,6 +540,18 @@ def _read_export_text(
             )
         )
         return None
+    if canonical_text_bytes(text) != artifact_bytes:
+        issues.append(
+            _issue(
+                sheet="Review",
+                row=row,
+                case_id=case_id,
+                field=field,
+                message="authoritative artifact is not canonical text bytes",
+            )
+        )
+        return None
+    return text
 
 
 def _validate_enum(
@@ -779,12 +876,9 @@ def _validate_rows(
 
 def import_translation_review(*, store: ArtifactStore, workbook_path: Path) -> str:
     """Validate fully, then publish a completed workbook manifest last."""
-    try:
-        workbook = read_review_workbook(workbook_path)
-    except Exception as error:
-        raise _parser_error(error, workbook_path=workbook_path) from error
-
-    issues: list[WorkbookValidationIssue] = []
+    workbook, issues = _read_workbook_for_import(workbook_path)
+    if workbook is None:
+        raise WorkbookValidationError(issues)
     export = _load_export(
         store=store,
         export_sha256=workbook.export_sha256,

@@ -29,7 +29,10 @@ from phentrieve_benchmark.pipeline.translation_review import (
 
 
 def _translation_manifest(
-    store: ArtifactStore, *, model: str = "general/translation-llm"
+    store: ArtifactStore,
+    *,
+    model: str = "general/translation-llm",
+    noncanonical_field: str | None = None,
 ) -> TranslationManifest:
     cases = (
         (
@@ -46,6 +49,24 @@ def _translation_manifest(
             "Unveränderter Text.",
             "Unveränderter NMT-Text.",
         ),
+    )
+
+    def noncanonical_texts(
+        case_id: str, source: str, tllm: str, nmt: str
+    ) -> tuple[str, str, str]:
+        if case_id != "EN1":
+            return source, tllm, nmt
+        if noncanonical_field == "source_text":
+            source = "Cafe\u0301 source."
+        elif noncanonical_field == "tllm_text":
+            tllm = "U\u0308bersetzung."
+        elif noncanonical_field == "nmt_text":
+            nmt = "U\u0308bersetzung."
+        return source, tllm, nmt
+
+    normalized_cases = (
+        (case_id, language, *noncanonical_texts(case_id, source, tllm, nmt))
+        for case_id, language, source, tllm, nmt in cases
     )
     records = tuple(
         TranslationRecord(
@@ -71,7 +92,7 @@ def _translation_manifest(
             status=TranslationStatus.TRANSLATED,
             checks=(),
         )
-        for case_id, language, source, tllm, nmt in cases
+        for case_id, language, source, tllm, nmt in normalized_cases
     )
     manifest = TranslationManifest(
         selection_id="selection-1",
@@ -84,16 +105,27 @@ def _translation_manifest(
 
 
 def _completed_workbook(
-    tmp_path: Path, *, include_nmt: bool = False
+    tmp_path: Path,
+    *,
+    include_nmt: bool = False,
+    noncanonical_field: str | None = None,
 ) -> tuple[ArtifactStore, Path]:
     store = ArtifactStore(tmp_path / "objects")
     workbook_path = tmp_path / "review.xlsx"
     nmt_manifest = (
-        _translation_manifest(store, model="general/nmt") if include_nmt else None
+        _translation_manifest(
+            store,
+            model="general/nmt",
+            noncanonical_field=noncanonical_field,
+        )
+        if include_nmt
+        else None
     )
     export_translation_review(
         store=store,
-        tllm_manifest=_translation_manifest(store),
+        tllm_manifest=_translation_manifest(
+            store, noncanonical_field=noncanonical_field
+        ),
         nmt_manifest=nmt_manifest,
         destination=workbook_path,
         review_policy_id="medical-review-v1",
@@ -220,6 +252,28 @@ def test_import_requires_export_id_to_resolve_in_the_store(tmp_path: Path) -> No
     )
 
     assert "valid canonical export" in str(error)
+
+
+@pytest.mark.parametrize(
+    ("field", "include_nmt"),
+    [
+        ("source_text", False),
+        ("tllm_text", False),
+        ("nmt_text", True),
+    ],
+)
+def test_import_rejects_noncanonical_authoritative_text_artifacts(
+    tmp_path: Path, field: str, include_nmt: bool
+) -> None:
+    store, workbook_path = _completed_workbook(
+        tmp_path,
+        include_nmt=include_nmt,
+        noncanonical_field=field,
+    )
+
+    error = _assert_rejected_without_writes(store, workbook_path, fields={field})
+
+    assert "canonical text bytes" in str(error)
 
 
 @pytest.mark.parametrize("case_change", ["missing", "extra", "duplicate"])
@@ -382,6 +436,48 @@ def test_import_maps_non_string_metadata_errors_to_their_cell(tmp_path: Path) ->
     )
 
     assert "Anleitung row 10 case - field review_date" in str(error)
+
+
+def test_import_keeps_review_sheet_for_ambiguous_non_string_coordinate(
+    tmp_path: Path,
+) -> None:
+    store, workbook_path = _completed_workbook(tmp_path)
+    _mutate_workbook(
+        workbook_path,
+        lambda workbook: setattr(workbook["Review"]["B3"], "value", 123),
+    )
+
+    error = _assert_rejected_without_writes(
+        store, workbook_path, fields={"source_language"}
+    )
+
+    assert "Review row 3 case FR1 field source_language" in str(error)
+
+
+def test_import_aggregates_all_formulas_and_other_metadata_errors(
+    tmp_path: Path,
+) -> None:
+    store, workbook_path = _completed_workbook(tmp_path)
+
+    def change(workbook: Any) -> None:
+        workbook["Anleitung"]["B7"] = ""
+        workbook["Anleitung"]["B10"] = "bad-date"
+        workbook["Review"]["E2"] = "=1+1"
+        workbook["Review"]["J3"] = "=2+2"
+
+    _mutate_workbook(workbook_path, change)
+
+    error = _assert_rejected_without_writes(
+        store,
+        workbook_path,
+        fields={"reviewer_id", "review_date", "proposed_text", "reviewer_comment"},
+    )
+
+    formula_issues = [issue for issue in error.issues if "formula" in issue.message]
+    assert [(issue.row, issue.case_id, issue.field) for issue in formula_issues] == [
+        (2, "EN1", "proposed_text"),
+        (3, "FR1", "reviewer_comment"),
+    ]
 
 
 def test_import_rejects_utf16_cell_length_overflow(tmp_path: Path) -> None:
