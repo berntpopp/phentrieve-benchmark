@@ -103,15 +103,25 @@ def test_writer_creates_the_minimal_review_profile(tmp_path: Path) -> None:
         instructions = workbook["Anleitung"]
         assert instructions.protection.selectLockedCells is False
         assert instructions.protection.selectUnlockedCells is False
-        assert instructions["B3"].value == _export().sha256()
-        assert instructions["B10"].number_format == "@"
-        assert instructions["B10"].protection.locked is False
+        assert instructions["A3"].value == "Arbeitsablauf"
+        assert {str(cell_range) for cell_range in instructions.merged_cells.ranges} == {
+            "A1:B1",
+            "A3:B3",
+            "A4:B4",
+            "A5:B5",
+            "A6:B6",
+            "A7:B7",
+            "A8:B8",
+        }
+        assert instructions["B15"].value == _export().sha256()
+        assert instructions["B13"].number_format == "@"
+        assert instructions["B13"].protection.locked is False
         assert any(
-            validation.type == "custom" and "ISTEXT(B10)" in validation.formula1
+            validation.type == "custom" and "ISTEXT(B13)" in validation.formula1
             for validation in instructions.data_validations.dataValidation
         )
         instruction_text = "\n".join(
-            str(instructions[f"A{row}"].value) for row in range(12, 18)
+            str(instructions[f"A{row}"].value) for row in range(3, 9)
         )
         assert "Metadaten" in instruction_text
         assert "Originaltext" in instruction_text
@@ -170,10 +180,10 @@ def test_reader_returns_string_metadata_and_row_values(tmp_path: Path) -> None:
     workbook = load_workbook(output)
     try:
         instructions = workbook["Anleitung"]
-        instructions["B7"] = "reviewer-1"
-        instructions["B8"] = "medical translator"
-        instructions["B9"] = "English, French, German"
-        instructions["B10"] = "2026-08-22"
+        instructions["B10"] = "reviewer-1"
+        instructions["B11"] = "medical translator"
+        instructions["B12"] = "English, French, German"
+        instructions["B13"] = "2026-08-22"
         review = workbook["Review"]
         review["F2"] = "unverändert akzeptiert"
         review["G2"] = "keine"
@@ -201,10 +211,10 @@ def test_reader_ignores_formatting_outside_the_workbook_profile(tmp_path: Path) 
     workbook = load_workbook(output)
     try:
         instructions = workbook["Anleitung"]
-        instructions["B7"] = "reviewer-1"
-        instructions["B8"] = "medical translator"
-        instructions["B9"] = "English, French, German"
-        instructions["B10"] = "2026-08-22"
+        instructions["B10"] = "reviewer-1"
+        instructions["B11"] = "medical translator"
+        instructions["B12"] = "English, French, German"
+        instructions["B13"] = "2026-08-22"
         review = workbook["Review"]
         review["F2"] = "unverändert akzeptiert"
         review["G2"] = "keine"

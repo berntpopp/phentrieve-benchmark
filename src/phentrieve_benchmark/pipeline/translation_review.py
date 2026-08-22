@@ -92,15 +92,15 @@ _REVIEW_FIELDS_BY_COLUMN = {
     "K": "nmt_text",
 }
 _METADATA_FIELDS_BY_COORDINATE = {
-    "B3": "export_sha256",
-    "B4": "selection_id",
-    "B5": "review_policy_id",
-    "B7": "reviewer_id",
-    "B8": "reviewer_qualification",
-    "B9": "reviewed_languages",
-    "B10": "review_date",
+    "B15": "export_sha256",
+    "B16": "selection_id",
+    "B17": "review_policy_id",
+    "B10": "reviewer_id",
+    "B11": "reviewer_qualification",
+    "B12": "reviewed_languages",
+    "B13": "review_date",
 }
-_EMPTY_METADATA_COORDINATES = {"B7", "B8", "B9", "B10"}
+_EMPTY_METADATA_COORDINATES = {"B10", "B11", "B12", "B13"}
 
 
 def _records_by_case(

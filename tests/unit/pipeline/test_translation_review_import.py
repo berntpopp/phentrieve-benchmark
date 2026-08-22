@@ -134,10 +134,10 @@ def _completed_workbook(
     workbook = load_workbook(workbook_path)
     try:
         instructions = workbook["Anleitung"]
-        instructions["B7"] = "reviewer-1"
-        instructions["B8"] = "medical translator"
-        instructions["B9"] = "English, French, German"
-        instructions["B10"] = "2026-08-22"
+        instructions["B10"] = "reviewer-1"
+        instructions["B11"] = "medical translator"
+        instructions["B12"] = "English, French, German"
+        instructions["B13"] = "2026-08-22"
         review = workbook["Review"]
         review["F2"] = "unverändert akzeptiert"
         review["G2"] = "keine"
@@ -245,7 +245,7 @@ def test_import_requires_export_id_to_resolve_in_the_store(tmp_path: Path) -> No
     store, workbook_path = _completed_workbook(tmp_path)
     _mutate_workbook(
         workbook_path,
-        lambda workbook: setattr(workbook["Anleitung"]["B3"], "value", "0" * 64),
+        lambda workbook: setattr(workbook["Anleitung"]["B15"], "value", "0" * 64),
     )
 
     error = _assert_rejected_without_writes(
@@ -301,12 +301,12 @@ def test_import_requires_the_exact_export_case_set(
 @pytest.mark.parametrize(
     ("sheet", "coordinate", "value", "field"),
     [
-        ("Anleitung", "B4", "other-selection", "selection_id"),
-        ("Anleitung", "B5", "other-policy", "review_policy_id"),
-        ("Anleitung", "B7", "", "reviewer_id"),
-        ("Anleitung", "B8", "", "reviewer_qualification"),
-        ("Anleitung", "B9", "", "reviewed_languages"),
-        ("Anleitung", "B10", "2026-02-30", "review_date"),
+        ("Anleitung", "B16", "other-selection", "selection_id"),
+        ("Anleitung", "B17", "other-policy", "review_policy_id"),
+        ("Anleitung", "B10", "", "reviewer_id"),
+        ("Anleitung", "B11", "", "reviewer_qualification"),
+        ("Anleitung", "B12", "", "reviewed_languages"),
+        ("Anleitung", "B13", "2026-02-30", "review_date"),
         ("Review", "E2", "", "proposed_text"),
         ("Review", "F2", "not-a-decision", "decision"),
         ("Review", "G2", "not-a-change", "clinical_change"),
@@ -429,14 +429,14 @@ def test_import_maps_non_string_metadata_errors_to_their_cell(tmp_path: Path) ->
     store, workbook_path = _completed_workbook(tmp_path)
     _mutate_workbook(
         workbook_path,
-        lambda workbook: setattr(workbook["Anleitung"]["B10"], "value", 45_526),
+        lambda workbook: setattr(workbook["Anleitung"]["B13"], "value", 45_526),
     )
 
     error = _assert_rejected_without_writes(
         store, workbook_path, fields={"review_date"}
     )
 
-    assert "Anleitung row 10 case - field review_date" in str(error)
+    assert "Anleitung row 13 case - field review_date" in str(error)
 
 
 def test_import_keeps_review_sheet_for_ambiguous_non_string_coordinate(
@@ -461,8 +461,8 @@ def test_import_aggregates_all_formulas_and_other_metadata_errors(
     store, workbook_path = _completed_workbook(tmp_path)
 
     def change(workbook: Any) -> None:
-        workbook["Anleitung"]["B7"] = ""
-        workbook["Anleitung"]["B10"] = "bad-date"
+        workbook["Anleitung"]["B10"] = ""
+        workbook["Anleitung"]["B13"] = "bad-date"
         workbook["Review"]["E2"] = "=1+1"
         workbook["Review"]["J3"] = "=2+2"
 
@@ -487,7 +487,7 @@ def test_import_aggregates_non_string_consumed_cells_and_semantic_errors(
     store, workbook_path = _completed_workbook(tmp_path)
 
     def change(workbook: Any) -> None:
-        workbook["Anleitung"]["B10"] = 45_526
+        workbook["Anleitung"]["B13"] = 45_526
         workbook["Review"]["B2"] = 1
         workbook["Review"]["B3"] = 2
         workbook["Review"]["F2"] = "bad-decision"
@@ -507,7 +507,7 @@ def test_import_aggregates_non_string_consumed_cells_and_semantic_errors(
         (issue.sheet, issue.row, issue.case_id, issue.field)
         for issue in non_string_issues
     ] == [
-        ("Anleitung", 10, None, "review_date"),
+        ("Anleitung", 13, None, "review_date"),
         ("Review", 2, "EN1", "source_language"),
         ("Review", 3, "FR1", "source_language"),
     ]
@@ -532,8 +532,8 @@ def test_import_reports_all_detectable_validation_failures(tmp_path: Path) -> No
     store, workbook_path = _completed_workbook(tmp_path)
 
     def change(workbook: Any) -> None:
-        workbook["Anleitung"]["B7"] = ""
-        workbook["Anleitung"]["B10"] = "bad-date"
+        workbook["Anleitung"]["B10"] = ""
+        workbook["Anleitung"]["B13"] = "bad-date"
         workbook["Review"]["C2"] = "tampered source"
         workbook["Review"]["F2"] = "bad-decision"
 

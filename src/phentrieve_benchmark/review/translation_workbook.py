@@ -42,13 +42,13 @@ CATEGORY_VALUES = (
 )
 
 _METADATA_CELLS = {
-    "export_sha256": "B3",
-    "selection_id": "B4",
-    "review_policy_id": "B5",
-    "reviewer_id": "B7",
-    "reviewer_qualification": "B8",
-    "reviewed_languages": "B9",
-    "review_date": "B10",
+    "export_sha256": "B15",
+    "selection_id": "B16",
+    "review_policy_id": "B17",
+    "reviewer_id": "B10",
+    "reviewer_qualification": "B11",
+    "reviewed_languages": "B12",
+    "review_date": "B13",
 }
 _EDITABLE_REVIEW_COLUMNS = range(5, 11)
 
@@ -170,16 +170,18 @@ def _format_instructions_sheet(worksheet: object) -> None:
     for row in worksheet.iter_rows():  # type: ignore[attr-defined]
         for cell in row:
             cell.alignment = Alignment(wrap_text=True, vertical="top")
-    for coordinate in ("B7", "B8", "B9", "B10"):
+    for cell_range in ("A1:B1", "A3:B3", "A4:B4", "A5:B5", "A6:B6", "A7:B7", "A8:B8"):
+        worksheet.merge_cells(cell_range)  # type: ignore[attr-defined]
+    for coordinate in ("B10", "B11", "B12", "B13"):
         worksheet[coordinate].protection = Protection(locked=False)  # type: ignore[index]
-    worksheet["B10"].number_format = "@"  # type: ignore[index]
+    worksheet["B13"].number_format = "@"  # type: ignore[index]
     date_validation = DataValidation(
         type="custom",
-        formula1='=AND(ISTEXT(B10),LEN(B10)=10,MID(B10,5,1)="-",MID(B10,8,1)="-")',
+        formula1='=AND(ISTEXT(B13),LEN(B13)=10,MID(B13,5,1)="-",MID(B13,8,1)="-")',
         allow_blank=True,
     )
     worksheet.add_data_validation(date_validation)  # type: ignore[attr-defined]
-    date_validation.add("B10")
+    date_validation.add("B13")
 
 
 def _validate_cases(cases: tuple[WorkbookCase, ...], *, includes_nmt: bool) -> None:
@@ -224,19 +226,10 @@ def write_review_workbook(
 
     _write_text(instructions["A1"], "E3C-Übersetzungsreview")
     instructions["A1"].font = Font(bold=True)
-    _write_text(instructions["A3"], "Export-ID")
-    _write_text(instructions["B3"], export.sha256())
-    _write_text(instructions["A4"], "Auswahl-ID")
-    _write_text(instructions["B4"], export.selection_id)
-    _write_text(instructions["A5"], "Review-Policy-ID")
-    _write_text(instructions["B5"], export.review_policy_id)
-    _write_text(instructions["A7"], "Reviewer-ID oder Name")
-    _write_text(instructions["A8"], "Medizinische Qualifikation")
-    _write_text(instructions["A9"], "Überprüfte Sprachen")
-    _write_text(instructions["A10"], "Review-Datum (YYYY-MM-DD)")
-    _write_text(instructions["A12"], "Arbeitsablauf")
+    _write_text(instructions["A3"], "Arbeitsablauf")
+    instructions["A3"].font = Font(bold=True)
     _write_text(
-        instructions["A13"],
+        instructions["A4"],
         "1. Metadaten ausfüllen, dann Originaltext und TLLM-Ausgangsfassung jeder "
         "Zeile vergleichen und die Korrigierte Endfassung als vollständigen "
         "deutschen Endtext bearbeiten (kein Patch, keine isolierte Ersatzphrase). "
@@ -244,30 +237,44 @@ def write_review_workbook(
         "Bearbeitungsleiste oder den Zelleditor verwenden.",
     )
     _write_text(
-        instructions["A14"],
+        instructions["A5"],
         "2. Entscheidung wählen: unverändert akzeptiert, korrigiert akzeptiert, "
         "Rückfrage, wenn sich Quelle oder korrekte Wiedergabe nicht auflösen "
         "lassen, oder abgelehnt, wenn der Fall durch Review nicht geeignet "
         "gemacht werden kann.",
     )
     _write_text(
-        instructions["A15"],
+        instructions["A6"],
         "3. Bei vorhanden Hauptkategorie und Änderungsbegründung ausfüllen; bei "
         "keine beide Felder leer lassen.",
     )
     _write_text(
-        instructions["A16"],
+        instructions["A7"],
         "4. Unverändert akzeptiert ist nur bei identischer TLLM-Endfassung mit "
         "keine erlaubt. Korrigiert akzeptiert erfordert eine geänderte Endfassung; "
         "Rückfrage und abgelehnt erfordern vorhanden.",
     )
     _write_text(
-        instructions["A17"],
+        instructions["A8"],
         "5. Ohne Formeln, zusätzliche Blätter oder Dateitypwechsel als .xlsx "
         "speichern.",
     )
-    for row in range(13, 18):
+    for row in range(4, 9):
         instructions.row_dimensions[row].height = 45
+    _write_text(instructions["A9"], "Reviewer-Angaben")
+    instructions["A9"].font = Font(bold=True)
+    _write_text(instructions["A10"], "Reviewer-ID oder Name")
+    _write_text(instructions["A11"], "Medizinische Qualifikation")
+    _write_text(instructions["A12"], "Überprüfte Sprachen")
+    _write_text(instructions["A13"], "Review-Datum (YYYY-MM-DD)")
+    _write_text(instructions["A14"], "Technische Angaben")
+    instructions["A14"].font = Font(bold=True)
+    _write_text(instructions["A15"], "Export-ID")
+    _write_text(instructions["B15"], export.sha256())
+    _write_text(instructions["A16"], "Auswahl-ID")
+    _write_text(instructions["B16"], export.selection_id)
+    _write_text(instructions["A17"], "Review-Policy-ID")
+    _write_text(instructions["B17"], export.review_policy_id)
 
     headers = (*REVIEW_HEADERS, NMT_HEADER) if includes_nmt else REVIEW_HEADERS
     for column_index, header in enumerate(headers, start=1):
