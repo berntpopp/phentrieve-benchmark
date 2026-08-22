@@ -41,6 +41,11 @@ the full-corpus preview:
 uv run phentrieve-benchmark translate e3c --project-id PROJECT_ID --variant tllm-full --dataset-root DATASET_ROOT --artifact-root ARTIFACT_ROOT
 ```
 
+Append `--retranslate-all` to deliberately translate all 246 reports again.
+The existing 30-case manifest remains unchanged for a later one-off comparison;
+the current full rerun preview is 500,931 input codepoints with a pinned upper
+bound of USD 11.521413.
+
 The translation command still asks for confirmation before constructing the
 Google client. Declining exits without a provider call.
 The 30 reused records keep their source and translation artifacts, statuses,

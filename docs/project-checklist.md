@@ -85,8 +85,9 @@ Status:
       bleiben für den medizinischen Review unverändert sichtbar.
 - [x] Kostenanzeige für die 216 verbleibenden Berichte verifizieren: 441.414
       Eingabezeichen, Kostenobergrenze 10,152522 USD.
-- [ ] Die 216 verbleibenden Berichte erst nach ausdrücklicher Bestätigung der
-      angezeigten Kosten mit `tllm-full` übersetzen.
+- [ ] Alle 246 Berichte nach ausdrücklicher Bestätigung der Kostenobergrenze
+      11,521413 USD mit `tllm-full --retranslate-all` neu übersetzen; die
+      vorhandenen 30 anschließend einmalig vergleichen.
 
 ### Übersetzungsprüfung
 
@@ -227,8 +228,9 @@ GSC-Fassungen erzeugt.
 
 1. Die 30 TLLM-Übersetzungen mit der vorbereiteten Arbeitsmappe medizinisch
    prüfen.
-2. Parallel nach Kostenfreigabe die 216 verbleibenden E3C-Berichte mit
-   `tllm-full` übersetzen.
+2. Nach Kostenfreigabe alle 246 E3C-Berichte mit
+   `tllm-full --retranslate-all` neu übersetzen und die vorhandenen 30
+   anschließend einmalig vergleichen.
 3. Den abgeschlossenen Review importieren und offene Rückfragen bearbeiten.
 4. Danach die deutschen HPO-Annotationen erzeugen und fachlich prüfen.
 5. CSC und GSC bleiben bis zu einer ausdrücklichen Wiederaufnahme pausiert.

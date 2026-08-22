@@ -1,4 +1,5 @@
 import subprocess
+from dataclasses import replace
 from pathlib import Path
 from typing import Annotated, Literal
 
@@ -216,11 +217,16 @@ def map_hpo_e3c_command(
 def translate_e3c_command(
     project_id: Annotated[str, typer.Option()],
     variant: Variant = "nmt",
+    retranslate_all: Annotated[
+        bool, typer.Option("--retranslate-all")
+    ] = False,
     dataset_root: DatasetRoot = Path("datasets"),
     artifact_root: ArtifactRoot = Path(".artifacts"),
 ) -> None:
     context = _pipeline_context(dataset_root, artifact_root)
     prepared = prepare_e3c_translation(context, project_id, variant)
+    if retranslate_all:
+        prepared = replace(prepared, previous_manifest=None)
     estimate = estimate_prepared_translation(prepared)
     typer.echo(
         f"variant={variant} model={prepared.recipe.model} "

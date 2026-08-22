@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from decimal import Decimal
 from pathlib import Path
 
@@ -223,11 +224,19 @@ def test_review_workbook_import_prints_manifest_and_status_counts(
     )
 
 
-def _prepared_stub() -> object:
+@dataclass(frozen=True)
+class _PreparedStub:
+    recipe: object
+    previous_manifest: object | None = None
+
+
+def _prepared_stub(*, previous_manifest: object | None = None) -> object:
     recipe = type(
         "Recipe", (), {"model": "general/nmt", "location": "global"}
     )()
-    return type("Prepared", (), {"recipe": recipe})()
+    return _PreparedStub(
+        recipe=recipe, previous_manifest=previous_manifest
+    )
 
 
 def test_full_tllm_command_stops_before_provider_when_declined(
@@ -278,6 +287,59 @@ def test_full_tllm_command_stops_before_provider_when_declined(
     assert "USD 1.19034" in invocation.stdout
     assert prepared_variants == ["tllm-full"]
     assert calls == []
+
+
+def test_full_tllm_retranslate_all_previews_every_case_without_reuse(
+    monkeypatch: object,
+) -> None:
+    monkeypatch.setattr(cli, "_pipeline_context", lambda *_: object())  # type: ignore[attr-defined]
+    prior_manifest = object()
+    monkeypatch.setattr(
+        cli,
+        "prepare_e3c_translation",
+        lambda *_: _prepared_stub(previous_manifest=prior_manifest),
+    )  # type: ignore[attr-defined]
+    estimated_previous: list[object | None] = []
+
+    def estimate(prepared: _PreparedStub) -> TranslationEstimate:
+        estimated_previous.append(prepared.previous_manifest)
+        return TranslationEstimate(
+            case_count=246,
+            input_codepoints=500_931,
+            cost=CostEstimate(
+                currency="USD",
+                estimated_cost=Decimal("11.521413"),
+                upper_bound=Decimal("11.521413"),
+                pricing_snapshot_id="google-cloud-translation-llm-2026-07-27",
+            ),
+        )
+
+    monkeypatch.setattr(cli, "estimate_prepared_translation", estimate)  # type: ignore[attr-defined]
+    provider_calls: list[object] = []
+    monkeypatch.setattr(
+        cli, "translate_e3c", lambda **_: provider_calls.append(object())
+    )  # type: ignore[attr-defined]
+
+    invocation = CliRunner().invoke(
+        cli.app,
+        [
+            "translate",
+            "e3c",
+            "--project-id",
+            "phentrieve",
+            "--variant",
+            "tllm-full",
+            "--retranslate-all",
+        ],
+        input="n\n",
+    )
+
+    assert invocation.exit_code == 1
+    assert "cases=246" in invocation.stdout
+    assert "input_characters=500931" in invocation.stdout
+    assert "upper_bound=USD 11.521413" in invocation.stdout
+    assert estimated_previous == [None]
+    assert provider_calls == []
 
 
 def test_translate_command_delegates_after_confirmation(
