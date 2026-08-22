@@ -342,6 +342,24 @@ def test_full_tllm_retranslate_all_previews_every_case_without_reuse(
     assert provider_calls == []
 
 
+def test_retranslate_all_rejects_non_full_variant() -> None:
+    invocation = CliRunner().invoke(
+        cli.app,
+        [
+            "translate",
+            "e3c",
+            "--project-id",
+            "phentrieve",
+            "--variant",
+            "tllm",
+            "--retranslate-all",
+        ],
+    )
+
+    assert invocation.exit_code == 2
+    assert "requires --variant tllm-full" in invocation.stderr
+
+
 def test_translate_command_delegates_after_confirmation(
     monkeypatch: object,
 ) -> None:

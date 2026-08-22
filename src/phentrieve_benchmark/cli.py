@@ -223,6 +223,11 @@ def translate_e3c_command(
     dataset_root: DatasetRoot = Path("datasets"),
     artifact_root: ArtifactRoot = Path(".artifacts"),
 ) -> None:
+    if retranslate_all and variant != "tllm-full":
+        raise typer.BadParameter(
+            "requires --variant tllm-full",
+            param_hint="--retranslate-all",
+        )
     context = _pipeline_context(dataset_root, artifact_root)
     prepared = prepare_e3c_translation(context, project_id, variant)
     if retranslate_all:
