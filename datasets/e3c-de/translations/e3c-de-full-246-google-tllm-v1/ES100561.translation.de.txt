@@ -1,0 +1,17 @@
+Es wird der klinische Fall einer erfahrenen Fachärztin für Mikrobiologie vorgestellt, die sich bei der Durchführung eines Antibiogramms mittels BACTEC-MGIT-960-Verfahren versehentlich selbst inokulierte. Sie arbeitete mit einem Reinkulturstamm von *Mycobacterium tuberculosis*, der aus der Sputumprobe eines ambulanten Patienten spanischer Herkunft isoliert worden war; dabei stach sie sich mit der kontaminierten Nadel durch den Handschuh hindurch in die Außenseite des Endglieds des Zeigefingers.
+Unmittelbar nach der Inokulation führte sie eine Wundversorgung durch (Waschen mit Wasser und Seife) und meldete den Vorfall später dem Dienst für Arbeitsschutz (SPRL), wo die Inokulation als Arbeitsunfall registriert wurde.
+Beim SPRL wurde die arbeitsmedizinische Vorgeschichte der verunfallten Mitarbeiterin überprüft; dabei fiel ein früherer positiver Mantoux-Test auf. Es wurden Laboranalysen und serologische Untersuchungen auf HCV, HIV sowie die Bestimmung der quantitativen Hepatitis-B-Antikörper (nach Impfung) veranlasst. Zudem wurde die Mitarbeiterin angewiesen, bei Anzeichen oder Symptomen, die auf Tuberkulose hindeuten, oder bei Problemen an der Inokulationsstelle den SPRL zu konsultieren.
+Drei Wochen später entwickelte sich an der Inokulationsstelle eine erythematöse, bei Druck leicht schmerzhafte Papel, die auf eine Größe von 1,5 bis 2 cm anwuchs; es zeigten sich weder axilläre Lymphadenopathien noch allgemeine Krankheitssymptome. (Abbildung 3)
+
+Abbildung 3. Biopsie der Läsion
+
+Als die Mitarbeiterin bemerkte, dass sich die Läsion nicht besserte, konsultierte sie informell die Abteilung für Plastische Chirurgie; dort wurden eine Biopsie und die Exzision der Läsion angeordnet. Die pathologisch-anatomischen Ergebnisse zeigten eine granulomatöse Dermatitis mit gelegentlicher Nekrose, was stark auf eine tuberkulöse Dermatitis hindeutete. (Abbildung 4)
+
+Abbildung 4. Pathologie: granulomatöse Dermatitis, Hinweis auf tuberkulöse Dermatitis.
+
+Bei der mikrobiologischen Untersuchung wurden fragliche säure- und alkoholresistente Stäbchenbakterien beobachtet; die Kultivierung im BACTEC-MGIT-960-System bestätigte das Wachstum von *Mycobacterium tuberculosis*. Anschließend wurden beide Isolate (das der Ausgangsquelle und das der verunfallten Mitarbeiterin) mittels MIRU-Analyse (Mycobacterial Interspersed Repetitive Units) untersucht, wobei die Identität beider Stämme bestätigt wurde. (Abbildung 5)
+
+Abbildung 5. Mikrobiologische Untersuchung
+
+Die Diagnose einer kutanen Tuberkulose wurde bestätigt, und die Mitarbeiterin wurde an die Abteilung für Innere Medizin überwiesen. Nach dortiger Beurteilung wurde eine antituberkulöse Behandlung mit Rifampicin (600 mg) eingeleitet. ...von Isoniazid und 1500 mg Pyrazinamid auf nüchternen Magen über zwei Monate, gefolgt von einer weiteren vier-monatigen Behandlung mit täglich 600 mg Rifampicin und 300 mg Isoniazid. Zudem erfolgte eine Überwachung der Patientin durch monatliche Laboruntersuchungen, bei denen keine Auffälligkeiten festgestellt wurden; die Medikation wurde gut vertragen, und die Patientin wurde sieben Monate nach Behandlungsbeginn aus der ärztlichen Betreuung entlassen.
+Der betriebsärztliche Dienst (SPRL) meldete die Berufskrankheit gemäß dem Königlichen Dekret (RD) 1299/2006 vom 10. November, mit dem das Verzeichnis der Berufskrankheiten im Sozialversicherungssystem genehmigt sowie Kriterien für deren Meldung und Registrierung festgelegt wurden.

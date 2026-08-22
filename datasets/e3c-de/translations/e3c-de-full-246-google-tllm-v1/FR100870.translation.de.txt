@@ -1,0 +1,22 @@
+Herr MD, 67 Jahre alt, wurde dermatologisch wegen eines Kaposi-Sarkoms betreut.
+Die Diagnose eines Kaposi-Sarkoms wurde aufgrund des folgenden klinischen und biologischen Bildes gestellt: Auftreten violettfarbener papulonodulärer Läsionen an den unteren Extremitäten; eine Hautbiopsie, die das Vorhandensein spindelförmiger Zellen zeigte; ein positiver HHV-8-Serologiestatus sowie negative Ergebnisse bei den Tests auf HIV, Hepatitis B, Hepatitis C und Zytomegalievirus.
+Der Patient wurde mittels Strahlentherapie und Chemotherapie behandelt.
+Sieben Jahre später wurde Herr MD in die dermatologische Abteilung des Militärkrankenhauses Mohamed V in Rabat aufgenommen, da im Bereich der alten Kaposi-Läsionen ein Ödem aufgetreten war.
+Die Magnetresonanztomographie (MRT) des betroffenen Fußes zeigte eine Signalveränderung im prä-achillären Fettgewebe, die sich bis zur Achillessehne erstreckte, jedoch ohne Anzeichen für Knochen- oder Gelenkläsionen; der Befund deutete auf einen entzündlichen Prozess hin.
+Im Rahmen einer allgemeinen Untersuchung zeigte das Blutbild eine normochrome, normozytäre und aregenerative Anämie (Hb = 11,9 g/dl).
+Die biochemische Analyse ergab einen Kreatininwert von 12 mg/l, einen Harnstoffwert von 53 mg/l, einen Calciumwert von 104 mg/l sowie eine 24-Stunden-Proteinurie von 0,09 g/24h.
+Die MRT des Knochenmarks zeigte keine Knochenläsionen.
+Bei der Kapillarelektrophorese der Serumproteine wurde zufällig ein schmaler, monoklonal anmutender Peak (15,76 g/l) im Bereich der Gammaglobuline festgestellt.
+Die Immunosubtraktion der Serumproteine ermöglichte die Typisierung des monoklonalen Immunglobulins (IgG-Lambda).
+Die Immunfixation der Urinproteine zeigte das Vorhandensein freier monoklonaler Leichtketten vom Typ Lambda in einer Konzentration von unter 10 mg/l.
+Der Phosphat-Calcium-Status war unauffällig (korrigiertes Calcium: 93 mg/l; Phosphor: 32 mg/l), ebenso wie die Nierenfunktion (Harnstoff: 0,34 g/l; Kreatinin: 12 mg/l; Clearance nach der vereinfachten MDRD-Formel [Modification of Diet in Renal Disease]: 61 ml/min).
+Der Beta-2-Mikroglobulin-Wert ist mit 2,96 mg/l erhöht.
+Es wurde ein Myelogramm erstellt; dieses zeigte ein leicht verdünntes Knochenmark mit einem Plasmazellanteil von 7 %, wobei dystrophische Elemente sowie unreife Formen vorlagen.
+Die quantitative Bestimmung der Immunglobuline ergab folgende Werte: IgG = 22,7 g/l; IgA = 0,83 g/l; IgM = 0,85 g/l.
+Die Konzentration der freien Kappa-Leichtketten betrug 6,96 mg/l, die der freien Lambda-Leichtketten 43,83 mg/l.
+Das Verhältnis von freien Kappa- zu freien Lambda-Leichtketten lag bei 0,16.
+Die molekularzytogenetische Untersuchung mittels FISH (Anzahl der untersuchten Zellen: 400 aufgereinigte CD138+-Plasmazellen) ergab bei 80 % der Plasmazellen eine IgH/FGFR3-Rearrangierung, das molekulare Äquivalent der Translokation t(4;14).
+Zudem wiesen 45 % der Plasmazellen eine Trisomie des MM-Locus bei 1q21 auf, wobei bei 14 % der Plasmazellen zusätzlich eine Trisomie des SRD-Locus bei 1p36 vorlag.
+Hingegen wurde keine Deletion des P53-Locus bei 17p13 festgestellt.
+Diese Ergebnisse sind mit einem Myelom ungünstiger Prognose vereinbar.
+Es handelt sich somit um ein multiples Myelom vom Typ IgG-Lambda im Stadium I (nach der Klassifikation von Durie und Salmon).

@@ -1,0 +1,10 @@
+Eine 42-jährige Patientin stellte sich aufgrund seit zehn Tagen bestehender Kopfschmerzen vor, die mit Gangunsicherheit einhergingen.
+In der Anamnese waren Migräne, eine periphere Fazialisparese („a frigore“) vor 20 Jahren sowie depressive Episoden bekannt.
+Die neurologische Untersuchung ergab eine Dysmetrie auf der rechten Seite, einen positiven Romberg-Test sowie Residuen der früheren Fazialisparese.
+Eine kranielle Computertomographie (CT) zeigte einen raumfordernden Prozess in der rechten hinteren Schädelgrube. Die Läsion wies eine solide, kontrastmittelaufnehmende Komponente sowie eine zystische Komponente auf.
+Die Magnetresonanztomographie (MRT) des Gehirns bestätigte die CT-Befunde. Es zeigte sich eine etwa 4 cm große Läsion mit soliden und zystischen Anteilen, umgeben von einem Ödem, lokalisiert in der rechten Kleinhirnhemisphäre. Die Raumforderung stellte sich heterogen dar: im Vergleich zum Kleinhirngewebe hypointens in der T1-Wichtung und hyperintens in der T2-Wichtung. Sie zeigte eine Kontrastmittelaufnahme unter Gadolinium-Gabe. Es lag kein Hydrozephalus vor.
+Es erfolgte die praktisch vollständige Entfernung des Tumors mittels Kraniektomie der rechten hinteren Schädelgrube.
+Der postoperative Verlauf war zufriedenstellend; die Patientin blieb völlig beschwerdefrei. Eine Kontroll-MRT zeigte eine weitgehende Resektion des Tumors mit einem minimalen Restbefund im kranialen Anteil der rechten Kleinhirnhemisphäre, angrenzend an den Hirnstamm.
+Die neuropathologische Untersuchung ergab die Diagnose eines Glioblastoma multiforme (WHO-Grad IV) mit ausgedehnten Nekrose- und Abszessbildungszonen. Die Tumorzellen zeigten eine immunhistochemische Kernpositivität für p53.
+Im Anschluss wurde die Patientin mittels fokaler Strahlentherapie der hinteren Schädelgrube (60 Gy, 2 Gy/Tag gemäß ICRU-Standard) unter gleichzeitiger Gabe von Temozolomid (75 mg/m² nach dem EORTC-Schema 22981) behandelt.
+Acht Monate nach dem Eingriff ist die Patientin weiterhin beschwerdefrei, wenngleich die Kontroll-MRT Anzeichen für ein beginnendes Tumorrezidiv zeigt.
