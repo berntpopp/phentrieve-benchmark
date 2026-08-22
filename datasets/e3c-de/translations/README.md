@@ -23,13 +23,26 @@ The 30-case `tllm` snapshot is the basis for the current manual review;
 It reuses the compatible 30-case `tllm` results for the same Google project,
 so the current preview contains only the remaining 216 provider calls: 441,414
 input codepoints and a pinned upper bound of USD 10.152522. Preparation and the
-preview do not contact Google. Start it with:
+preview do not contact Google.
+
+Verified acquisition and normalization pointers are bound to the pipeline
+code hash. After the final code and documentation commits, publish both stages
+again with the same roots that the translation command will use:
 
 ```text
-uv run phentrieve-benchmark translate e3c --project-id PROJECT_ID --variant tllm-full
+uv run phentrieve-benchmark acquire e3c --dataset-root DATASET_ROOT --artifact-root ARTIFACT_ROOT
+uv run phentrieve-benchmark normalize e3c --dataset-root DATASET_ROOT --artifact-root ARTIFACT_ROOT
 ```
 
-Declining the confirmation exits before constructing the provider client.
+These two commands do not invoke the paid translation provider. Then inspect
+the full-corpus preview:
+
+```text
+uv run phentrieve-benchmark translate e3c --project-id PROJECT_ID --variant tllm-full --dataset-root DATASET_ROOT --artifact-root ARTIFACT_ROOT
+```
+
+The translation command still asks for confirmation before constructing the
+Google client. Declining exits without a provider call.
 The 30 reused records keep their source and translation artifacts, statuses,
 and checks; the full manifest gives them the full selection identity and
 records the prior translation ID. This includes the five records marked

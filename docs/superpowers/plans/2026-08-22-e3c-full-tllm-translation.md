@@ -24,4 +24,4 @@
 6. The paid provider remains behind the existing explicit CLI confirmation. No paid call occurs in tests or implementation.
 7. Tests cover variant/recipe identity, full input preparation, 30-case reuse, cross-selection rebinding, billable-only estimate, and denial before provider construction. Run focused tests, `ruff check src tests`, `mypy`, and full `pytest -q`.
 
-After implementation and review, run the real CLI preview. Stop at its confirmation prompt and obtain explicit user approval for the displayed cost before invoking Google.
+After all implementation, review, and documentation commits, rerun `acquire e3c` and `normalize e3c` with the same dataset/artifact roots because verified upstream pointers are code-hash-bound. These stages do not invoke the paid translation provider. Then run the real CLI preview, stop at its confirmation prompt, and obtain explicit user approval for the displayed cost before invoking Google.
