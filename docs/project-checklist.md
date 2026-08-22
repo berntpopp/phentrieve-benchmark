@@ -70,16 +70,20 @@ Status:
 - [x] Übersetzungsmodell, Konfiguration, Eingabehash, Nutzung und Kosten
       protokollieren.
 - [x] Fehlgeschlagene oder leere Providerantworten sicher zurückweisen.
-- [ ] Korrekturen als neue Artefakte speichern, ohne frühere Fassungen zu
+- [x] Korrekturen als neue Artefakte speichern, ohne frühere Fassungen zu
       überschreiben.
 - [x] Der zweite Übersetzungsweg mit `general/translation-llm` wurde als
       separate Rezeptidentität neben `general/nmt` bereitgestellt; die 30
       Fälle wurden damit übersetzt.
-- ⚠ Welche Variante die Grundlage des manuellen Reviews wird, ist bis zum
-  Vergleich beider Fassungen offen.
+- [x] `general/translation-llm` als Grundlage des manuellen Reviews festlegen;
+      NMT bleibt eine optionale Vergleichsspalte.
 
 ### Übersetzungsprüfung
 
+- [x] Ein einfaches internes Zwei-Blatt-Excelprofil für die vollständige
+      bilinguale medizinische Prüfung der 30 Fälle entwerfen.
+- [x] Deterministischen Workbook-Export und transaktionalen Import in
+      kanonische Text-, Review- und Diff-Artefakte implementieren.
 - [x] Automatische Prüfung auf leere Ausgabe, unveränderte Quelle,
       Längenverhältnis, erfundene Einheiten und Zielsprache; Absatzzahlen
       werden ohne Gate mitgeschrieben.
@@ -211,7 +215,8 @@ GSC-Fassungen erzeugt.
 
 ## Aktuelle Priorität
 
-1. Die beiden vorhandenen Übersetzungsvarianten vergleichen.
-2. Umfang und Auswahl der bilingualen/fachsprachlichen Prüfung klären.
-3. Die erzeugten deutschen Übersetzungen prüfen.
+1. Die 30 TLLM-Übersetzungen mit der vorbereiteten Arbeitsmappe medizinisch
+   prüfen.
+2. Den abgeschlossenen Review importieren und offene Rückfragen bearbeiten.
+3. Danach die deutschen HPO-Annotationen erzeugen und fachlich prüfen.
 4. CSC und GSC bleiben bis zu einer ausdrücklichen Wiederaufnahme pausiert.

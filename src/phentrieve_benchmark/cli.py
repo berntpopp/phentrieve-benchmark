@@ -6,6 +6,11 @@ import typer
 
 from phentrieve_benchmark import __version__
 from phentrieve_benchmark.artifacts.store import ArtifactStore
+from phentrieve_benchmark.models.review import ManualReviewStatus, ReviewRecord
+from phentrieve_benchmark.models.translation import TranslationManifest
+from phentrieve_benchmark.models.translation_review import (
+    TranslationReviewImportManifest,
+)
 from phentrieve_benchmark.pipeline.map_hpo import map_hpo_e3c
 from phentrieve_benchmark.pipeline.prepare import (
     PipelineContext,
@@ -21,10 +26,17 @@ from phentrieve_benchmark.pipeline.translate import (
     recheck_e3c_translations,
     translate_e3c,
 )
+from phentrieve_benchmark.pipeline.translation_review import (
+    export_translation_review,
+    import_translation_review,
+)
 from phentrieve_benchmark.provenance.code_identity import code_sha256
 from phentrieve_benchmark.translation.google_nmt import create_google_nmt_adapter
 from phentrieve_benchmark.translation.pricing import load_translation_recipe
-from phentrieve_benchmark.translation.variants import translation_recipe_path
+from phentrieve_benchmark.translation.variants import (
+    resolve_translation_pointer,
+    translation_recipe_path,
+)
 from phentrieve_benchmark.translation.view import (
     materialize_published_translation_view,
 )
@@ -41,6 +53,7 @@ materialize_translations_app = typer.Typer(no_args_is_help=True)
 recheck_app = typer.Typer(no_args_is_help=True)
 recheck_translations_app = typer.Typer(no_args_is_help=True)
 map_hpo_app = typer.Typer(no_args_is_help=True)
+review_workbook_app = typer.Typer(no_args_is_help=True)
 DatasetRoot = Annotated[Path, typer.Option()]
 ArtifactRoot = Annotated[Path, typer.Option()]
 Cohort = Annotated[Literal["feasibility-30"], typer.Option()]
@@ -56,6 +69,9 @@ materialize_app.add_typer(materialize_translations_app, name="translations")
 app.add_typer(recheck_app, name="recheck")
 recheck_app.add_typer(recheck_translations_app, name="translations")
 app.add_typer(map_hpo_app, name="map-hpo")
+app.add_typer(review_workbook_app, name="review-workbook")
+
+_TRANSLATION_REVIEW_POLICY_ID = "e3c:translation-review/v1"
 
 
 @app.callback()
@@ -105,6 +121,78 @@ def _emit(result: StageResult) -> None:
         f"stage={result.stage} target={result.target} "
         f"subject_sha256={result.subject_sha256} "
         f"reused={str(result.reused).lower()}"
+    )
+
+
+def _resolve_review_translation_manifest(
+    *, context: PipelineContext, variant: str
+) -> TranslationManifest:
+    recipe = load_translation_recipe(
+        translation_recipe_path(context.dataset_root, variant)
+    )
+    pointer = resolve_translation_pointer(
+        artifact_root=context.artifact_root,
+        store=context.store,
+        recipe_sha256=recipe.sha256,
+    )
+    return TranslationManifest.model_validate_json(
+        context.store.read_bytes(pointer.subject_sha256), strict=True
+    )
+
+
+@review_workbook_app.command("export-e3c")
+def export_e3c_review_workbook_command(
+    destination: Path,
+    include_nmt: Annotated[bool, typer.Option("--include-nmt")] = False,
+    dataset_root: DatasetRoot = Path("datasets"),
+    artifact_root: ArtifactRoot = Path(".artifacts"),
+) -> None:
+    context = _pipeline_context(dataset_root, artifact_root)
+    tllm_manifest = _resolve_review_translation_manifest(
+        context=context, variant="tllm"
+    )
+    nmt_manifest = (
+        _resolve_review_translation_manifest(context=context, variant="nmt")
+        if include_nmt
+        else None
+    )
+    export_sha256 = export_translation_review(
+        store=context.store,
+        tllm_manifest=tllm_manifest,
+        destination=destination.resolve(),
+        review_policy_id=_TRANSLATION_REVIEW_POLICY_ID,
+        nmt_manifest=nmt_manifest,
+    )
+    typer.echo(
+        f"export_sha256={export_sha256} cases={len(tllm_manifest.records)}"
+    )
+
+
+@review_workbook_app.command("import-e3c")
+def import_e3c_review_workbook_command(
+    source: Path,
+    dataset_root: DatasetRoot = Path("datasets"),
+    artifact_root: ArtifactRoot = Path(".artifacts"),
+) -> None:
+    context = _pipeline_context(dataset_root, artifact_root)
+    import_sha256 = import_translation_review(
+        store=context.store, workbook_path=source.resolve()
+    )
+    manifest = TranslationReviewImportManifest.model_validate_json(
+        context.store.read_bytes(import_sha256), strict=True
+    )
+    counts = {status: 0 for status in ManualReviewStatus}
+    for entry in manifest.entries:
+        record = ReviewRecord.model_validate_json(
+            context.store.read_bytes(entry.review_record_sha256), strict=True
+        )
+        counts[record.manual_status] += 1
+    typer.echo(
+        f"import_sha256={import_sha256} cases={len(manifest.entries)} "
+        f"accepted={counts[ManualReviewStatus.ACCEPTED]} "
+        "changes_requested="
+        f"{counts[ManualReviewStatus.CHANGES_REQUESTED]} "
+        f"rejected={counts[ManualReviewStatus.REJECTED]}"
     )
 
 

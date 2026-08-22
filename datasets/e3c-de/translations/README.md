@@ -113,6 +113,34 @@ uv run phentrieve-benchmark materialize translations e3c --variant tllm
 The rebuild resolves the manifest belonging to that variant's recipe, verifies
 existing artifacts, and never modifies canonical objects or provenance state.
 
+## Medical review workbook
+
+The 30-case TLLM snapshot is the default input for bilingual medical review.
+Export the internal Excel workbook after the translation artifacts are present:
+
+```text
+uv run phentrieve-benchmark review-workbook export-e3c review.xlsx
+```
+
+Add the existing NMT text as a read-only comparison column only when needed:
+
+```text
+uv run phentrieve-benchmark review-workbook export-e3c review.xlsx --include-nmt
+```
+
+One multilingual medical reviewer completes the metadata and every row in the
+two-sheet workbook, then saves it as `.xlsx`. Import the completed workbook:
+
+```text
+uv run phentrieve-benchmark review-workbook import-e3c review.xlsx
+```
+
+This workbook is an internal editing interface, not a release artifact. Import
+validates it as a whole and creates immutable proposed texts, review records,
+diffs, and an import manifest. Later stages consume those canonical artifacts,
+not the `.xlsx` file; the original source, TLLM, and optional NMT artifacts are
+never overwritten.
+
 ## Automatic checks
 
 Each translation carries `nonempty_output`, `source_changed`, `length_ratio`,

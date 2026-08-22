@@ -4,13 +4,25 @@ from pathlib import Path
 from typer.testing import CliRunner
 
 from phentrieve_benchmark import cli
+from phentrieve_benchmark.artifacts.store import ArtifactStore
 from phentrieve_benchmark.models.pipeline import ProvenanceSubjectRole
+from phentrieve_benchmark.models.review import (
+    ManualReviewRequirement,
+    ManualReviewStatus,
+    ReviewKind,
+    ReviewRecord,
+)
+from phentrieve_benchmark.models.translation_review import (
+    TranslationReviewImportEntry,
+    TranslationReviewImportManifest,
+)
 from phentrieve_benchmark.pipeline.prepare import StageResult
 from phentrieve_benchmark.pipeline.translate import (
     TranslationEstimate,
     TranslationStageResult,
 )
 from phentrieve_benchmark.policies.paid_operations import CostEstimate
+from phentrieve_benchmark.provenance.canonical import canonical_json_bytes
 
 
 def test_acquire_command_prints_only_stable_stage_identity(
@@ -56,10 +68,159 @@ def test_pipeline_command_groups_are_exposed() -> None:
         "select",
         "prepare",
         "translate",
+        "review-workbook",
         "map-hpo",
         "smoke",
     ):
         assert command in help_text
+
+
+def test_review_workbook_export_resolves_tllm_and_omits_nmt_by_default(
+    tmp_path: Path, monkeypatch: object
+) -> None:
+    tllm_manifest = type("Manifest", (), {"records": (object(),) * 30})()
+    nmt_manifest = object()
+    context = type(
+        "Context",
+        (),
+        {
+            "store": object(),
+            "artifact_root": tmp_path / "artifacts",
+            "dataset_root": tmp_path / "datasets",
+        },
+    )()
+    monkeypatch.setattr(cli, "_pipeline_context", lambda *_: context)  # type: ignore[attr-defined]
+    monkeypatch.setattr(
+        cli,
+        "_resolve_review_translation_manifest",
+        lambda *, context, variant: {
+            "tllm": tllm_manifest,
+            "nmt": nmt_manifest,
+        }[variant],
+    )  # type: ignore[attr-defined]
+    calls: list[dict[str, object]] = []
+    monkeypatch.setattr(
+        cli,
+        "export_translation_review",
+        lambda **kwargs: calls.append(kwargs) or "a" * 64,
+    )  # type: ignore[attr-defined]
+    destination = tmp_path / "review.xlsx"
+
+    invocation = CliRunner().invoke(
+        cli.app,
+        ["review-workbook", "export-e3c", str(destination)],
+    )
+
+    assert invocation.exit_code == 0, invocation.exception
+    assert calls == [
+        {
+            "store": context.store,
+            "tllm_manifest": tllm_manifest,
+            "destination": destination.resolve(),
+            "review_policy_id": "e3c:translation-review/v1",
+            "nmt_manifest": None,
+        }
+    ]
+    assert invocation.stdout == f"export_sha256={'a' * 64} cases=30\n"
+
+
+def test_review_workbook_export_resolves_nmt_only_when_requested(
+    tmp_path: Path, monkeypatch: object
+) -> None:
+    resolved: list[str] = []
+    tllm_manifest = type("Manifest", (), {"records": (object(),) * 30})()
+    nmt_manifest = object()
+    context = type(
+        "Context",
+        (),
+        {
+            "store": object(),
+            "artifact_root": tmp_path / "artifacts",
+            "dataset_root": tmp_path / "datasets",
+        },
+    )()
+    monkeypatch.setattr(cli, "_pipeline_context", lambda *_: context)  # type: ignore[attr-defined]
+    monkeypatch.setattr(
+        cli,
+        "_resolve_review_translation_manifest",
+        lambda *, context, variant: resolved.append(variant)
+        or {"tllm": tllm_manifest, "nmt": nmt_manifest}[variant],
+    )  # type: ignore[attr-defined]
+    calls: list[dict[str, object]] = []
+    monkeypatch.setattr(
+        cli,
+        "export_translation_review",
+        lambda **kwargs: calls.append(kwargs) or "a" * 64,
+    )  # type: ignore[attr-defined]
+
+    invocation = CliRunner().invoke(
+        cli.app,
+        [
+            "review-workbook",
+            "export-e3c",
+            str(tmp_path / "review.xlsx"),
+            "--include-nmt",
+        ],
+    )
+
+    assert invocation.exit_code == 0, invocation.exception
+    assert resolved == ["tllm", "nmt"]
+    assert calls[0]["nmt_manifest"] is nmt_manifest
+
+
+def test_review_workbook_import_prints_manifest_and_status_counts(
+    tmp_path: Path, monkeypatch: object
+) -> None:
+    store = ArtifactStore(tmp_path / "objects")
+    statuses = (
+        ManualReviewStatus.ACCEPTED,
+        ManualReviewStatus.CHANGES_REQUESTED,
+        ManualReviewStatus.REJECTED,
+    )
+    entries = []
+    for index, status in enumerate(statuses):
+        record = ReviewRecord(
+            review_id=f"review-{index}",
+            review_kind=ReviewKind.BILINGUAL,
+            subject_sha256=str(index + 1) * 64,
+            review_policy_id="e3c:translation-review/v1",
+            manual_requirement=ManualReviewRequirement.REQUIRED,
+            manual_status=status,
+            reviewer_role="Ärztin",
+        )
+        review_record_sha256 = store.put_bytes(
+            canonical_json_bytes(record.model_dump(mode="json"))
+        )
+        entries.append(
+            TranslationReviewImportEntry(
+                source_case_id=f"case-{index}",
+                record_sha256="a" * 64,
+                review_record_sha256=review_record_sha256,
+                proposed_text_sha256="b" * 64,
+                diff_sha256="c" * 64,
+            )
+        )
+    manifest = TranslationReviewImportManifest(
+        export_sha256="d" * 64,
+        entries=tuple(entries),
+    )
+    import_sha256 = store.put_bytes(manifest.canonical_bytes())
+    context = type("Context", (), {"store": store})()
+    monkeypatch.setattr(cli, "_pipeline_context", lambda *_: context)  # type: ignore[attr-defined]
+    monkeypatch.setattr(
+        cli, "import_translation_review", lambda **_: import_sha256
+    )  # type: ignore[attr-defined]
+
+    invocation = CliRunner().invoke(
+        cli.app,
+        ["review-workbook", "import-e3c", str(tmp_path / "review.xlsx")],
+    )
+
+    assert invocation.exit_code == 0, invocation.exception
+    assert invocation.stdout == (
+        f"import_sha256={import_sha256} cases=3 accepted=1 "
+        "changes_requested=1 rejected=1\n"
+    )
 
 
 def _prepared_stub() -> object:
