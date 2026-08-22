@@ -124,8 +124,8 @@ def _format_review_sheet(worksheet: object, *, includes_nmt: bool, rows: int) ->
     worksheet.auto_filter.ref = f"A1:{last_column}{rows + 1}"  # type: ignore[attr-defined]
     worksheet.protection.sheet = True  # type: ignore[attr-defined]
     worksheet.protection.autoFilter = False  # type: ignore[attr-defined]
-    worksheet.protection.selectLockedCells = True  # type: ignore[attr-defined]
-    worksheet.protection.selectUnlockedCells = True  # type: ignore[attr-defined]
+    worksheet.protection.selectLockedCells = False  # type: ignore[attr-defined]
+    worksheet.protection.selectUnlockedCells = False  # type: ignore[attr-defined]
 
     widths = (18, 14, 48, 48, 48, 28, 28, 34, 42, 36, 48)
     for index, width in enumerate(widths[: 11 if includes_nmt else 10], start=1):
@@ -165,8 +165,8 @@ def _format_instructions_sheet(worksheet: object) -> None:
     worksheet.column_dimensions["A"].width = 34  # type: ignore[attr-defined]
     worksheet.column_dimensions["B"].width = 88  # type: ignore[attr-defined]
     worksheet.protection.sheet = True  # type: ignore[attr-defined]
-    worksheet.protection.selectLockedCells = True  # type: ignore[attr-defined]
-    worksheet.protection.selectUnlockedCells = True  # type: ignore[attr-defined]
+    worksheet.protection.selectLockedCells = False  # type: ignore[attr-defined]
+    worksheet.protection.selectUnlockedCells = False  # type: ignore[attr-defined]
     for row in worksheet.iter_rows():  # type: ignore[attr-defined]
         for cell in row:
             cell.alignment = Alignment(wrap_text=True, vertical="top")
@@ -239,7 +239,9 @@ def write_review_workbook(
         instructions["A13"],
         "1. Metadaten ausfüllen, dann Originaltext und TLLM-Ausgangsfassung jeder "
         "Zeile vergleichen und die Korrigierte Endfassung als vollständigen "
-        "deutschen Endtext bearbeiten (kein Patch, keine isolierte Ersatzphrase).",
+        "deutschen Endtext bearbeiten (kein Patch, keine isolierte Ersatzphrase). "
+        "Für längere, durch die feste Zeilenhöhe verdeckte Texte die "
+        "Bearbeitungsleiste oder den Zelleditor verwenden.",
     )
     _write_text(
         instructions["A14"],
@@ -339,10 +341,13 @@ def read_review_workbook(source: Path) -> ParsedReviewWorkbook:
         _reject_formulas(workbook)
         instructions = workbook["Anleitung"]
         review = workbook["Review"]
-        actual_headers = tuple(cell.value for cell in review[1])
-        if actual_headers not in {REVIEW_HEADERS, (*REVIEW_HEADERS, NMT_HEADER)}:
+        actual_headers = tuple(review.cell(1, column).value for column in range(1, 11))
+        if actual_headers != REVIEW_HEADERS:
             raise ValueError("review workbook headers do not match the profile")
-        includes_nmt = actual_headers[-1] == NMT_HEADER
+        optional_header = review.cell(1, 11).value
+        if optional_header not in {None, NMT_HEADER}:
+            raise ValueError("review workbook headers do not match the profile")
+        includes_nmt = optional_header == NMT_HEADER
 
         metadata = {
             name: _read_string(
@@ -359,7 +364,16 @@ def read_review_workbook(source: Path) -> ParsedReviewWorkbook:
             for name, coordinate in _METADATA_CELLS.items()
         }
         rows: list[ParsedReviewRow] = []
-        for row_index in range(2, review.max_row + 1):
+        expected_columns = 11 if includes_nmt else 10
+        data_rows = (
+            row_index
+            for row_index in range(2, review.max_row + 1)
+            if any(
+                review.cell(row_index, column_index).value is not None
+                for column_index in range(1, expected_columns + 1)
+            )
+        )
+        for row_index in data_rows:
             values = [
                 _read_string(
                     review,

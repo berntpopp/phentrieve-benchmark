@@ -2,6 +2,7 @@ from pathlib import Path
 
 import pytest
 from openpyxl import load_workbook
+from openpyxl.styles import Alignment, Font
 
 from phentrieve_benchmark.models.translation_review import (
     TranslationReviewExport,
@@ -83,7 +84,8 @@ def test_writer_creates_the_minimal_review_profile(tmp_path: Path) -> None:
         assert review["A2"].protection.locked is True
         assert review["E2"].protection.locked is False
         assert review.protection.sheet is True
-        assert review.protection.selectLockedCells is True
+        assert review.protection.selectLockedCells is False
+        assert review.protection.selectUnlockedCells is False
         assert review.protection.autoFilter is False
         assert review.auto_filter.ref == "A1:J3"
         assert review["A2"].alignment.wrap_text is True
@@ -99,6 +101,8 @@ def test_writer_creates_the_minimal_review_profile(tmp_path: Path) -> None:
         }
 
         instructions = workbook["Anleitung"]
+        assert instructions.protection.selectLockedCells is False
+        assert instructions.protection.selectUnlockedCells is False
         assert instructions["B3"].value == _export().sha256()
         assert instructions["B10"].number_format == "@"
         assert instructions["B10"].protection.locked is False
@@ -121,6 +125,8 @@ def test_writer_creates_the_minimal_review_profile(tmp_path: Path) -> None:
         assert "isolierte Ersatzphrase" in instruction_text
         assert "nicht auflösen" in instruction_text
         assert "nicht geeignet" in instruction_text
+        assert "Bearbeitungsleiste" in instruction_text
+        assert "Zelleditor" in instruction_text
     finally:
         workbook.close()
 
@@ -187,6 +193,37 @@ def test_reader_returns_string_metadata_and_row_values(tmp_path: Path) -> None:
     assert parsed.rows[0].proposed_text == "TLLM eins"
     assert parsed.rows[0].decision == "unverändert akzeptiert"
     assert parsed.rows[0].clinical_change_category == ""
+
+
+def test_reader_ignores_formatting_outside_the_workbook_profile(tmp_path: Path) -> None:
+    output = tmp_path / "review.xlsx"
+    _write(output)
+    workbook = load_workbook(output)
+    try:
+        instructions = workbook["Anleitung"]
+        instructions["B7"] = "reviewer-1"
+        instructions["B8"] = "medical translator"
+        instructions["B9"] = "English, French, German"
+        instructions["B10"] = "2026-08-22"
+        review = workbook["Review"]
+        review["F2"] = "unverändert akzeptiert"
+        review["G2"] = "keine"
+        workbook.save(output)
+    finally:
+        workbook.close()
+
+    expected = read_review_workbook(output)
+
+    workbook = load_workbook(output)
+    try:
+        review = workbook["Review"]
+        review["L2"].font = Font(italic=True)
+        review["A1000"].alignment = Alignment(wrap_text=False)
+        workbook.save(output)
+    finally:
+        workbook.close()
+
+    assert read_review_workbook(output) == expected
 
 
 @pytest.mark.parametrize("wrong_suffix", [".xls"])

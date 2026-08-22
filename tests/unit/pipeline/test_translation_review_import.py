@@ -7,6 +7,7 @@ from typing import Any
 
 import pytest
 from openpyxl import load_workbook
+from openpyxl.styles import Alignment, Font
 from pydantic import ValidationError
 
 from phentrieve_benchmark.artifacts.store import ArtifactStore
@@ -629,8 +630,11 @@ def test_import_identity_ignores_formatting_but_includes_semantic_revision(
     first_bytes = store.read_bytes(first_sha256)
 
     def format_only(workbook: Any) -> None:
-        workbook["Review"].column_dimensions["E"].width = 72
-        workbook["Review"].row_dimensions[2].height = 120
+        review = workbook["Review"]
+        review.column_dimensions["E"].width = 72
+        review.row_dimensions[2].height = 120
+        review["L2"].font = Font(italic=True)
+        review["A1000"].alignment = Alignment(wrap_text=False)
 
     _mutate_workbook(workbook_path, format_only)
     assert (
