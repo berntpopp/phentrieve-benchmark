@@ -1,0 +1,969 @@
+{
+ "provenance": {
+  "generated_by": "Subagent Teil A (FR), maschinell erzeugte Diagnose — keine Reviewdaten, kein Gold",
+  "model": "claude-fable-5",
+  "input_bundle": "input/teil-a-faelle.json"
+ },
+ "cases": [
+  {
+   "case_id": "FR100078",
+   "terms": [
+    {
+     "annotation_id": "5338",
+     "source_span": "aphtose buccale",
+     "hpo_id": "HP:0011107",
+     "hpo_label": "Recurrent aphthous stomatitis",
+     "verdict": "haelt",
+     "quote_de": "rezidivierender oraler Aphtose",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Die rezidivierende orale Aphthose ist im Deutschen klar ausgedrückt; das für HP:0011107 relevante Rezidivieren bleibt erhalten."
+    },
+    {
+     "annotation_id": "5346",
+     "source_span": "aphtes génitaux",
+     "hpo_id": "HP:0003249",
+     "hpo_label": "Genital ulcers",
+     "verdict": "haelt",
+     "quote_de": "Genitalaphthen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Genitalaphthen entsprechen den genitalen Ulzerationen des Quelltexts; positiver Patientenbefund erhalten."
+    },
+    {
+     "annotation_id": "5362",
+     "source_span": "thrombophlébite",
+     "hpo_id": "HP:0004418",
+     "hpo_label": "Thrombophlebitis",
+     "verdict": "haelt",
+     "quote_de": "einer Thrombophlebitis des linken Beins",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Thrombophlebitis inkl. Lokalisation wörtlich übernommen."
+    },
+    {
+     "annotation_id": "5410",
+     "source_span": "insuffisance veineuse",
+     "hpo_id": "HP:0005293",
+     "hpo_label": "Venous insufficiency",
+     "verdict": "haelt",
+     "quote_de": "zeigte weder Anzeichen einer Veneninsuffizienz",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Der Terminus ist vorhanden und die Negation (weder ... noch) ist wie im Original erhalten."
+    },
+    {
+     "annotation_id": "5418",
+     "source_span": "thrombose profonde",
+     "hpo_id": "HP:0002625",
+     "hpo_label": "Deep venous thrombosis",
+     "verdict": "haelt",
+     "quote_de": "noch einer begleitenden tiefen Venenthrombose",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Tiefe Venenthrombose korrekt übersetzt; Negation durch weder/noch erhalten."
+    },
+    {
+     "annotation_id": "5442",
+     "source_span": "vascularite dermique leucocytoclasique",
+     "hpo_id": "HP:0034786",
+     "hpo_label": "Leukocytoclastic vasculitis",
+     "verdict": "haelt",
+     "quote_de": "einer leukozytoklastischen Vaskulitis der Dermis",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Fachterminus vollständig und korrekt übertragen; positiver Biopsiebefund erhalten."
+    },
+    {
+     "annotation_id": "5490",
+     "source_span": "fièvre",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "verdict": "haelt",
+     "quote_de": "septisches Fieber",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Fieber klar ausgedrückt, Kontext (septisch) wie im Original."
+    },
+    {
+     "annotation_id": "5506",
+     "source_span": "hyperleucocytose",
+     "hpo_id": "HP:0001974",
+     "hpo_label": "Increased total leukocyte count",
+     "verdict": "haelt",
+     "quote_de": "Hyperleukozytose mit neutrophilen Granulozyten",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Hyperleukozytose wörtlich erhalten."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Nekrotisierende Pseudofollikulitis",
+     "quote_de": "nekrotisierenden Pseudofollikulitiden",
+     "suggested_hpo": {"id": "HP:0025084", "label": "Folliculitis"}
+    },
+    {
+     "description_de": "Rezidivierende Ulzera an beiden Beinen",
+     "quote_de": "rezidivierende und stark beeinträchtigende Ulzera an beiden Beinen",
+     "suggested_hpo": {"id": "HP:0200042", "label": "Skin ulcer"}
+    },
+    {
+     "description_de": "Erhöhtes C-reaktives Protein",
+     "quote_de": "ein erhöhter C-reaktiver Protein-Wert",
+     "suggested_hpo": {"id": "HP:0011227", "label": "Elevated circulating C-reactive protein concentration"}
+    },
+    {
+     "description_de": "Rezidivierende Superinfektionen der Hautulzera",
+     "quote_de": "mehrere Episoden einer Superinfektion der Ulzera",
+     "suggested_hpo": {"id": "HP:0001581", "label": "Recurrent skin infections"}
+    },
+    {
+     "description_de": "Neutrophilie (neutrophile Betonung der Hyperleukozytose, spezifischer als der Konsensterm Leukozytose)",
+     "quote_de": "Hyperleukozytose mit neutrophilen Granulozyten",
+     "suggested_hpo": {"id": "HP:0011897", "label": "Neutrophilia"}
+    },
+    {
+     "description_de": "Positiver Pathergie-Test",
+     "quote_de": "einem positiven Pathergie-Test",
+     "suggested_hpo": null
+    }
+   ]
+  },
+  {
+   "case_id": "FR100185",
+   "terms": [
+    {
+     "annotation_id": "2710",
+     "source_span": "tumeur du sein",
+     "hpo_id": "HP:0100013",
+     "hpo_label": "Neoplasm of the breast",
+     "verdict": "haelt",
+     "quote_de": "wegen eines Mammakarzinoms der linken Brust",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Aus 'tumeur du sein' wurde das spezifischere 'Mammakarzinom'; der Brusttumor (HP:0100013) ist damit weiterhin klar ausgedrückt, die Übersetzung ist jedoch granularer als die Quelle."
+    },
+    {
+     "annotation_id": "2719",
+     "source_span": "paresthésies",
+     "hpo_id": "HP:0003401",
+     "hpo_label": "Paresthesia",
+     "verdict": "haelt",
+     "quote_de": "klagt sie über Parästhesien",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Parästhesien wörtlich erhalten."
+    },
+    {
+     "annotation_id": "2746",
+     "source_span": "abolition des reflexes",
+     "hpo_id": "HP:0001284",
+     "hpo_label": "Areflexia",
+     "verdict": "haelt",
+     "quote_de": "ein Fehlen der Bizeps- und Trizepssehnenreflexe",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Reflexausfall (Bizeps/Trizeps) klar ausgedrückt; entspricht Areflexie der betroffenen Reflexe."
+    },
+    {
+     "annotation_id": "2755",
+     "source_span": "hypoesthésie",
+     "hpo_id": "HP:0003474",
+     "hpo_label": "Somatic sensory dysfunction",
+     "verdict": "haelt",
+     "quote_de": "eine Hypoästhesie der gesamten Extremität",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Hypoästhesie wörtlich erhalten."
+    },
+    {
+     "annotation_id": "2764",
+     "source_span": "amyotrophie",
+     "hpo_id": "HP:0003202",
+     "hpo_label": "Skeletal muscle atrophy",
+     "verdict": "haelt",
+     "quote_de": "eine Atrophie der Handmuskulatur",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Muskelatrophie der Hand klar ausgedrückt."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Motorisches Defizit (Muskelschwäche) des linken Arms, proximal und distal",
+     "quote_de": "ein proximales und distales motorisches Defizit der Beuger- und Streckermuskulatur",
+     "suggested_hpo": {"id": "HP:0001324", "label": "Muscle weakness"}
+    },
+    {
+     "description_de": "Pathologisches Elektromyogramm (Ausfall motorischer und sensibler Antworten)",
+     "quote_de": "Das Elektromyogramm zeigt ein Fehlen der motorischen und sensiblen Antworten aller Nerven der oberen Extremität.",
+     "suggested_hpo": {"id": "HP:0003457", "label": "EMG abnormality"}
+    }
+   ]
+  },
+  {
+   "case_id": "FR100275",
+   "terms": [
+    {
+     "annotation_id": "9634",
+     "source_span": "hypotonique",
+     "hpo_id": "HP:0001252",
+     "hpo_label": "Hypotonia",
+     "verdict": "haelt",
+     "quote_de": "ist das Kind hypoton",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Muskelhypotonie wörtlich erhalten."
+    },
+    {
+     "annotation_id": "9642",
+     "source_span": "cyanose",
+     "hpo_id": "HP:0000961",
+     "hpo_label": "Cyanosis",
+     "verdict": "haelt",
+     "quote_de": "eine Zyanose der Lippen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Lippenzyanose klar ausgedrückt."
+    },
+    {
+     "annotation_id": "9650",
+     "source_span": "pâleur",
+     "hpo_id": "HP:0000980",
+     "hpo_label": "Pallor",
+     "verdict": "haelt",
+     "quote_de": "extreme Blässe",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Blässe wörtlich erhalten."
+    },
+    {
+     "annotation_id": "9714",
+     "source_span": "arythmies",
+     "hpo_id": "HP:0011675",
+     "hpo_label": "Arrhythmia",
+     "verdict": "haelt",
+     "quote_de": "noch ein Wiederauftreten von Herzrhythmusstörungen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Wie im Original als verneintes Rezidiv formuliert; die vorausgegangene Arrhythmie des Indexereignisses bleibt in gleicher Weise impliziert."
+    },
+    {
+     "annotation_id": "9722",
+     "source_span": "mort subite",
+     "hpo_id": "HP:0001699",
+     "hpo_label": "Sudden death",
+     "verdict": "haelt",
+     "quote_de": "die Diagnose eines plötzlichen Herztods im Rahmen eines Long-QT-Syndroms",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "'mort subite' wurde zu 'plötzlicher Herztod' (kardial) präzisiert; der Phänotyp bleibt klar ausgedrückt, die Übersetzung ist geringfügig spezifischer als die Quelle."
+    },
+    {
+     "annotation_id": "9754",
+     "source_span": "épilepsie",
+     "hpo_id": "HP:0001250",
+     "hpo_label": "Seizure",
+     "verdict": "haelt",
+     "quote_de": "aufgrund eines ersten epileptischen Anfalls",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Epileptischer Anfall (inaugural = erster Anfall) klar ausgedrückt."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Fieber (38,8 °C) bei Aufnahme",
+     "quote_de": "eine Körpertemperatur von 38,8 °C",
+     "suggested_hpo": {"id": "HP:0001945", "label": "Fever"}
+    },
+    {
+     "description_de": "Verlängertes QT-Intervall / Long-QT-Syndrom (QTc 450 ms, genetisch gesichert)",
+     "quote_de": "die korrigierte QT-Zeit beträgt 450 Millisekunden",
+     "suggested_hpo": {"id": "HP:0001657", "label": "Prolonged QT interval"}
+    },
+    {
+     "description_de": "Herz-Kreislauf-Stillstand (überlebter Scheintod ohne Atmung und Puls)",
+     "quote_de": "Es sind weder Spontanatmung noch Puls vorhanden",
+     "suggested_hpo": {"id": "HP:0001695", "label": "Cardiac arrest"}
+    },
+    {
+     "description_de": "Bewusstseinsverlust (Bewusstsein kehrte erst nach Reanimation zurück)",
+     "quote_de": "kehren Herz- und Atemfunktion sowie das Bewusstsein nach fünf Minuten zurück",
+     "suggested_hpo": {"id": "HP:0007185", "label": "Loss of consciousness"}
+    },
+    {
+     "description_de": "Asymmetrische T-Welle im EKG",
+     "quote_de": "es wird eine asymmetrische T-Welle festgestellt",
+     "suggested_hpo": {"id": "HP:0005135", "label": "Abnormal T-wave"}
+    },
+    {
+     "description_de": "Schulischer Entwicklungsrückstand",
+     "quote_de": "weist schulische Rückstände auf",
+     "suggested_hpo": null
+    }
+   ]
+  },
+  {
+   "case_id": "FR100282",
+   "terms": [
+    {
+     "annotation_id": "5899",
+     "source_span": "crises convulsives",
+     "hpo_id": "HP:0001250",
+     "hpo_label": "Seizure",
+     "verdict": "haelt",
+     "quote_de": "leidet unter Krampfanfällen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Krampfanfälle klar ausgedrückt."
+    },
+    {
+     "annotation_id": "5908",
+     "source_span": "chute",
+     "hpo_id": "HP:0002527",
+     "hpo_label": "Falls",
+     "verdict": "haelt",
+     "quote_de": "mit Stürzen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Stürze als Anfallsbegleiterscheinung erhalten."
+    },
+    {
+     "annotation_id": "5917",
+     "source_span": "perte de mémoire",
+     "hpo_id": "HP:0002354",
+     "hpo_label": "Memory impairment",
+     "verdict": "haelt",
+     "quote_de": "Gedächtnisverlust",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Gedächtnisverlust wörtlich erhalten."
+    },
+    {
+     "annotation_id": "5926",
+     "source_span": "oubli",
+     "hpo_id": "HP:0002354",
+     "hpo_label": "Memory impairment",
+     "verdict": "haelt",
+     "quote_de": "Vergesslichkeit",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Vergesslichkeit als eigenes Symptom neben Gedächtnisverlust erhalten."
+    },
+    {
+     "annotation_id": "5944",
+     "source_span": "crises convulsives",
+     "hpo_id": "HP:0001250",
+     "hpo_label": "Seizure",
+     "verdict": "haelt",
+     "quote_de": "dass es sich um fokale Anfälle handelt",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Anfälle inkl. fokaler Semiologie erhalten."
+    },
+    {
+     "annotation_id": "5953",
+     "source_span": "crises",
+     "hpo_id": "HP:0001250",
+     "hpo_label": "Seizure",
+     "verdict": "haelt",
+     "quote_de": "Während der Anfälle",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Anfallserwähnung erhalten."
+    },
+    {
+     "annotation_id": "5962",
+     "source_span": "crises",
+     "hpo_id": "HP:0001250",
+     "hpo_label": "Seizure",
+     "verdict": "haelt",
+     "quote_de": "Die Anfälle dauern etwa fünf Minuten",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Anfallserwähnung (Dauer/Frequenz) erhalten."
+    },
+    {
+     "annotation_id": "5998",
+     "source_span": "crise épileptique",
+     "hpo_id": "HP:0001250",
+     "hpo_label": "Seizure",
+     "verdict": "haelt",
+     "quote_de": "traten keine weiteren epileptischen Anfälle auf",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Negation (Anfallsfreiheit unter Therapie) wie im Original erhalten; das eingefügte 'weiteren' entspricht dem Kontext."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Urinabgang (Inkontinenz) während der Anfälle",
+     "quote_de": "Während der Anfälle kommt es zu Schaumbildung vor dem Mund und Urinabgang.",
+     "suggested_hpo": {"id": "HP:0000020", "label": "Urinary incontinence"}
+    },
+    {
+     "description_de": "EEG-Auffälligkeit: Verlangsamung mit rechtsbetonten langsamen Wellen",
+     "quote_de": "gekennzeichnet durch eine Verlangsamung und ein Überwiegen langsamer Wellen, insbesondere über der rechten Hemisphäre",
+     "suggested_hpo": {"id": "HP:0002353", "label": "EEG abnormality"}
+    },
+    {
+     "description_de": "Multiple zystische Hirnläsionen mit Skolex (Neurozystizerkose)",
+     "quote_de": "im Parenchym multiple, rundliche zystische Läsionen mit einem exzentrisch gelegenen, hyperdensen Punkt",
+     "suggested_hpo": null
+    }
+   ]
+  },
+  {
+   "case_id": "FR100344",
+   "terms": [
+    {
+     "annotation_id": "8142",
+     "source_span": "ovaire droit micropolykystique",
+     "hpo_id": "HP:0000147",
+     "hpo_label": "Polycystic ovaries",
+     "verdict": "haelt",
+     "quote_de": "ein mikropolyzystischer rechter Eierstock",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Mikropolyzystischer rechter Eierstock wörtlich erhalten."
+    },
+    {
+     "annotation_id": "8158",
+     "source_span": "douleurs",
+     "hpo_id": "HP:0012531",
+     "hpo_label": "Pain",
+     "verdict": "haelt",
+     "quote_de": "unerträgliche, den Schlaf raubende Schmerzen im Schambeinbereich (suprapubisch)",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Suprapubische Schmerzen inkl. Intensität klar ausgedrückt."
+    },
+    {
+     "annotation_id": "8174",
+     "source_span": "rupture utérine",
+     "hpo_id": "HP:0100718",
+     "hpo_label": "Uterine rupture",
+     "verdict": "haelt",
+     "quote_de": "ließ den Verdacht auf eine Uterusruptur aufkommen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Uterusruptur erhalten; der Verdachtsstatus der klinischen Untersuchung ist identisch zum Quelltext wiedergegeben."
+    },
+    {
+     "annotation_id": "8198",
+     "source_span": "détresse respiratoire",
+     "hpo_id": "HP:0002098",
+     "hpo_label": "Respiratory distress",
+     "verdict": "haelt",
+     "quote_de": "verstarben drei der Zwillinge nacheinander an Atemnot",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Fremdsubjekt (verstorbene Neugeborene, nicht die Indexpatientin) bleibt erhalten; 'Atemnot' ist eine gängige, leicht unspezifischere Wiedergabe von 'détresse respiratoire'."
+    },
+    {
+     "annotation_id": "8214",
+     "source_span": "insuffisance cardiaque",
+     "hpo_id": "HP:0001635",
+     "hpo_label": "Congestive heart failure",
+     "verdict": "haelt",
+     "quote_de": "eine Herzerkrankung mit globaler Herzinsuffizienz",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Globale Herzinsuffizienz klar ausgedrückt."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Präeklampsie (mittelschwer, in der 33. SSW)",
+     "quote_de": "entwickelte die Schwangere eine mittelschwere Präeklampsie",
+     "suggested_hpo": {"id": "HP:0100602", "label": "Preeclampsia"}
+    },
+    {
+     "description_de": "Arterielle Hypertonie (antihypertensive Dauertherapie, später instabile Blutdruckwerte)",
+     "quote_de": "medikamentös gegen Bluthochdruck behandelt",
+     "suggested_hpo": {"id": "HP:0000822", "label": "Hypertension"}
+    }
+   ]
+  },
+  {
+   "case_id": "FR100510",
+   "terms": [
+    {
+     "annotation_id": "5320",
+     "source_span": "kyste osseux",
+     "hpo_id": "HP:0012062",
+     "hpo_label": "Bone cyst",
+     "verdict": "haelt",
+     "quote_de": "für eine benigne, aber lokal invasive Knochenzyste",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Knochenzyste klar ausgedrückt; radiologischer Verdachtsstatus ('sprachen für') wie im Original."
+    },
+    {
+     "annotation_id": "5328",
+     "source_span": "kyste osseux anévrismal",
+     "hpo_id": "HP:0012063",
+     "hpo_label": "Aneurysmal bone cyst",
+     "verdict": "haelt",
+     "quote_de": "lieferte Hinweise auf eine aneurysmatische Knochenzyste",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Aneurysmatische Knochenzyste erhalten; bioptischer Hinweis-Status wie im Original ('en faveur de')."
+    },
+    {
+     "annotation_id": "5336",
+     "source_span": "tumeur",
+     "hpo_id": "HP:0002664",
+     "hpo_label": "Neoplasm",
+     "verdict": "haelt",
+     "quote_de": "einen Knochentumor, der die Fossa supraspinata der Scapula ausfüllte",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Knochentumor klar ausgedrückt."
+    },
+    {
+     "annotation_id": "5368",
+     "source_span": "kyste osseux anévrysmal",
+     "hpo_id": "HP:0012063",
+     "hpo_label": "Aneurysmal bone cyst",
+     "verdict": "haelt",
+     "quote_de": "sprachen für eine aneurysmatische Knochenzyste",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Histologische Bestätigung der aneurysmatischen Knochenzyste wie im Original."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Bewegungseinschränkung der rechten Schulter",
+     "quote_de": "einer Bewegungseinschränkung der rechten Schulter",
+     "suggested_hpo": {"id": "HP:0001376", "label": "Limitation of joint mobility"}
+    }
+   ]
+  },
+  {
+   "case_id": "FR100849",
+   "terms": [
+    {
+     "annotation_id": "2186",
+     "source_span": "epigastralgies",
+     "hpo_id": "HP:0410019",
+     "hpo_label": "Epigastric pain",
+     "verdict": "haelt",
+     "quote_de": "wegen fieberhafter Epigastralgien",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Epigastralgien wörtlich erhalten."
+    },
+    {
+     "annotation_id": "2194",
+     "source_span": "fébrile",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "verdict": "haelt",
+     "quote_de": "wegen fieberhafter Epigastralgien",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Fieber ('fieberhaft') klar ausgedrückt."
+    },
+    {
+     "annotation_id": "2202",
+     "source_span": "masse palpable",
+     "hpo_id": "HP:0031500",
+     "hpo_label": "Abdominal mass",
+     "verdict": "haelt",
+     "quote_de": "eine tastbare Raumforderung",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Tastbare Raumforderung im Kontext der Abdomenuntersuchung; abdominelle Lokalisation bleibt eindeutig."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Leukozytose (20.000/mm³)",
+     "quote_de": "Leukozyten 20.000/mm³",
+     "suggested_hpo": {"id": "HP:0001974", "label": "Increased total leukocyte count"}
+    },
+    {
+     "description_de": "Erhöhtes C-reaktives Protein (200 mg/l)",
+     "quote_de": "CRP 200 mg/l",
+     "suggested_hpo": {"id": "HP:0011227", "label": "Elevated circulating C-reactive protein concentration"}
+    },
+    {
+     "description_de": "Übergewicht (BMI 29)",
+     "quote_de": "Patient bei Bewusstsein, BMI 29",
+     "suggested_hpo": {"id": "HP:0025502", "label": "Overweight"}
+    },
+    {
+     "description_de": "Epigastrische Abwehrspannung",
+     "quote_de": "eine epigastrische Abwehrspannung",
+     "suggested_hpo": null
+    },
+    {
+     "description_de": "Intraabdomineller Abszess (abszedierte Appendagitis epiploica)",
+     "quote_de": "eine Appendagitis epiploica mit Abszessbildung",
+     "suggested_hpo": null
+    }
+   ]
+  },
+  {
+   "case_id": "FR100882",
+   "terms": [
+    {
+     "annotation_id": "8863",
+     "source_span": "insuffisance antéhypophysaire",
+     "hpo_id": "HP:0040075",
+     "hpo_label": "Hypopituitarism",
+     "verdict": "haelt",
+     "quote_de": "Hypophysenvorderlappeninsuffizienz",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Hypophysenvorderlappeninsuffizienz wörtlich erhalten (bekannte, behandelte Grunderkrankung wie im Original)."
+    },
+    {
+     "annotation_id": "8887",
+     "source_span": "troubles de la marche",
+     "hpo_id": "HP:0001288",
+     "hpo_label": "Gait disturbance",
+     "verdict": "haelt",
+     "quote_de": "aufgrund von Gang- und Gleichgewichtsstörungen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Gangstörung klar ausgedrückt."
+    },
+    {
+     "annotation_id": "8895",
+     "source_span": "chutes",
+     "hpo_id": "HP:0002527",
+     "hpo_label": "Falls",
+     "verdict": "haelt",
+     "quote_de": "mit wiederholten Stürzen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Wiederholte Stürze wörtlich erhalten."
+    },
+    {
+     "annotation_id": "8903",
+     "source_span": "troubles sensitifs",
+     "hpo_id": "HP:0003474",
+     "hpo_label": "Somatic sensory dysfunction",
+     "verdict": "haelt",
+     "quote_de": "brennenden Sensibilitätsstörungen, die bis zum Bauchnabel reichten",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Sensibilitätsstörungen inkl. Charakter (brennend) und Ausdehnung erhalten."
+    },
+    {
+     "annotation_id": "8927",
+     "source_span": "dysurie",
+     "hpo_id": "HP:0100518",
+     "hpo_label": "Dysuria",
+     "verdict": "haelt",
+     "quote_de": "Blasenfunktionsstörungen (Dysurie und imperativer Harndrang)",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Dysurie wörtlich erhalten."
+    },
+    {
+     "annotation_id": "8935",
+     "source_span": "miction impérieuse",
+     "hpo_id": "HP:0000012",
+     "hpo_label": "Urinary urgency",
+     "verdict": "haelt",
+     "quote_de": "imperativer Harndrang",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Imperativer Harndrang korrekt übersetzt."
+    },
+    {
+     "annotation_id": "8943",
+     "source_span": "para parésie",
+     "hpo_id": "HP:0002385",
+     "hpo_label": "Paraparesis",
+     "verdict": "haelt",
+     "quote_de": "eine Paraparese (Kraftgrad 4/5 beidseits im Barré-Versuch)",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Paraparese inkl. Kraftgrad wörtlich erhalten."
+    },
+    {
+     "annotation_id": "8951",
+     "source_span": "hypoesthésie",
+     "hpo_id": "HP:0003474",
+     "hpo_label": "Somatic sensory dysfunction",
+     "verdict": "haelt",
+     "quote_de": "eine Hypoästhesie mit einem Niveau auf Höhe von T7",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Hypoästhesie mit sensiblem Niveau T7 erhalten."
+    },
+    {
+     "annotation_id": "8959",
+     "source_span": "douleur",
+     "hpo_id": "HP:0012531",
+     "hpo_label": "Pain",
+     "verdict": "haelt",
+     "quote_de": "mäßige Schmerzen in den Segmenten T7, T9 und T10",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Wirbelsäulenschmerzen inkl. Segmenthöhe erhalten."
+    },
+    {
+     "annotation_id": "8975",
+     "source_span": "syndrome de compression médullaire",
+     "hpo_id": "HP:0002176",
+     "hpo_label": "Spinal cord compression",
+     "verdict": "haelt",
+     "quote_de": "eines langsam progredienten Rückenmarkkompressionssyndroms auf Höhe von T7",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Rückenmarkkompressionssyndrom als gestellte Diagnose erhalten."
+    },
+    {
+     "annotation_id": "9031",
+     "source_span": "compression médullaire",
+     "hpo_id": "HP:0002176",
+     "hpo_label": "Spinal cord compression",
+     "verdict": "haelt",
+     "quote_de": "der klinischen und radiologischen Anzeichen einer Rückenmarkkompression bei T7",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Zweite Erwähnung der Rückenmarkkompression erhalten."
+    },
+    {
+     "annotation_id": "9039",
+     "source_span": "tumeur",
+     "hpo_id": "HP:0002664",
+     "hpo_label": "Neoplasm",
+     "verdict": "haelt",
+     "quote_de": "ohne Osteosynthese oder Tumorexstirpation",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Der Tumor ist an entsprechender Stelle (nicht exstirpiert) erhalten; seine Existenz wird zudem später als 'epiduraler Tumor' bestätigt."
+    },
+    {
+     "annotation_id": "9063",
+     "source_span": "hémangiome",
+     "hpo_id": "HP:0001028",
+     "hpo_label": "Hemangioma",
+     "verdict": "haelt",
+     "quote_de": "Wirbelfragmente eines Hämangioms",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Histologisch bestätigtes Hämangiom erhalten."
+    },
+    {
+     "annotation_id": "9087",
+     "source_span": "hémangiome",
+     "hpo_id": "HP:0001028",
+     "hpo_label": "Hemangioma",
+     "verdict": "haelt",
+     "quote_de": "ein Fortbestehen des aggressiven Hämangioms auf Höhe von T7",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Persistenz des aggressiven Hämangioms in der Kontroll-MRT erhalten."
+    },
+    {
+     "annotation_id": "9167",
+     "source_span": "dysurie",
+     "hpo_id": "HP:0100518",
+     "hpo_label": "Dysuria",
+     "verdict": "haelt",
+     "quote_de": "Rückgang von Dysurie und imperativem Harndrang",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Der Status 'gebessert/rückläufig' (historisch-aufgelöst) ist im Deutschen identisch wiedergegeben."
+    },
+    {
+     "annotation_id": "9175",
+     "source_span": "miction impérieuse",
+     "hpo_id": "HP:0000012",
+     "hpo_label": "Urinary urgency",
+     "verdict": "haelt",
+     "quote_de": "Rückgang von Dysurie und imperativem Harndrang",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Rückläufiger imperativer Harndrang; Aussagestatus (Besserung im Verlauf) erhalten."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Beidseitiges Babinski-Zeichen",
+     "quote_de": "ein beidseitiges Babinski-Zeichen",
+     "suggested_hpo": {"id": "HP:0003487", "label": "Babinski sign"}
+    },
+    {
+     "description_de": "Gesteigerte (lebhafte) Patellarsehnenreflexe",
+     "quote_de": "Die Patellarsehnenreflexe waren beidseits lebhaft",
+     "suggested_hpo": {"id": "HP:0001347", "label": "Hyperreflexia"}
+    },
+    {
+     "description_de": "Diskreter Fußklonus",
+     "quote_de": "bei diskretem epileptoidem Fußklonus",
+     "suggested_hpo": {"id": "HP:0002169", "label": "Clonus"}
+    }
+   ]
+  },
+  {
+   "case_id": "FR100925",
+   "terms": [
+    {
+     "annotation_id": "3813",
+     "source_span": "carcinome mammaire",
+     "hpo_id": "HP:0003002",
+     "hpo_label": "Breast carcinoma",
+     "verdict": "haelt",
+     "quote_de": "wegen eines Mammakarzinoms in Behandlung",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Mammakarzinom wörtlich erhalten."
+    },
+    {
+     "annotation_id": "3821",
+     "source_span": "hépatite aiguë",
+     "hpo_id": "HP:0200119",
+     "hpo_label": "Acute hepatitis",
+     "verdict": "haelt",
+     "quote_de": "wegen einer schweren akuten Hepatitis stationär aufgenommen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Schwere akute Hepatitis klar ausgedrückt."
+    },
+    {
+     "annotation_id": "3829",
+     "source_span": "fébrile",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "verdict": "haelt",
+     "quote_de": "fieberhafter Ikterus",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Fieber ('fieberhaft') erhalten."
+    },
+    {
+     "annotation_id": "3837",
+     "source_span": "hyper-transaminasémie",
+     "hpo_id": "HP:0002910",
+     "hpo_label": "Elevated circulating hepatic transaminase concentration",
+     "verdict": "haelt",
+     "quote_de": "Hypertransaminasämie mit ASAT- und ALAT-Werten vom 47- bzw. 23-Fachen der Norm",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Hypertransaminasämie inkl. Werten wörtlich erhalten."
+    },
+    {
+     "annotation_id": "3877",
+     "source_span": "hépatite",
+     "hpo_id": "HP:0012115",
+     "hpo_label": "Hepatitis",
+     "verdict": "haelt",
+     "quote_de": "bestand der Verdacht auf eine Hepatitis, die nicht durch die klassischen Hepatitisviren verursacht wurde",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Die Hepatitis selbst ist positiv gegeben; der Verdacht betrifft wie im Original nur die Ätiologie ('non alphabétique' sinngemäß umschrieben)."
+    },
+    {
+     "annotation_id": "3885",
+     "source_span": "fébrile",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "verdict": "haelt",
+     "quote_de": "Aufgrund des fieberhaften Ikterus",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Zweite Fieber-Erwähnung erhalten."
+    },
+    {
+     "annotation_id": "3901",
+     "source_span": "ascite",
+     "hpo_id": "HP:0001541",
+     "hpo_label": "Ascites",
+     "verdict": "haelt",
+     "quote_de": "entwickelte sich ein Aszites",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Aszites wörtlich erhalten."
+    },
+    {
+     "annotation_id": "3917",
+     "source_span": "anticorps anti-nucléaires positifs",
+     "hpo_id": "HP:0003493",
+     "hpo_label": "Antinuclear antibody positivity",
+     "verdict": "haelt",
+     "quote_de": "positive antinukleäre Antikörper",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "ANA-Positivität wörtlich erhalten."
+    },
+    {
+     "annotation_id": "3933",
+     "source_span": "hépatite aiguë",
+     "hpo_id": "HP:0200119",
+     "hpo_label": "Acute hepatitis",
+     "verdict": "haelt",
+     "quote_de": "Bei jedem Bild einer akuten fieberhaften Hepatitis auf dem Boden einer Immunsuppression",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Generische Lehrsatz-Formulierung (kein Patientenbezug) ist im Deutschen als solche erhalten."
+    },
+    {
+     "annotation_id": "3941",
+     "source_span": "fébrile",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "verdict": "haelt",
+     "quote_de": "einer akuten fieberhaften Hepatitis",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Generischer Aussagestatus (Empfehlung, kein Patientenbefund) erhalten."
+    },
+    {
+     "annotation_id": "3981",
+     "source_span": "auto-immunité",
+     "hpo_id": "HP:0002960",
+     "hpo_label": "Autoimmunity",
+     "verdict": "haelt",
+     "quote_de": "bei Vorliegen einer Autoimmunerkrankung",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "'contexte d'auto-immunité' wurde als 'Vorliegen einer Autoimmunerkrankung' wiedergegeben; minimale Verschiebung von Kontext zu Erkrankung, der generische Aussagestatus bleibt erhalten."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Ikterus (fieberhafter Ikterus als Leitbefund)",
+     "quote_de": "fieberhafter Ikterus",
+     "suggested_hpo": {"id": "HP:0000952", "label": "Jaundice"}
+    },
+    {
+     "description_de": "Erniedrigter Prothrombinwert (25 %), entsprechend verlängerter Prothrombinzeit",
+     "quote_de": "einem Prothrombinwert von 25 %",
+     "suggested_hpo": {"id": "HP:0008151", "label": "Prolonged prothrombin time"}
+    },
+    {
+     "description_de": "Gamma-Peak in der Serumeiweißelektrophorese (Hypergammaglobulinämie)",
+     "quote_de": "Gamma-Peak in der Serumeiweißelektrophorese",
+     "suggested_hpo": {"id": "HP:0010702", "label": "Hypergammaglobulinemia"}
+    }
+   ]
+  },
+  {
+   "case_id": "FR100971",
+   "terms": [],
+   "gaps": [
+    {
+     "description_de": "Apikale Ruptur des Ventrikelseptums (Post-Infarkt-Komplikation)",
+     "quote_de": "einer apikalen Septumruptur",
+     "suggested_hpo": {"id": "HP:0001629", "label": "Ventricular septal defect"}
+    },
+    {
+     "description_de": "Anteroseptaler Myokardinfarkt",
+     "quote_de": "nach einem anteroseptalen Myokardinfarkt",
+     "suggested_hpo": {"id": "HP:0001658", "label": "Myocardial infarction"}
+    }
+   ]
+  }
+ ]
+}

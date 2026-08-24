@@ -1,0 +1,3678 @@
+{
+ "provenance": {
+  "generated_by": "Claude (Opus 5) – maschinell erzeugte Diagnose, keine Reviewdaten, kein Gold",
+  "purpose": "Phase-0-Machbarkeitsprobe (Annotier-Machbarkeit E3C-DE)",
+  "date": "2026-08-24",
+  "inputs": {
+   "mapping_manifest": {
+    "path": "datasets/e3c-de/mappings/e3c-l1-umls-hpo-v2026-06-23-v1.json",
+    "sha256": "6a2498c2b16410b9c951263a49260df82f73d1cdffe32049788ad0fc077f13d5"
+   },
+   "audit_agent_a": {
+    "path": "datasets/e3c-de/mappings/audit/agent-a.json",
+    "sha256": "caf07ffdae55cc489157bec88e3b61068ec3abd6a4bbfbfd2ebb0863e22545ac"
+   },
+   "audit_agent_b": {
+    "path": "datasets/e3c-de/mappings/audit/agent-b.json",
+    "sha256": "d8240d0608929301581991d43574fa5bbcb903e5e0ee399650c18b048cef9bbf"
+   },
+   "translation_manifest_tllm_full_sha256": "759f00260dab85a3fbeb24204683f790b4b14a18759c2bb80910ff1725b4451a",
+   "hpo_release": "v2026-06-23",
+   "ontology_sha256": "a5092cbdf605f568403cf7380d9173014015692433b2cc631bc5c1b053876b1b"
+  }
+ },
+ "scope": {
+  "rule": "missing-CUIs mit >=2 Vorkommen, nicht durch Kohorten-Audit abgedeckt",
+  "cui_count": 200,
+  "mention_count": 595
+ },
+ "cuis": [
+  {
+   "cui": "C0010709",
+   "occurrences": 17,
+   "languages": [
+    "EN",
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100427",
+     "span": "cyst",
+     "context": "arian cystic tumors. The patient underwent laparoendoscopic single-site (LESS) surgery. On laparoscopic inspection, the cyst was found to be located in the ampullary and fimbrial regions of the left fallopian tube. The left fallopian tube was g"
+    },
+    {
+     "case_id": "EN100453",
+     "span": "cyst",
+     "context": "perated by performing a right extra-dural frontal approach, a cyst puncture was done in the first intention because the cyst was adherent to the neighbouring structures making its complete removal impossible, then a microscopic extirpation of t"
+    },
+    {
+     "case_id": "EN106233",
+     "span": "Cyst",
+     "context": "he anterior Femur was removed and sizing was done. The AP cut was then proceeded with. We spotted a small Osteochondral Cyst in the Anterior Femur which was curretted to remove the cystic material, which is when we realised that the cyst was la"
+    }
+   ]
+  },
+  {
+   "cui": "C0027627",
+   "occurrences": 14,
+   "languages": [
+    "EN",
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100046",
+     "span": "metastasis",
+     "context": "and femoral bones. Bone marrow aspirate showed decreased red cells and platelets and marrow biopsy done was reported as metastasis from adenocarcinoma. Coagulation profile done was suggestive of DIC due to the raised levels of FDP (5,170 ng/dl) and a"
+    },
+    {
+     "case_id": "EN100427",
+     "span": "metastasis",
+     "context": "ked every three months. The patient remains asymptomatic and follow-up at 24 months showed no evidence of recurrence or metastasis."
+    },
+    {
+     "case_id": "ES100030",
+     "span": "metástasis",
+     "context": "a piel peneana y del escroto. Se procedió a su exéresis mediante circuncisión. El estudio anatomopatológico informó de metástasis subcutáneas prepuciales secundarias a adenocarcinoma intestinal. En la imagen macromicroscópica se apreciaba infiltraci"
+    }
+   ]
+  },
+  {
+   "cui": "C0041296",
+   "occurrences": 14,
+   "languages": [
+    "EN",
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100605",
+     "span": "tuberculosis",
+     "context": "aminations yielded negative results. The pericardial biopsy showed features of nonspecific inflammation, malignancy and tuberculosis were ruled out. Further investigations were accomplished to determine the etiology. Immunological workup revealed antin"
+    },
+    {
+     "case_id": "EN100606",
+     "span": "TB",
+     "context": "ertion was noted. The rest of the systemic examination was within normal limits. Considering this as a probable case of TB with COVID-19 he was advised a chest radiograph with sputum microscopy (Ziehl Neelsen (ZN) staining for acid-fast bacil"
+    },
+    {
+     "case_id": "ES100042",
+     "span": "TBC",
+     "context": "inferior de ambas caras laterales. Debido a este hallazgo, a pesar de que la paciente no tenía factores de riesgo para TBC y la urografía fue rigurosamente normal, se realizó baciloscopia en orina y cultivo Lowenstein-Jensen de 6 muestras de"
+    }
+   ]
+  },
+  {
+   "cui": "C1457887",
+   "occurrences": 11,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100051",
+     "span": "síntomas",
+     "context": "cedentes de interés, que acude a consulta de urología por primera vez, derivado por su médico de atención primaria, por síntomas de prostatismo. En el examen físico se encuentra una próstata de consistencia adenomatosa y de tamaño aumentado (III/IV"
+    },
+    {
+     "case_id": "ES100410",
+     "span": "síntomas",
+     "context": "ocalizados en rama temporal y nasal. Posteriormente el paciente entró en insuficiencia cardíaca, acompañado de signos y síntomas de isquemia aguda periférica, con empeoramiento del estado general y obnubilación progresiva hasta su fallecimiento a l"
+    },
+    {
+     "case_id": "ES100447",
+     "span": "síntomas",
+     "context": "úrgico. Finalmente se le administraron 300.000 UI de vitamina A intramuscular consiguiendo una mejoría inmediata de los síntomas subjetivos, aunque las manifestaciones oftalmoscópicas tardaron tres meses en desaparecer."
+    }
+   ]
+  },
+  {
+   "cui": "C0037284",
+   "occurrences": 9,
+   "languages": [
+    "EN",
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100184",
+     "span": "skin rashes/lesions",
+     "context": "ouble vision (diplopia) or pains on ocular movements. There was no associated headache, fever, vomiting, joint pains or skin rashes/lesions. The review of systems was essentially normal and she had enjoyed good health since early childhood. Her pregnancy and"
+    },
+    {
+     "case_id": "ES100519",
+     "span": "lesiones cutáneas",
+     "context": "uto) Refiere una caída accidental 4 días antes, con traumatismo sobre miembrosinferiores, que en ese momento no produjo lesiones cutáneas o puerta de entrada. A las 48 horas comenzaron a aparecer edema y bullas en ambas piernas que provocaban dolor a la pac"
+    },
+    {
+     "case_id": "ES100578",
+     "span": "lesiones cutáneas",
+     "context": "titis C, genotipo 1b, con carga viral alta (> 5 E5 UI/ ml) que acude a la consulta refiriendo astenia y la aparición de lesiones cutáneas en tórax y cara que sangran, cediendo espontáneamente tras compresión. En la exploración física destaca ligera esplenom"
+    }
+   ]
+  },
+  {
+   "cui": "C0016658",
+   "occurrences": 9,
+   "languages": [
+    "EN",
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN106233",
+     "span": "fracture",
+     "context": "mmunicating with the medulary canal. The remaining Femoral preparations was done keeping in mind the risk of iatrogenic fracture and extension Stem was used in the femur. The defect was then packed cancellous bone graft."
+    },
+    {
+     "case_id": "ES100182",
+     "span": "fracturas",
+     "context": "acceso suprapúbico se reparó la vejiga y extirpó el fragmento óseo, sin secuelas y con posterior buena curación de las fracturas."
+    },
+    {
+     "case_id": "ES100809",
+     "span": "fractura",
+     "context": "e con contusión pulmonar leve sin fracturas costales de pelvis y TAC cervical y abdominopélvico en los que se evidenció fractura de la rama isquiopubiana izquierda sin desplazamiento, diástasis de 10 mm en la porción superior de la articulación sac"
+    }
+   ]
+  },
+  {
+   "cui": "C0016169",
+   "occurrences": 7,
+   "languages": [
+    "EN",
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "EN107559",
+     "span": "fistula",
+     "context": "y, and an end ileostomy. He subsequently became increasing hypoxemic in the intensive care unit and a bronchoperitoneal fistula was diagnosed. He required high-frequency oscillatory ventilation followed by lung isolation, and was successfully resu"
+    },
+    {
+     "case_id": "EN108254",
+     "span": "sinuses",
+     "context": "growth of Pseudomonas aeruginosa and Klebsiella aerogenes. Review of this patient in January 1999 revealed presence of sinuses in dorsal wound exuding purulent material. The wound was explored; grommet and electrodes were removed. The consequence"
+    },
+    {
+     "case_id": "ES100642",
+     "span": "fístula",
+     "context": "x. Como antecedente previo existía una probable alergia a la vitamina B (Neuromade®). En el postoperatorio presentó una fístula de la anastomosis gastroyeyunal manejada de forma conservadora, con exteriorización cutánea que obligó al inicio de nut"
+    }
+   ]
+  },
+  {
+   "cui": "C3714552",
+   "occurrences": 7,
+   "languages": [
+    "EN",
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN108139",
+     "span": "weakness",
+     "context": "ll on follow up until the completion of fifth year of her disease, when she presented with complaints of mild fever and weakness. Examination revealed generalized lymph node enlargement along with hepatomegaly. Hemogram showed mild anemia, normal p"
+    },
+    {
+     "case_id": "ES100978",
+     "span": "debilidad",
+     "context": "Paciente de 59 años que refiere dificultad para caminar desde hace un mes aproximadamente. Presenta debilidad y dolor en los miembros inferiores, que mejora tras detenerse, acompañándose en ocasiones de lumbalgia no irradiada. Ha"
+    },
+    {
+     "case_id": "FR100120",
+     "span": "débilité",
+     "context": "é notamment pas de fièvre et le bilan biologique standard n'apportait pas d'élément d'orientation. Devant le terrain de débilité (diabète type II), un traitement à base d'oxacycline à la dose de 2 g/jour pendant 7 jours per os avec des soins locaux"
+    }
+   ]
+  },
+  {
+   "cui": "C0025062",
+   "occurrences": 7,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100896",
+     "span": "neumomediastino",
+     "context": "rocardíaco, signo del diafragma continuo y un mínimo enfisema subcutáneo en cuello. Se llegó con ello al diagnóstico de neumomediastino asociado a broncoespasmo y se ingresó en el hospital. Se le administró tratamiento con oxígeno mediante gafas nasales s"
+    },
+    {
+     "case_id": "FR100255",
+     "span": "pneumomédiastin",
+     "context": "une heure, la patiente s'est réveillée et devenue consciente avec un GCS à 15. Une radio pulmonaire de face a montré un pneumomédiastin et un emphysème sous cutané. Une TDM cervico-thoraco-abdominale a révélé la présence d'un pneumomédiastin important, un"
+    },
+    {
+     "case_id": "FR100517",
+     "span": "pneumomédiastin",
+     "context": "use retrouvant les opacités réticulo nodulaires avec DDB par traction et de la fibrose sous pleurale. Il s'y associe un pneumomédiastin de faible abondance plus marqué dans la région médiastinale antérieure et en péri tracheal. Un traitement symptomatique"
+    }
+   ]
+  },
+  {
+   "cui": "C0563490",
+   "occurrences": 6,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100063",
+     "span": "metástasis hepáticas",
+     "context": "rafía demuestra la presencia de una tumoración en el área suprarrenal derecha de aproximadamente 6x6 cm. No se observan metástasis hepáticas. La TAC confirma la masa referida, en íntimo contacto con la pared de vena cava inferior a la que aparentemente desplaz"
+    },
+    {
+     "case_id": "ES100594",
+     "span": "metástasis hepáticas",
+     "context": "etopósido) y radioterapia (60 Gy). A los 10 meses del diagnóstico se repitió la TAC que mostró imágenes compatibles con metástasis hepáticas, que obligó a iniciar quimioterapia paliativa con etopósido que en la actualidad continúa recibiendo."
+    },
+    {
+     "case_id": "ES100634",
+     "span": "metástasis hepáticas",
+     "context": "ome constitucional de un mes de evolución. La TC mostró una masa de 15 x 13 x 7 cm dependiente del colon ascendente con metástasis hepáticas bilobares; se realizó una hemicolectomía derecha con biopsia hepática. La anatomía patológica mostró un tumor formado p"
+    }
+   ]
+  },
+  {
+   "cui": "C0087086",
+   "occurrences": 6,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100079",
+     "span": "trombo",
+     "context": "decidió en el centro emisor, colocar filtro en vena cava inferior para evitar la progresión y la embolización de dicho trombo. Posteriormente el paciente fue remitido a nuestro centro para valorar tratamiento quirúrgico, ya que el centro emisor"
+    },
+    {
+     "case_id": "FR100597",
+     "span": "thrombus",
+     "context": "ion veineuse collatérale pelvienne par compression des chaines iliaques et de tout le petit bassin. Il n'y avait pas de thrombus visible et paradoxalement il n'y avait pas d'adénomégalie significative. Devant ces constatations cliniques et radiolog"
+    }
+   ]
+  },
+  {
+   "cui": "C0578735",
+   "occurrences": 6,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100320",
+     "span": "adenopatías axilares",
+     "context": "ial bilateral. Posteriormente se realiza ecografía abdominal y TAC torácico, abdominal y pélvico en los que se aprecian adenopatías axilares bilaterales menores de un cm, una gran masa mediastínica que comprime tráquea y vena cava superior, patrón intersticial"
+    },
+    {
+     "case_id": "ES100561",
+     "span": "adenopatías axilares",
+     "context": "lación una pápula eritematosa, levemente dolorosa a la presión que va creciendo hasta alcanzar un tamaño 1,5-2 cm., sin adenopatías axilares, ni clínica general. (Imagen 3) Imagen 3. Biopsia de la lesión Al observar la trabajadora que la lesión no mejora, re"
+    },
+    {
+     "case_id": "ES100775",
+     "span": "adenopatía axilar",
+     "context": "Mujer, de trece años, que presenta un cuadro de fiebre de 12 días de evolución acompañado de adenopatía axilar izquierda. La exploración inicial fue negativa a excepción de arañazos en mano izquierda. Los datos de laboratorio inic"
+    }
+   ]
+  },
+  {
+   "cui": "C0025287",
+   "occurrences": 5,
+   "languages": [
+    "EN",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100017",
+     "span": "meningism",
+     "context": "wo pluses of proteinurea (0.5-1.0 gram per day per day). The child complained of a moderate headache, but had no fever, meningism, or focal neurological signs. He was started on oral paracetamol. The next morning (day 4 of admission) his symptoms ev"
+    },
+    {
+     "case_id": "FR100283",
+     "span": "syndrome méningé",
+     "context": "es fébriles, associés à une diplopie horizontale droite, avec à l'examen une paralysie du III droit extrinsèque et sans syndrome méningé. Le bilan biologique a objectivé un syndrome inflammatoire, la ponction lombaire réalisée après une TDM cérébrale sans"
+    },
+    {
+     "case_id": "FR100361",
+     "span": "syndrome méningé",
+     "context": "une stérilité primaire. L'examen à son admission trouvait une patiente agitée, confuse, un GCS à 13, fébrile à 39°C, un syndrome méningé franc, et une mydriase aréactive gauche. Elle mobilisait les 4 membres de façon symétrique. Une TDM cérébrale avant et"
+    }
+   ]
+  },
+  {
+   "cui": "C0038505",
+   "occurrences": 5,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100129",
+     "span": "SWS",
+     "context": "A 21 year old female patient with the diagnosis of SWS suffering from headaches admitted to our clinic. She had a 2 year history of frequent non-pulsating headaches. Her head"
+    }
+   ]
+  },
+  {
+   "cui": "C0337664",
+   "occurrences": 5,
+   "languages": [
+    "EN",
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "EN105114",
+     "span": "smoker",
+     "context": "uth\" for 6 months, without any pain or spontaneous bleeding. His medical history was free of disease. The patient was a smoker for 33 years. Intraoral examination revealed a destructive ulcerative lesion around the upper left first and second mol"
+    },
+    {
+     "case_id": "ES100091",
+     "span": "fumador",
+     "context": "ntro de sus antecedentes personales no destaca ninguna patología trascendente: No DM. No HTA. No alergias conocidas. Ex fumador de 8 años. No hematuria. No cólicos. No ITUs. Relata que en las últimas dos semanas presenta febrícula ocasional, sudor"
+    },
+    {
+     "case_id": "ES100098",
+     "span": "fumador",
+     "context": "dentes de EPOC moderado sin otros antecedentes médicos de interés. Entre los hábitos tóxicos, se trataba de un paciente fumador de 20 paquetes/año y no bebedor. No factores ambientales de riesgo ni antecedentes familiares. El paciente debuta con u"
+    }
+   ]
+  },
+  {
+   "cui": "C0334094",
+   "occurrences": 5,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100063",
+     "span": "proliferación",
+     "context": "reconocen restos de tejido suprarrenal en periferia, de aspecto aparentemente normal. La microscopía nos informa de una proliferación de elementos celulares de estirpe estromal, con núcleos pleomórficos de gran tamaño, con células multinucleadas que ado"
+    },
+    {
+     "case_id": "ES100098",
+     "span": "proliferación",
+     "context": "para marcadores epiteliales y positividad para marcadores fibroblásticos: vimentina y actina, todo ello compatible con proliferación fibroblástica reactiva o con tumor fibroso solitario. Con el resultado obtenido, se decidió completar la cirugía, y en"
+    },
+    {
+     "case_id": "ES100412",
+     "span": "proliferación",
+     "context": "arcando prácticamente toda la coroides extendiéndose hasta cuerpo ciliar e iris, correspondiendo histológicamente a una proliferación de células fusiformes y epitelioides con citoplasma amplio, pigmentado, núcleos ovalados con nucleolos prominentes con"
+    }
+   ]
+  },
+  {
+   "cui": "C0153690",
+   "occurrences": 5,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100064",
+     "span": "metástasis óseas",
+     "context": "dirigida en septiembre de 2005, con PSA de 794, fosfatasas alcalinas de 870, y con rastreo óseo que evidenció múltiples metástasis óseas. En esa época se instauró tratamiento mediante análogos de lh-rh, flutamida y ácido zoledrómico 4 mg cada 21 días duran"
+    },
+    {
+     "case_id": "ES100663",
+     "span": "metástasis hepáticas múltiples y óseas",
+     "context": "por emisión de positrones: captación en forma de masa tumoral en tercio superior esofágico, con implantes mesentéricos, metástasis hepáticas múltiples y óseas en esqueleto axial y periféricas. - Anatomía patológica: melanoma maligno -HMB45: (+), MELAN A: (+), CKPAN: (+)- con ár"
+    },
+    {
+     "case_id": "FR100994",
+     "span": "métastase osseuse",
+     "context": "Nous relatons ainsi le cas d'une observation d'un homme suivi pour un cancer du rectum métastatique avec une métastase osseuse temporale. Notre observation se rapportait à l'histoire d'un homme âgé de 38 ans suivi pour un cancer du rectum initial"
+    }
+   ]
+  },
+  {
+   "cui": "C0347944",
+   "occurrences": 5,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100650",
+     "span": "masa pélvica",
+     "context": "stro servicio se realizó una tomografía axial computerizada (TAC) de abdomen y pelvis que confirmó la existencia de una masa pélvica de aspecto quístico de 11 x 8 cm, anterosuperior respecto a la vejiga y próxima a íleon terminal, que se encontraba enc"
+    },
+    {
+     "case_id": "FR100597",
+     "span": "masse pelvienne",
+     "context": "ya 35 ans. Elle est ménopausée depuis 25 ans. Elle s'était présentée en consultation devant la découverte récente d'une masse pelvienne avec des algies pelviennes évoluant depuis une année, négligées initialement. L'examen physique notait la présence d'un"
+    },
+    {
+     "case_id": "FR100614",
+     "span": "masse pelvienne",
+     "context": "abeilles, sans végétations intra ou exokystiques ou épanchement péritonéal. La tomodensitométrie pelvienne a montré une masse pelvienne supra et latéro-utérinedroite, liquidienne, multicloisonées avec réhaussement des cloisons et des vegétations endokysti"
+    }
+   ]
+  },
+  {
+   "cui": "C0149642",
+   "occurrences": 5,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100142",
+     "span": "adénopathies cervicales",
+     "context": "tat général, une fièvre et des sueurs nocturnes. L'examen clinique notait, outre les lésions cutanées sus décrites, des adénopathies cervicales jugulo-carotidiennes bilatérales de 1 à 2 cm de grand axe, fermes et fixes par rapport aux plans profonds. Il avait une"
+    },
+    {
+     "case_id": "FR100439",
+     "span": "adénopathie cervicale",
+     "context": "une formation fusiforme prévertébrale qui diminue le calibre des voies aéro-digestives supérieures, avec présence d'une adénopathie cervicale ovalaire du groupe II droit mesurant 17 mm. Le scanner thoracique n'a pas montré de foyer pulmonaire, et le bilan biolo"
+    },
+    {
+     "case_id": "FR100658",
+     "span": "adénopathies cervical",
+     "context": "aigrissement chiffré à 12 kg en deux mois. L'examen clinique retrouvait un patient apyrétique, eupnéique au repos, sans adénopathies cervical palpable, le reste de l'examen somatique était sans particularités. La laryngoscopie indirecte avait objectivé un proce"
+    }
+   ]
+  },
+  {
+   "cui": "C0149736",
+   "occurrences": 4,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100067",
+     "span": "cervical mass",
+     "context": "A 50-years-old woman, hypertensive, hospitalized for a large cervical mass appeared 30 years ago. In the family history, her mother, sisters and cousins underwent a surgery for MNG. Despite of t"
+    }
+   ]
+  },
+  {
+   "cui": "C0008476",
+   "occurrences": 4,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100156",
+     "span": "synovial chondromatosis",
+     "context": "dies, and large calcified bursal extensions. These findings were thought to be consistent with very extensive bilateral synovial chondromatosis. The patient’s blood tests were normal: C-reactive protein 5 mg/l and the phosphate calcium balance without errors. A t"
+    },
+    {
+     "case_id": "EN100247",
+     "span": "synovial chondromatosis",
+     "context": "ss which started below patella and extended to suprapatellar area. Knee MRI revealed many loose bodies (consistent with synovial chondromatosis) isointense with fatty bone marrow at all sequences at the level of right knee joint. Scalloping was observed at tibial"
+    }
+   ]
+  },
+  {
+   "cui": "C3714660",
+   "occurrences": 4,
+   "languages": [
+    "EN",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100315",
+     "span": "trauma",
+     "context": "A 3 years old boy without any particular diseases history, admitted to the emergency room for a bipolar trauma with a left hemicorporal point of impact following a domestic accident. The delay to consult was 5 hours after the inci"
+    },
+    {
+     "case_id": "FR100255",
+     "span": "traumatisme",
+     "context": "du du visage jusqu'à l'abdomen avec une diminution des murmures vésiculaires au champ pulmonaire droit et sans signe de traumatisme. L'examen obstétrical a montré des bruits cardiaque fœtaux négatifs et un col long fermé et postérieur sans saignement"
+    },
+    {
+     "case_id": "FR100296",
+     "span": "traumatisme",
+     "context": "ramadol; AINS; anti dépresseurs tricyclique; clobazepam; prégabaline). A l'interrogatoire, aucune notion d'effort ou de traumatisme n'a été notée et le patient n'avait pas de passé de lombalgie. L'examen clinique a noté une perte pondérale de moyenne"
+    }
+   ]
+  },
+  {
+   "cui": "C1096155",
+   "occurrences": 4,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100372",
+     "span": "Macrophage activation syndrome",
+     "context": "We present here a case of Macrophage activation syndrome associated with Griscelli syndrome type 2 in a 3-years-old male born of consanguineous parentage. His birth histories,"
+    }
+   ]
+  },
+  {
+   "cui": "C1142307",
+   "occurrences": 4,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100427",
+     "span": "paratubal cyst",
+     "context": "all with serous cystic components, but solid components were not seen inside. Clinical diagnosis was suggestive of left paratubal cyst. The patient underwent hysterectomy and BSO. Although tumor markers were normal and there was no presence of papillary"
+    }
+   ]
+  },
+  {
+   "cui": "C0013502",
+   "occurrences": 4,
+   "languages": [
+    "EN",
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100453",
+     "span": "hydatidosis",
+     "context": "o sterilize the cystic sit and reduce chances of dissemination. Histological examination was in favour of intra-orbital hydatidosis. Postoperatively, the patient was given an antihelminthic treatment of albendazole at a dose of 10mg per kilogram per d"
+    },
+    {
+     "case_id": "ES100091",
+     "span": "enfermedad hidatídica",
+     "context": "quistes en riñón izquierdo. Se realiza TC abdominopélvico : con lesiones quísticas con vesículas hijas, compatible con enfermedad hidatídica renal. Se solicita serología de Anticuerpos Echinococcus/Hemag que es POSITIVO a cifras superiores 1/2.621.440. Se com"
+    },
+    {
+     "case_id": "FR100400",
+     "span": "kyste hydatique",
+     "context": "la loge surrénalienne droite refoulant le pole supérieur du rein en arrière et en dehors. Le diagnostic retenu était un kyste hydatique de la surrénale droite, et la patiente a été opérée par une reprise de l'ancienne cicatrice sous-costale droite. L'expl"
+    }
+   ]
+  },
+  {
+   "cui": "C0042029",
+   "occurrences": 4,
+   "languages": [
+    "EN",
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100506",
+     "span": "urinary tract infection",
+     "context": "d a nonsmoking history and no significant family history. The physical examination was unremarkable. She was treated as urinary tract infection, but there was no improvement in her symptoms. Urine analysis and culture were performed several times that was negativ"
+    },
+    {
+     "case_id": "ES100042",
+     "span": "infección del tracto urinario",
+     "context": "ccionales ocasionales sin otra sintomatología urológica añadida. En los últimos 6 meses había presentado 3 episodios de infección del tracto urinario bajo con urocultivos positivos a E. coli tratados por su médico de cabecera. El estudio inicial incluyó bioquímica sang"
+    },
+    {
+     "case_id": "ES100091",
+     "span": "ITUs",
+     "context": "inguna patología trascendente: No DM. No HTA. No alergias conocidas. Ex fumador de 8 años. No hematuria. No cólicos. No ITUs. Relata que en las últimas dos semanas presenta febrícula ocasional, sudoración, pesadez en flanco izquierdo con dolor"
+    }
+   ]
+  },
+  {
+   "cui": "C0577180",
+   "occurrences": 4,
+   "languages": [
+    "EN",
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100506",
+     "span": "bladder lesion",
+     "context": "r laboratory data were also insignificant. Through a routine evaluation, urinary system ultrasonography (US) revealed a bladder lesion measuring 7 mm. In order to confirm the diagnosis, magnetic resonance imaging (MRI) of the abdomen and pelvic cavity wa"
+    },
+    {
+     "case_id": "ES100042",
+     "span": "lesiones vesicales",
+     "context": "ia en orina y cultivo Lowenstein-Jensen de 6 muestras de la primera orina de la mañana en días consecutivos, ya que las lesiones vesicales macroscópicamente podrían tratarse de tuberculomas, siendo estos estudios negativos para bacilo de Koch, por lo que se"
+    },
+    {
+     "case_id": "ES100182",
+     "span": "lesión vesical",
+     "context": "os pelvianos con esquirla ósea improntando en la vejiga. Una reconstrucción de las imágenes de TAC parecía descartar la lesión vesical penetrante. Sin embargo, una vez estabilizadas las constantes vitales, se realiza cistoscopia que demuestra perforación"
+    }
+   ]
+  },
+  {
+   "cui": "C0271899",
+   "occurrences": 4,
+   "languages": [
+    "EN",
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100605",
+     "span": "normochromic normocytic anemia",
+     "context": "respiratory variation of the Doppler mitral valve, confirming the diagnosis of cardiac tamponade. Initial workup showed normochromic normocytic anemia with hemoglobin at 8.5g/dl, CRP: 75mg/L, renal and liver function tests were normal. Emergency pericardiocentesis was i"
+    },
+    {
+     "case_id": "ES100112",
+     "span": "anemia normocítica y normocrómica",
+     "context": "ísica se palpa en hemiabdomen derecho, masa dolorosa. Resto de la exploración anodina. En el estudio analítico, destaca anemia normocítica y normocrómica (hemoglobina 10, 6), y prolongación de la VSG; el estudio bioquímico, urinario y de marcadores tumorales normal. La eco"
+    },
+    {
+     "case_id": "FR100142",
+     "span": "anémie normochrome normocytaire",
+     "context": "jugulo-carotidiennes bilatérales de 1 à 2 cm de grand axe, fermes et fixes par rapport aux plans profonds. Il avait une anémie normochrome normocytaire arégénérative à 7.8 g/dl, des globules blancs à 4100 Elts/mm3 et une lymphopénie à 700 Elts/mm3. La vitesse de sédiment"
+    }
+   ]
+  },
+  {
+   "cui": "C0007112",
+   "occurrences": 4,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100001",
+     "span": "ADK próstata",
+     "context": "neoplásica, por lo que se biopsia dicha zona por ecografía transrectal. La AP de la biopsia confirmó la presencia de un ADK próstata Gleason 6."
+    },
+    {
+     "case_id": "ES100064",
+     "span": "adenocarcinoma prostático",
+     "context": "intervenido de ulcus duodenal 20 años antes, y de poliposis laríngea en dos ocasiones en 1993 y 1994. Diagnosticado de adenocarcinoma prostático mediante biopsia ecodirigida en septiembre de 2005, con PSA de 794, fosfatasas alcalinas de 870, y con rastreo óseo que"
+    },
+    {
+     "case_id": "ES100571",
+     "span": "adenocarcinoma de próstata",
+     "context": "que ingresa por deterioro del estado general, astenia, anorexia y pérdida de peso de 1 mes de evolución. Intervenido de adenocarcinoma de próstata, recibió posteriormente varias sesiones de radioterapia (dosis total 70 Gy), la última de ellas 12 meses antes de su in"
+    }
+   ]
+  },
+  {
+   "cui": "C0020517",
+   "occurrences": 4,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100002",
+     "span": "alergias",
+     "context": "es antes, est:udio ecográfico y U.I.V. sin hallazgos patológicos. Entre sus antecedentes personales cabe destacar: sin alergias conocidas. HTA. Diabetes Mellitus tipo II. Miocardiopatía hipertrófica. Aneurisma carotídeo intracerebral sin secuelas."
+    },
+    {
+     "case_id": "ES100091",
+     "span": "alergias",
+     "context": "ria de unos 15 días. Dentro de sus antecedentes personales no destaca ninguna patología trascendente: No DM. No HTA. No alergias conocidas. Ex fumador de 8 años. No hematuria. No cólicos. No ITUs. Relata que en las últimas dos semanas presenta febr"
+    },
+    {
+     "case_id": "ES100519",
+     "span": "alergias",
+     "context": "Mujer de 77 años de edad, que presenta como antecedentes de interés hipertensión arterial y asma, sin alergias y sin hábitos tóxicos. Acude a urgencias por un episodio de mareo y sudoración profusa. Está afebril y taquicárdica (11"
+    }
+   ]
+  },
+  {
+   "cui": "C0032219",
+   "occurrences": 4,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100098",
+     "span": "pleomorfismo",
+     "context": "el siguiente resultado anatomopatológico: leiomiosarcoma de bajo grado (mitosis =3 X10 campos de gran aumento). Marcado pleomorfismo celular. Focos de necrosis intratumoral y múltiples imágenes de necrosis celular aislada. Extensas áreas de cambio mixo"
+    },
+    {
+     "case_id": "ES100715",
+     "span": "pleomorfismo",
+     "context": "esencia de una membrana quística con tejido epitelial anaplásico, observándose pérdida de la estratificación epitelial, pleomorfismo celular y nuclear, pérdida de la relación núcleo/citoplasma, nucléolos prominentes, entre otros. La proliferación neopl"
+    },
+    {
+     "case_id": "ES100946",
+     "span": "pleomorfimso",
+     "context": "iables, con algunas zonas mostrando aspecto mixoide. No se apreciaron células dispuestas en empalizada ni se observaron pleomorfimso celular o mitosis atípicas. En la periferia de algunos fragmentos se identificaron fibras residuales del tronco nervios"
+    }
+   ]
+  },
+  {
+   "cui": "C0023869",
+   "occurrences": 4,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100177",
+     "span": "Litiasis",
+     "context": "Varón de 74 años Antecedentes personales: HTA esencial previa (En tratamiento con Enalapril), Hipercolesterolemia. Litiasis cálcica de 1 cm en infundíbulo de cáliz superior y otra de las mismas dimensiones en infundíbulo de cáliz inferior de r"
+    },
+    {
+     "case_id": "ES100178",
+     "span": "litiasis",
+     "context": "a la Leoch con normal función renal bilateral pero con riñón derecho de menor tamaño que el izquierdo. No HTA. Leoch de litiasis de 1 cm en cáliz inferior de riñón derecho.3.500 impactos, intensidad 3. A las 5-6 horas del tratamiento presentó dolor"
+    },
+    {
+     "case_id": "FR101000",
+     "span": "lithiase",
+     "context": "oix dans l'exploration des ictères cholestatiques. Elle doit être demandée en première intention lorsqu'on suspecte une lithiase résiduelle et en deuxième intention après l'échographie lorsque cette dernière suspecte une obstruction tumorale des vo"
+    }
+   ]
+  },
+  {
+   "cui": "C0038536",
+   "occurrences": 4,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100182",
+     "span": "enfisema subcutáneo",
+     "context": "en la vía pública, con trauma cráneo-encefálico, fracturas en extremidades superior e inferior derechas y costales, con enfisema subcutáneo intenso, y hematuria leve. Ingresa en la Unidad de Cuidados Intensivos para soporte ventilatorio y en los estudios de i"
+    },
+    {
+     "case_id": "ES100896",
+     "span": "enfisema subcutáneo",
+     "context": "n las que se objetivó atrapamiento aéreo con presencia de aire anterocardíaco, signo del diafragma continuo y un mínimo enfisema subcutáneo en cuello. Se llegó con ello al diagnóstico de neumomediastino asociado a broncoespasmo y se ingresó en el hospital. Se"
+    },
+    {
+     "case_id": "FR100255",
+     "span": "emphysème sous cutané",
+     "context": "ardiaque à 120 battements par minutes, une fréquence respiratoire à 20 cycles/min et une SpO2 à 95% à l'air ambiant, un emphysème sous cutané étendu du visage jusqu'à l'abdomen avec une diminution des murmures vésiculaires au champ pulmonaire droit et sans sign"
+    }
+   ]
+  },
+  {
+   "cui": "C0151763",
+   "occurrences": 4,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100278",
+     "span": "afectación hepática",
+     "context": "ción cardiaca ni neuropatía autonómica. En la evolución se detecta un aumento progresivo de transaminasas, sugerente de afectación hepática. Estos resultados son concordantes con este tipo de amiloidosis familiar, con afectación preferentemente renal y hepáti"
+    },
+    {
+     "case_id": "ES100605",
+     "span": "daño hepático",
+     "context": "insuficiencia hepática aguda, con signos de encefalopatía y hemorragia digestiva masiva. En la necropsia se observó un daño hepático difuso, acompañado de lesiones focales en el tercio inferior del esófago. El estudio histológico demostró, en ambos órg"
+    },
+    {
+     "case_id": "FR100161",
+     "span": "cytolyse hépatique",
+     "context": "n, ni signes d'insuffisance surrénalienne. Les examens biologiques révèlent une hyperglycémie à 8,54 mmol/l, une légère cytolyse hépatique avec des ASAT à 66 puis à 88 UI/l (VN < 50) et des ALAT à 72 puis à 73 UI/l (VN < 65), la sérologie de l'hépatite C (HV"
+    }
+   ]
+  },
+  {
+   "cui": "C0031485",
+   "occurrences": 4,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100304",
+     "span": "PKU",
+     "context": "micromol/L). Los niveles de Phe al diagnóstico, entre 660 y 1.200 micromol/L condicionan una clasificación de fenotipo PKU suave-moderado. Se efectuó el diagnóstico diferencial con trastornos en el metabolismo de las pterinas, cuyo estudio fu"
+    }
+   ]
+  },
+  {
+   "cui": "C1261287",
+   "occurrences": 4,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100310",
+     "span": "estenosis",
+     "context": "nte se programó la realización de GEP. Durante la realización de la endoscopia oral, se produjo sangrado al dilatar una estenosis en porción esofágica superior, por lo que se desistió de proseguir el procedimiento y se recurrió a la GRP, que se llev"
+    },
+    {
+     "case_id": "ES100571",
+     "span": "estenosis",
+     "context": "olonoscopia evidenciándose la mucosa de los 30 cm explorados de aspecto fibrótico tubular con punteado eritematoso, con estenosis regular fibrótica a dicho nivel que impidió la progresión. Se tomaron múltiples biopsias que mostraron inflamación agud"
+    },
+    {
+     "case_id": "ES100594",
+     "span": "estenosis",
+     "context": "loso reseñado; sin afectación mediastínica ni de órganos abdominales. El estudio esofagogastroduodenal baritado, revela estenosis de 1-5 cm de longitud en el tercio inferior de esófago, sin otros hallazgos relevantes. La ecoendoscopia muestra una le"
+    }
+   ]
+  },
+  {
+   "cui": "C0850149",
+   "occurrences": 4,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100320",
+     "span": "tos seca",
+     "context": "Mujer de 27 años, politoxicómana activa, que 15 días antes de ingresar comienza con tos seca, disnea de intensidad progresiva, fiebre, astenia, anorexia, náuseas y vómitos. Tenía antecedentes de infección por VIH"
+    },
+    {
+     "case_id": "FR100517",
+     "span": "toux sèche",
+     "context": "d'entretien (faible dose), Madame H. présente de façon progressive une dyspnée d'effort stade II de MRC associée à une toux sèche et des douleurs basi thoraciques d'intensité modérée. L'auscultation pulmonaire trouve quelques crépitants au niveau de"
+    },
+    {
+     "case_id": "FR100589",
+     "span": "toux sèche",
+     "context": "es toxiques et sans exposition professionnelle particulière. Le patient a présenté 3 mois avant son hospitalisation une toux sèche devenant productive sans hémoptysies associée à des douleurs thoraciques diffuses peu intenses et une dyspnée d'effort"
+    }
+   ]
+  },
+  {
+   "cui": "C0149649",
+   "occurrences": 4,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100410",
+     "span": "émbolos de colesterol",
+     "context": "mo nuevos signos aparecieron unas manchas purpúreas en zona lateral del pie (lívido reticularis) cuya biopsia no reveló émbolos de colesterol. Remitido a oftalmología a los 40 días, para estudio de fondo de ojo, presentaba la siguiente exploración oftalmológica"
+    }
+   ]
+  },
+  {
+   "cui": "C2609129",
+   "occurrences": 4,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100631",
+     "span": "pancreatitis autoinmune",
+     "context": "iaco bilateral, un tejido denso rodeando dichas estructuras vasculares como un estuche, siendo todo ello compatible con pancreatitis autoinmune con fibrosis retroperitoneal. Ante la persistencia de prurito y la colestasis manifiesta se realizó un drenaje biliar p"
+    }
+   ]
+  },
+  {
+   "cui": "C1299894",
+   "occurrences": 4,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100705",
+     "span": "fístula oronasal",
+     "context": "Se trata de paciente femenino de 5 años de edad, referida a nuestro servicio bajo el diagnóstico de fístula oronasal. Entre sus antecedentes encontramos que se le realizó queiloplastía bilateral y palatoplastía del paladar blando a la e"
+    }
+   ]
+  },
+  {
+   "cui": "C0278147",
+   "occurrences": 4,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100736",
+     "span": "dolor radicular",
+     "context": "ocas horas de esta última PL, el paciente requirió atención por ciatalgia derecha aislada. Al cabo de unas 48 horas, al dolor radicular se asoció pérdida de fuerza en ambos MMII, que evolucionó rápidamente a una paraparesia bilateral, conservando únicamen"
+    },
+    {
+     "case_id": "FR100717",
+     "span": "douleur radiculaire",
+     "context": "ans sans antécédent particulier avait consulté pour des lombalgies évoluant depuis 1 an, secondairement associées à une douleur radiculaire de type S1 gauche et de paresthésies dans le même territoire. Un traitement par anti inflammatoire non stéroïdien, anta"
+    }
+   ]
+  },
+  {
+   "cui": "C0011633",
+   "occurrences": 4,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100515",
+     "span": "DM",
+     "context": "de malignité avec une immunohistochimie (CD3, CD20, CD4, CD8) négative. Le diagnostic d'une panniculite associée à une DM était retenu. Le bilan clinico-biologique effectué à la recherche d'une néoplasie sous-jacente et comportant: l'examen"
+    },
+    {
+     "case_id": "FR100517",
+     "span": "dermatomyosite",
+     "context": "paupières et des plaques psoriasiformes au niveau des coudes. Ces différents éléments cliniques sont révélateurs d'une dermatomyosite débutante. Le bilan biologique retrouve un syndrome inflammatoire aspécifique, les enzymes musculaires ont des valeurs"
+    }
+   ]
+  },
+  {
+   "cui": "C0333243",
+   "occurrences": 3,
+   "languages": [
+    "EN",
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100017",
+     "span": "pitting oedema",
+     "context": "ry presented to a small district hospital in southern Sierra Leone with a 4 day history of facial puffiness, peripheral pitting oedema, abdominal pains, and reduced urine output. On examination he was afebrile, BP150/110, heart rate 70. He had significan"
+    },
+    {
+     "case_id": "ES100363",
+     "span": "edema con fóvea",
+     "context": "lución acompañada de edema en manos y pies. Refería algún episodio de rectorragia. La exploración física solo reveló el edema con fóvea limitado a articulaciones metacarpofalángicas y metatarso falángicas. Con el diagnóstico de sospecha de RS3PE se inició"
+    }
+   ]
+  },
+  {
+   "cui": "C1392298",
+   "occurrences": 3,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100017",
+     "span": "focal neurological signs",
+     "context": "roteinurea (0.5-1.0 gram per day per day). The child complained of a moderate headache, but had no fever, meningism, or focal neurological signs. He was started on oral paracetamol. The next morning (day 4 of admission) his symptoms evolved: his headache became se"
+    }
+   ]
+  },
+  {
+   "cui": "C0002690",
+   "occurrences": 3,
+   "languages": [
+    "EN",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100022",
+     "span": "amputation stump",
+     "context": "lar with an apical rate of 120 beats/min, temperature 39° C, blood pressure 70/40 mmHg, he had necrotic and suppurative amputation stump with peripheral pulse abolished. Patient was given immediately oxygen, fluids, antibiotics, and drugs to increase blood"
+    },
+    {
+     "case_id": "FR100480",
+     "span": "moignon",
+     "context": "quée par l'absence de signe de récidive, puis la patiente n'a pas été revue. Un an après, la patiente a remarqué que le moignon de l'amputation devient inflammatoire avec augmentation de son volume. Elle a repris la consultation dans notre service"
+    }
+   ]
+  },
+  {
+   "cui": "C0333280",
+   "occurrences": 3,
+   "languages": [
+    "EN",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100022",
+     "span": "diffuse bleeding",
+     "context": "ed circumferential black pigmentation: the mucosa was black and covered by an exudate of the same color associated with diffuse bleeding. Gastric mucosa was strictly normal in direct vision and in retrovision, the bulb and duodenum were normal. Biopsie spe"
+    },
+    {
+     "case_id": "FR100168",
+     "span": "saignement diffus",
+     "context": "rothrombine à 76% et un temps de céphaline activée à 32/30. En peropératoire, le temps de dissection a été associé à un saignement diffus au champ opératoire gênant le chirurgien. Ce saignement estimé à 2500 ml, a été jugé anormal puisque le saignement per"
+    }
+   ]
+  },
+  {
+   "cui": "C0036974",
+   "occurrences": 3,
+   "languages": [
+    "EN",
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100029",
+     "span": "shock",
+     "context": "A hypoxic coma occurred on day 4 leading to intubation and mechanical ventilation. Rapidly, she experienced intractable shock and acute renal impairment despite inotropic agents leading to death on day 5."
+    },
+    {
+     "case_id": "ES100832",
+     "span": "shock",
+     "context": "ealización de maniobras de reanimación cardiopulmonar. Debido a la evolución tórpida y al origen incierto del cuadro de shock, no se certifica la defunción. Hallazgos de la autopsia Como hallazgos significativos, en el examen externo destacan un"
+    }
+   ]
+  },
+  {
+   "cui": "C0494165",
+   "occurrences": 3,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100046",
+     "span": "liver metastasis",
+     "context": "l metastasis with sclerotic foci involving vertebrae and pelvic bones and lytic areas in bilateral iliac blades with no liver metastasis or ascites. A skeletal survey was done which showed lytic lesions in the iliac and femoral bones. Bone marrow aspirate"
+    },
+    {
+     "case_id": "EN101783",
+     "span": "liver metastases",
+     "context": "performed indicated ECS. Imaging and cytological findings pointed toward a likely primary right parotid malignancy with liver metastases. Somatostatin receptor scintigraphy has shown an increased uptake in the parotid gland and mild expression in liver met"
+    }
+   ]
+  },
+  {
+   "cui": "C0001418",
+   "occurrences": 3,
+   "languages": [
+    "EN",
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100046",
+     "span": "adenocarcinoma",
+     "context": "s. Bone marrow aspirate showed decreased red cells and platelets and marrow biopsy done was reported as metastasis from adenocarcinoma. Coagulation profile done was suggestive of DIC due to the raised levels of FDP (5,170 ng/dl) and a low fibrinogen \\(15"
+    },
+    {
+     "case_id": "ES100030",
+     "span": "adenocarcinoma",
+     "context": "ia carcinomatosa. Destacaba el escaso componente inflamatorio. A gran aumento se observa que el tumor infiltrante es un adenocarcinoma moderadamente diferenciado, de alto grado y con elevado índice mitótico. A pesar del tratamiento oncológico recibido e"
+    },
+    {
+     "case_id": "FR100448",
+     "span": "adénocarcinome",
+     "context": "TIRADS 4b. Une hémi thyroïdectomie gauche a été réalisée. L'examen anatomopathologique de la pièce opératoire trouve un adénocarcinome moyennement différencié. L'immuno histochimie est en faveur d'une origine pulmonaire avec des anticorps anti CK7 positi"
+    }
+   ]
+  },
+  {
+   "cui": "C0521174",
+   "occurrences": 3,
+   "languages": [
+    "EN",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100067",
+     "span": "microcalcifications",
+     "context": "ests (T 3, T 4 and TSH) were normal. Thoracic radiography showed a large cervical opacity roughly round and strewn with microcalcifications associated with a right eccentricity of the trachea. Cervical and chest CT revealed the presence of a partially calcifi"
+    },
+    {
+     "case_id": "EN100432",
+     "span": "microcalcifications",
+     "context": "hy revealed a 2.6 cm round hyperdense mass with irregular and speculated margins in the subareolar area with associated microcalcifications within the mass. The mass was categorized as Breast Imaging Reporting and Data System category 5. Fine needle aspiratio"
+    },
+    {
+     "case_id": "FR100697",
+     "span": "microcacification",
+     "context": "désorganisation architecturale associée a un épaississement sous cutanée et une rétraction mamelonnaire débutante sans microcacification sur les différentes incidences. A l'échographie: Sein droit sans anomalie, présence d'un processus lésionnel rétromamel"
+    }
+   ]
+  },
+  {
+   "cui": "C0948268",
+   "occurrences": 3,
+   "languages": [
+    "EN",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100067",
+     "span": "hemodynamic collapse",
+     "context": "he operation was completed with a double suction drainage. In the immediate postoperative period, the patient developed hemodynamic collapse requiring the introduction of dobutamine. After 48 hours of hemodynamic support, the blood pressure stabilized and dobu"
+    },
+    {
+     "case_id": "FR100314",
+     "span": "hémodynamique",
+     "context": "avec fracture d'humérus, sans fracture des cotes ou la clavicule. Il n'y avait pas de signe de détresse respiratoire ou hémodynamique, un drainage thoracique a été réalisé associé à une analgésie multimodale. Accoure de son hospitalisation le patient a"
+    },
+    {
+     "case_id": "FR100748",
+     "span": "instabilité hémodynamique",
+     "context": "order la surrénale droite. Le contrôle vasculaire et la surrénalectomie droite étaient effectués. Il n'y avait pas eu d'instabilité hémodynamique lors de la mobilisation et de la résection de la tumeur. Les suites opératoires immédiates ont été simples avec une sta"
+    }
+   ]
+  },
+  {
+   "cui": "C2979982",
+   "occurrences": 3,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100068",
+     "span": "vaginal bleeding",
+     "context": "unity clinic. The resurgence of that lancinating and permanent pain irradiating to the loins and associated with slight vaginal bleeding prompted consultation. She had first menses at 14 and her menstrual cycle is regular with a length of 30 days. She has"
+    },
+    {
+     "case_id": "EN105223",
+     "span": "vaginal bleeding",
+     "context": "A 49-year-old white Caucasian woman presented with vaginal bleeding. A pelvic examination revealed a cystic lesion arising from her cervix. Examination of a biopsy specimen revealed a poo"
+    }
+   ]
+  },
+  {
+   "cui": "C0003469",
+   "occurrences": 3,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100129",
+     "span": "anxiety disorder",
+     "context": "no feature of SWS and no researches were done regarding her stain. She was inscribed daily doses of ketiapin 25 mg for anxiety disorder and venlafaxine 75 mg for both anxiety disorder and the chronic headaches. She was also inscribed NSAID drugs. After th"
+    }
+   ]
+  },
+  {
+   "cui": "C1868679",
+   "occurrences": 3,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100372",
+     "span": "Griscelli syndrome type 2",
+     "context": "We present here a case of Macrophage activation syndrome associated with Griscelli syndrome type 2 in a 3-years-old male born of consanguineous parentage. His birth histories, his familie social history and development"
+    }
+   ]
+  },
+  {
+   "cui": "C0262613",
+   "occurrences": 3,
+   "languages": [
+    "EN",
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100385",
+     "span": "renal mass",
+     "context": "A 45 year old female with history of sickle cell disease presented with abdominal pain. A CT scan revealed an exophytic renal mass measuring 2.9cm x 2.0cm x 2.1cm located on the antero-lateral aspect of her right kidney and an unremarkable spleen. Sh"
+    },
+    {
+     "case_id": "ES100079",
+     "span": "masa renal",
+     "context": "Paciente de 56 años remitido a nuestro servicio por hallazgo incidental de masa renal de 5 cm de diámetro máximo, mesorrenal izquierda en la ecografía durante el estudio de cuadro de crisis renoureteral de"
+    },
+    {
+     "case_id": "ES100112",
+     "span": "masa renal",
+     "context": "longación de la VSG; el estudio bioquímico, urinario y de marcadores tumorales normal. La ecografía abdominal objetiva, masa renal derecha con patrón ultrasonográfico mixto de 17 x 13 centímetros de diámetro, con un área extraparenquimatosa compatibl"
+    }
+   ]
+  },
+  {
+   "cui": "C1285498",
+   "occurrences": 3,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100399",
+     "span": "vegetations",
+     "context": "h screening for other possible sources of infection, resulted negative. Transthoracic echocardiography was negative for vegetations and showed mild mitral regurgitation. Entamoeba histolytica Abs, echinococcus Abs, leismania Abs, brucella Abs were neg"
+    },
+    {
+     "case_id": "EN101114",
+     "span": "vegetation",
+     "context": "sy revealed the presence of Aspergillus fumigatus species, and the transesophageal echocardiogram showed a mobile mural vegetation in the left ventricle (22 × 8 mm). He underwent surgical resection of this mural vegetation. His postoperative course w"
+    }
+   ]
+  },
+  {
+   "cui": "C0221370",
+   "occurrences": 3,
+   "languages": [
+    "EN",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100432",
+     "span": "retraction of the nipple",
+     "context": "was at age 12. Physical examination revealed a 3 cm tumor located on the left breast adhere to deep plans. There was no retraction of the nipple, skin ulceration or inflammatory changes. The right breast exam was negative and there was no clinical evidence of axil"
+    },
+    {
+     "case_id": "FR100697",
+     "span": "rétraction mamelonnaire",
+     "context": "mammaire douloureuse. A l'inspection: sein gauche très augmenté de volume, rouge avec aspect de peau d'orange et légère rétraction mamelonnaire. À la palpation: on trouve une masse volumineuse, dure, régulière, occupant presque tout le sein, faisant 13cm/10cm ass"
+    }
+   ]
+  },
+  {
+   "cui": "C2939419",
+   "occurrences": 3,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100432",
+     "span": "metastases",
+     "context": "he tumor was grade II of Scarf Bloom Richardson. Surgical margin was clear. The resected axillary lymph nodes contained metastases, including one/19 N level I lymph nodes. The immunohistochemistry study showed an expression of the following antibodie"
+    },
+    {
+     "case_id": "EN105223",
+     "span": "metastatic disease",
+     "context": "erwent surgery, which confirmed stage IIB Ewing's sarcoma. She received adjuvant chemotherapy but died from progressive metastatic disease after four cycles."
+    },
+    {
+     "case_id": "EN106489",
+     "span": "metastases",
+     "context": "istry, consistent with melanoma. Further workup of the patient demonstrated multiple radiologic lesions consistent with metastases. Molecular studies demonstrated that the melanoma was positive for the 1799T>A (V600E) mutation in the BRAF gene. The o"
+    }
+   ]
+  },
+  {
+   "cui": "C0392508",
+   "occurrences": 3,
+   "languages": [
+    "EN",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100508",
+     "span": "spigelian hernia",
+     "context": "iliac crest. On clinical examination, a reducible mass was present in the right ileac crest. The swelling looked like a spigelian hernia [4]. However no abdominal wall defect could be palpated at that area. Moreover the ipsilateral scrotum was empty and th"
+    },
+    {
+     "case_id": "FR100996",
+     "span": "hernie de Spiegel",
+     "context": "Nous rapportons un cas de hernie de Spiegel compliquée d'occlusion chez une femme de 86 ans dont le diagnostic a été posé à la tomodensitométrie Elle avait consult"
+    }
+   ]
+  },
+  {
+   "cui": "C1260880",
+   "occurrences": 3,
+   "languages": [
+    "EN",
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100682",
+     "span": "rhinorrhea",
+     "context": "r sudden death. Two-days prior the syncope, he developed chest pain and an influenza-like illness consisting of fevers, rhinorrhea, and sore throat. At the physical exam, the patient was febrile at 39°C. He had an inflamed throat, bradycardia at card"
+    },
+    {
+     "case_id": "ES100896",
+     "span": "rinorrea",
+     "context": "asa y dificultad respiratoria de unas 10 horas de evolución. Asociaba dos vómitos, rechazo parcial de la alimentación y rinorrea. Entre sus antecedentes personales destacaban tres episodios previos de broncoespasmo. Como antecedente familiar a dest"
+    },
+    {
+     "case_id": "FR100361",
+     "span": "écoulement nasal",
+     "context": "urgences pour agitation et des troubles de comportement dans un contexte fébrile. Elle a comme antécédent une notion d'écoulement nasal clair, épisodique depuis 03 ans associé à des céphalées chroniques modérées. Il n'existait pas de notion de galactorrhé"
+    }
+   ]
+  },
+  {
+   "cui": "C1306459",
+   "occurrences": 3,
+   "languages": [
+    "EN",
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "EN101783",
+     "span": "primary right parotid malignancy",
+     "context": "l study and dynamic biochemical tests performed indicated ECS. Imaging and cytological findings pointed toward a likely primary right parotid malignancy with liver metastases. Somatostatin receptor scintigraphy has shown an increased uptake in the parotid gland and mild e"
+    },
+    {
+     "case_id": "ES100112",
+     "span": "tumoración maligna",
+     "context": "moración quística hemorrágica, adherida al lóbulo caudado del hígado, que en la biopsia intraoperatoria se informa como tumoración maligna fusocelular de alto grado, parcialmente quística, compatible con recidiva de tumor renal, la evolución post-operatoria"
+    },
+    {
+     "case_id": "ES100320",
+     "span": "tumor maligno",
+     "context": "ón de la lesión intracraneal. Se realizó PAAF y biopsia de adenopatía supraclavicular que se informa como metástasis de tumor maligno indiferenciado de origen epitelial. Más tarde se reciben los resultados siguientes: linfocitos CD4+: 440/mL, carga vira"
+    }
+   ]
+  },
+  {
+   "cui": "C4551910",
+   "occurrences": 3,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN104655",
+     "span": "acute inflammatory demyelinating polyneuropathy",
+     "context": "Twenty-five-year-old Sri Lankan female with past history of complete recovery following an acute inflammatory demyelinating polyneuropathy (AIDP) variant of Guillain-Barré syndrome 12 years back presented with acute, ascending symmetrical flaccid quadriparas"
+    }
+   ]
+  },
+  {
+   "cui": "C3887644",
+   "occurrences": 3,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN105114",
+     "span": "inflammatory infiltrate",
+     "context": "d an oral squamous cell carcinoma. Biopsy of the ulcerative lesion was performed and the microscopic features showed an inflammatory infiltrate rich in plasma cells. Based on this microscopical finding, the final diagnosis was periodontal disease associated with"
+    }
+   ]
+  },
+  {
+   "cui": "C1334003",
+   "occurrences": 3,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN106489",
+     "span": "Barrett's esophagus with high grade dysplasia",
+     "context": "An 80 year-old Caucasian male was diagnosed at an outside institution with Barrett's esophagus with high grade dysplasia and presented to our institution for therapy. The patient underwent endoscopic mucosal resection using a band ligation"
+    }
+   ]
+  },
+  {
+   "cui": "C0001430",
+   "occurrences": 3,
+   "languages": [
+    "EN",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN107405",
+     "span": "adenoma",
+     "context": "er investigations. Magnetic resonance imaging of our patient's pituitary gland failed to demonstrate the presence of an adenoma. Spiral computed tomography of her chest only revealed the presence of a non-specific 7 mm lesion in her left inferobas"
+    },
+    {
+     "case_id": "FR100683",
+     "span": "adénome",
+     "context": "50pg/ml, la FSH et la LH étaient respectivement à 15,1 UI/L et 4,1 UI/L. L'IRM hypophysaire a mis en évidence un micro adénome gauche de 8mm de diamètre. L'écho-mammographie a montré une papillomatose diffuse bilatérale. L'osteodensitométrie au s"
+    }
+   ]
+  },
+  {
+   "cui": "C0178415",
+   "occurrences": 3,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100001",
+     "span": "elevación progresiva de las cifras de PSA",
+     "context": "Paciente de 65 a. de edad, que presentaba una elevación progresiva de las cifras de PSA desde 6 ng/ml a 12 ng/ml en el último año. Dicho paciente había sido sometido un año antes a una biopsia transrectal de"
+    },
+    {
+     "case_id": "ES100051",
+     "span": "elevación de PSA",
+     "context": "adas en lóbulo derecho, sin objetivarse imágenes hipoecoicas y con un volumen prostático de 101,7 c.c. En los análisis, elevación de PSA (13,08 ng/ml.). Se indica realización de biopsia prostática transrectal. El resultado de la anatomía patológica fue inf"
+    }
+   ]
+  },
+  {
+   "cui": "C0700148",
+   "occurrences": 3,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100042",
+     "span": "congestión",
+     "context": "anestesia. El estudio anatomopatológico reveló ulceración de la mucosa con importante infiltrado inflamatorio crónico y congestión vascular, así como la presencia de células plasmáticas y linfocitos constituyendo folículos linfoides, los cuales están"
+    },
+    {
+     "case_id": "ES100832",
+     "span": "congestivo",
+     "context": "ágico. - Ambas glándulas suprarrenales con médula de aspecto congestivo-hemorrágico. - El encéfalo presenta un aspecto congestivo y edematoso generalizado, con hallazgo casual de un quiste en el lóbulo parietal izquierdo. Se remiten para estudios t"
+    }
+   ]
+  },
+  {
+   "cui": "C2143081",
+   "occurrences": 3,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100064",
+     "span": "ptosis palpebral izquierda",
+     "context": "Varón de 64 años que consultó en mayo de 2006 por disestesia facial y ptosis palpebral izquierda y proptosis del globo ocular del mismo lado. Antecedentes personales de hipertensión arterial en tratamiento médico, in"
+    }
+   ]
+  },
+  {
+   "cui": "C0267771",
+   "occurrences": 3,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100112",
+     "span": "masa retroperitoneal",
+     "context": "dose analítica apreciándose la pérdida de 5 gr/dl de hemoglobina respecto al alta. La TAC en ese momento evidenció gran masa retroperitoneal, con intenso componente hemorrágico. Se realiza laparotomía exploradora, evacuando hematoma retroperitoneal, y realizan"
+    },
+    {
+     "case_id": "ES100259",
+     "span": "masa retroperitoneal",
+     "context": "ina 4298,84 nmol/24 h (< 3237) y normetanefrinas 39676 nmol/24 h (< 2424). Se realizó ecografía abdominal objetivándose masa retroperitoneal de unos 8 cm, de ecogenicidad heterogénea y marcada vascularización. Ante este hallazgo se realizó tomografía axial com"
+    }
+   ]
+  },
+  {
+   "cui": "C0549099",
+   "occurrences": 3,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100182",
+     "span": "perforación",
+     "context": "ión vesical penetrante. Sin embargo, una vez estabilizadas las constantes vitales, se realiza cistoscopia que demuestra perforación de la pared vesical anterior por la esquirla ósea. Por un acceso suprapúbico se reparó la vejiga y extirpó el fragmento"
+    },
+    {
+     "case_id": "ES100412",
+     "span": "perforación",
+     "context": "ocos hemorrágicos y necróticos. Estos datos anatomopatológicos confirmaron el diagnóstico de melanoma uveal difuso, con perforación de la pared escleral alcanzando la superficie externa de la misma."
+    },
+    {
+     "case_id": "ES100715",
+     "span": "perforación",
+     "context": "cho hasta la región contralateral correspondiente al primer molar izquierdo que generaba abombamiento, adelgazamiento y perforación de tablas óseas. Se programó biopsia incisional e instalación de tubo de drenaje con el fin de descomprimir la lesión."
+    }
+   ]
+  },
+  {
+   "cui": "C0877211",
+   "occurrences": 3,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100280",
+     "span": "deterioro del estado general",
+     "context": "l. El paciente desestimó el tratamiento quirúrgico, necesitó varios ingresos por oclusión intestinal, sufrió progresivo deterioro del estado general y falleció poco después."
+    },
+    {
+     "case_id": "ES100571",
+     "span": "deterioro del estado general",
+     "context": "Varón de 70 años que ingresa por deterioro del estado general, astenia, anorexia y pérdida de peso de 1 mes de evolución. Intervenido de adenocarcinoma de próstata, recibió posterio"
+    },
+    {
+     "case_id": "ES100832",
+     "span": "empeoramiento del estado general",
+     "context": "alud. Tras su valoración médica se prescribe tratamiento antitérmico y observación domiciliaria. Horas después sufre un empeoramiento del estado general, con hipotensión, refiriendo además cefalea y dorsalgia, por lo que se avisa al Servicio de Urgencias, que decide su tr"
+    }
+   ]
+  },
+  {
+   "cui": "C0085642",
+   "occurrences": 3,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100410",
+     "span": "unas manchas purpúreas",
+     "context": "erismo cardíaco. Debido al aumento progresivo de la creatinina, requirió hemodiálisis, y como nuevos signos aparecieron unas manchas purpúreas en zona lateral del pie (lívido reticularis) cuya biopsia no reveló émbolos de colesterol. Remitido a oftalmología a lo"
+    },
+    {
+     "case_id": "FR100515",
+     "span": "livédo",
+     "context": "es 2 bras et des 2 cuisses apparus 2 mois auparavant associés à un érythème violacé des paupières et du décolleté et un livédo des membres inférieurs. Le testing musculaire avait conclu à un déficit musculaire proximal et l'électromyogramme à un"
+    }
+   ]
+  },
+  {
+   "cui": "C0231444",
+   "occurrences": 3,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100423",
+     "span": "inestabilidad",
+     "context": "ación de Arnold-Chiari I. La paciente contaba con una clínica de 16 años de evolución, con cefaleas de intensidad leve, inestabilidad, mareos rotatorios, vómitos autolimitados de duración variable y nistagmus vertical leve desde hacía un año. Éste últim"
+    },
+    {
+     "case_id": "ES100552",
+     "span": "inestabilidad a la marcha",
+     "context": "Mujer de 42 años de edad que consultó por historia de cefalea de 10 días de evolución que se acompañaba de inestabilidad a la marcha. Antecedentes de migraña, parálisis facial periférica \"a frigore\" hace 20 años y episodios de depresión. La exploración"
+    },
+    {
+     "case_id": "ES100848",
+     "span": "inestabilidad",
+     "context": "eta. El paciente se mantuvo asintomático hasta marzo de 2007 cuando acudió a nuestro hospital por un cuadro de astenia, inestabilidad y dolor abdominal seguido de hematemesis masiva con afectación clínica y hematológica (Hb 7,1g, hematocrito 21,5%). La"
+    }
+   ]
+  },
+  {
+   "cui": "C0000768",
+   "occurrences": 3,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100423",
+     "span": "malformación congénita",
+     "context": "de duración variable y nistagmus vertical leve desde hacía un año. Éste último ayudó a la sospecha y diagnóstico de la malformación congénita, ya que el resto de su sintomatología la relacionaba con la colitis ulcerosa que sufría hacía años. La agudeza visual ("
+    },
+    {
+     "case_id": "ES100445",
+     "span": "malformaciones",
+     "context": "jo izquierdo, presenta un disco óptico colobomatoso y pequeñas áreas hipopigmentadas coriorretinales. No presenta otras malformaciones a nivel renal o vertebral. La paciente se caracteriza por su larga supervivencia, con una edad actual de 11 años y 10 m"
+    },
+    {
+     "case_id": "FR100845",
+     "span": "malformation",
+     "context": "r les pédiatres dont l'examen initial a décelé une ectopie cardiaque avec deux trachées et deux œsophages, aucune autre malformation n'a pu être objectivé cliniquement. Les jumeaux ont présenté une détresse respiratoire intubée au niveau des deux trach"
+    }
+   ]
+  },
+  {
+   "cui": "C0037937",
+   "occurrences": 3,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100663",
+     "span": "múltiples lesiones vertebrales",
+     "context": "olor marrón-negro en tercio superior esofágico, submucosa, no ulcerada, con intensa trama vascular. - TAC y RMN dorsal: múltiples lesiones vertebrales (en D7 y desde D9 a D12) compatibles con aplastamientos vertebrales osteoporóticos. - Gammagrafía ósea y marcadores tum"
+    },
+    {
+     "case_id": "FR100168",
+     "span": "rachis traumatique",
+     "context": ". Ce saignement estimé à 2500 ml, a été jugé anormal puisque le saignement per opératoire habituel dans la chirurgie du rachis traumatique dans notre équipe est de 200 ± 50 ml par vertèbre fixée. Pour notre patient, cinq vertèbres ont dû être fixées et le sa"
+    }
+   ]
+  },
+  {
+   "cui": "C0085084",
+   "occurrences": 3,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100978",
+     "span": "enfermedad de motoneurona",
+     "context": "destaca CK de 232, estudio inmunológico y serología normal. Radiografía de tórax y lumbosacra normal. Tras sospecha de enfermedad de motoneurona se interconsulta al servicio de Medicina Interna, que solicita electromiograma (EMG) / electroneurografía (ENG) sugesti"
+    }
+   ]
+  },
+  {
+   "cui": "C0039980",
+   "occurrences": 3,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100168",
+     "span": "traumatisme thoracique",
+     "context": "agit d'un homme âgé de 38 ans, sans antécédents pathologiques connues, victime d'un accident de travail occasionnant un traumatisme thoracique avec des fractures de deux côtes sans épanchement, associé et un traumatisme dorsal occasionnant une fracture des corps"
+    },
+    {
+     "case_id": "FR100314",
+     "span": "traumatisme thoracique",
+     "context": "Patiente de 19 ans sans antécédent pathologique notable, admise au service de réanimation pour prise en charge d'un traumatisme thoracique suite à un accident de la voie publique (collision entre deux motos). Le bilan lésionnel avait objectivé un hémothorax"
+    },
+    {
+     "case_id": "FR100579",
+     "span": "traumatisme thoracique",
+     "context": "Les auteurs rapportent le cas d'un patient âgé de 50 ans, ayant comme antécédents pathologiques un traumatisme thoracique sévère à l'âge de 25 ans lors d'un stage de parachutisme, qui consulte pour des signes neurosensoriels d'une hypertensi"
+    }
+   ]
+  },
+  {
+   "cui": "C0239134",
+   "occurrences": 3,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100346",
+     "span": "toux productive",
+     "context": "e 19 ans pour une SEP progressive à l'origine d'un handicap moteur. En décembre 2012, elle nous a consulté pour fièvre, toux productive, expectorations purulentes et douleurs basi-thoraciques bilatérales. L'examen initial a objectivé une fièvre à 39°c, un"
+    },
+    {
+     "case_id": "FR100620",
+     "span": "toux productive",
+     "context": "âgé de 22 ans, porteur de charges de profession, tabagique à 8PA, consommateur de Cannabis, ayant comme antécédents une toux productive, une dyspnée stade III de Sadoul et des infections respiratoires à répétition à raison de 8 épisodes/an depuis 2 ans. A"
+    }
+   ]
+  },
+  {
+   "cui": "C1527407",
+   "occurrences": 3,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100346",
+     "span": "EP",
+     "context": "nts par mm 3. La radiographie thoracique montre une pneumopathie bilatérale étendue et mal limitée. Dans le doute d'une EP associée, un angioscanner thoracique a été réalisé et a confirmé le diagnostic d'EP en montrant un défect endoluminal l"
+    }
+   ]
+  },
+  {
+   "cui": "C0748164",
+   "occurrences": 3,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100480",
+     "span": "nodules pulmonaires",
+     "context": "tion au niveau de la 8 ème cote à la scintigraphie. Le scanner thoraco-abdomino-pelvien a objectivé la présence de deux nodules pulmonaires. La Tomographie par émission de positons au 18-FDG a montré deux nodules pulmonaires contigus latéro basaux droits faib"
+    },
+    {
+     "case_id": "FR100611",
+     "span": "multiples micronodules pulmonaires",
+     "context": "'examen direct et les cultures étaient négatifs. La PCR de BK dans le LCR était négative. La TDM thoracique montrait de multiples micronodules pulmonaires prédominant aux lobes supérieurs et aux segments supérieurs des lobes inferieurs, une image cavitaire à paroi épaissie"
+    }
+   ]
+  },
+  {
+   "cui": "C0033822",
+   "occurrences": 3,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100960",
+     "span": "PMP",
+     "context": "Nous rapportons ici le cas d'un patient de 56 ans opéré à deux reprises pour PMP d'origine appendiculaire, et qui a consulté pour douleurs abdominales évolutives, cinque ans après sa dernière cure. Le"
+    }
+   ]
+  },
+  {
+   "cui": "C4551519",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100017",
+     "span": "VI nerve palsy",
+     "context": "toms evolved: his headache became severe, he had pain behind both eyes, and he was vomiting. Examination showed a right VI nerve palsy, diplopia, and tinnitus in the right ear, with some hearing loss. He later became drowsy and had a generalised seizure."
+    }
+   ]
+  },
+  {
+   "cui": "C0027540",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100022",
+     "span": "necrosis",
+     "context": "mg and total parenteral nutrition. The patient experienced no further hematemesis or melena. Due to the severity of the necrosis, and with deterioration of his condition and persistent sepsis he died later in the same day."
+    },
+    {
+     "case_id": "EN100415",
+     "span": "necrosis",
+     "context": "regular cells with variable amounts of eosinophilic cytoplasm, mostly regular nuclei with indistinct nucleoli. Areas of necrosis were present with hemorrhage. A fibrous pseudo-capsule was noted around the tumour and the resection of the tumour appe"
+    }
+   ]
+  },
+  {
+   "cui": "C0151744",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100024",
+     "span": "Ischaemic Heart Disease (IHD)",
+     "context": "ed to our unit for consideration for coronary artery bypass grafting was a 56 year old teacher who had been managed for Ischaemic Heart Disease (IHD) at a private cardiology facility in Lagos. She had presented in July 2009 with a history suggestive of IHD and angina c"
+    }
+   ]
+  },
+  {
+   "cui": "C0264677",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100024",
+     "span": "angina class III",
+     "context": "se (IHD) at a private cardiology facility in Lagos. She had presented in July 2009 with a history suggestive of IHD and angina class III (Canadian Cardiovascular society classification) which was worsening despite medical therapy. Coronary angiography done"
+    }
+   ]
+  },
+  {
+   "cui": "C1565662",
+   "occurrences": 2,
+   "languages": [
+    "EN",
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100029",
+     "span": "acute renal impairment",
+     "context": "coma occurred on day 4 leading to intubation and mechanical ventilation. Rapidly, she experienced intractable shock and acute renal impairment despite inotropic agents leading to death on day 5."
+    },
+    {
+     "case_id": "ES100410",
+     "span": "insuficiencia renal aguda",
+     "context": "e su función renal, con una creatinina de 7,5 mg/dl y una eosinofilia del 13%, por lo que fue ingresado con sospecha de insuficiencia renal aguda por CES tras cateterismo cardíaco. Debido al aumento progresivo de la creatinina, requirió hemodiálisis, y como nuevos"
+    }
+   ]
+  },
+  {
+   "cui": "C0278701",
+   "occurrences": 2,
+   "languages": [
+    "EN",
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100046",
+     "span": "adenocarcinoma of stomach",
+     "context": "d endoscopy done showed a nodular ulcerative lesions in the antrum of stomach and histopathologic examination confirmed adenocarcinoma of stomach. Liver function tests showed a high ALP (1536 U/l), elevated INR (2.15) though bilirubin, transaminases and serum prote"
+    },
+    {
+     "case_id": "ES100642",
+     "span": "adenocarcinoma gástrico",
+     "context": "Mujer de 73 años que ingresa para cirugía programada por adenocarcinoma gástrico tras quimioterapia neodyuvante, realizándose una gastrectomía subtotal con reconstrucción mediante gastroyeyunostomía e"
+    }
+   ]
+  },
+  {
+   "cui": "C4255448",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100046",
+     "span": "metastasis",
+     "context": "vein and no IHBRD. CT scan of the abdomen revealed gross pylorus thickening with regional lymphadenopathy and skeletal metastasis with sclerotic foci involving vertebrae and pelvic bones and lytic areas in bilateral iliac blades with no liver metast"
+    },
+    {
+     "case_id": "EN100415",
+     "span": "metastasis",
+     "context": "ution. The CT scan showed a large tumour (6cm in largest diameter) in the body and tail of pancreas with no evidence of metastasis. She was prepared for exploratory laparotomy. The pancreas was explored through the gastrocolic omentum. The body and t"
+    }
+   ]
+  },
+  {
+   "cui": "C0037090",
+   "occurrences": 2,
+   "languages": [
+    "EN",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100067",
+     "span": "respiratory, digestive, laryngeal, vascular or neurologic signs",
+     "context": "for MNG. Despite of the large volume of the mass, the patient never described signs of cervical compression whatsoever respiratory, digestive, laryngeal, vascular or neurologic signs. She never suffered from thyroid dysfunction. Her neck was deformed by the voluminous formation classified grade III ac"
+    },
+    {
+     "case_id": "FR100517",
+     "span": "symptômes respiratoires",
+     "context": "munosuppresseur et corticothérapie à forte dose. L'évolution clinique est favorable avec une amélioration partielle des symptômes respiratoires mais le pneumomédiastin persiste de façon prolongée plusieurs mois après l'épisode initial. Lors d'un contrôle tomodens"
+    }
+   ]
+  },
+  {
+   "cui": "C1334458",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100067",
+     "span": "Lymphadenopathy",
+     "context": "ted to the neck. The goiter measured 18 x 11 cm. The mass was firm, painless, and mobile with the swallowing movements. Lymphadenopathy research was difficult and found no palpable lymph nodes. The laboratory tests (T 3, T 4 and TSH) were normal. Thoracic"
+    },
+    {
+     "case_id": "EN100372",
+     "span": "lymphoadenopathy",
+     "context": "dmission, he was very pale with silvery gray scalp hair, white eyelashes, he was hypotonic, tachycardic, fever of 40°C, lymphoadenopathy and hepato-splenomegaly. The blood count showed pancytopenia; 1980 white blood cells/µL (VN 4000-13 500/µL), neutrophil"
+    }
+   ]
+  },
+  {
+   "cui": "C0030794",
+   "occurrences": 2,
+   "languages": [
+    "EN",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100068",
+     "span": "pelvic pain",
+     "context": "woman, G2P1001, married, at 9 weeks of pregnancy. She consulted at our emergency service for the exacerbation of a left pelvic pain that has been evolving for two weeks prior to admission. A transient lull was observed following a treatment with a pro"
+    },
+    {
+     "case_id": "FR100614",
+     "span": "douleur pelvienne",
+     "context": ", sans antécédent pathologique particulier, le début de ses symptômes remonte à quatre mois avant son admission par une douleur pelvienne à type de pesanteur d'aggravationprogressive associé à une augmentation progressivedu volume abdominopelvien, sans trou"
+    }
+   ]
+  },
+  {
+   "cui": "C2045790",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100090",
+     "span": "chemosis bilaterally",
+     "context": "resentation revealed an otherwise normal child with bilateral complete eversion of the upper eyelids. There were marked chemosis bilaterally worst in the right. Both eyes were double-everted using lid retractor in order to assess the conditions of the two eyeb"
+    }
+   ]
+  },
+  {
+   "cui": "C0242429",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100123",
+     "span": "sore throat",
+     "context": "emergency department with fever (39.4oC), tachycardia (116 bpm), hypotension (95/45 mmHg), tachypnoea (25 breaths/min), sore throat, neck pain, diffuse pain and tissue oedema in the right-side gluteal region. She was appointed to hospital by a private"
+    },
+    {
+     "case_id": "EN100682",
+     "span": "sore throat",
+     "context": "Two-days prior the syncope, he developed chest pain and an influenza-like illness consisting of fevers, rhinorrhea, and sore throat. At the physical exam, the patient was febrile at 39°C. He had an inflamed throat, bradycardia at cardiac auscultation"
+    }
+   ]
+  },
+  {
+   "cui": "C4049440",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100123",
+     "span": "occlusion of left internal jugular vein",
+     "context": "along the anterior margin of the sternocleidomastoid muscle was also noticed. Vascular ultrasound examination revealed occlusion of left internal jugular vein. Transcranial Doppler examination was normal. Dental consultation and examination of soft palate and peritonsilar tissu"
+    }
+   ]
+  },
+  {
+   "cui": "C0151293",
+   "occurrences": 2,
+   "languages": [
+    "EN",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100129",
+     "span": "chronic headaches",
+     "context": "as inscribed daily doses of ketiapin 25 mg for anxiety disorder and venlafaxine 75 mg for both anxiety disorder and the chronic headaches. She was also inscribed NSAID drugs. After the first week of this treatment her headaches were slightly decreased by he"
+    },
+    {
+     "case_id": "FR100361",
+     "span": "céphalées chroniques",
+     "context": "n contexte fébrile. Elle a comme antécédent une notion d'écoulement nasal clair, épisodique depuis 03 ans associé à des céphalées chroniques modérées. Il n'existait pas de notion de galactorrhée ni d'autres signes d'insuffisance antéhypophysaire. On retrouvait"
+    }
+   ]
+  },
+  {
+   "cui": "C1302824",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100156",
+     "span": "synovial metaplasia",
+     "context": "iple loose bodies within this compartment and nodules were fixed to the synovium. On the left one, we found an isolated synovial metaplasia in the subvastus quadriceps-sparing. A synovectomy with debridement and excision of these bodies was thus performed. Th"
+    }
+   ]
+  },
+  {
+   "cui": "C0425957",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100275",
+     "span": "secondary amenorrhea",
+     "context": "wo months and then it stopped. Based on clinical examination and a physical examination, the patient was diagnosed with secondary amenorrhea. Investigations that were used are ultrasonography, thorax X-ray and CT Scan Head. Ultrasonography and thorax X-Ray sho"
+    }
+   ]
+  },
+  {
+   "cui": "C0275958",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100275",
+     "span": "tuberculosis endometritis",
+     "context": "th a pale colored connective tissue in the uterine cavum, which refers to the diagnosis of secondary amenorrhea suspect tuberculosis endometritis, while the result of tissue curettage was examined on the Anatomical Pathology department. Results of anatomical pathol"
+    }
+   ]
+  },
+  {
+   "cui": "C0020683",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100340",
+     "span": "hypovolemic shock",
+     "context": "3 km away. It was referred for postpartum hemorrhage. His medical history was featureless. On admission, she presented hypovolemic shock with blood pressure 76/44 mmHg, regular tachycardia at 136 beats per minute, polypnea to 39 cycles per minute. The obst"
+    }
+   ]
+  },
+  {
+   "cui": "C0398794",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100372",
+     "span": "Griscelli Syndrome",
+     "context": "ous family, notion of recurrent infection and the presence of silvery-gray color of the hair and eyebrows, diagnosis of Griscelli Syndrome was evoked directing a light microscopy examination of the hair that showed a large, irregular clumps of pigments chara"
+    }
+   ]
+  },
+  {
+   "cui": "C0235031",
+   "occurrences": 2,
+   "languages": [
+    "EN",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100383",
+     "span": "neurological signs",
+     "context": "led a pinnkish burgeoning mass bleeding on contact and filling the right nostril vestibule. The patient didn't presents neurological signs nor cervical lymph nods. Otherwise, ophthalmologic examination found normal visual acuity and ocular mobility on both s"
+    },
+    {
+     "case_id": "FR100689",
+     "span": "symptômes psychiatriques et neurologiques",
+     "context": "endant les deux premiers mois du traitement. L'évolution a été marquée, d'une part, par une disparition progressive des symptômes psychiatriques et neurologiques à l'exception de la diparésie faciale qui a persisté malgré les séances de rééducation, et d'autre part, par un effacem"
+    }
+   ]
+  },
+  {
+   "cui": "C0002895",
+   "occurrences": 2,
+   "languages": [
+    "EN",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100385",
+     "span": "sickle cell disease",
+     "context": "A 45 year old female with history of sickle cell disease presented with abdominal pain. A CT scan revealed an exophytic renal mass measuring 2.9cm x 2.0cm x 2.1cm located on th"
+    },
+    {
+     "case_id": "FR100986",
+     "span": "maladie drépanocytaire",
+     "context": "rothèse totale de la hanche (PTH) douze ans auparavant. Notre observation rappelle la grande variabilité clinique de la maladie drépanocytaire imposant un dépistage précoce des patients à risque avec une surveillance clinique adaptée afin d'éviter l'évolution ve"
+    }
+   ]
+  },
+  {
+   "cui": "C5203670",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100606",
+     "span": "COVID-19",
+     "context": "as noted. The rest of the systemic examination was within normal limits. Considering this as a probable case of TB with COVID-19 he was advised a chest radiograph with sputum microscopy (Ziehl Neelsen (ZN) staining for acid-fast bacilli), Cartridge"
+    }
+   ]
+  },
+  {
+   "cui": "C0347813",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100655",
+     "span": "talus fracture",
+     "context": "hours. His parents had noted an ankle trauma in the previous week. The primary care physician had initially suspected a talus fracture. His right ankle was immobilized by a plaster splint and his parents were instructed to apply ice. However, the child c"
+    }
+   ]
+  },
+  {
+   "cui": "C3888418",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100700",
+     "span": "colicky abdominal pain",
+     "context": "A 17 months girl have been consulted in our service for colicky abdominal pain often associated with constipation and loss of appetite, since she was six months old. Parents kept her at home until t"
+    }
+   ]
+  },
+  {
+   "cui": "C0159059",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN100700",
+     "span": "visible peristalsis",
+     "context": "ated with constipation and loss of appetite, since she was six months old. Parents kept her at home until they remarked visible peristalsis on the abdominal wall, which lead them to consult our service. She was born from a full-term and uncomplicated pregnanc"
+    }
+   ]
+  },
+  {
+   "cui": "C0010481",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN101783",
+     "span": "hypercortisolism",
+     "context": "liver metastasis. The patient underwent right parotidectomy, and histopathologic examination confirmed ACC. Meanwhile, hypercortisolism was managed with metyrapone, ketoconazole, and lanreotide. Despite chemotherapy onset, a rapid disease progression and"
+    },
+    {
+     "case_id": "EN107405",
+     "span": "Cushing's syndrome-like",
+     "context": "A 37-year-old Arabian woman presented with 12 months of progressive Cushing's syndrome-like symptoms. Biochemical evaluation confirmed adrenocorticotropic hormone -dependent Cushing's syndrome. However, the anat"
+    }
+   ]
+  },
+  {
+   "cui": "C4087471",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN103220",
+     "span": "metastatic cholangiocarcinoma",
+     "context": "Here we report a case of aggressive metastatic cholangiocarcinoma (MCC) in 72-year-old man, sequentially treated with two targeted chemotherapies. Initially disease quickly progressed d"
+    }
+   ]
+  },
+  {
+   "cui": "C2183784",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN103266",
+     "span": "left ear discharge",
+     "context": "A 61-year-old man presented with chronic left ear discharge, left-sided headache, diplopia associated with vertigo, tinnitus, and hearing impairment. MRI with contrast showed asym"
+    }
+   ]
+  },
+  {
+   "cui": "C1879828",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN103589",
+     "span": "benign teratoma",
+     "context": "al and ultrasound examinations revealed ovarian enlargement with a diameter of 50 mm with hypoechoic zones suspected of benign teratoma. The diagnostic test such as Ca-125, AFP, free-T4 and TSH was in normal range. A smooth, solid right ovarian 50 an mm-s"
+    },
+    {
+     "case_id": "EN107423",
+     "span": "benign cystic teratoma",
+     "context": "f 15 cm × 15 cm at presentation. There were no other associated abnormalities. Investigations revealed the lump to be a benign cystic teratoma. The patient underwent surgery, and the whole tumor, from its base to the vertebrae, was excised. Bisection of the tumo"
+    }
+   ]
+  },
+  {
+   "cui": "C0018378",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN104655",
+     "span": "Guillain-Barré syndrome",
+     "context": "e with past history of complete recovery following an acute inflammatory demyelinating polyneuropathy (AIDP) variant of Guillain-Barré syndrome 12 years back presented with acute, ascending symmetrical flaccid quadriparasis extending to bulbar muscles, bilateral"
+    }
+   ]
+  },
+  {
+   "cui": "C0030809",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN105023",
+     "span": "PV",
+     "context": "In May 2014 a 49 year gentleman was admitted for widespread mucocutaneous blistering diagnosed as PV by histology and immunofluorescence. After 6 weeks of treatment with systemic steroids and azathioprine the patient dev"
+    }
+   ]
+  },
+  {
+   "cui": "C0206674",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN105094",
+     "span": "villous papilloma",
+     "context": "ogeneous 5 × 3-cm mass obstructing the common bile duct. The results of brush cytology were consistent with a bile duct villous papilloma. However, on the basis of the tumor's radiological features, a preliminary diagnosis of extrahepatic bile duct malignan"
+    }
+   ]
+  },
+  {
+   "cui": "C0019621",
+   "occurrences": 2,
+   "languages": [
+    "EN",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN105114",
+     "span": "LCH",
+     "context": "1a, CD-68 and CD45RO that were positive. These immunohistochemical findings were fundamental for the final diagnosis of LCH. The treatment included surgical extraction of all superior teeth, radiation and systemic corticoid therapies. After 8"
+    },
+    {
+     "case_id": "FR100620",
+     "span": "HistiocytoseLangerhansienne",
+     "context": "lingula, le segment latéral du lobe moyen et les deux pyramides basales. L'aspect scannographique était en faveur d'une HistiocytoseLangerhansienne. Une bronchoscopie a été réalisée avec lavage broncho alvéolaire LBA et biopsies étagées à droite et à gauche. L'aspect"
+    }
+   ]
+  },
+  {
+   "cui": "C0155843",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN106156",
+     "span": "retropharyngeal abscess",
+     "context": "without contrast enhancement in the posterior neck. The latter was suspected to be a deep neck infection secondary to a retropharyngeal abscess. After surgery, the patient was diagnosed with a retropharyngeal abscess and concurrent cystic lymphangioma. The lesion"
+    }
+   ]
+  },
+  {
+   "cui": "C1963221",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN106841",
+     "span": "aspiration",
+     "context": "agement included metoclopramide and reduced tube-feeding rates, which improved her symptoms. However, within months the aspiration and increased residuals returned. After trials of different medication therapies without success, she started mirtazapi"
+    }
+   ]
+  },
+  {
+   "cui": "C0686619",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN108139",
+     "span": "lymph nodes positive for metastasis",
+     "context": "stophotomicrograph of the excised breast lesion showed a 2.1 cm duct carcinoma, positive for ER and PR with 1 out of 25 lymph nodes positive for metastasis. She received 6 cycles of chemotherapy with cyclophosphamide, epirubicin, and 5-fluorouracil. This was followed by tamo"
+    },
+    {
+     "case_id": "EN108798",
+     "span": "lymph node metastases",
+     "context": "r-old woman with a minute ampullary carcinoid tumor that was 7 mm in diameter, but was associated with 2 peripancreatic lymph node metastases. Mild elevation of liver enzymes was found at her regular medical check-up. Computed tomography (CT) revealed a markedl"
+    }
+   ]
+  },
+  {
+   "cui": "C2363142",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN108139",
+     "span": "T-cell prolymphocytic leukemia",
+     "context": "s, constituting almost 75% of total nucleated cell population. Immunophenotying, established a diagnosis of post thymic T-cell prolymphocytic leukemia. Contrast-enhanced computed tomography of the chest and abdomen was done which revealed an anterior mediastinal mass wi"
+    }
+   ]
+  },
+  {
+   "cui": "C0153676",
+   "occurrences": 2,
+   "languages": [
+    "EN",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "EN108139",
+     "span": "lung metastasis",
+     "context": "tinal mass with destruction of sternum along with multiple small nodular shadows in bilateral lung fields suggestive of lung metastasis. Fine needle aspiration cytology of the mass showed atypical ductal cells with nuclear pleomorphism, which were positiv"
+    },
+    {
+     "case_id": "FR100629",
+     "span": "métastases ganglionnaires et pulmonaires",
+     "context": "mphoïdes, les marqueurs neuroendocrine, les marqueurs mélaniques et la protéine S100. Le bilan d'extension a montré des métastases ganglionnaires et pulmonaires. La décision thérapeutique prise en RCP (réunion de concertation pluridisciplinaire) était une chimiothérapie systémiqu"
+    }
+   ]
+  },
+  {
+   "cui": "C1406102",
+   "occurrences": 2,
+   "languages": [
+    "EN"
+   ],
+   "examples": [
+    {
+     "case_id": "EN108254",
+     "span": "sacral wound",
+     "context": "Brindley sacral anterior root stimulator was implanted. On eleventh post-operative day, blood stained fluid came out of sacral wound. Microbiology of exudates showed growth of Pseudomonas aeruginosa, sensitive to gentamicin. As discharge of serosanguin"
+    }
+   ]
+  },
+  {
+   "cui": "C0232807",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100002",
+     "span": "anulación funcional de riñón",
+     "context": "s negativos. En estudio ecográfico se observa ureteropielocaliectasia grado II de riñón derecho y en U.I.V. se objetiva anulación funcional de riñón derecho, motivo por el cuál, se practica nefrostomia percutánea derecha, que confirma el hallazgo urográfico. Ocho mese"
+    },
+    {
+     "case_id": "ES100410",
+     "span": "empeoramiento de su función renal",
+     "context": "iente presentó un síndrome general con astenia y anorexia evidenciándose en la analítica realizada a las dos semanas un empeoramiento de su función renal, con una creatinina de 7,5 mg/dl y una eosinofilia del 13%, por lo que fue ingresado con sospecha de insuficiencia rena"
+    }
+   ]
+  },
+  {
+   "cui": "C3872830",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100002",
+     "span": "lesión inflamatoria",
+     "context": "a. El dictamen histopatológico de la pieza nos informa de pielonefritis crónica y cambios de arteriosclerosis, así como lesión inflamatoria ureteral que oblitera la luz con infiltrado de linfocitos en capas musculares, erosión de urotelio y presencia de Actin"
+    },
+    {
+     "case_id": "ES100605",
+     "span": "lesión inflamatoria",
+     "context": "compañado de lesiones focales en el tercio inferior del esófago. El estudio histológico demostró, en ambos órganos, una lesión inflamatoria de carácter necrotizante, evidenciándose cambios citopáticos propios de infección herpética, consistentes en imágenes d"
+    }
+   ]
+  },
+  {
+   "cui": "C0149978",
+   "occurrences": 2,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100030",
+     "span": "adenocarcinoma rectal",
+     "context": "Presentamos el caso de un varón de 61 años diagnosticado, intervenido y tratado por un adenocarcinoma rectal desde 18 meses antes. Consultó por aumento del tamaño peneano, doloroso, junto a la aparición de unas lesiones eritemat"
+    },
+    {
+     "case_id": "FR100766",
+     "span": "adénocarcinome rectal",
+     "context": "Patient de 75 ans, sans antécédents pathologiques, opéré initialement pour un adénocarcinome rectal à 1cm de la marge anale post radio-chimiothérapie et non métastatique. Une amputation abdomino-périnéale a été réalisée"
+    }
+   ]
+  },
+  {
+   "cui": "C0035648",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100042",
+     "span": "factores de riesgo",
+     "context": "zadas en trígono y parte inferior de ambas caras laterales. Debido a este hallazgo, a pesar de que la paciente no tenía factores de riesgo para TBC y la urografía fue rigurosamente normal, se realizó baciloscopia en orina y cultivo Lowenstein-Jensen de 6 mue"
+    },
+    {
+     "case_id": "ES100994",
+     "span": "factores de riesgo",
+     "context": "s la osteoporosis como factor predisponente, ya que la paciente no era obesa, ni había presentado traumatismos ni otros factores de riesgo. El hecho de que los dos episodios de dolor se iniciasen el mismo mes (coincidiendo con cambio de estación) con un año"
+    }
+   ]
+  },
+  {
+   "cui": "C0041295",
+   "occurrences": 2,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100042",
+     "span": "tuberculomas",
+     "context": "la primera orina de la mañana en días consecutivos, ya que las lesiones vesicales macroscópicamente podrían tratarse de tuberculomas, siendo estos estudios negativos para bacilo de Koch, por lo que se realizó resección endoscópica de las lesiones descr"
+    },
+    {
+     "case_id": "FR100611",
+     "span": "tuberculomes",
+     "context": "syndrome pyramidal latéralisé à droite et des adénopathies latéro-cervicales. L'IRM cérébrale: montrait d'une part des tuberculomes intra-parenchymateux cérébraux dont un de siège frontal gauche et l'autre cérébelleux vermien d'autre part un épaississ"
+    }
+   ]
+  },
+  {
+   "cui": "C0021376",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100051",
+     "span": "inflamación crónica",
+     "context": "resultado de la anatomía patológica fue informado como nevus azul prostático. Se describe un parénquima prostático con inflamación crónica y reacción granulomatosa de tipo cuerpo extraño, con presencia de gránulos intracitoplásmicos y melanocitos fusiformes"
+    },
+    {
+     "case_id": "ES100571",
+     "span": "inflamación aguda y crónica",
+     "context": "o, con estenosis regular fibrótica a dicho nivel que impidió la progresión. Se tomaron múltiples biopsias que mostraron inflamación aguda y crónica inespecífica, sin evidenciarse la presencia de eosinófilos a ningún nivel, siendo el diagnóstico de presunción el de co"
+    }
+   ]
+  },
+  {
+   "cui": "C0497179",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100063",
+     "span": "alteración del hábito intestinal",
+     "context": "ue es estudiada por el Servicio de digestivo por dolor en hipocondrio derecho de 6 meses de evolución, acompañándose de alteración del hábito intestinal. No presenta síndrome general ni clínica urológica. A la exploración física impresiona de buen estado general, normohid"
+    },
+    {
+     "case_id": "ES100571",
+     "span": "cambio del ritmo intestinal",
+     "context": "antes de su ingreso, en tratamiento con hormonoterapia. Desde que comenzó tratamiento radioterápico el paciente refiere cambio del ritmo intestinal, con alternancia de diarrea y estreñimiento y dolores cólicos frecuentes, acompañados de urgencia y tenesmo defecatorio"
+    }
+   ]
+  },
+  {
+   "cui": "C3163918",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100079",
+     "span": "trombo tumoral",
+     "context": "tensión con radiografía de tórax, hemograma, bioquímica y tomografía computerizada abdomino-pélvica, donde se evidenció trombo tumoral que se extendía por la vena renal hasta la vena cava retrohepática. Ante este caso se decidió en el centro emisor, colo"
+    }
+   ]
+  },
+  {
+   "cui": "C0581912",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100091",
+     "span": "pesadez",
+     "context": "Paciente de 58 años de origen subsahariano que acude a Urgencias por sudoración y fiebre con dolor lumbar izquierdo, pesadez en flanco de dicho lado y disuria de unos 15 días. Dentro de sus antecedentes personales no destaca ninguna patología t"
+    }
+   ]
+  },
+  {
+   "cui": "C0423605",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100091",
+     "span": "cólicos",
+     "context": "no destaca ninguna patología trascendente: No DM. No HTA. No alergias conocidas. Ex fumador de 8 años. No hematuria. No cólicos. No ITUs. Relata que en las últimas dos semanas presenta febrícula ocasional, sudoración, pesadez en flanco izquierdo c"
+    },
+    {
+     "case_id": "ES100571",
+     "span": "dolores cólicos",
+     "context": "tratamiento radioterápico el paciente refiere cambio del ritmo intestinal, con alternancia de diarrea y estreñimiento y dolores cólicos frecuentes, acompañados de urgencia y tenesmo defecatorio. De la exploración física únicamente cabe reseñar un abdomen"
+    }
+   ]
+  },
+  {
+   "cui": "C1266119",
+   "occurrences": 2,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100098",
+     "span": "tumor fibroso solitario",
+     "context": "para marcadores fibroblásticos: vimentina y actina, todo ello compatible con proliferación fibroblástica reactiva o con tumor fibroso solitario. Con el resultado obtenido, se decidió completar la cirugía, y en ese momento, se optó por realizar cistectomía parcial"
+    },
+    {
+     "case_id": "FR100597",
+     "span": "tumeur fibreuse solitaire",
+     "context": "e en peropératoire et en attendant l'étude anatomo-pathologique définitive. L'examen anatomopathologique a conclu à une tumeur fibreuse solitaire avec des signes de malignité: taille importante, présence focale de nécrose tumorale, de densité et de pléomorphisme ce"
+    }
+   ]
+  },
+  {
+   "cui": "C3665919",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100112",
+     "span": "síndrome constitucional",
+     "context": "Varón de 67 años de edad que ingresa en el servicio de medicina interna por síndrome constitucional, anemia y masa en flanco derecho. Como antecedentes personales de interés, destacan: accidente cerebro vascular en terr"
+    },
+    {
+     "case_id": "ES100634",
+     "span": "síndrome constitucional",
+     "context": "Mujer de 28 años que refiere epigastralgias y síndrome constitucional de un mes de evolución. La TC mostró una masa de 15 x 13 x 7 cm dependiente del colon ascendente con metástasis hepátic"
+    }
+   ]
+  },
+  {
+   "cui": "C0035522",
+   "occurrences": 2,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100182",
+     "span": "fracturas en extremidades superior e inferior derechas y costales",
+     "context": "Varón de 75 años que es encontrado accidentado en la vía pública, con trauma cráneo-encefálico, fracturas en extremidades superior e inferior derechas y costales, con enfisema subcutáneo intenso, y hematuria leve. Ingresa en la Unidad de Cuidados Intensivos para soporte ventilator"
+    },
+    {
+     "case_id": "FR100314",
+     "span": "fracture des cotes",
+     "context": "ique (collision entre deux motos). Le bilan lésionnel avait objectivé un hémothorax droit avec fracture d'humérus, sans fracture des cotes ou la clavicule. Il n'y avait pas de signe de détresse respiratoire ou hémodynamique, un drainage thoracique a été réal"
+    }
+   ]
+  },
+  {
+   "cui": "C0948347",
+   "occurrences": 2,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100273",
+     "span": "nefroangiosclerosis",
+     "context": ", hipertensa, diabética, obesa, dislipémica y con enfermedad renal crónica (ERC) posiblemente secundaria a diabetes y/o nefroangiosclerosis, en HD desde enero de 2008. Ámbito socioeconómico bajo, convivencia con animales y mala higiene personal. Se realiza fí"
+    },
+    {
+     "case_id": "FR100874",
+     "span": "néphroangiosclérose",
+     "context": "Mme F N, âgée de 61 ans, hémodialysée chronique depuis 5 ans pour une maladie rénale chronique stade V par néphroangiosclérose bénigne, qui avait été hospitalisée au service de néphrologie de l'hôpital Aristide Le Dantec de Dakar pour une hémorra"
+    }
+   ]
+  },
+  {
+   "cui": "C0860239",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100273",
+     "span": "infecciones de puerta de entrada del catéter",
+     "context": "ca izquierda, con evolución tórpida, realizando HD por CVC transitorio (múltiples retiradas y nuevas canalizaciones por infecciones de puerta de entrada del catéter [PEC]). Ingresa por cuadro de fiebre y escalofríos tras diálisis, compatible con bacteriemia, con hemocultivos positivo"
+    }
+   ]
+  },
+  {
+   "cui": "C0240318",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100320",
+     "span": "masa mediastínica",
+     "context": "dor. Gasometría arterial basal al ingreso: pH 7,54, pCO2 34,8 mm Hg, pO2 73,4 mmHg. En la placa de tórax se observa una masa mediastínica anterior derecha que comprime y desplaza la tráquea y un infiltrado alveolo-intersticial bilateral. Posteriormente se r"
+    }
+   ]
+  },
+  {
+   "cui": "C0457436",
+   "occurrences": 2,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100320",
+     "span": "hemiparesia izquierda",
+     "context": "bilitando la retirada de la ventilación mecánica. Posteriormente presenta crisis tónico-clónica generalizada seguida de hemiparesia izquierda; se realiza TAC y RMN craneal, observándose una masa de pared gruesa y centro hipodenso de 4 cm de diámetro en encrucij"
+    },
+    {
+     "case_id": "FR100946",
+     "span": "hémiparésie gauche",
+     "context": "it une patiente consciente GCS= 15, pupilles égales et réactives, station debout et marche possible sans anomalie, avec hémiparésie gauche 4/5 sans autres signes neurologiques. L'IRM cérébrale objectivait en séquence T1 non injectée une lésion pariétale droi"
+    }
+   ]
+  },
+  {
+   "cui": "C0264545",
+   "occurrences": 2,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100363",
+     "span": "engrosamiento de língula, y pleura",
+     "context": "con broncograma aéreo; tractos pleuroparenquimatosos biapicales bronquiectasias cilíndricas de pared fina en LII y con engrosamiento de língula, y pleura. TAC abdominal vejiga urinaria con engrosamiento del suelo vesical, con múltiples divertículos, hipertrofia prostática."
+    },
+    {
+     "case_id": "FR100629",
+     "span": "épaississement pleural",
+     "context": "(tomodensitométrie) thoracique objectivant un épanchement pleural liquidien de grande abondance cloisonné associé à un épaississement pleural sans masse individualisable. La thoracoscopie avec la réalisation d'une biopsie pleurale était en faveur d'un sarcome é"
+    }
+   ]
+  },
+  {
+   "cui": "C0028778",
+   "occurrences": 2,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100410",
+     "span": "obstrucción",
+     "context": "vo, se realizó una coronariografía mediante cateterismo cardíaco, que mostró una enfermedad coronaria de tres vasos con obstrucción no revascularizable del puente de safena a obtusa marginal. Previamente al procedimiento el paciente se encontraba en t"
+    },
+    {
+     "case_id": "FR100996",
+     "span": "occlusion",
+     "context": "Nous rapportons un cas de hernie de Spiegel compliquée d'occlusion chez une femme de 86 ans dont le diagnostic a été posé à la tomodensitométrie Elle avait consulté aux urgences chirurgi"
+    }
+   ]
+  },
+  {
+   "cui": "C0563521",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100412",
+     "span": "diseminación metastásica",
+     "context": "e con el diagnóstico de melanoma de coroides (1). El Servicio de Oncología realizó un estudio de extensión que descartó diseminación metastásica. Dada la extensión tumoral, la sintomatología del paciente y la ausencia de posibilidad de recuperación visual se plant"
+    },
+    {
+     "case_id": "ES100848",
+     "span": "diseminación metastásica",
+     "context": "isodios de sangrado. El paciente fue dado de alta quedando asintomático durante otros 5 meses tras los que falleció por diseminación metastásica."
+    }
+   ]
+  },
+  {
+   "cui": "C0000921",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100519",
+     "span": "caída accidental",
+     "context": "gencias por un episodio de mareo y sudoración profusa. Está afebril y taquicárdica (114 latidos por minuto) Refiere una caída accidental 4 días antes, con traumatismo sobre miembrosinferiores, que en ese momento no produjo lesiones cutáneas o puerta de ent"
+    }
+   ]
+  },
+  {
+   "cui": "C0238124",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100519",
+     "span": "fascitis necrosante",
+     "context": "al aspecto hemorrágico de las lesiones y al dolor desproporcionado a la exploración, el diagnóstico de sospecha fue de fascitis necrosante bilateral, a pesar de que la paciente no presentara factores predisponentes generales y que como factor local sólo pres"
+    }
+   ]
+  },
+  {
+   "cui": "C0022116",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100519",
+     "span": "isquemia",
+     "context": "jido desbridado que nos aporta el diagnóstico definitivo de fascitis necrotizante, presentando importantes fenómenos de isquemia y necrosis de la fascia, con vasos trombosados y fenómenos hemorrágicos en la piel y el tejido celular subcutáneo La ev"
+    },
+    {
+     "case_id": "ES100705",
+     "span": "isquemia",
+     "context": "atrás hacia delante. Veintiún días después de la cirugía se realiza una prueba de perfusión, no se observaron datos de isquemia, por lo que se eliminó el pedículo bajo anestesia local. Se logró un cierre satisfactorio de la fístula, se presentó un"
+    }
+   ]
+  },
+  {
+   "cui": "C0743086",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100561",
+     "span": "dermatitis granulomatosa",
+     "context": "Plástica, desde este Servicio se solicita biopsia y exéresis de la lesión. Siendo los resultados anatomo-patológicos de dermatitis granulomatosa, con necrosis ocasional, muy sugestivo de dermatitis tuberculosa. (Imagen 4) Imagen 4. Anatomía patológica: dermatitis"
+    }
+   ]
+  },
+  {
+   "cui": "C0014335",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100571",
+     "span": "enteritis",
+     "context": "tanto del yeyuno como del resto del íleon por engrosamiento parietal, todo ello compatible como primera posibilidad con enteritis actínica, y siendo la última asa ileal de calibre normal con pliegues conservados. Dado que las exploraciones realizad"
+    }
+   ]
+  },
+  {
+   "cui": "C0085666",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100578",
+     "span": "spiders",
+     "context": "ran, cediendo espontáneamente tras compresión. En la exploración física destaca ligera esplenomegalia y la presencia de spiders en región nasal y tórax. En la analítica se objetivó GOT 108 U/l, GPT 113 U/l, GGT 131 U/l, fosfatasa alcalina 116 U/l,"
+    }
+   ]
+  },
+  {
+   "cui": "C0600452",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100578",
+     "span": "síndrome hepatopulmonar",
+     "context": "nte el seguimiento la paciente refiere empeoramiento de la astenia y disnea de moderados esfuerzos. Ante la sospecha de síndrome hepatopulmonar se realizó una gasometría arterial y espirometría: FEV1 105,9%, FVC 101,8%, FEV1/FVC 87,52 así como un ecocardiograma c"
+    }
+   ]
+  },
+  {
+   "cui": "C0019372",
+   "occurrences": 2,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100605",
+     "span": "infección herpética",
+     "context": "stró, en ambos órganos, una lesión inflamatoria de carácter necrotizante, evidenciándose cambios citopáticos propios de infección herpética, consistentes en imágenes de multinucleación y presencia de cuerpos de Cowdry tipo A."
+    },
+    {
+     "case_id": "FR100276",
+     "span": "herpès",
+     "context": "de l'examen était sans particularité. Un bilan comprenant les sérologies virales habituelles (cytomégalovirus, rubéole, herpès, varicelle) et bactériennes (notamment listeria et chlamydia), une recherche d'agglutinines irrégulières, un bilan vasc"
+    }
+   ]
+  },
+  {
+   "cui": "C0425291",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100631",
+     "span": "tabaquismo",
+     "context": "Como únicos antecedentes de interés destacaban una tuberculosis tratada, hipercolesterolemia en tratamiento dietético y tabaquismo leve. La analítica mostró los siguientes datos: bilirrubina 19,44 mg/dl, GOT 110 UI/ml, GPT 371 UI/ml, GGT 632 UI/ml, F"
+    },
+    {
+     "case_id": "ES100715",
+     "span": "tabaquismo",
+     "context": "rsonales hipertensión y diabetes tipo 2 controladas mediante tratamiento médico convencional. No presentaba historia de tabaquismo o consumo de alcohol. Al examen físico pudo apreciarse un gran aumento de volumen en la zona anterior mandibular de con"
+    }
+   ]
+  },
+  {
+   "cui": "C0025235",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100688",
+     "span": "SMR",
+     "context": "ejo Hospitalario San José en octubre de 2006, derivado del Servicio de Dermatología del mismo centro con diagnóstico de SMR por presentar aumento de volumen del labio inferior que no ha presentado respuesta al tratamiento con corticoides intra"
+    }
+   ]
+  },
+  {
+   "cui": "C0149663",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100705",
+     "span": "dehiscencia",
+     "context": "blando a la edad de 6 meses y palatoplastía del paladar duro a los 4 años, presentando en este último procedimiento una dehiscencia (fístula oronasal) que provocaba rinofonía y reflujo nasal de los alimentos. En la exploración intraoral observamos una"
+    }
+   ]
+  },
+  {
+   "cui": "C0302313",
+   "occurrences": 2,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100713",
+     "span": "lesión osteolítica",
+     "context": "na trabeculada y expansión cortical sin infiltración ni reacción perióstica. La resonancia magnética (RM) describió una lesión osteolítica malar expansiva de 16x10x13mm, con márgenes escleróticos bien definidos, ausencia de infiltración de partes blandas per"
+    },
+    {
+     "case_id": "FR100666",
+     "span": "lésions ostéolytiques",
+     "context": "onistes. A la palpation, il s'agissait de tuméfactions molles et douloureuses. La radiographie panoramique montrait des lésions ostéolytiques généralisées avec un élargissement desmodontal et la disparition de la lamina dura ainsi qu'une opacité comblant la moi"
+    }
+   ]
+  },
+  {
+   "cui": "C0158570",
+   "occurrences": 2,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100713",
+     "span": "lesión vascular",
+     "context": "e infiltración de partes blandas perilesionales e intensa captación de contraste. Ante el diagnóstico de presunción de lesión vascular de bajo flujo, y dadas las características progresivas de la lesión, se decidió extirpación de la lesión bajo anestesia"
+    },
+    {
+     "case_id": "FR100845",
+     "span": "anomalies vasculaires",
+     "context": "de 5 dixième devenant 7 dixième a la 5 minutes. Le poids de naissance était de 3300g. L'examen du délivre objective des anomalies vasculaires, trois artères et une veine. Les jumeaux examinés par les pédiatres dont l'examen initial a décelé une ectopie cardiaqu"
+    }
+   ]
+  },
+  {
+   "cui": "C0238790",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100715",
+     "span": "franca destrucción de tablas óseas",
+     "context": "rvó un aumento del compromiso de los tejidos producto de la lesión, con relación a las condiciones previas, presentando franca destrucción de tablas óseas tanto vestibular como lingual. Luego de 3 semanas de ejecutado el procedimiento de descompresión, y teniendo en cuenta"
+    },
+    {
+     "case_id": "ES100946",
+     "span": "destrucción de la cortical ósea",
+     "context": "ultiloculada, localizada en rama horizontal mandibular. La tomografía computerizada presentaba una lesión expansiva con destrucción de la cortical ósea. Con el diagnóstico provisional de probable ameloblastoma se procedió a la resección-biopsia de la lesión. Mediante inc"
+    }
+   ]
+  },
+  {
+   "cui": "C0564119",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100727",
+     "span": "dificultad de fonación",
+     "context": "Paciente H.V.P.D., 16 años, se presentó con queja principal de dificultad de fonación. Durante el examen físico, se observó que el paciente presentaba elevada estatura, patrón facial III, con severa hipopl"
+    }
+   ]
+  },
+  {
+   "cui": "C0302148",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100736",
+     "span": "coágulo sanguíneo",
+     "context": "que se observó la cola de caballo a gran tensión, contenida por la membrana aracnoidea íntegra. Una pequeña cantidad de coágulo sanguíneo subaracnoideo comprimía dorsalmente el cono medular. La exploración de las zonas laterales demostró la presencia de un"
+    }
+   ]
+  },
+  {
+   "cui": "C0452160",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100797",
+     "span": "lumbociatalgia",
+     "context": "e sus antecedentes quirúrgicos destacaba el estar intervenido hace 2 años de artrodesis L4-L5, debido a persistencia de lumbociatalgia hace un año se reintervino con retirada de material de osteosíntesis y relleno con injerto de cresta ilíaca, persistien"
+    }
+   ]
+  },
+  {
+   "cui": "C0006266",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100896",
+     "span": "broncoespasmo",
+     "context": ", rechazo parcial de la alimentación y rinorrea. Entre sus antecedentes personales destacaban tres episodios previos de broncoespasmo. Como antecedente familiar a destacar, la madre padecía asma. En la exploración clínica se apreciaba: peso de 8,1 kg (P"
+    }
+   ]
+  },
+  {
+   "cui": "C0020452",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100896",
+     "span": "hiperémica",
+     "context": "n sibilancias espiratorias bilaterales y espiración alargada. La auscultación cardíaca era normal. La orofaringe estaba hiperémica, con abundante moco en cavum. En la otoscopia se observaba una hiperemia timpánica bilateral con reflejo luminoso conse"
+    }
+   ]
+  },
+  {
+   "cui": "C0001546",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100978",
+     "span": "trastorno adaptativo",
+     "context": "ntrol de esfínteres y tampoco a nivel sensitivo. No se aprecia labilidad emocional, aunque el paciente ya presentaba un trastorno adaptativo tras la muerte de su mujer. Refiere calambres ocasionales en gemelos. Como antecedentes personales, es hipertenso y dia"
+    }
+   ]
+  },
+  {
+   "cui": "C0877271",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100978",
+     "span": "denervación",
+     "context": "io de Medicina Interna, que solicita electromiograma (EMG) / electroneurografía (ENG) sugestivo de patrón neurógeno con denervación activa en ambos MMII, miembro superior derecho (fibrilaciones y ondas positivas), compatible con enfermedad de motoneur"
+    }
+   ]
+  },
+  {
+   "cui": "C0333641",
+   "occurrences": 2,
+   "languages": [
+    "ES",
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100978",
+     "span": "Atrofia",
+     "context": "teriormente presentó progresión de los síntomas, evidenciándose debilidad en la flexión dorsal del pie izquierdo (4/5). Atrofia incipiente a nivel del quinto espacio interóseo de la mano izquierda. Fasciculaciones difusas por diferentes segmentos"
+    },
+    {
+     "case_id": "FR100597",
+     "span": "atrophique",
+     "context": "tous négatifs. Une laparotomie exploratrice a été finalement décidée: à l'exploration, l'utérus était de petite taille atrophique, l'annexe droite était sans anomalie. On a noté la présence d'une masse hypervasularisée faisant 15cm prenant naissance"
+    }
+   ]
+  },
+  {
+   "cui": "C0016664",
+   "occurrences": 2,
+   "languages": [
+    "ES"
+   ],
+   "examples": [
+    {
+     "case_id": "ES100994",
+     "span": "fractura de estrés",
+     "context": "tomas en pie izquierdo, sin causa desencadenante. Se solicitó una Rx que mostró callo de fractura antiguo en 2o MTT por fractura de estrés previa, sin otros hallazgos. Se realizó RMN de pie izquierdo para completar estudio que mostró edema de 1er y 3er MTT,"
+    }
+   ]
+  },
+  {
+   "cui": "C0031557",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100003",
+     "span": "phlegmon",
+     "context": "montre une hyperleucocytose à 85OOO, une CRP à 350 mg/l et une glycémie à 12 mmol/l. La TDM cervicothoracique révèle un phlegmon avec cellulite profonde abcédée des espaces cervicaux antérolatéraux gauches fusant le long de l''espace retropharyngol"
+    }
+   ]
+  },
+  {
+   "cui": "C0032987",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100092",
+     "span": "grossesse extra utérine",
+     "context": "gonadotrophique chorionique) plasmatique est revenu positif à 1437 UI/l. Le tableau évoque en premier le diagnostic de grossesse extra utérine droite. Le reste du bilan biologique révèle une hémoglobine à 11,4 g/dl, des globules blancs à 7530/mm 3. La patiente b"
+    }
+   ]
+  },
+  {
+   "cui": "C0242301",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100120",
+     "span": "furonculoïde",
+     "context": "s larves ont été retirées facilement à l'aide d'une pince, laissant derrière elles un orifice propre sans pus. L'aspect furonculoïde de la lésion cutanée, la chronologie des événements, la notion de séjour en république Démocratique du Congo, confronté"
+    }
+   ]
+  },
+  {
+   "cui": "C0427008",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100130",
+     "span": "raideur",
+     "context": "ogiques admis dans notre service en 2006 pour exploration de lombalgies mécaniques résistantes aux antalgiques et d'une raideur rachidienne associées à une contracture des muscles abdominaux évoluant depuis un an. Il se plaignait aussi d'épisodes"
+    },
+    {
+     "case_id": "FR100296",
+     "span": "raideur",
+     "context": "atient ne pouvant poser le pied droit au sol. Une douleur aux points de Valleix a été mise en évidence. Il n'y avait ni raideur rachidienne ni un déficit moteur, mais une hypoesthésie plantaire droite. Les reflexes ostéo-tendineux n'avaient pu êtr"
+    }
+   ]
+  },
+  {
+   "cui": "C0085292",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100130",
+     "span": "SHR",
+     "context": "rogénase (LDH) étaient normales. La glycémie, le bilan phosphocalcique et le bilan thyroïdien étaient sans anomalie. Le SHR fut évoqué et le diagnostic fut confirmé par l'électromyogramme qui a mis en évidence une activité musculaire continue"
+    }
+   ]
+  },
+  {
+   "cui": "C1611740",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100142",
+     "span": "tuberculose ganglionnaire",
+     "context": "lonoscopie, réalisées devant le taux élevé des CA 19-9 étaient sans anomalies. La biopsie ganglionnaire concluait à une tuberculose ganglionnaire caséo-folliculaire. Le patient a été mis sous quadrithérapie anti-tuberculeuse, pendant 2 mois, à base d'Isoniazide (30"
+    },
+    {
+     "case_id": "FR100611",
+     "span": "tuberculose multifocale (pulmonaire, cérébrale et ganglionnaire",
+     "context": "it une hyponatrémie à 131 mmol/L et la CRP était à 70 mg/L. Le reste du bilan biologique était normal. Le diagnostic de tuberculose multifocale (pulmonaire, cérébrale et ganglionnaire) chez un immunocompétent fut retenu. Un traitement antituberculeux fut instauré à base d'une quadrithérapie associant i"
+    }
+   ]
+  },
+  {
+   "cui": "C0019343",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100276",
+     "span": "pemphigoïde gestationis",
+     "context": "icale, les bras, les cuisse et la région péri aréolaire, sans atteinte des muqueuses. Le diagnostic dermatologique d'un pemphigoïde gestationis a été posé après une biopsie cutanée avec examen en immunofluorescence directe qui montrait un infiltrat éosinophile, u"
+    }
+   ]
+  },
+  {
+   "cui": "C0026769",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100346",
+     "span": "SEP",
+     "context": "Mlle B Z âgée de 39 ans, sans antécédents familiaux notables, est suivie depuis l'âge de 19 ans pour une SEP progressive à l'origine d'un handicap moteur. En décembre 2012, elle nous a consulté pour fièvre, toux productive, expe"
+    }
+   ]
+  },
+  {
+   "cui": "C0220854",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100346",
+     "span": "polypnée",
+     "context": "uleurs basi-thoraciques bilatérales. L'examen initial a objectivé une fièvre à 39°c, un pouls à 120 battements/min, une polypnée à 30 cycles/min, des râles crépitants à l'auscultation pulmonaire et un syndrome tétra-pyramidal, le reste de l'examen"
+    },
+    {
+     "case_id": "FR100629",
+     "span": "polypniéque",
+     "context": "n progressive associé à des douleurs thoraciques type pleural. L'examen physique à l'admission a objectivé une patiente polypniéque à 30 cycles/minute, tachycarde à 138 battement par minute, SaO2 à 92% à l'aire ambiant, apyrétique, avec un syndrome d'"
+    }
+   ]
+  },
+  {
+   "cui": "C1153706",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100360",
+     "span": "adénocarcinome de l'endomètre",
+     "context": "Il s'agit d'une patiente âgée de 62 ans, ménopausée depuis 15 ans, traitée en 2009 pour un adénocarcinome de l'endomètre révélé par des métrorragies de moyenne abondance et une lésion éxophytique de l'endomètre à l'hysteroscopie. La patient"
+    }
+   ]
+  },
+  {
+   "cui": "C0009792",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100361",
+     "span": "trouble de conscience",
+     "context": "g/L et une hyperleucocytose dans le sang à 27.690 éléments/mm 3. Devant ce tableau de méningite purulente compliquée de trouble de conscience, la patiente est traitée par une céphalosporine de 3 ème génération (Ceftriaxone) à dose méningée (6g par jour en 2 pri"
+    },
+    {
+     "case_id": "FR100930",
+     "span": "trouble de conscience",
+     "context": "nostiquée sur la présentation clinique et l'imagerie. Notre patient était admis dans notre structure dans un tableau de trouble de conscience, ainsi le recours aux anticoagulants et au traitement étiologique a permis une bonne évolution clinique."
+    }
+   ]
+  },
+  {
+   "cui": "C0242966",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100361",
+     "span": "syndrome inflammatoire biologique",
+     "context": "eprise de la conscience, récupération nette du déficit et disparition complète du syndrome méningé. Une amélioration du syndrome inflammatoire biologique (CRP à 17mg/L et Globules blancs à 9600 éléments/mm 3). La prolactinémie est passée de 200 à 19mg/dl. Après 3 mois du t"
+    },
+    {
+     "case_id": "FR100517",
+     "span": "syndrome inflammatoire",
+     "context": "des. Ces différents éléments cliniques sont révélateurs d'une dermatomyosite débutante. Le bilan biologique retrouve un syndrome inflammatoire aspécifique, les enzymes musculaires ont des valeurs normales (Créatine Kinase = 33 U/l pour une norme < 170 U/l). L'él"
+    }
+   ]
+  },
+  {
+   "cui": "C0036439",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100453",
+     "span": "scoliose",
+     "context": "nique a retrouvé un gigantisme des membres supérieurs avec une macrodactylie et une hypertrophie du thorax ainsi qu'une scoliose. Il n'existait pas d'hypertrophie des organes génitaux externes. Par ailleurs, il avait un bon développement psychomote"
+    }
+   ]
+  },
+  {
+   "cui": "C0410158",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100515",
+     "span": "atteinte musculaire",
+     "context": "ique notable, hospitalisée pour myalgies avec faiblesse musculaire prédominant aux ceintures pelvienne et scapulaire. L'atteinte musculaire était précédée de plusieurs placards érythémato-nodulaires douloureux siégeant au niveau des 2 bras et des 2 cuisses ap"
+    }
+   ]
+  },
+  {
+   "cui": "C4086623",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100517",
+     "span": "opacités réticulo nodulaires",
+     "context": "uelques crépitants au niveau des deux bases pulmonaires. Une radiographie de thorax de face a été réalisée montrant des opacités réticulo nodulaires bilatérales surtout basales et plus marquée du coté droit en rapport avec un syndrome interstitiel. La tomodensitométri"
+    }
+   ]
+  },
+  {
+   "cui": "C0347630",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100519",
+     "span": "hématome extra capsulaire du foie",
+     "context": "droit à type de pesanteur inhibant l'inspiration profonde. Une échographie abdominale réalisée a objectivé un important hématome extra capsulaire du foie. La patiente a présenté un état de choc hémorragique au septième jour. A l'hémogramme on retrouvait une déglobulisation"
+    }
+   ]
+  },
+  {
+   "cui": "C0041327",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100589",
+     "span": "tuberculose pulmonaire",
+     "context": "u nous avons discuté en premier lieu, sur un terrain d'immunodépression probable, une origine infectieuse notamment une tuberculose pulmonaire, une aspergillose semi invasive ou une infection à germes banals. Une détermination thoracique d'une maladie de système"
+    },
+    {
+     "case_id": "FR100611",
+     "span": "tuberculose multifocale (pulmonaire",
+     "context": "it une hyponatrémie à 131 mmol/L et la CRP était à 70 mg/L. Le reste du bilan biologique était normal. Le diagnostic de tuberculose multifocale (pulmonaire, cérébrale et ganglionnaire) chez un immunocompétent fut retenu. Un traitement antituberculeux fut instauré à base d'un"
+    }
+   ]
+  },
+  {
+   "cui": "C0010823",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100589",
+     "span": "cytomégalovirus",
+     "context": "révélé de cellules de Sézary, le taux des lactico-déshydrogénase à 507 UI/L, les sérologies virales de l'hépatite B, C, cytomégalovirus et HIV ont été négatives. Le caryotype médullaire a été normal, la biopsie ostéo médullaire a montré une moelle de rich"
+    },
+    {
+     "case_id": "FR100870",
+     "span": "cytomégalovirus",
+     "context": "a révélé la présence de cellules fusiforme; la sérologie HHV-8 qui a été positive et les sérologies VIH, hépatite B, C, cytomégalovirus ont été négatives. Le patient a bénéficié d'une radiothérapie et d'une chimiothérapie. Sept ans après, Mr MD a été admi"
+    }
+   ]
+  },
+  {
+   "cui": "C0428552",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100611",
+     "span": "glycorachie",
+     "context": "vec prise de contraste intense des méninges en regard. L'étude du LCR révélait une hyperproteinorachie à 0,808 g/L, une glycorachie à 0, 305 g/L pour une glycémie de 0,957 g/L soit un rapport de 0,31% et une pléiocytose à 280 leucocytes/mm3 avec une l"
+    },
+    {
+     "case_id": "FR100689",
+     "span": "glycorachie",
+     "context": "au des valleés sylviennes associés à une hydrocéphalie. L'étude du LCR révélait une hyperprotéinorachie à 2,24 g/L, une glycorachie à 0,2g/L pour une glycémie de 0,95 g/L soit un rapport de 0,21%, une hypochlorurorachie à 113 mmol/L et une pléiocytose"
+    }
+   ]
+  },
+  {
+   "cui": "C0277797",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100614",
+     "span": "apyrexie",
+     "context": "tation progressivedu volume abdominopelvien, sans troubles urinaires ou digestifs associés, évoluant dans un contexte d'apyrexie et conservation de l'état général. L'examen clinique à trouvé une masse abdominopelvienne médiane, mesurant environ 30"
+    },
+    {
+     "case_id": "FR100629",
+     "span": "apyrétique",
+     "context": "ectivé une patiente polypniéque à 30 cycles/minute, tachycarde à 138 battement par minute, SaO2 à 92% à l'aire ambiant, apyrétique, avec un syndrome d'épanchement liquidien de l'hémi thorax droit, associé à une douleur exquise à la palpation de la 3"
+    }
+   ]
+  },
+  {
+   "cui": "C0270627",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100632",
+     "span": "myélite aiguë",
+     "context": "lie de signal focale intra médullaire étendu de D5 à D7 intéressant les cordons médullaires postérieurs en faveur d'une myélite aiguë. L'IRM cérébrale était normale. L'étude du liquide céphalorachidien a objectivé: 40 éléments/mm 3 dont 80% de lymphocyt"
+    }
+   ]
+  },
+  {
+   "cui": "C0040336",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100658",
+     "span": "tabagisme",
+     "context": "3 pour exérèse d'une lésion de la base de la langue (cystadénolymphome). Dans ces antécédents toxiques on retrouvait un tabagisme chronique à raison de 42 paquets année, ainsi qu'un alcoolisme occasionnel. Le début de sa symptomatologie remontait à"
+    }
+   ]
+  },
+  {
+   "cui": "C0600142",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100683",
+     "span": "bouffées de chaleur",
+     "context": "La patiente W.Z âgée de 57 ans consulte pour galactorrhée associée à une aménorrhée secondaire sans bouffées de chaleur évoluant depuis 2 ans. Dans ses antécédents familiaux, on note un diabète de type 2, elle n'avait pas d'histoire de sté"
+    }
+   ]
+  },
+  {
+   "cui": "C0024103",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100697",
+     "span": "masse volumineuse, dure, régulière, occupant presque tout le sein",
+     "context": "augmenté de volume, rouge avec aspect de peau d'orange et légère rétraction mamelonnaire. À la palpation: on trouve une masse volumineuse, dure, régulière, occupant presque tout le sein, faisant 13cm/10cm associée à des adénopathies axillaires homolatérales. Le sein controlatéral est indemne, l'examen de"
+    },
+    {
+     "case_id": "FR100708",
+     "span": "masse occupant les quadrants externes du sein",
+     "context": "est sans particularités, les aires ganglionnaires sont libres. La mammographie a objective: présence d'une volumineuse masse occupant les quadrants externes du sein gauche, de contours réguliers de densité moyenne mesurant 5.5/6.5/4.5cm. L'échographie mammaire a objectivé: volumineus"
+    }
+   ]
+  },
+  {
+   "cui": "C0235648",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100708",
+     "span": "augmentation du volume du sein",
+     "context": "gique. Néanmoins, après 8 ans de traitement elle a arrêté son médicament d'elle-même. Vu que la patiente a constaté une augmentation du volume du sein gauche évoluant sur deux mois après une année de sevrage elle a consulté dans notre service. L'examen clinique a object"
+    }
+   ]
+  },
+  {
+   "cui": "C0751492",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100717",
+     "span": "lombosciatique S1 bilatérale",
+     "context": "ion fonctionnelle pendant 2 mois, avait été institué sans succès car l'évolution a été marquée par l'installation d'une lombosciatique S1 bilatérale associée à une radiculalgie L4 gauche intermittente. Aucune prise de corticoïdes n'avait été retrouvée dans les antécéd"
+    }
+   ]
+  },
+  {
+   "cui": "C0392025",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100806",
+     "span": "abdomen légèrement augmenté de volume",
+     "context": "que à l'entrée avait noté une pression artérielle à 120/80 mmHg, un bon état général, un syndrome anémique clinique, un abdomen légèrement augmenté de volume et des lésions ulcéreuses endovaginales. La première biologie a confirmé l'IR majeure avec 2652 µmol/l de créatinine et"
+    }
+   ]
+  },
+  {
+   "cui": "C0221512",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100806",
+     "span": "douleurs abdominales",
+     "context": "s et avait bénéficié d'une transfusion de 5 poches de culot globulaire. Trois jours après la patiente avait signalé des douleurs abdominales. L'examen de cet abdomen avait montré un abdomen souple, mât, augmenté de volume, sensible dans son ensemble avec un cr"
+    },
+    {
+     "case_id": "FR100960",
+     "span": "douleurs abdominales",
+     "context": "rtons ici le cas d'un patient de 56 ans opéré à deux reprises pour PMP d'origine appendiculaire, et qui a consulté pour douleurs abdominales évolutives, cinque ans après sa dernière cure. Le scanner avait objective une récidive de pseudo myxome péritonéal, ave"
+    }
+   ]
+  },
+  {
+   "cui": "C5243635",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100806",
+     "span": "hématome sous capsulaire spontané rompu de la rate",
+     "context": "ctrophorèse des protides sériques était normale. Une tomodensitométrie abdominale réalisée avait permis d'objectiver un hématome sous capsulaire spontané rompu de la rate. Une prise en charge chirurgicale avec splénectomie totale avait été réalisée après correction des troubles de l'hémost"
+    }
+   ]
+  },
+  {
+   "cui": "C0041428",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100845",
+     "span": "jumeaux conjoints",
+     "context": "le précise suivi chez un gynécologue privé, ayant bénéficié d'une échographie à 17 SA n'ayant pas posé le diagnostic de jumeaux conjoints puis patiente perdu de vue. Consulte en urgence obstétricale en début de travail. L'examen clinique a l'admission trouv"
+    }
+   ]
+  },
+  {
+   "cui": "C0041107",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100870",
+     "span": "trisomie",
+     "context": "remaniement IgH/FGFR3, équivalent moléculaire de la translocation t (4;14). De plus, 45% des plasmocytes présentent la trisomie du locus MM en 1q21 associée à la trisomie du locus SRD en 1p36 pour 14% des plasmocytes. En revanche, absence de délét"
+    }
+   ]
+  },
+  {
+   "cui": "C0009492",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100894",
+     "span": "syndrome de loges",
+     "context": "ux et tibial postérieur étaient perceptibles. Nous nous sommes appuyés sur l'IRM initialement réalisée pour éliminer un syndrome de loges sur une fracture ou une rupture d'anévrysme. Le diagnostic retenu est celui de syndrome de loges secondaire à une désin"
+    }
+   ]
+  },
+  {
+   "cui": "C0041330",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100932",
+     "span": "pott",
+     "context": "Nous rapportons le cas d'une patiente âgée de 23 ans chez qui le diagnostic d'un pott multifocal L2-L3 et L4-L5 a été posé sur la tomodensitométrie (TDM) du rachis. Elle a été mise sous traitement anti tub"
+    }
+   ]
+  },
+  {
+   "cui": "C0085388",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100946",
+     "span": "tuberculome cérébral",
+     "context": "bénéficié d'un abord direct avec exérèse macroscopiquement complète. L'analyse anatomopathologique était en faveur d'un tuberculome cérébral. Elle a été mise sous traitement antituberculeux avec arrêt des crises et récupération du déficit après 04 semaines. A"
+    }
+   ]
+  },
+  {
+   "cui": "C5234922",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100979",
+     "span": "accident vasculaire cérébral hémorragique",
+     "context": "Nous rapportons le cas d'un accident vasculaire cérébral hémorragique du tronc cérébral chez une patiente de 21 ans admise pour prééclampsie sévère sur grossesse non suivie de 38 SA compliq"
+    }
+   ]
+  },
+  {
+   "cui": "C0007113",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100994",
+     "span": "cancer du rectum",
+     "context": "Nous relatons ainsi le cas d'une observation d'un homme suivi pour un cancer du rectum métastatique avec une métastase osseuse temporale. Notre observation se rapportait à l'histoire d'un homme âgé de 38 an"
+    }
+   ]
+  },
+  {
+   "cui": "C4087386",
+   "occurrences": 2,
+   "languages": [
+    "FR"
+   ],
+   "examples": [
+    {
+     "case_id": "FR100998",
+     "span": "VUH",
+     "context": "Nous rapportons le cas d'une patiente âgée de 55 ans suivie pour VUH depuis 20 ans. Le diagnostic était retenu sur les lésions urticariennes, l'inflammation occulaire, le test positif C1q-"
+    }
+   ]
+  }
+ ]
+}

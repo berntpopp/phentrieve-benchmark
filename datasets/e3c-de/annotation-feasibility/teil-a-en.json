@@ -1,0 +1,1055 @@
+{
+ "provenance": {
+  "generated_by": "Subagent Teil A (EN), maschinell erzeugte Diagnose — keine Reviewdaten, kein Gold",
+  "model": "Claude Fable 5 (claude-fable-5)",
+  "input_bundle": "input/teil-a-faelle.json"
+ },
+ "cases": [
+  {
+   "case_id": "EN100075",
+   "terms": [
+    {
+     "annotation_id": "9363",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "source_span": "fever",
+     "verdict": "haelt",
+     "quote_de": "Die Schwellung ging mit hohem Fieber einher, das anhaltend war",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»hohem Fieber« gibt den positiven Befund direkt wieder."
+    },
+    {
+     "annotation_id": "9370",
+     "hpo_id": "HP:0002013",
+     "hpo_label": "Vomiting",
+     "source_span": "vomiting",
+     "verdict": "haelt",
+     "quote_de": "Diese Symptome waren nicht mit Erbrechen, Verstopfung, Gelbfärbung der Augen, Appetitlosigkeit oder Gewichtsverlust verbunden.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Erbrechen« steht in derselben negierten Aufzählung; Negation erhalten."
+    },
+    {
+     "annotation_id": "9377",
+     "hpo_id": "HP:0002019",
+     "hpo_label": "Constipation",
+     "source_span": "constipation",
+     "verdict": "haelt",
+     "quote_de": "Diese Symptome waren nicht mit Erbrechen, Verstopfung, Gelbfärbung der Augen, Appetitlosigkeit oder Gewichtsverlust verbunden.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Verstopfung« in negierter Aufzählung; Negation erhalten."
+    },
+    {
+     "annotation_id": "9391",
+     "hpo_id": "HP:0004396",
+     "hpo_label": "Poor appetite",
+     "source_span": "loss of appetite",
+     "verdict": "haelt",
+     "quote_de": "Diese Symptome waren nicht mit Erbrechen, Verstopfung, Gelbfärbung der Augen, Appetitlosigkeit oder Gewichtsverlust verbunden.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Appetitlosigkeit« in negierter Aufzählung; Negation erhalten."
+    },
+    {
+     "annotation_id": "9419",
+     "hpo_id": "HP:0001250",
+     "hpo_label": "Seizure",
+     "source_span": "seizures",
+     "verdict": "haelt",
+     "quote_de": "habe das Kind weiterhin mindestens zweimal täglich Anfälle und Nodding-Episoden erlitten",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Anfälle« gibt den positiven, aktuellen Befund wieder."
+    },
+    {
+     "annotation_id": "9433",
+     "hpo_id": "HP:0001944",
+     "hpo_label": "Dehydration",
+     "source_span": "dehydrated",
+     "verdict": "haelt",
+     "quote_de": "Bei der allgemeinen Untersuchung zeigte sich der Junge dehydriert, fiebrig und mäßig abgemagert.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»dehydriert« direkt übernommen."
+    },
+    {
+     "annotation_id": "9440",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "source_span": "febrile",
+     "verdict": "haelt",
+     "quote_de": "Bei der allgemeinen Untersuchung zeigte sich der Junge dehydriert, fiebrig und mäßig abgemagert.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»fiebrig« entspricht »febrile«."
+    },
+    {
+     "annotation_id": "9447",
+     "hpo_id": "HP:0011897",
+     "hpo_label": "Increased total neutrophil count",
+     "source_span": "neutrophilia",
+     "verdict": "haelt",
+     "quote_de": "Hämatologische Untersuchungen ergaben eine Neutrophilie, Lymphozytose, Monozytose und Eosinophilie.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Neutrophilie« als Fachterm erhalten."
+    },
+    {
+     "annotation_id": "9454",
+     "hpo_id": "HP:0001250",
+     "hpo_label": "Seizure",
+     "source_span": "seizures",
+     "verdict": "haelt",
+     "quote_de": "seit dem Eingriff im Krankenhaus traten keine Anfälle oder Nickbewegungen mehr auf",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Der Status »sistiert seit Intervention« (resolved/historisch) ist im Deutschen unverändert wiedergegeben."
+    },
+    {
+     "annotation_id": "9468",
+     "hpo_id": "HP:0001250",
+     "hpo_label": "Seizure",
+     "source_span": "seizures",
+     "verdict": "haelt",
+     "quote_de": "blieb das Kind über einen Zeitraum von mehr als einem Monat anfalls- und symptomfrei",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»anfallsfrei« erhält die Negation (»no seizures«); »nodding« wurde zu »symptomfrei« generalisiert, betrifft den Seizure-Term aber nicht."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Schmerzen in der rechten Lendenregion",
+     "quote_de": "zunehmenden Schwellung und Schmerzen in der rechten Lendenregion",
+     "suggested_hpo": {"id": "HP:0012531", "label": "Pain"}
+    },
+    {
+     "description_de": "Tastbare, druckschmerzhafte, verhärtete Raumforderung der rechten Lendenregion",
+     "quote_de": "In der rechten Lendenregion tastete sich eine druckschmerzhafte, verhärtete und nicht fluktuierende Raumforderung."
+    },
+    {
+     "description_de": "Mäßige Abmagerung (wasting)",
+     "quote_de": "zeigte sich der Junge dehydriert, fiebrig und mäßig abgemagert",
+     "suggested_hpo": {"id": "HP:0004325", "label": "Decreased body weight"}
+    },
+    {
+     "description_de": "Lymphozytose",
+     "quote_de": "ergaben eine Neutrophilie, Lymphozytose, Monozytose und Eosinophilie",
+     "suggested_hpo": {"id": "HP:0100827", "label": "Lymphocytosis"}
+    },
+    {
+     "description_de": "Monozytose",
+     "quote_de": "ergaben eine Neutrophilie, Lymphozytose, Monozytose und Eosinophilie",
+     "suggested_hpo": {"id": "HP:0012311", "label": "Monocytosis"}
+    },
+    {
+     "description_de": "Eosinophilie",
+     "quote_de": "ergaben eine Neutrophilie, Lymphozytose, Monozytose und Eosinophilie",
+     "suggested_hpo": {"id": "HP:0001880", "label": "Eosinophilia"}
+    },
+    {
+     "description_de": "Erhöhte Lebertransaminasen (ALT, AST)",
+     "quote_de": "einschließlich der Leberwerte (ALT, AST), waren erhöht",
+     "suggested_hpo": {"id": "HP:0002910", "label": "Elevated hepatic transaminase"}
+    },
+    {
+     "description_de": "Erniedrigtes Serumprotein (Hypoproteinämie)",
+     "quote_de": "während die Serumproteinwerte niedrig waren",
+     "suggested_hpo": {"id": "HP:0003075", "label": "Hypoproteinemia"}
+    },
+    {
+     "description_de": "Entzündung der schrägen Bauchwandmuskulatur (Myositis)",
+     "quote_de": "zeigte eine Entzündung der inneren und äußeren schrägen Bauchmuskeln der vorderen Bauchwand",
+     "suggested_hpo": {"id": "HP:0100614", "label": "Myositis"}
+    }
+   ]
+  },
+  {
+   "case_id": "EN100114",
+   "terms": [
+    {
+     "annotation_id": "9450",
+     "hpo_id": "HP:0001541",
+     "hpo_label": "Ascites",
+     "source_span": "ascites",
+     "verdict": "haelt",
+     "quote_de": "wurde wegen massiven, schmerzhaften Aszites stationär aufgenommen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Aszites« direkt übernommen, positiver Befund."
+    },
+    {
+     "annotation_id": "9457",
+     "hpo_id": "HP:0002960",
+     "hpo_label": "Autoimmunity",
+     "source_span": "autoimmune disease",
+     "verdict": "haelt",
+     "quote_de": "In ihrer Familienanamnese fanden sich keine Autoimmunerkrankungen.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Negierter Familienbezug (kein Indexpatient) ist im Deutschen identisch wiedergegeben."
+    },
+    {
+     "annotation_id": "9464",
+     "hpo_id": "HP:0012115",
+     "hpo_label": "Hepatitis",
+     "source_span": "hepatitis",
+     "verdict": "haelt",
+     "quote_de": "Sie verneinte eine Vorgeschichte von Hepatitis, Gelbsucht oder Alkoholkonsum.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»verneinte« erhält die Negation."
+    },
+    {
+     "annotation_id": "9471",
+     "hpo_id": "HP:0000952",
+     "hpo_label": "Jaundice",
+     "source_span": "jaundice",
+     "verdict": "haelt",
+     "quote_de": "Sie verneinte eine Vorgeschichte von Hepatitis, Gelbsucht oder Alkoholkonsum.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Gelbsucht« in negierter Aufzählung; Negation erhalten."
+    },
+    {
+     "annotation_id": "9478",
+     "hpo_id": "HP:0000819",
+     "hpo_label": "Diabetes mellitus",
+     "source_span": "diabetes",
+     "verdict": "haelt",
+     "quote_de": "Bekannt waren Diabetes mellitus und arterielle Hypertonie",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Positiver anamnestischer Befund erhalten."
+    },
+    {
+     "annotation_id": "9485",
+     "hpo_id": "HP:0000822",
+     "hpo_label": "Hypertension",
+     "source_span": "hypertension",
+     "verdict": "haelt",
+     "quote_de": "Bekannt waren Diabetes mellitus und arterielle Hypertonie",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»arterielle Hypertonie« erhält den Befund."
+    },
+    {
+     "annotation_id": "9499",
+     "hpo_id": "HP:0001541",
+     "hpo_label": "Ascites",
+     "source_span": "ascites",
+     "verdict": "haelt",
+     "quote_de": "eine durch den ausgeprägten Aszites bedingte Abdominaldistension",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»ausgeprägten Aszites« entspricht »important ascites«."
+    },
+    {
+     "annotation_id": "9513",
+     "hpo_id": "HP:0001541",
+     "hpo_label": "Ascites",
+     "source_span": "ascites",
+     "verdict": "haelt",
+     "quote_de": "Die Abdomensonographie zeigte Aszitesflüssigkeit",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Sonographischer Aszitesnachweis erhalten."
+    },
+    {
+     "annotation_id": "9527",
+     "hpo_id": "HP:0002036",
+     "hpo_label": "Hiatus hernia",
+     "source_span": "hiatal hernia",
+     "verdict": "haelt",
+     "quote_de": "Eine Ösophagogastroduodenoskopie ergab eine Hiatushernie ohne Ösophagusvarizen.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Hiatushernie« direkt übernommen."
+    },
+    {
+     "annotation_id": "9534",
+     "hpo_id": "HP:0001541",
+     "hpo_label": "Ascites",
+     "source_span": "ascite",
+     "verdict": "haelt",
+     "quote_de": "dabei zeigten sich große Mengen Aszites",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Laparoskopischer Befund erhalten."
+    },
+    {
+     "annotation_id": "9541",
+     "hpo_id": "HP:0002725",
+     "hpo_label": "Systemic lupus erythematosus",
+     "source_span": "Systemic lupus erythematosus",
+     "verdict": "haelt",
+     "quote_de": "bestand der Verdacht auf einen systemischen Lupus erythematodes (SLE)",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Unsicherheitsstatus (»suspected« → »Verdacht auf«) erhalten."
+    },
+    {
+     "annotation_id": "9548",
+     "hpo_id": "HP:0002102",
+     "hpo_label": "Pleuritis",
+     "source_span": "pleuritis",
+     "verdict": "haelt",
+     "quote_de": "war sie wegen einer exsudativen Pleuritis der rechten Lunge untersucht worden",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»exsudative Pleuritis« mit gleichem zeitlichem Rahmen (4 Jahre zuvor) erhalten."
+    },
+    {
+     "annotation_id": "9555",
+     "hpo_id": "HP:0001888",
+     "hpo_label": "Decreased total lymphocyte count",
+     "source_span": "lymphopenia",
+     "verdict": "haelt",
+     "quote_de": "Leukopenie (Leukozytenzahl 3100/mm³), Lymphopenie (840/mm³)",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Lymphopenie« direkt übernommen."
+    },
+    {
+     "annotation_id": "9562",
+     "hpo_id": "HP:0001882",
+     "hpo_label": "Decreased total leukocyte count",
+     "source_span": "leucopenia",
+     "verdict": "haelt",
+     "quote_de": "Laboruntersuchungen ergaben: Leukopenie (Leukozytenzahl 3100/mm³)",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Leukopenie« direkt übernommen."
+    },
+    {
+     "annotation_id": "9569",
+     "hpo_id": "HP:0002725",
+     "hpo_label": "Systemic lupus erythematosus",
+     "source_span": "SLE",
+     "verdict": "haelt",
+     "quote_de": "wurde die Diagnose SLE gestellt, da vier der elf Diagnosekriterien des American College of Rheumatology erfüllt waren",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Etablierte Diagnose als positiver Befund erhalten."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Erniedrigtes Serumalbumin (Hypoalbuminämie)",
+     "quote_de": "erniedrigtes Serumalbumin (29 g/l)",
+     "suggested_hpo": {"id": "HP:0003073", "label": "Hypoalbuminemia"}
+    },
+    {
+     "description_de": "Beidseitiger Pleuraerguss",
+     "quote_de": "Eine Röntgenaufnahme des Thorax zeigte einen beidseitigen Pleuraerguss.",
+     "suggested_hpo": {"id": "HP:0002202", "label": "Pleural effusion"}
+    },
+    {
+     "description_de": "Abdominaldistension",
+     "quote_de": "eine durch den ausgeprägten Aszites bedingte Abdominaldistension",
+     "suggested_hpo": {"id": "HP:0003270", "label": "Abdominal distention"}
+    },
+    {
+     "description_de": "Stark erhöhter ANA-Titer",
+     "quote_de": "einen stark erhöhten Titer an antinukleären Antikörpern (ANA) von 1:1600",
+     "suggested_hpo": {"id": "HP:0003493", "label": "Antinuclear antibody positivity"}
+    },
+    {
+     "description_de": "Erhöhter Anti-dsDNA-Antikörpertiter",
+     "quote_de": "einen signifikant erhöhten Titer an Antikörpern gegen doppelsträngige DNA (83 IE/ml; Normwert < 30 IE/ml)"
+    },
+    {
+     "description_de": "Erniedrigtes Komplement C3",
+     "quote_de": "einen erniedrigten Serumspiegel der Komplementkomponente C3 auf (67 mg/dl; Normbereich im Serum: 84–151 mg/dl)",
+     "suggested_hpo": {"id": "HP:0005421", "label": "Decreased circulating complement C3 concentration"}
+    }
+   ]
+  },
+  {
+   "case_id": "EN100310",
+   "terms": [
+    {
+     "annotation_id": "5604",
+     "hpo_id": "HP:6000176",
+     "hpo_label": "Anterior neck swelling",
+     "source_span": "enlargement of the anterior neck",
+     "verdict": "haelt",
+     "quote_de": "mit einer anamnestisch bekannten, allmählichen Vergrößerung im vorderen Halsbereich",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Vergrößerung im vorderen Halsbereich« gibt den Befund präzise wieder."
+    },
+    {
+     "annotation_id": "5611",
+     "hpo_id": "HP:0005987",
+     "hpo_label": "Multinodular goiter",
+     "source_span": "multinodular goiter",
+     "verdict": "haelt",
+     "quote_de": "Die klinische Untersuchung ergab eine Struma multinodosa.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Struma multinodosa« ist das deutsche Fachäquivalent."
+    },
+    {
+     "annotation_id": "5618",
+     "hpo_id": "HP:0025388",
+     "hpo_label": "Thyroid nodule",
+     "source_span": "thyroid nodule",
+     "verdict": "haelt",
+     "quote_de": "Die Computertomographie zeigte einen Schilddrüsenknoten im linken Lappen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Schilddrüsenknoten« direkt übernommen."
+    },
+    {
+     "annotation_id": "5632",
+     "hpo_id": "HP:0025388",
+     "hpo_label": "Thyroid nodule",
+     "source_span": "lobe nodule",
+     "verdict": "haelt",
+     "quote_de": "Dabei zeigte sich ein 5 cm großer, harter Knoten im linken Schilddrüsenlappen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Knoten im linken Schilddrüsenlappen« erhält den Befund."
+    },
+    {
+     "annotation_id": "5660",
+     "hpo_id": "HP:0002664",
+     "hpo_label": "Neoplasm",
+     "source_span": "tumor",
+     "verdict": "haelt",
+     "quote_de": "Der Tumor verdrängte das Schilddrüsenparenchym, von dem er durch eine fibröse Kapsel abgegrenzt war.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Tumor« direkt übernommen."
+    },
+    {
+     "annotation_id": "5667",
+     "hpo_id": "HP:0002664",
+     "hpo_label": "Neoplasm",
+     "source_span": "neoplasia",
+     "verdict": "haelt",
+     "quote_de": "Die Neoplasie zeigte eine Invasion des periglandulären Fettgewebes.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Neoplasie« direkt übernommen."
+    },
+    {
+     "annotation_id": "5674",
+     "hpo_id": "HP:0002664",
+     "hpo_label": "Neoplasm",
+     "source_span": "tumour",
+     "verdict": "haelt",
+     "quote_de": "Der Tumor war stark positiv für Caldesmon, SMA und Desmin",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Tumor« direkt übernommen."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Primäres Leiomyosarkom der Schilddrüse (endgültige Diagnose)",
+     "quote_de": "lautete die endgültige Diagnose: primäres Leiomyosarkom der Schilddrüse, FNCLCC-Grad 3",
+     "suggested_hpo": {"id": "HP:0100243", "label": "Leiomyosarcoma"}
+    }
+   ]
+  },
+  {
+   "case_id": "EN100593",
+   "terms": [
+    {
+     "annotation_id": "6441",
+     "hpo_id": "HP:0040319",
+     "hpo_label": "Dark urine",
+     "source_span": "tea colored urine",
+     "verdict": "haelt",
+     "quote_de": "begleitet von generalisiertem Juckreiz, teefarbenem Urin",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»teefarbener Urin« wörtlich erhalten, deckt Dark urine ab."
+    },
+    {
+     "annotation_id": "6448",
+     "hpo_id": "HP:0011985",
+     "hpo_label": "Acholic stools",
+     "source_span": "mastic -colored stool",
+     "verdict": "haelt",
+     "quote_de": "entfärbtem (kittfarbenem) Stuhl",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»entfärbter (kittfarbener) Stuhl« drückt acholischen Stuhl sogar expliziter aus als das Original."
+    },
+    {
+     "annotation_id": "6462",
+     "hpo_id": "HP:0002315",
+     "hpo_label": "Headache",
+     "source_span": "headache",
+     "verdict": "haelt",
+     "quote_de": "Es wurden keine Kopfschmerzen, Sehstörungen oder spontanen Blutungen angegeben.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»keine Kopfschmerzen« erhält die Negation."
+    },
+    {
+     "annotation_id": "6469",
+     "hpo_id": "HP:0000622",
+     "hpo_label": "Blurred vision",
+     "source_span": "blurred vision",
+     "verdict": "haelt_nicht",
+     "quote_de": "Es wurden keine Kopfschmerzen, Sehstörungen oder spontanen Blutungen angegeben.",
+     "assertion_de": "erhalten",
+     "cause": "granularitaet",
+     "note": "»blurred vision« wurde zu »Sehstörungen« generalisiert; das spezifische Konzept Verschwommensehen (HP:0000622) ist im Deutschen nicht mehr ausgedrückt. Die Negation selbst ist erhalten."
+    },
+    {
+     "annotation_id": "6483",
+     "hpo_id": "HP:0000819",
+     "hpo_label": "Diabetes mellitus",
+     "source_span": "diabetic",
+     "verdict": "haelt",
+     "quote_de": "Es lagen weder Diabetes noch Bluthochdruck vor",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Negation erhalten; »not a known diabetic« wird etwas stärker als definitives Fehlen formuliert, klinisch aber äquivalent."
+    },
+    {
+     "annotation_id": "6490",
+     "hpo_id": "HP:0000980",
+     "hpo_label": "Pallor",
+     "source_span": "pallor",
+     "verdict": "haelt",
+     "quote_de": "zeigten sich eine leichte Blässe sowie eine cholestatische Gelbsucht (Ikterus)",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»leichte Blässe« erhält den Befund."
+    },
+    {
+     "annotation_id": "6504",
+     "hpo_id": "HP:0002240",
+     "hpo_label": "Hepatomegaly",
+     "source_span": "Liver was enlarged",
+     "verdict": "haelt",
+     "quote_de": "Die Leber war vergrößert, hart und knotig, mit einem schmerzhaften, unregelmäßigen Rand.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Leber war vergrößert« entspricht Hepatomegalie."
+    },
+    {
+     "annotation_id": "6511",
+     "hpo_id": "HP:0010741",
+     "hpo_label": "Pedal edema",
+     "source_span": "bipedal edema",
+     "verdict": "haelt",
+     "quote_de": "Es bestanden beidseitige Ödeme, die bis zur Mitte der Unterschenkel reichten.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Beidseitiges Unterschenkel-/Fußödem klar ausgedrückt; das Wort »Fuß« fehlt, der Kontext (bis Unterschenkelmitte) sichert die Bedeutung."
+    },
+    {
+     "annotation_id": "6518",
+     "hpo_id": "HP:0001974",
+     "hpo_label": "Increased total leukocyte count",
+     "source_span": "leukocytosis",
+     "verdict": "haelt",
+     "quote_de": "Laboruntersuchungen ergaben eine Leukozytose, eine Anämie und normale Thrombozytenzahlen.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Leukozytose« direkt übernommen."
+    },
+    {
+     "annotation_id": "6525",
+     "hpo_id": "HP:0001903",
+     "hpo_label": "Anemia",
+     "source_span": "anemia",
+     "verdict": "haelt",
+     "quote_de": "Laboruntersuchungen ergaben eine Leukozytose, eine Anämie und normale Thrombozytenzahlen.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Anämie« direkt übernommen."
+    },
+    {
+     "annotation_id": "6553",
+     "hpo_id": "HP:0001402",
+     "hpo_label": "Hepatocellular carcinoma",
+     "source_span": "hepatocellular carcinoma",
+     "verdict": "haelt",
+     "quote_de": "Es wurde die Diagnose eines hepatozellulären Karzinoms auf dem Boden einer dekompensierten Leberzirrhose gestellt.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Diagnose wörtlich erhalten."
+    },
+    {
+     "annotation_id": "6574",
+     "hpo_id": "HP:0007185",
+     "hpo_label": "Loss of consciousness",
+     "source_span": "loss of conscious",
+     "verdict": "unsicher",
+     "quote_de": "kam es am zweiten Tag des Krankenhausaufenthalts zu einer zunehmenden Bewusstseinstrübung",
+     "assertion_de": "erhalten",
+     "cause": "uebersetzung",
+     "note": "»Bewusstseinstrübung« bezeichnet eine Bewusstseinsminderung, nicht sicher einen vollständigen Bewusstseinsverlust; ein deutscher Annotator würde eher ein schwächeres Konzept (z. B. Reduced consciousness) wählen."
+    },
+    {
+     "annotation_id": "6581",
+     "hpo_id": "HP:0000421",
+     "hpo_label": "Epistaxis",
+     "source_span": "epistaxis",
+     "verdict": "haelt",
+     "quote_de": "begleitet von Nasenbluten und Multiorganversagen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Nasenbluten« entspricht Epistaxis."
+    },
+    {
+     "annotation_id": "6595",
+     "hpo_id": "HP:0001988",
+     "hpo_label": "Recurrent hypoglycemia",
+     "source_span": "recurrent hypoglycemia",
+     "verdict": "haelt",
+     "quote_de": "sowie wiederkehrende Hypoglykämien",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»wiederkehrende Hypoglykämien« erhält Rekurrenz und Phänotyp."
+    },
+    {
+     "annotation_id": "6602",
+     "hpo_id": "HP:0001943",
+     "hpo_label": "Hypoglycemia",
+     "source_span": "hypoglycemia",
+     "verdict": "haelt",
+     "quote_de": "sowie wiederkehrende Hypoglykämien",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Hypoglykämien« deckt den Basisterm ab (geschachtelte Annotation im selben Ausdruck)."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Schmerzen im rechten Oberbauch (seit 3 Monaten)",
+     "quote_de": "seit drei Monaten bestehende Schmerzen im rechten Oberbauch",
+     "suggested_hpo": {"id": "HP:0002027", "label": "Abdominal pain"}
+    },
+    {
+     "description_de": "Generalisierter Juckreiz",
+     "quote_de": "begleitet von generalisiertem Juckreiz",
+     "suggested_hpo": {"id": "HP:0000989", "label": "Pruritus"}
+    },
+    {
+     "description_de": "Deutlicher Gewichtsverlust",
+     "quote_de": "und deutlichem Gewichtsverlust",
+     "suggested_hpo": {"id": "HP:0001824", "label": "Weight loss"}
+    },
+    {
+     "description_de": "Cholestatischer Ikterus",
+     "quote_de": "zeigten sich eine leichte Blässe sowie eine cholestatische Gelbsucht (Ikterus)",
+     "suggested_hpo": {"id": "HP:0000952", "label": "Jaundice"}
+    },
+    {
+     "description_de": "Stark aufgetriebenes Abdomen mit sichtbaren Kollateralvenen",
+     "quote_de": "Das Abdomen war stark aufgetrieben, mit sichtbaren Kollateralvenen.",
+     "suggested_hpo": {"id": "HP:0003270", "label": "Abdominal distention"}
+    },
+    {
+     "description_de": "Erhöhte AST (4-facher oberer Grenzwert)",
+     "quote_de": "Die Aspartat-Aminotransferase (AST) war erhöht (vierfacher oberer Grenzwert)",
+     "suggested_hpo": {"id": "HP:0031956", "label": "Elevated circulating aspartate aminotransferase concentration"}
+    },
+    {
+     "description_de": "Erniedrigtes Gesamtprotein und Albumin (Hypoalbuminämie)",
+     "quote_de": "Gesamtprotein und Albumin waren erniedrigt (43 g/l bzw. 25 g/l)",
+     "suggested_hpo": {"id": "HP:0003073", "label": "Hypoalbuminemia"}
+    },
+    {
+     "description_de": "Stark erhöhtes Alpha-Fetoprotein",
+     "quote_de": "Der Alpha-Fetoprotein-Wert (AFP) war stark erhöht (2232 ng/ml).",
+     "suggested_hpo": {"id": "HP:0006254", "label": "Elevated circulating alpha-fetoprotein concentration"}
+    },
+    {
+     "description_de": "Multiorganversagen",
+     "quote_de": "begleitet von Nasenbluten und Multiorganversagen"
+    }
+   ]
+  },
+  {
+   "case_id": "EN100600",
+   "terms": [
+    {
+     "annotation_id": "5759",
+     "hpo_id": "HP:0007209",
+     "hpo_label": "Facial paralysis",
+     "source_span": "facial palsy",
+     "verdict": "haelt",
+     "quote_de": "Es lag keine Fazialisparese vor",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»keine Fazialisparese« erhält die Negation exakt."
+    },
+    {
+     "annotation_id": "5766",
+     "hpo_id": "HP:0002664",
+     "hpo_label": "Neoplasm",
+     "source_span": "tumor",
+     "verdict": "haelt",
+     "quote_de": "Die Oberfläche der Raumforderung war glatt und rot-violett verfärbt.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "An der Fundstelle steht »Raumforderung« (Masse) statt »Tumor«; das Neoplasie-Konzept ist im deutschen Text aber eindeutig verankert (»benigner Oberkiefertumor«, »Riesenzelltumor«)."
+    },
+    {
+     "annotation_id": "5773",
+     "hpo_id": "HP:0002664",
+     "hpo_label": "Neoplasm",
+     "source_span": "tumor mass",
+     "verdict": "haelt",
+     "quote_de": "Mehrere Zähne waren in die Raumforderung einbezogen und verlagert.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Raumforderung« für »tumor mass«; Neoplasie-Kontext im Gesamttext klar erhalten."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Schmerzen im linken Oberkiefer",
+     "quote_de": "sie klagte über Schmerzen und eine Schwellung im linken Oberkiefer",
+     "suggested_hpo": {"id": "HP:0012531", "label": "Pain"}
+    },
+    {
+     "description_de": "Schwellung des linken Oberkiefers",
+     "quote_de": "Die körperliche Untersuchung ergab eine Schwellung im linken Oberkiefer."
+    },
+    {
+     "description_de": "Retinierter/fehlender Eckzahn",
+     "quote_de": "Der Eckzahn war retiniert."
+    },
+    {
+     "description_de": "Starke Zahnlockerung (seitlicher Schneidezahn)",
+     "quote_de": "der seitliche Schneidezahn wies eine starke Lockerung auf"
+    },
+    {
+     "description_de": "Ausgedehnte Osteolyse des vorderen linken Oberkiefers",
+     "quote_de": "einen ausgedehnten osteolytischen Bereich im vorderen linken Oberkiefer",
+     "suggested_hpo": {"id": "HP:0002797", "label": "Osteolysis"}
+    }
+   ]
+  },
+  {
+   "case_id": "EN100668",
+   "terms": [],
+   "gaps": [
+    {
+     "description_de": "Plötzlich einsetzende, starke rechtsseitige Bauchschmerzen",
+     "quote_de": "Die Patientin litt unter plötzlich aufgetretenen, starken Schmerzen im rechten Unterbauch.",
+     "suggested_hpo": {"id": "HP:0002027", "label": "Abdominal pain"}
+    },
+    {
+     "description_de": "Große multizystische Adnexraumforderung, final muzinöses Zystadenom des Ovars",
+     "quote_de": "eine 15 x 12 cm große, ödematöse, multizystische Adnexraumforderung ohne nachweisbare Vaskularisierung",
+     "suggested_hpo": {"id": "HP:0100615", "label": "Ovarian neoplasm"}
+    },
+    {
+     "description_de": "Adnextorsion (intraoperativ bestätigt)",
+     "quote_de": "Es wurde eine große, ödematöse, nekrotische und dunkelviolette Torsion einer rechtsseitigen Adnexraumforderung festgestellt."
+    }
+   ]
+  },
+  {
+   "case_id": "EN101318",
+   "terms": [
+    {
+     "annotation_id": "1754",
+     "hpo_id": "HP:0004936",
+     "hpo_label": "Venous thrombosis",
+     "source_span": "venous thrombosis",
+     "verdict": "haelt",
+     "quote_de": "die im Alter von 18 Jahren eine venöse Thrombose erlitten hatte",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»venöse Thrombose« wörtlich erhalten; der anamnestische Zeitbezug (mit 18 Jahren) ist wie im Original."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Erniedrigter Antithrombin-Spiegel (AT-Mangel Typ I)",
+     "quote_de": "Der Antithrombin-Spiegel der Patientin war mit 44–48 % erniedrigt (AT-Mangel Typ I).",
+     "suggested_hpo": {"id": "HP:0001976", "label": "Reduced antithrombin III activity"}
+    }
+   ]
+  },
+  {
+   "case_id": "EN105832",
+   "terms": [
+    {
+     "annotation_id": "4014",
+     "hpo_id": "HP:0001511",
+     "hpo_label": "Intrauterine growth retardation",
+     "source_span": "intrauterine growth retardation",
+     "verdict": "haelt",
+     "quote_de": "und war mit einer letalen intrauterinen Wachstumsretardierung verbunden",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Wörtlich erhalten; Subjekt (Fetus der 1. Schwangerschaft, nicht die Indexpatientin) wie im Original."
+    },
+    {
+     "annotation_id": "4028",
+     "hpo_id": "HP:0001943",
+     "hpo_label": "Hypoglycemia",
+     "source_span": "low blood glucose",
+     "verdict": "haelt",
+     "quote_de": "Aufgrund niedriger Blutzuckerwerte wurde sie auf die neonatologische Spezialstation verlegt",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»niedrige Blutzuckerwerte« erhält den Befund; Subjekt (Neugeborenes) wie im Original."
+    },
+    {
+     "annotation_id": "4049",
+     "hpo_id": "HP:0033165",
+     "hpo_label": "Necrotizing enterocolitis",
+     "source_span": "necrotizing enterocolitis",
+     "verdict": "haelt",
+     "quote_de": "mit Anzeichen einer abdominalen Katastrophe, die auf eine nekrotisierende Enterokolitis hindeuteten",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Der zunächst verdachtsweise Status (»indicating« → »hindeuteten«) ist erhalten."
+    },
+    {
+     "annotation_id": "4056",
+     "hpo_id": "HP:0033165",
+     "hpo_label": "Necrotizing enterocolitis",
+     "source_span": "necrotizing enterocolitis",
+     "verdict": "haelt",
+     "quote_de": "die beide das Vorliegen einer nekrotisierenden Enterokolitis bestätigten",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Bestätigter Befund wörtlich erhalten."
+    },
+    {
+     "annotation_id": "4063",
+     "hpo_id": "HP:0001518",
+     "hpo_label": "Small for gestational age",
+     "source_span": "small for gestational age",
+     "verdict": "haelt",
+     "quote_de": "Bei der Geburt war das Mädchen für das Gestationsalter zu klein.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»für das Gestationsalter zu klein« ist die gängige deutsche Umschreibung von SGA."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Familiäre hyperinsulinämische Hypoglykämie der Indexpatientin (Mutter)",
+     "quote_de": "bei der eine spät manifestierende familiäre hyperinsulinämische Hypoglykämie aufgrund einer bekannten Mutation im Insulinrezeptor-Gen diagnostiziert worden war",
+     "suggested_hpo": {"id": "HP:0000825", "label": "Hyperinsulinemic hypoglycemia"}
+    }
+   ]
+  },
+  {
+   "case_id": "EN107021",
+   "terms": [
+    {
+     "annotation_id": "3130",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "source_span": "fever",
+     "verdict": "haelt",
+     "quote_de": "stellte sich ... mit Fieber, Muskel- und Gelenkschmerzen, retroorbitalen Schmerzen, Erbrechen und Zahnfleischbluten vor",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Fieber« direkt übernommen."
+    },
+    {
+     "annotation_id": "3137",
+     "hpo_id": "HP:0003326",
+     "hpo_label": "Myalgia",
+     "source_span": "myalgias",
+     "verdict": "haelt",
+     "quote_de": "mit Fieber, Muskel- und Gelenkschmerzen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Muskelschmerzen« (im Kompositum »Muskel- und Gelenkschmerzen«) deckt Myalgie ab."
+    },
+    {
+     "annotation_id": "3144",
+     "hpo_id": "HP:0002829",
+     "hpo_label": "Arthralgia",
+     "source_span": "arthralgias",
+     "verdict": "haelt",
+     "quote_de": "mit Fieber, Muskel- und Gelenkschmerzen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Gelenkschmerzen« deckt Arthralgie ab."
+    },
+    {
+     "annotation_id": "3158",
+     "hpo_id": "HP:0002013",
+     "hpo_label": "Vomiting",
+     "source_span": "vomiting",
+     "verdict": "haelt",
+     "quote_de": "retroorbitalen Schmerzen, Erbrechen und Zahnfleischbluten",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Erbrechen« direkt übernommen."
+    },
+    {
+     "annotation_id": "3165",
+     "hpo_id": "HP:0000225",
+     "hpo_label": "Gingival bleeding",
+     "source_span": "gum bleeding",
+     "verdict": "haelt",
+     "quote_de": "Erbrechen und Zahnfleischbluten",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Zahnfleischbluten« entspricht Gingival bleeding."
+    },
+    {
+     "annotation_id": "3172",
+     "hpo_id": "HP:0002315",
+     "hpo_label": "Headache",
+     "source_span": "headaches",
+     "verdict": "haelt",
+     "quote_de": "entwickelte jedoch starke Kopfschmerzen und Bewusstlosigkeit",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»starke Kopfschmerzen« erhält den Befund."
+    },
+    {
+     "annotation_id": "3179",
+     "hpo_id": "HP:0007185",
+     "hpo_label": "Loss of consciousness",
+     "source_span": "unconsciousness",
+     "verdict": "haelt",
+     "quote_de": "starke Kopfschmerzen und Bewusstlosigkeit, gefolgt von Verhaltensänderungen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Bewusstlosigkeit« entspricht dem Bewusstseinsverlust exakt."
+    },
+    {
+     "annotation_id": "3200",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "source_span": "fever",
+     "verdict": "haelt",
+     "quote_de": "eine schmerzhafte Schwellung im Halsbereich, begleitet von Fieber, Zittern, Herzklopfen, Heiserkeit und Odynophagie",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Zweites Fieberereignis (9. Krankheitstag) erhalten."
+    },
+    {
+     "annotation_id": "3207",
+     "hpo_id": "HP:0001962",
+     "hpo_label": "Palpitations",
+     "source_span": "palpitations",
+     "verdict": "haelt",
+     "quote_de": "begleitet von Fieber, Zittern, Herzklopfen, Heiserkeit und Odynophagie",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Herzklopfen« entspricht Palpitationen."
+    },
+    {
+     "annotation_id": "3214",
+     "hpo_id": "HP:0001609",
+     "hpo_label": "Hoarse voice",
+     "source_span": "hoarseness of voice",
+     "verdict": "haelt",
+     "quote_de": "begleitet von Fieber, Zittern, Herzklopfen, Heiserkeit und Odynophagie",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Heiserkeit« entspricht Hoarse voice."
+    },
+    {
+     "annotation_id": "3221",
+     "hpo_id": "HP:0032043",
+     "hpo_label": "Odynophagia",
+     "source_span": "odynophagia",
+     "verdict": "haelt",
+     "quote_de": "Heiserkeit und Odynophagie",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Odynophagie« als Fachterm direkt übernommen."
+    },
+    {
+     "annotation_id": "3242",
+     "hpo_id": "HP:0000836",
+     "hpo_label": "Hyperthyroidism",
+     "source_span": "hyperthyroidism",
+     "verdict": "haelt",
+     "quote_de": "eine akut geschwollene, druckschmerzhafte Schilddrüse sowie Anzeichen einer Hyperthyreose",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Anzeichen einer Hyperthyreose« entspricht »features of hyperthyroidism«."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Retroorbitale Schmerzen",
+     "quote_de": "retroorbitalen Schmerzen",
+     "suggested_hpo": {"id": "HP:0012531", "label": "Pain"}
+    },
+    {
+     "description_de": "Verhaltensänderungen",
+     "quote_de": "gefolgt von Verhaltensänderungen",
+     "suggested_hpo": {"id": "HP:0000708", "label": "Behavioral abnormality"}
+    },
+    {
+     "description_de": "Schmerzhafte Schwellung im Halsbereich",
+     "quote_de": "entwickelte der Patient eine schmerzhafte Schwellung im Halsbereich",
+     "suggested_hpo": {"id": "HP:6000176", "label": "Anterior neck swelling"}
+    },
+    {
+     "description_de": "Zittern (Tremor)",
+     "quote_de": "begleitet von Fieber, Zittern, Herzklopfen",
+     "suggested_hpo": {"id": "HP:0001337", "label": "Tremor"}
+    },
+    {
+     "description_de": "Akut geschwollene, druckschmerzhafte Schilddrüse",
+     "quote_de": "Die Untersuchung ergab eine akut geschwollene, druckschmerzhafte Schilddrüse",
+     "suggested_hpo": {"id": "HP:0000853", "label": "Goiter"}
+    },
+    {
+     "description_de": "Thrombozytopenie",
+     "quote_de": "sowie eine Thrombozytopenie und Leukopenie",
+     "suggested_hpo": {"id": "HP:0001873", "label": "Thrombocytopenia"}
+    },
+    {
+     "description_de": "Leukopenie",
+     "quote_de": "sowie eine Thrombozytopenie und Leukopenie",
+     "suggested_hpo": {"id": "HP:0001882", "label": "Decreased total leukocyte count"}
+    },
+    {
+     "description_de": "Hämatom im rechten Frontallappen (intrakranielle Blutung)",
+     "quote_de": "zeigte ein Hämatom im rechten Frontallappen",
+     "suggested_hpo": {"id": "HP:0002170", "label": "Intracranial hemorrhage"}
+    },
+    {
+     "description_de": "Subakute Thyreoiditis",
+     "quote_de": "Es wurde die Diagnose einer subakuten Thyreoiditis gestellt",
+     "suggested_hpo": {"id": "HP:0100646", "label": "Thyroiditis"}
+    }
+   ]
+  },
+  {
+   "case_id": "EN107424",
+   "terms": [
+    {
+     "annotation_id": "1620",
+     "hpo_id": "HP:0002664",
+     "hpo_label": "Neoplasm",
+     "source_span": "tumor",
+     "verdict": "haelt",
+     "quote_de": "Der Tumor bestand aus lymphoidem Gewebe mit zahlreichen Keimzentren",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "»Tumor« direkt übernommen, positiver Befund erhalten."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Läsion/Raumforderung im Oberschenkelbereich des rechten Beins (unizentrischer Morbus Castleman, lymphoproliferativ)",
+     "quote_de": "Die Läsion befand sich im Oberschenkelbereich des rechten Beins",
+     "suggested_hpo": {"id": "HP:0002716", "label": "Lymphadenopathy"}
+    }
+   ]
+  }
+ ]
+}
