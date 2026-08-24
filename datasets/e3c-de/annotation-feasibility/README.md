@@ -28,12 +28,12 @@ whether to invest medical review time.
 
 | File | SHA-256 |
 | --- | --- |
-| `input/teil-a-faelle.json` | `b2d00d0c1b9cbe8caf126da59d1f3cc074a130b87faba28fa883cc23c1ed5d2c` |
-| `input/triage-cuis.json` | `3a5908d887c5dac5ec7e3195b63839c409ef6480d754fdec41fc07de784b698c` |
+| `input/teil-a-faelle.json` | `5600c669c951964faccb6e80d91033b3f66fa1e5a171f976c8662ed65195927c` |
+| `input/triage-cuis.json` | `0479b9a1fa156c0506d7add95d852f6e354470299f8a703e3d0c405f409f1ed4` |
 | `teil-a-en.json` | `edaee2e4093e5a9dca19f9f4c9972e38f3bea0fef56035b95c1f0d9cc9000123` |
 | `teil-a-es.json` | `a514a66d7253f779e86e69024bd6cb1c1ed9c20f47691e9c7f135216de92b77c` |
 | `teil-a-fr.json` | `95126fa67685e12804970ec41b3e4ec9b6232f48b87ef8e57b13b74ceeb94a96` |
-| `teil-b-validiert.json` | `995a4f6e87a7e22ea1287a2d35be1f1c6d82237ca8d342aa219ce3c5a5c0ad06` |
+| `teil-b-validiert.json` | `07248207313ab53dca78e0cf60da363d0bf64e377d44ef0fa90063ecfac22f8e` |
 
 ## Part A — Do the consensus terms survive translation?
 
