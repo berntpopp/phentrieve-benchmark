@@ -59,6 +59,7 @@ DatasetRoot = Annotated[Path, typer.Option()]
 ArtifactRoot = Annotated[Path, typer.Option()]
 Cohort = Annotated[Literal["feasibility-30"], typer.Option()]
 Variant = Annotated[str, typer.Option()]
+SourceLanguage = Annotated[str | None, typer.Option("--language")]
 app.add_typer(acquire_app, name="acquire")
 app.add_typer(normalize_app, name="normalize")
 app.add_typer(select_app, name="select")
@@ -145,6 +146,7 @@ def _resolve_review_translation_manifest(
 def export_e3c_review_workbook_command(
     destination: Path,
     include_nmt: Annotated[bool, typer.Option("--include-nmt")] = False,
+    language: SourceLanguage = None,
     dataset_root: DatasetRoot = Path("datasets"),
     artifact_root: ArtifactRoot = Path(".artifacts"),
 ) -> None:
@@ -163,10 +165,14 @@ def export_e3c_review_workbook_command(
         destination=destination.resolve(),
         review_policy_id=_TRANSLATION_REVIEW_POLICY_ID,
         nmt_manifest=nmt_manifest,
+        source_language=language,
     )
-    typer.echo(
-        f"export_sha256={export_sha256} cases={len(tllm_manifest.records)}"
-    )
+    exported = [
+        record
+        for record in tllm_manifest.records
+        if language is None or record.source_language == language
+    ]
+    typer.echo(f"export_sha256={export_sha256} cases={len(exported)}")
 
 
 @review_workbook_app.command("import-e3c")

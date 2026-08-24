@@ -174,8 +174,22 @@ Add the existing NMT text as a read-only comparison column only when needed:
 uv run phentrieve-benchmark review-workbook export-e3c review.xlsx --include-nmt
 ```
 
-One multilingual medical reviewer completes the metadata and every row in the
-two-sheet workbook, then saves it as `.xlsx`. Import the completed workbook:
+Export one workbook per source language when the review is split across
+reviewers instead of assigned to a single multilingual one:
+
+```text
+uv run phentrieve-benchmark review-workbook export-e3c review-en.xlsx --language en
+uv run phentrieve-benchmark review-workbook export-e3c review-es.xlsx --language es
+uv run phentrieve-benchmark review-workbook export-e3c review-fr.xlsx --language fr
+```
+
+Each language workbook is its own canonical export with its own export ID, so
+the three imports are independent and no reviewer blocks another. A language
+without cases is rejected rather than exported empty. Without `--language` the
+command still writes the single combined workbook.
+
+A reviewer completes the metadata and every row in the two-sheet workbook, then
+saves it as `.xlsx`. Import each completed workbook:
 
 ```text
 uv run phentrieve-benchmark review-workbook import-e3c review.xlsx

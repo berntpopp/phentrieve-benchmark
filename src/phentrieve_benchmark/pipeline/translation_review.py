@@ -118,15 +118,45 @@ def _records_by_case(
     return {record.source_case_id: record for record in manifest.records}
 
 
+def _filter_language(
+    records: dict[str, TranslationRecord],
+    *,
+    source_language: str | None,
+    variant: str,
+) -> dict[str, TranslationRecord]:
+    """Keep only the cases written in `source_language`.
+
+    A per-language export is its own canonical artifact with its own hash, so
+    reviewers of different languages work and import independently.
+    """
+    if source_language is None:
+        return records
+    filtered = {
+        case_id: record
+        for case_id, record in records.items()
+        if record.source_language == source_language
+    }
+    if not filtered:
+        raise ValueError(
+            f"{variant} manifest has no case in source language {source_language!r}"
+        )
+    return filtered
+
+
 def _validate_nmt_manifest(
     tllm_manifest: TranslationManifest,
     nmt_manifest: TranslationManifest,
     *,
     tllm_records: dict[str, TranslationRecord],
+    source_language: str | None,
 ) -> dict[str, TranslationRecord]:
     if nmt_manifest.selection_id != tllm_manifest.selection_id:
         raise ValueError("TLLM and NMT manifests have different selection IDs")
-    nmt_records = _records_by_case(nmt_manifest, model="general/nmt", variant="NMT")
+    nmt_records = _filter_language(
+        _records_by_case(nmt_manifest, model="general/nmt", variant="NMT"),
+        source_language=source_language,
+        variant="NMT",
+    )
     if nmt_records.keys() != tllm_records.keys():
         raise ValueError("TLLM and NMT manifests have different case sets")
     for case_id, tllm_record in tllm_records.items():
@@ -145,11 +175,16 @@ def export_translation_review(
     destination: Path,
     review_policy_id: str,
     nmt_manifest: TranslationManifest | None = None,
+    source_language: str | None = None,
 ) -> str:
     """Store a canonical review export and write its Excel review workbook."""
-    tllm_records = _records_by_case(
-        tllm_manifest,
-        model="general/translation-llm",
+    tllm_records = _filter_language(
+        _records_by_case(
+            tllm_manifest,
+            model="general/translation-llm",
+            variant="TLLM",
+        ),
+        source_language=source_language,
         variant="TLLM",
     )
     nmt_records = (
@@ -157,6 +192,7 @@ def export_translation_review(
             tllm_manifest,
             nmt_manifest,
             tllm_records=tllm_records,
+            source_language=source_language,
         )
         if nmt_manifest is not None
         else None

@@ -3,6 +3,7 @@ from decimal import Decimal
 from hashlib import sha256
 from pathlib import Path
 
+import pytest
 from openpyxl import load_workbook
 
 from phentrieve_benchmark.artifacts.store import ArtifactStore
@@ -103,3 +104,39 @@ def test_tracked_snapshot_exports_to_default_review_workbook(
     assert "é" in expected_french
     assert source_by_case["FR100185"] == expected_french
     assert _snapshot_bytes() == before
+
+
+def test_language_filter_exports_only_that_language(tmp_path: Path) -> None:
+    store = ArtifactStore(tmp_path / "objects")
+    manifest = _snapshot_manifest(store)
+    destination = tmp_path / "review-fr.xlsx"
+
+    export_translation_review(
+        store=store,
+        tllm_manifest=manifest,
+        destination=destination,
+        review_policy_id="e3c:translation-review/v1",
+        source_language="fr",
+    )
+
+    review = load_workbook(destination, data_only=False)["Review"]
+    assert review.max_row == 11
+    languages = {review.cell(row=row, column=2).value for row in range(2, 12)}
+    assert languages == {"fr"}
+
+
+def test_language_without_cases_is_rejected(tmp_path: Path) -> None:
+    store = ArtifactStore(tmp_path / "objects")
+    manifest = _snapshot_manifest(store)
+    destination = tmp_path / "review-it.xlsx"
+
+    with pytest.raises(ValueError, match="source language 'it'"):
+        export_translation_review(
+            store=store,
+            tllm_manifest=manifest,
+            destination=destination,
+            review_policy_id="e3c:translation-review/v1",
+            source_language="it",
+        )
+
+    assert not destination.exists()

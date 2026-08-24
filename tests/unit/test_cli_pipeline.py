@@ -120,6 +120,7 @@ def test_review_workbook_export_resolves_tllm_and_omits_nmt_by_default(
             "destination": destination.resolve(),
             "review_policy_id": "e3c:translation-review/v1",
             "nmt_manifest": None,
+            "source_language": None,
         }
     ]
     assert invocation.stdout == f"export_sha256={'a' * 64} cases=30\n"
@@ -524,3 +525,50 @@ def test_recheck_and_materialize_accept_a_variant() -> None:
         invocation = runner.invoke(cli.app, command)
         assert invocation.exit_code == 0, invocation.exception
         assert "--variant" in invocation.stdout
+
+
+def test_review_workbook_export_filters_language_and_reports_that_count(
+    tmp_path: Path, monkeypatch: object
+) -> None:
+    records = tuple(
+        type("Record", (), {"source_language": language})()
+        for language in ("en",) * 10 + ("es",) * 10 + ("fr",) * 10
+    )
+    tllm_manifest = type("Manifest", (), {"records": records})()
+    context = type(
+        "Context",
+        (),
+        {
+            "store": object(),
+            "artifact_root": tmp_path / "artifacts",
+            "dataset_root": tmp_path / "datasets",
+        },
+    )()
+    monkeypatch.setattr(cli, "_pipeline_context", lambda *_: context)  # type: ignore[attr-defined]
+    monkeypatch.setattr(
+        cli,
+        "_resolve_review_translation_manifest",
+        lambda *, context, variant: tllm_manifest,
+    )  # type: ignore[attr-defined]
+    calls: list[dict[str, object]] = []
+    monkeypatch.setattr(
+        cli,
+        "export_translation_review",
+        lambda **kwargs: calls.append(kwargs) or "a" * 64,
+    )  # type: ignore[attr-defined]
+    destination = tmp_path / "review-fr.xlsx"
+
+    invocation = CliRunner().invoke(
+        cli.app,
+        [
+            "review-workbook",
+            "export-e3c",
+            str(destination),
+            "--language",
+            "fr",
+        ],
+    )
+
+    assert invocation.exit_code == 0, invocation.exception
+    assert calls[0]["source_language"] == "fr"
+    assert invocation.stdout == f"export_sha256={'a' * 64} cases=10\n"
