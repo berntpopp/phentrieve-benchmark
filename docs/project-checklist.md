@@ -29,12 +29,17 @@ Status:
 - [x] Offline-CI mit synthetischen Testdaten einrichten.
 - [x] Expliziten Live-Smoke-Test für echte Downloads bereitstellen.
 - [ ] Globale Testabdeckung wieder auf mindestens 90 % erhöhen; letzter
-      vollständiger Lauf: 508 Tests bestanden, 14 plattformbedingt
-      übersprungen, Coverage 88,71 %.
+      vollständiger Lauf (2026-08-24): 815 Tests bestanden, 14
+      plattformbedingt übersprungen, Coverage 88 %.
 - [ ] Kostenpflichtige Operationen vor Ausführung grob kalkulieren und
       ausdrücklich bestätigen lassen.
 
 ## E3C – aktiv
+
+Gestufte Strategie (2026-08-24): Stufe 1 liefert ein Dokument-Level-Gold auf
+den deutschen Texten; Stufe 2 ergänzt Evidenzspannen nur für die
+Single-Term-Teilmenge. Die Phase-0-Machbarkeitsprobe
+(`datasets/e3c-de/annotation-feasibility/`) stützt diesen Weg.
 
 ### Quelle, Normalisierung und Auswahl
 
@@ -109,11 +114,16 @@ Status:
   regelbasiert nicht erreichbar; dafür ist eine semantische Prüfstufe
   (Rückübersetzung oder Entailment) zu entwerfen — offene Architekturfrage
   wegen Determinismus und gepinnter Modellidentität.
-- ⚠ Den anfänglichen Anteil bilingualer und fachsprachlich/ärztlicher Prüfung
-  verbindlich festlegen.
-- [ ] Zunächst den im Issue vorgesehenen anteiligen Review anvisieren.
-- [ ] Für den manuellen Review geeignete Fälle risikobasiert und
-      nachvollziehbar auswählen.
+- [x] Phase-0-Machbarkeitsprobe (2026-08-24, maschinell, kein Gold): 208 von
+      210 Audit-Konsens-Termen sind in den deutschen Übersetzungen klar
+      ausgedrückt; der Aussagestatus blieb in allen 210 erhalten. Befund:
+      `datasets/e3c-de/annotation-feasibility/`.
+- [x] Entscheidung (2026-08-24): Der Übersetzungsreview bleibt schlank und
+      risikobasiert statt anteilig-vollständig; die Übersetzung ist für das
+      Dokument-Level-Ziel kein Engpass.
+- [ ] Risikobasierten Übersetzungsreview durchführen: EN100593 gezielt
+      (beide Probe-Befunde), Stichproben je Sprache; für den Vollkorpus
+      später die 61 `units_added`-Fälle.
 - [ ] Bei kritischen Fehlern eine Ausweitung des manuellen Reviews vorsehen.
 - [ ] Reviewbefunde, Korrekturen und Entscheidungen getrennt dokumentieren.
 
@@ -128,15 +138,29 @@ Status:
 - [x] Problematische Zuordnungen zur manuellen Prüfung kennzeichnen.
 - [x] Den einzelnen malformed HPO-Cross-Reference dokumentieren und ohne
       automatische Korrektur ausschließen.
-- [ ] HPO-Annotationen und Evidenzspannen für die deutschen Texte erzeugen.
-- [ ] HPO-Identität, Evidenzspanne, Negation und Kontext fachlich prüfen.
-- [ ] Konflikte adjudizieren und eine akzeptierte deutsche Annotationsfassung
-      erzeugen.
+- [x] Strategieentscheidung (2026-08-24): Zuerst ein Dokument-Level-Gold
+      (HPO-Term-Mengen je deutschem Text, wie CSC/GSC); Evidenzspannen erst
+      später und nur für die Single-Term-Teilmenge.
+- [x] Phase-0-Probe zur Annotier-Machbarkeit: Gold-Kern aus 176 positiven
+      Konsenstermen plus ~100 maschinell vorgeschlagenen Lückenkandidaten
+      (81 gegen die gepinnte HPO aufgelöst); Engpass ist die
+      Konzeptabdeckung, nicht die Sprache.
+- [x] CUI-Triage der 200 häufigsten ungeklärten missing-CUIs: 83 kein
+      Phänotyp, 64 Phänotyp ohne xref (55 Vorschläge maschinell gegen HPO
+      validiert, 0 erfundene IDs), 48 zu generisch, 5 unklar.
+- [ ] Konsolidiertes Vorschlags-Workbook je Fall erzeugen (Konsensterme +
+      Lückenkandidaten, mit Herkunft und deutschem Zitat).
+- [ ] Vorschläge ärztlich prüfen (bestätigen/verwerfen je Term); nicht
+      verbalisierte Befunde nur per Notiz kennzeichnen, keine eigene Spalte.
+- [ ] Akzeptierte Entscheidungen importieren und ein akzeptiertes
+      deutsches Dokument-Level-Gold v1 erzeugen; Restlücke (zu generische
+      und seltene CUIs) offen ausweisen.
 
 ### Single-Term-Aufgabe
 
 - [ ] Single Terms ausschließlich aus den fertig kuratierten deutschen
-      E3C-HPO-Annotationen ableiten.
+      E3C-HPO-Annotationen ableiten (Stufe 2, nach dem Dokument-Level-Gold;
+      erfordert Evidenzspannen nur für diese Teilmenge).
 - [ ] Pro akzeptierter Annotation die deutsche phänotypische Formulierung und
       HPO-ID übernehmen.
 - [ ] Single-Term-Fälle erst nach Übersetzung, Mapping und Annotation-Review
@@ -228,8 +252,10 @@ GSC-Fassungen erzeugt.
 
 ## Aktuelle Priorität
 
-1. Die 30 TLLM-Übersetzungen mit der vorbereiteten Arbeitsmappe medizinisch
-   prüfen.
-2. Den abgeschlossenen Review importieren und offene Rückfragen bearbeiten.
-3. Danach die deutschen HPO-Annotationen erzeugen und fachlich prüfen.
+1. Konsolidiertes Annotationsvorschlags-Workbook für die 30er-Kohorte
+   erzeugen und ärztlich prüfen.
+2. Parallel den schlanken risikobasierten Übersetzungsreview durchführen
+   (EN100593, Stichproben).
+3. Akzeptierte Entscheidungen importieren, Dokument-Level-Gold v1 erzeugen,
+   danach Benchmark-Definition und Phentrieve-Adapter.
 4. CSC und GSC bleiben bis zu einer ausdrücklichen Wiederaufnahme pausiert.
