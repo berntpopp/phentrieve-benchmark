@@ -1,0 +1,371 @@
+"""Generate the Excel review workbook and HTML reading view for the
+E3C-DE annotation review (30-case cohort).
+
+All prefilled rows are machine-generated proposals from the Phase 0
+feasibility probe (see README.md in this directory) - not review data, not a
+gold standard. Every proposed HPO ID/label is resolved exactly against the
+pinned hp.obo v2026-06-23 (lexical, deterministic, no retrieval model).
+
+Inputs: probe files in this directory; German case texts from the tracked
+review snapshot; the pinned hp.obo from the local artifact store (a lookup
+cache is built on first run). Outputs go to .artifacts/review-workbooks/.
+Run from the repository root: python datasets/e3c-de/annotation-feasibility/make_annotation_review.py
+"""
+import collections
+import html
+import json
+import math
+import re
+from datetime import date
+
+from openpyxl import Workbook
+from openpyxl.cell.rich_text import CellRichText, TextBlock
+from openpyxl.cell.text import InlineFont
+from openpyxl.styles import Alignment, Font, PatternFill
+from openpyxl.worksheet.datavalidation import DataValidation
+
+PROBE = "datasets/e3c-de/annotation-feasibility"
+TEXTS = "datasets/e3c-de/review/e3c-de-feasibility-30-v1"
+HPO_OBO = (".artifacts/objects/sha256/a5/"
+           "a5092cbdf605f568403cf7380d9173014015692433b2cc631bc5c1b053876b1b")
+LOOKUP_CACHE = ".artifacts/review-workbooks/hpo-lookup.json"
+OUT = ".artifacts/review-workbooks"
+NCOL = 11  # A..K
+
+import os
+os.makedirs(OUT, exist_ok=True)
+if not os.path.exists(LOOKUP_CACHE):
+    obo = open(HPO_OBO, encoding="utf-8").read()
+    terms, labels = {}, {}
+    for block in obo.split("\n[Term]\n")[1:]:
+        tid = re.search(r"^id: (HP:\d+)", block, re.M)
+        name = re.search(r"^name: (.+)", block, re.M)
+        obs = bool(re.search(r"^is_obsolete: true", block, re.M))
+        if tid and name:
+            terms[tid.group(1)] = {"name": name.group(1), "obsolete": obs}
+            if not obs:
+                labels[name.group(1).lower()] = tid.group(1)
+                for syn in re.findall(r'^synonym: "([^"]+)" EXACT', block, re.M):
+                    labels.setdefault(syn.lower(), tid.group(1))
+    json.dump({"terms": terms, "labels": labels},
+              open(LOOKUP_CACHE, "w", encoding="utf-8"), ensure_ascii=False)
+lk = json.load(open(LOOKUP_CACHE, encoding="utf-8"))
+terms_db, labels_db = lk["terms"], lk["labels"]
+bundle = json.load(open(f"{PROBE}/input/teil-a-faelle.json", encoding="utf-8"))
+relevance = {(c["case_id"], t["annotation_id"]): t["relevance"]
+             for c in bundle["cases"] for t in c["consensus_terms"]}
+
+# --- Zeilen aufbauen -------------------------------------------------------
+rows = []
+for lang in ("en", "es", "fr"):
+    d = json.load(open(f"{PROBE}/teil-a-{lang}.json", encoding="utf-8"))
+    for c in d["cases"]:
+        cid = c["case_id"]
+        seen = set()
+        for t in c["terms"]:
+            if relevance.get((cid, t["annotation_id"])) != "positive_patient_phenotype":
+                continue
+            seen.add(t["hpo_id"])
+            note = t["note"] or ""
+            if t["verdict"] != "haelt":
+                note = f"ACHTUNG ({t['verdict']}): {note}"
+            rows.append(dict(case=cid, lang=lang, src="Audit-Konsens", hid=t["hpo_id"],
+                             label=t["hpo_label"], quote=t["quote_de"] or "", note=note))
+        for g in c["gaps"]:
+            s = g.get("suggested_hpo") or {}
+            hid, hlabel = s.get("id") or "", s.get("label") or ""
+            # Halluzinations-Gate gegen gepinnte HPO
+            if hid and hid in terms_db and not terms_db[hid]["obsolete"]:
+                check = "ID geprüft"
+                if (terms_db[hid]["name"].lower() != hlabel.lower()
+                        and labels_db.get(hlabel.lower()) != hid):
+                    hlabel = f"{hlabel} [HPO-Label: {terms_db[hid]['name']}]"
+            elif hid:
+                check, hid = "ID unbekannt, verworfen", ""
+            elif hlabel and labels_db.get(hlabel.lower()):
+                hid = labels_db[hlabel.lower()]
+                check = "Label aufgelöst, ID ergänzt"
+                hlabel = terms_db[hid]["name"]
+            elif hlabel:
+                check = "nur Label, nicht auflösbar"
+            else:
+                check, hlabel = "ohne Vorschlag", ""
+            if hid and hid in seen:
+                continue
+            rows.append(dict(case=cid, lang=lang, src=f"Lücken-Vorschlag ({check})",
+                             hid=hid, label=hlabel or g["description_de"],
+                             quote=g["quote_de"] or "", note=g["description_de"]))
+rows.sort(key=lambda r: (r["case"], not r["src"].startswith("Audit"), r["hid"]))
+for i, r in enumerate(rows, 1):
+    r["nr"] = i
+
+# --- Fundstellen lokalisieren ----------------------------------------------
+texts = {}
+for r in rows:
+    cid = r["case"]
+    if cid not in texts:
+        texts[cid] = open(f"{TEXTS}/{cid}/tllm.de.txt", encoding="utf-8").read()
+    txt, q = texts[cid], r["quote"]
+    pos = txt.find(q) if q else -1
+    if pos < 0 and " ... " in q:
+        q = max(q.split(" ... "), key=len)
+        pos = txt.find(q)
+    r["start"], r["end"] = (pos, pos + len(q)) if pos >= 0 else (None, None)
+unlocated = [r["nr"] for r in rows if r["start"] is None]
+
+by_case = collections.defaultdict(list)
+for r in rows:
+    by_case[r["case"]].append(r)
+case_order = sorted(by_case)
+
+
+def merged_marks(cid):
+    """Ueberlappende Fundstellen zu (start, end, rows)-Spannen zusammenfassen."""
+    marks = sorted((r for r in by_case[cid] if r["start"] is not None),
+                   key=lambda r: (r["start"], r["end"]))
+    merged = []
+    for r in marks:
+        if merged and r["start"] < merged[-1][1]:
+            merged[-1][1] = max(merged[-1][1], r["end"])
+            merged[-1][2].append(r)
+        else:
+            merged.append([r["start"], r["end"], [r]])
+    return merged
+
+
+# --- Excel -----------------------------------------------------------------
+MARK = InlineFont(b=True, color="B00000")
+HEAD_FILL = PatternFill("solid", start_color="D9D9D9")
+CASE_FILL = PatternFill("solid", start_color="305496")
+ADD_FILL = PatternFill("solid", start_color="FDF2DC")
+TEXT_FILL = PatternFill("solid", start_color="FAFAFA")
+
+def ap(sheet, vals):
+    """append, aber leere Strings als None (sonst ungueltige inlineStr-Zellen)."""
+    sheet.append([v if v != "" else None for v in vals])
+
+
+wb = Workbook()
+ws = wb.active
+ws.title = "Anleitung"
+info = [
+    ("Anleitung: Prüfung der Symptom-Zuordnungen (30 Fallberichte)", True),
+    ("", False),
+    ("Worum geht es?", True),
+    ("30 klinische Fallberichte wurden maschinell ins Deutsche übersetzt. Zu", False),
+    ("jedem Text wurden automatisch Symptome bzw. Phänotypen als HPO-Begriffe", False),
+    ("vorgeschlagen. Diese Vorschläge sind ungeprüft - erst Ihre Entscheidung", False),
+    ("macht daraus verlässliche Daten.", False),
+    ("", False),
+    ("So ist das Blatt 'Review' aufgebaut:", True),
+    ("1. Blauer Balken = Beginn eines Falls.", False),
+    ("2. Darunter der vollständige deutsche Text. Stellen, auf die sich ein", False),
+    ("   Vorschlag bezieht, sind fett und rot markiert; die Nummer in eckigen", False),
+    ("   Klammern, z. B. [12], verweist auf die Zeile Nr. 12 in der Tabelle.", False),
+    ("3. Danach die Tabelle mit den Vorschlägen dieses Falls.", False),
+    ("4. Gelbe Zeilen am Ende: Platz für eigene Ergänzungen.", False),
+    ("", False),
+    ("So prüfen Sie einen Fall:", True),
+    ("1. Den Text vollständig lesen.", False),
+    ("2. Für jede Tabellenzeile in der Spalte 'Entscheidung' wählen:", False),
+    ("   übernehmen - der Begriff trifft für diesen Patienten zu.", False),
+    ("   ändern - fast richtig, aber ein anderer HPO-Begriff passt besser;", False),
+    ("     den besseren Begriff (ID oder Name) in die Spalte 'Korrektur'", False),
+    ("     schreiben. Der ursprüngliche Vorschlag bleibt dokumentiert.", False),
+    ("   verwerfen - trifft nicht zu.", False),
+    ("   unsicher - nicht sicher entscheidbar; bitte kurze Begründung in", False),
+    ("     der Spalte 'Notiz'.", False),
+    ("3. Fehlt ein Symptom, das im Text steht, aber in keiner Zeile auftaucht?", False),
+    ("   Bitte in eine gelbe Zeile eintragen (HPO-ID und/oder Name). Die", False),
+    ("   Textstelle in 'Zitat' ist hilfreich, aber nicht nötig - ohne Zitat", False),
+    ("   gilt der Begriff für den ganzen Text. Reichen die gelben Zeilen", False),
+    ("   nicht, einfach weitere einfügen.", False),
+    ("", False),
+    ("Wichtige Hinweise:", True),
+    ("- Es zählt nur, was der Text über den Patienten selbst positiv aussagt.", False),
+    ("  Verneinte, frühere, unsichere oder auf Angehörige bezogene Befunde", False),
+    ("  bitte nicht übernehmen.", False),
+    ("- Steht im Text nur ein Messwert (z. B. 'CRP 3,7 mg/dl') ohne wertende", False),
+    ("  Formulierung, den Begriff trotzdem beurteilen und in 'Notiz'", False),
+    ("  'nicht verbalisiert' vermerken.", False),
+    ("", False),
+    ("Was bedeutet die Spalte 'Herkunft'?", True),
+    ("- Audit-Konsens: zwei unabhängige Prüfdurchgänge kamen am Originaltext", False),
+    ("  zum selben Ergebnis - meist zuverlässig.", False),
+    ("- Lücken-Vorschlag (ID geprüft): beim Gegenlesen des deutschen Textes", False),
+    ("  zusätzlich gefunden; die HPO-ID existiert und ist aktuell.", False),
+    ("- Lücken-Vorschlag (ohne Vorschlag): eine Auffälligkeit ohne konkreten", False),
+    ("  HPO-Begriff - bitte Begriff ergänzen oder Zeile verwerfen.", False),
+    ("Alle vorgeschlagenen HPO-IDs wurden automatisch gegen die HPO-Version", False),
+    ("v2026-06-23 geprüft; erfundene IDs sind ausgeschlossen.", False),
+    ("", False),
+    ("Dieselbe Ansicht gibt es auch für den Browser:", False),
+    ("e3c-de-annotation-review-30.html (Markierungen als farbige Textmarker).", False),
+    ("", False),
+    (f"Automatisch erstellt am {date.today()}; Datengrundlage:", False),
+    ("datasets/e3c-de/annotation-feasibility/", False),
+]
+for i, (txt_, bold) in enumerate(info, 1):
+    cell = ws.cell(row=i, column=1, value=txt_ or None)
+    if bold:
+        cell.font = Font(bold=True)
+ws.column_dimensions["A"].width = 95
+
+ws2 = wb.create_sheet("Review")
+COLS = ["Nr", "Fall", "Sprache", "Herkunft", "HPO-ID", "HPO-Label",
+        "Zitat (deutsch)", "Hinweis", "Entscheidung",
+        "Korrektur (HPO-ID oder Name)", "Notiz"]
+WIDTHS = (5, 10, 8, 26, 12, 30, 42, 40, 13, 22, 24)
+for col, w in zip("ABCDEFGHIJK", WIDTHS):
+    ws2.column_dimensions[col].width = w
+
+CHARS_PER_LINE = 150  # gesamte Blattbreite (A..K verbunden)
+
+
+def add_text_paragraph(par_text, par_start, marks):
+    """Einen Textabsatz als verbundene Zeile mit fetten Fundstellen anhaengen."""
+    par_end = par_start + len(par_text)
+    parts, pos = [], par_start
+    extra = 0
+    for s, e, rs in marks:
+        if e <= par_start or s >= par_end:
+            continue
+        s2, e2 = max(s, par_start), min(e, par_end)
+        if texts_cur[pos:s2]:
+            parts.append(texts_cur[pos:s2])
+        parts.append(TextBlock(MARK, texts_cur[s2:e2]))
+        ref = " [" + ",".join(str(x["nr"]) for x in rs) + "]"
+        parts.append(ref)
+        extra += len(ref)
+        pos = e2
+    if texts_cur[pos:par_end]:
+        parts.append(texts_cur[pos:par_end])
+    ws2.append([CellRichText(*parts) if parts else None])
+    ri = ws2.max_row
+    ws2.merge_cells(start_row=ri, start_column=1, end_row=ri, end_column=NCOL)
+    cell = ws2.cell(row=ri, column=1)
+    cell.alignment = Alignment(wrap_text=True, vertical="top")
+    cell.fill = TEXT_FILL
+    lines = max(1, math.ceil((len(par_text) + extra) / CHARS_PER_LINE))
+    ws2.row_dimensions[ri].height = min(405, 14 * lines + 4)
+
+
+for cid in case_order:
+    texts_cur = texts[cid]
+    lang = by_case[cid][0]["lang"]
+    # Fallkopf
+    ap(ws2, [f"Fall {cid}  ({lang})"])
+    ri = ws2.max_row
+    ws2.merge_cells(start_row=ri, start_column=1, end_row=ri, end_column=NCOL)
+    cell = ws2.cell(row=ri, column=1)
+    cell.font = Font(bold=True, color="FFFFFF", size=12)
+    cell.fill = CASE_FILL
+    # Volltext, absatzweise
+    marks = merged_marks(cid)
+    offset = 0
+    for par in texts_cur.split("\n"):
+        if par.strip():
+            add_text_paragraph(par, offset, marks)
+        offset += len(par) + 1
+    # Tabellenkopf
+    ap(ws2, COLS)
+    for cell in ws2[ws2.max_row]:
+        cell.font = Font(bold=True)
+        cell.fill = HEAD_FILL
+    # Vorschlagszeilen
+    for r in by_case[cid]:
+        ap(ws2, [r["nr"], cid, r["lang"], r["src"], r["hid"], r["label"],
+                 r["quote"], r["note"], None, None, None])
+        for cell in ws2[ws2.max_row]:
+            cell.alignment = Alignment(wrap_text=True, vertical="top")
+    # Ergaenzungszeilen
+    for _ in range(3):
+        ap(ws2, [None, cid, lang, "Ärztliche Ergänzung",
+                 None, None, None, None, None, None, None])
+        for cell in ws2[ws2.max_row]:
+            cell.fill = ADD_FILL
+            cell.alignment = Alignment(wrap_text=True, vertical="top")
+    ws2.append([])  # Trennzeile
+
+dv = DataValidation(type="list",
+                    formula1='"übernehmen,ändern,verwerfen,unsicher"',
+                    allow_blank=True)
+ws2.add_data_validation(dv)
+dv.add(f"I1:I{ws2.max_row}")
+
+try:
+    wb.save(f"{OUT}/e3c-de-annotation-review-30.xlsx")
+    saved = "e3c-de-annotation-review-30.xlsx"
+except PermissionError:
+    wb.save(f"{OUT}/e3c-de-annotation-review-30-v2.xlsx")
+    saved = "e3c-de-annotation-review-30-v2.xlsx (Original gesperrt)"
+
+# --- HTML-Lesensicht -------------------------------------------------------
+def render_case(cid):
+    txt = texts[cid]
+    out, pos = [], 0
+    for s, e, rs in merged_marks(cid):
+        out.append(html.escape(txt[pos:s]))
+        kinds = {x["src"].startswith("Audit") for x in rs}
+        cls = "kons" if kinds == {True} else "gap" if kinds == {False} else "mixed"
+        tip = " | ".join(f"Nr {x['nr']}: {x['hid'] or '?'} {x['label']}" for x in rs)
+        sup = ",".join(str(x["nr"]) for x in rs)
+        out.append(f'<mark class="{cls}" title="{html.escape(tip)}">'
+                   f'{html.escape(txt[s:e])}</mark><sup>{sup}</sup>')
+        pos = e
+    out.append(html.escape(txt[pos:]))
+    body = "".join(out).replace("\n", "<br>\n")
+    tbl = "".join(
+        f'<tr><td>{r["nr"]}</td>'
+        f'<td class="{"kons" if r["src"].startswith("Audit") else "gap"}">'
+        f'{html.escape(r["src"])}</td><td>{r["hid"]}</td>'
+        f'<td>{html.escape(r["label"])}</td><td>{html.escape(r["note"])}</td>'
+        f'<td>{"" if r["start"] is not None else "Zitat nicht lokalisiert"}</td></tr>'
+        for r in by_case[cid])
+    return (f'<section id="{cid}"><h2>{cid}</h2><div class="text">{body}</div>'
+            f'<table><tr><th>Nr</th><th>Herkunft</th><th>HPO-ID</th><th>Label</th>'
+            f'<th>Hinweis</th><th></th></tr>{tbl}</table></section>')
+
+
+nav = " ".join(f'<a href="#{c}">{c}</a>' for c in case_order)
+style = """
+body{font-family:Georgia,serif;max-width:60rem;margin:2rem auto;padding:0 1rem;line-height:1.65}
+header{border:2px solid #b00;padding:.7rem 1rem;background:#fff4f4;font-family:sans-serif}
+nav{position:sticky;top:0;background:#fff;padding:.5rem 0;border-bottom:1px solid #ccc;font-family:sans-serif;font-size:.85rem}
+nav a{margin-right:.55rem;text-decoration:none}
+.text{background:#fafafa;border:1px solid #ddd;padding:1rem 1.3rem;border-radius:6px}
+mark.kons{background:#c8e6c9} mark.gap{background:#ffe082} mark.mixed{background:#b3e5fc}
+sup{font-family:sans-serif;font-size:.68em;color:#555}
+table{border-collapse:collapse;font-family:sans-serif;font-size:.83rem;margin:1rem 0 2.5rem;width:100%}
+td,th{border:1px solid #ccc;padding:.25rem .5rem;text-align:left;vertical-align:top}
+td.kons{background:#e8f5e9} td.gap{background:#fff8e1}
+h2{font-family:sans-serif;border-bottom:2px solid #333;padding-bottom:.2rem}
+.legend span{padding:0 .5rem;margin-right:.7rem}
+"""
+page = (f'<!DOCTYPE html><html lang="de"><head><meta charset="utf-8">'
+        f'<title>E3C-DE Annotationsreview - Lesensicht (30 Faelle)</title>'
+        f'<style>{style}</style></head><body>'
+        f'<header><strong>Maschinell erzeugte Vorschlaege - keine Reviewdaten, '
+        f'kein Goldstandard.</strong><br>Lesensicht zur Excel-Datei '
+        f'<code>e3c-de-annotation-review-30.xlsx</code>; Entscheidungen bitte dort '
+        f'eintragen (gleiche Nr.). Die Markierungen sind kein abgeschlossenes '
+        f'Inventar: Beim Lesen vermisste Phaenotypen bitte im Excel in den Zeilen '
+        f'"Aerztliche Ergaenzung" des Falls nachtragen (Zitat optional; ohne Zitat '
+        f'gilt der Term fuer den ganzen Text). Alle HPO-IDs exakt gegen die '
+        f'gepinnte HPO v2026-06-23 aufgeloest. '
+        f'Erzeugt am {date.today()} von Claude (Opus 5).'
+        f'<div class="legend"><span style="background:#c8e6c9">Audit-Konsens</span>'
+        f'<span style="background:#ffe082">Luecken-Vorschlag</span>'
+        f'<span style="background:#b3e5fc">beides</span></div></header>'
+        f'<nav>{nav}</nav>{"".join(render_case(c) for c in case_order)}'
+        f'</body></html>')
+with open(f"{OUT}/e3c-de-annotation-review-30.html", "w", encoding="utf-8",
+          newline="\n") as fh:
+    fh.write(page)
+
+src_stats = collections.Counter(r["src"] for r in rows)
+print("gespeichert:", saved)
+print("Zeilen:", len(rows))
+for k, v in sorted(src_stats.items()):
+    print(f"  {k}: {v}")
+print("nicht lokalisierte Zitate:", unlocated or "keine")

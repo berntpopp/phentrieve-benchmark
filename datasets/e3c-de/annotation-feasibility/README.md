@@ -110,3 +110,15 @@ during medical review.
   `hp.obo`) and the four raw `teil-b-batch-*.json` files (merged into
   `teil-b-validiert.json` without loss) are not preserved; both are
   reproducible from preserved inputs.
+
+## Review tooling
+
+`make_annotation_review.py` generates the medical review materials from the
+preserved probe files: an Excel workbook (a single sheet showing, per case,
+the full German text with bolded evidence spans followed by the decision
+table plus addition rows) and an HTML reading view with highlighted spans.
+Run it from the repository root; outputs go to `.artifacts/review-workbooks/`
+and are not tracked. Every proposed HPO ID/label passes a hallucination gate
+against the pinned `hp.obo` (read from the local artifact store; a lookup
+cache is built on first run). Decisions recorded in the workbook re-enter
+the repository only through the future explicit import step.
