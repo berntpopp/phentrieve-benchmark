@@ -35,11 +35,18 @@ LOOKUP_CACHE = ".artifacts/review-workbooks/hpo-lookup.json"
 OUT = ".artifacts/review-workbooks"
 NCOL = 11  # A..K
 
-LANG_FILTER = sys.argv[1].lower() if len(sys.argv) > 1 else None
+_args = sys.argv[1:]
+SOURCE_MODE = "--source" in _args
+_args = [a for a in _args if a != "--source"]
+LANG_FILTER = _args[0].lower() if _args else None
 if LANG_FILTER not in (None, "en", "es", "fr"):
     raise SystemExit(f"Unbekannte Sprache: {LANG_FILTER} (erlaubt: en, es, fr)")
+if SOURCE_MODE and LANG_FILTER != "en":
+    raise SystemExit("--source ist bisher nur fuer en vorbereitet")
 SUFFIX = LANG_FILTER if LANG_FILTER else "30"
-BASENAME = f"e3c-de-annotation-review-{SUFFIX}"
+BASENAME = (f"e3c-{LANG_FILTER}-annotation-review" if SOURCE_MODE
+            else f"e3c-de-annotation-review-{SUFFIX}")
+ZITAT_SPRACHE = "englisch" if SOURCE_MODE else "deutsch"
 
 os.makedirs(OUT, exist_ok=True)
 if not os.path.exists(LOOKUP_CACHE):
@@ -78,8 +85,9 @@ for lang in ("en", "es", "fr"):
             if t["verdict"] != "haelt":
                 note = f"ACHTUNG ({t['verdict']}): {note}"
             rows.append(dict(case=cid, lang=lang, src="Audit-Konsens", hid=t["hpo_id"],
-                             label=t["hpo_label"], quote=t["quote_de"] or "", note=note))
-        for g in c["gaps"]:
+                             label=t["hpo_label"], quote=t["quote_de"] or "", note=note,
+                             aid=t["annotation_id"]))
+        for gap_index, g in enumerate(c["gaps"]):
             s = g.get("suggested_hpo") or {}
             hid, hlabel = s.get("id") or "", s.get("label") or ""
             # Halluzinations-Gate gegen gepinnte HPO
@@ -102,7 +110,8 @@ for lang in ("en", "es", "fr"):
                 continue
             rows.append(dict(case=cid, lang=lang, src=f"Lücken-Vorschlag ({check})",
                              hid=hid, label=hlabel or g["description_de"],
-                             quote=g["quote_de"] or "", note=g["description_de"]))
+                             quote=g["quote_de"] or "", note=g["description_de"],
+                             gapi=gap_index))
 
 # --- Audit-Einzelbestaetigungen (nur ein Pruefdurchgang) --------------------
 AUDIT = "datasets/e3c-de/mappings/audit"
@@ -127,6 +136,7 @@ def _target(rec):
 audit_a = json.load(open(f"{AUDIT}/agent-a.json", encoding="utf-8"))["records"]
 audit_b = json.load(open(f"{AUDIT}/agent-b.json", encoding="utf-8"))["records"]
 b_idx = {(r["case_id"], r["annotation_id"]): r for r in audit_b}
+a_idx = {(r["case_id"], r["annotation_id"]): r for r in audit_a}
 seen_by_case = collections.defaultdict(set)
 for r in rows:
     if r["hid"]:
@@ -159,7 +169,8 @@ for ra in audit_a:
         rows.append(dict(case=cid, lang=lang_of.get(cid, cid[:2].lower()),
                          src="Audit (einzeln bestätigt)", hid=hid,
                          label=terms_db[hid]["name"], quote="",
-                         note=f"Quellspan: '{rec['span']}'; {anders}."))
+                         note=f"Quellspan: '{rec['span']}'; {anders}.",
+                         aid=rec["annotation_id"]))
 
 if LANG_FILTER:
     rows = [r for r in rows if r["lang"] == LANG_FILTER]
@@ -170,18 +181,46 @@ for i, r in enumerate(rows, 1):
     r["nr"] = i
 
 # --- Fundstellen lokalisieren ----------------------------------------------
+gap_quotes = {}
+if SOURCE_MODE:
+    for cand in (f"{PROBE}/input/en-source-gap-quotes.json",
+                 ".artifacts/reviews/e3c-de/probe-0/en-source-gap-quotes.json"):
+        if os.path.exists(cand):
+            gq = json.load(open(cand, encoding="utf-8"))
+            gap_quotes = {(g["case_id"], g["gap_index"]): g.get("quote_en") or ""
+                          for g in gq["gaps"] if g.get("found")}
+            break
+    else:
+        raise SystemExit("en-source-gap-quotes.json fehlt (Gap-Relokalisierung)")
+
 texts = {}
+offset_mismatch = 0
 for r in rows:
     cid = r["case"]
     if cid not in texts:
-        texts[cid] = open(f"{TEXTS}/{cid}/tllm.de.txt", encoding="utf-8").read()
-    txt, q = texts[cid], r["quote"]
+        fn = (f"{TEXTS}/{cid}/source.{r['lang']}.txt" if SOURCE_MODE
+              else f"{TEXTS}/{cid}/tllm.de.txt")
+        texts[cid] = open(fn, encoding="utf-8").read()
+    txt = texts[cid]
+    if SOURCE_MODE:
+        rec = a_idx.get((cid, r.get("aid") or ""))
+        if rec is not None:
+            o = rec["source_offsets"]
+            s, e = o["mapping_evidence_start"], o["mapping_evidence_end"]
+            r["start"], r["end"], r["quote"] = s, e, txt[s:e]
+            if txt[s:e].strip().lower() != (rec["span"] or "").strip().lower():
+                offset_mismatch += 1
+            continue
+        r["quote"] = gap_quotes.get((cid, r.get("gapi")), "")
+    q = r["quote"]
     pos = txt.find(q) if q else -1
     if pos < 0 and " ... " in q:
         q = max(q.split(" ... "), key=len)
         pos = txt.find(q)
     r["start"], r["end"] = (pos, pos + len(q)) if pos >= 0 else (None, None)
 unlocated = [r["nr"] for r in rows if r["start"] is None and r["quote"]]
+if offset_mismatch:
+    print("WARNUNG: Offset/Span-Abweichungen:", offset_mismatch)
 
 by_case = collections.defaultdict(list)
 for r in rows:
@@ -205,7 +244,7 @@ def merged_marks(cid):
 
 # --- Excel (xlsxwriter) ----------------------------------------------------
 COLS = ["Nr", "Fall", "Sprache", "Herkunft", "HPO-ID", "HPO-Label",
-        "Zitat (deutsch)", "Hinweis", "Entscheidung",
+        f"Zitat ({ZITAT_SPRACHE})", "Hinweis", "Entscheidung",
         "Korrektur (HPO-ID oder Name)", "Notiz"]
 WIDTHS = (5, 10, 8, 26, 12, 30, 42, 40, 13, 22, 24)
 CHARS_PER_LINE = 150  # gesamte Blattbreite (A..K verbunden)
@@ -214,14 +253,18 @@ info = [
     (f"Anleitung: Prüfung der Symptom-Zuordnungen ({len(case_order)} Fallberichte)", True),
     ("", False),
     ("Worum geht es?", True),
-    (f"{len(case_order)} klinische Fallberichte wurden maschinell ins Deutsche übersetzt. Zu", False),
+    ((f"{len(case_order)} klinische Fallberichte liegen im englischen Original vor. Zu"
+      if SOURCE_MODE else
+      f"{len(case_order)} klinische Fallberichte wurden maschinell ins Deutsche übersetzt. Zu"), False),
     ("jedem Text wurden automatisch Symptome bzw. Phänotypen als HPO-Begriffe", False),
     ("vorgeschlagen. Diese Vorschläge sind ungeprüft - erst Ihre Entscheidung", False),
     ("macht daraus verlässliche Daten.", False),
     ("", False),
     ("So ist das Blatt 'Review' aufgebaut:", True),
     ("1. Blauer Balken = Beginn eines Falls.", False),
-    ("2. Darunter der vollständige deutsche Text. Stellen, auf die sich ein", False),
+    (("2. Darunter der vollständige englische Originaltext. Stellen, auf die sich ein"
+      if SOURCE_MODE else
+      "2. Darunter der vollständige deutsche Text. Stellen, auf die sich ein"), False),
     ("   Vorschlag bezieht, sind fett und rot markiert; die Nummer in eckigen", False),
     ("   Klammern, z. B. [12], verweist auf die Zeile Nr. 12 in der Tabelle.", False),
     ("3. Danach die Tabelle mit den Vorschlägen dieses Falls.", False),
@@ -255,9 +298,11 @@ info = [
     ("- Audit-Konsens: zwei unabhängige Prüfdurchgänge kamen am Originaltext", False),
     ("  zum selben Ergebnis - meist zuverlässig.", False),
     ("- Audit (einzeln bestätigt): nur einer der beiden Prüfdurchgänge hat", False),
-    ("  diese Zuordnung bestätigt - bitte besonders sorgfältig prüfen. Diese", False),
-    ("  Zeilen haben kein deutsches Zitat und sind daher im Text nicht", False),
-    ("  markiert; bitte im ganzen Text prüfen.", False),
+    ("  diese Zuordnung bestätigt - bitte besonders sorgfältig prüfen." +
+     ("" if SOURCE_MODE else " Diese Zeilen haben kein"), False),
+    (("" if SOURCE_MODE else
+      "  deutsches Zitat und sind daher im Text nicht markiert; bitte im"), False),
+    (("" if SOURCE_MODE else "  ganzen Text prüfen."), False),
     ("- Lücken-Vorschlag (ID geprüft): beim Gegenlesen des deutschen Textes", False),
     ("  zusätzlich gefunden; die HPO-ID existiert und ist aktuell.", False),
     ("- Lücken-Vorschlag (ohne Vorschlag): eine Auffälligkeit ohne konkreten", False),
