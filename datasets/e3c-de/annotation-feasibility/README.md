@@ -118,7 +118,9 @@ preserved probe files: an Excel workbook (a single sheet showing, per case,
 the full German text with bolded evidence spans followed by the decision
 table plus addition rows) and an HTML reading view with highlighted spans.
 Run it from the repository root; outputs go to `.artifacts/review-workbooks/`
-and are not tracked. Every proposed HPO ID/label passes a hallucination gate
+and are not tracked. The workbook is written with `xlsxwriter`
+(`pip install xlsxwriter`); openpyxl rich text produced files Excel had to
+repair, xlsxwriter rich strings pass a scripted Excel open/repair check. Every proposed HPO ID/label passes a hallucination gate
 against the pinned `hp.obo` (read from the local artifact store; a lookup
 cache is built on first run). Decisions recorded in the workbook re-enter
 the repository only through the future explicit import step.

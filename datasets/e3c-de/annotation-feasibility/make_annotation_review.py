@@ -9,20 +9,20 @@ pinned hp.obo v2026-06-23 (lexical, deterministic, no retrieval model).
 Inputs: probe files in this directory; German case texts from the tracked
 review snapshot; the pinned hp.obo from the local artifact store (a lookup
 cache is built on first run). Outputs go to .artifacts/review-workbooks/.
-Run from the repository root: python datasets/e3c-de/annotation-feasibility/make_annotation_review.py
+Requires the xlsxwriter package (pip install xlsxwriter); openpyxl rich text
+produced files Excel had to repair, xlsxwriter rich strings do not.
+Run from the repository root:
+python datasets/e3c-de/annotation-feasibility/make_annotation_review.py
 """
 import collections
 import html
 import json
 import math
+import os
 import re
 from datetime import date
 
-from openpyxl import Workbook
-from openpyxl.cell.rich_text import CellRichText, TextBlock
-from openpyxl.cell.text import InlineFont
-from openpyxl.styles import Alignment, Font, PatternFill
-from openpyxl.worksheet.datavalidation import DataValidation
+import xlsxwriter
 
 PROBE = "datasets/e3c-de/annotation-feasibility"
 TEXTS = "datasets/e3c-de/review/e3c-de-feasibility-30-v1"
@@ -32,7 +32,6 @@ LOOKUP_CACHE = ".artifacts/review-workbooks/hpo-lookup.json"
 OUT = ".artifacts/review-workbooks"
 NCOL = 11  # A..K
 
-import os
 os.makedirs(OUT, exist_ok=True)
 if not os.path.exists(LOOKUP_CACHE):
     obo = open(HPO_OBO, encoding="utf-8").read()
@@ -95,6 +94,7 @@ for lang in ("en", "es", "fr"):
             rows.append(dict(case=cid, lang=lang, src=f"Lücken-Vorschlag ({check})",
                              hid=hid, label=hlabel or g["description_de"],
                              quote=g["quote_de"] or "", note=g["description_de"]))
+
 # --- Audit-Einzelbestaetigungen (nur ein Pruefdurchgang) --------------------
 AUDIT = "datasets/e3c-de/mappings/audit"
 SAFE = {"direct_valid", "semantic_candidate_exact"}
@@ -169,7 +169,7 @@ for r in rows:
         q = max(q.split(" ... "), key=len)
         pos = txt.find(q)
     r["start"], r["end"] = (pos, pos + len(q)) if pos >= 0 else (None, None)
-unlocated = [r["nr"] for r in rows if r["start"] is None]
+unlocated = [r["nr"] for r in rows if r["start"] is None and r["quote"]]
 
 by_case = collections.defaultdict(list)
 for r in rows:
@@ -191,21 +191,13 @@ def merged_marks(cid):
     return merged
 
 
-# --- Excel -----------------------------------------------------------------
-MARK = InlineFont(b=True, color="B00000")
-HEAD_FILL = PatternFill("solid", start_color="D9D9D9")
-CASE_FILL = PatternFill("solid", start_color="305496")
-ADD_FILL = PatternFill("solid", start_color="FDF2DC")
-TEXT_FILL = PatternFill("solid", start_color="FAFAFA")
+# --- Excel (xlsxwriter) ----------------------------------------------------
+COLS = ["Nr", "Fall", "Sprache", "Herkunft", "HPO-ID", "HPO-Label",
+        "Zitat (deutsch)", "Hinweis", "Entscheidung",
+        "Korrektur (HPO-ID oder Name)", "Notiz"]
+WIDTHS = (5, 10, 8, 26, 12, 30, 42, 40, 13, 22, 24)
+CHARS_PER_LINE = 150  # gesamte Blattbreite (A..K verbunden)
 
-def ap(sheet, vals):
-    """append, aber leere Strings als None (sonst ungueltige inlineStr-Zellen)."""
-    sheet.append([v if v != "" else None for v in vals])
-
-
-wb = Workbook()
-ws = wb.active
-ws.title = "Anleitung"
 info = [
     ("Anleitung: Prüfung der Symptom-Zuordnungen (30 Fallberichte)", True),
     ("", False),
@@ -250,12 +242,12 @@ info = [
     ("Was bedeutet die Spalte 'Herkunft'?", True),
     ("- Audit-Konsens: zwei unabhängige Prüfdurchgänge kamen am Originaltext", False),
     ("  zum selben Ergebnis - meist zuverlässig.", False),
-    ("- Lücken-Vorschlag (ID geprüft): beim Gegenlesen des deutschen Textes", False),
-    ("  zusätzlich gefunden; die HPO-ID existiert und ist aktuell.", False),
     ("- Audit (einzeln bestätigt): nur einer der beiden Prüfdurchgänge hat", False),
     ("  diese Zuordnung bestätigt - bitte besonders sorgfältig prüfen. Diese", False),
     ("  Zeilen haben kein deutsches Zitat und sind daher im Text nicht", False),
     ("  markiert; bitte im ganzen Text prüfen.", False),
+    ("- Lücken-Vorschlag (ID geprüft): beim Gegenlesen des deutschen Textes", False),
+    ("  zusätzlich gefunden; die HPO-ID existiert und ist aktuell.", False),
     ("- Lücken-Vorschlag (ohne Vorschlag): eine Auffälligkeit ohne konkreten", False),
     ("  HPO-Begriff - bitte Begriff ergänzen oder Zeile verwerfen.", False),
     ("Alle vorgeschlagenen HPO-IDs wurden automatisch gegen die HPO-Version", False),
@@ -267,100 +259,111 @@ info = [
     (f"Automatisch erstellt am {date.today()}; Datengrundlage:", False),
     ("datasets/e3c-de/annotation-feasibility/", False),
 ]
-for i, (txt_, bold) in enumerate(info, 1):
-    cell = ws.cell(row=i, column=1, value=txt_ or None)
-    if bold:
-        cell.font = Font(bold=True)
-ws.column_dimensions["A"].width = 95
-
-ws2 = wb.create_sheet("Review")
-COLS = ["Nr", "Fall", "Sprache", "Herkunft", "HPO-ID", "HPO-Label",
-        "Zitat (deutsch)", "Hinweis", "Entscheidung",
-        "Korrektur (HPO-ID oder Name)", "Notiz"]
-WIDTHS = (5, 10, 8, 26, 12, 30, 42, 40, 13, 22, 24)
-for col, w in zip("ABCDEFGHIJK", WIDTHS):
-    ws2.column_dimensions[col].width = w
-
-CHARS_PER_LINE = 150  # gesamte Blattbreite (A..K verbunden)
 
 
-def add_text_paragraph(par_text, par_start, marks):
-    """Einen Textabsatz als verbundene Zeile mit fetten Fundstellen anhaengen."""
-    par_end = par_start + len(par_text)
-    parts, pos = [], par_start
-    extra = 0
-    for s, e, rs in marks:
-        if e <= par_start or s >= par_end:
-            continue
-        s2, e2 = max(s, par_start), min(e, par_end)
-        if texts_cur[pos:s2]:
-            parts.append(texts_cur[pos:s2])
-        parts.append(TextBlock(MARK, texts_cur[s2:e2]))
-        ref = " [" + ",".join(str(x["nr"]) for x in rs) + "]"
-        parts.append(ref)
-        extra += len(ref)
-        pos = e2
-    if texts_cur[pos:par_end]:
-        parts.append(texts_cur[pos:par_end])
-    ws2.append([CellRichText(*parts) if parts else None])
-    ri = ws2.max_row
-    ws2.merge_cells(start_row=ri, start_column=1, end_row=ri, end_column=NCOL)
-    cell = ws2.cell(row=ri, column=1)
-    cell.alignment = Alignment(wrap_text=True, vertical="top")
-    cell.fill = TEXT_FILL
-    lines = max(1, math.ceil((len(par_text) + extra) / CHARS_PER_LINE))
-    ws2.row_dimensions[ri].height = min(405, 14 * lines + 4)
+def build_workbook(path):
+    wb = xlsxwriter.Workbook(path)
+    f_bold = wb.add_format({"bold": True})
+    f_mark = wb.add_format({"bold": True, "font_color": "#B00000"})
+    f_case = wb.add_format({"bold": True, "font_color": "#FFFFFF",
+                            "bg_color": "#305496", "font_size": 12})
+    f_text = wb.add_format({"text_wrap": True, "valign": "top",
+                            "bg_color": "#FAFAFA"})
+    f_head = wb.add_format({"bold": True, "bg_color": "#D9D9D9"})
+    f_cell = wb.add_format({"text_wrap": True, "valign": "top"})
+    f_add = wb.add_format({"text_wrap": True, "valign": "top",
+                           "bg_color": "#FDF2DC"})
+
+    ws = wb.add_worksheet("Anleitung")
+    ws.set_column(0, 0, 95)
+    for i, (txt_, bold) in enumerate(info):
+        if txt_:
+            ws.write_string(i, 0, txt_, f_bold if bold else None)
+
+    ws2 = wb.add_worksheet("Review")
+    for c, w in enumerate(WIDTHS):
+        ws2.set_column(c, c, w)
+
+    r = 0
+    for cid in case_order:
+        txt = texts[cid]
+        lang = by_case[cid][0]["lang"]
+        marks = merged_marks(cid)
+
+        ws2.merge_range(r, 0, r, NCOL - 1, f"Fall {cid}  ({lang})", f_case)
+        r += 1
+
+        offset = 0
+        for par in txt.split("\n"):
+            if par.strip():
+                p_start, p_end = offset, offset + len(par)
+                parts, pos, extra = [], p_start, 0
+                for s, e, rs in marks:
+                    if e <= p_start or s >= p_end:
+                        continue
+                    s2, e2 = max(s, p_start), min(e, p_end)
+                    if txt[pos:s2]:
+                        parts.append(txt[pos:s2])
+                    parts.append(f_mark)
+                    parts.append(txt[s2:e2])
+                    ref = " [" + ",".join(str(x["nr"]) for x in rs) + "]"
+                    parts.append(ref)
+                    extra += len(ref)
+                    pos = e2
+                if txt[pos:p_end]:
+                    parts.append(txt[pos:p_end])
+                ws2.merge_range(r, 0, r, NCOL - 1, "", f_text)
+                has_marks = any(not isinstance(p, str) for p in parts)
+                if has_marks:
+                    ws2.write_rich_string(r, 0, *parts, f_text)
+                else:
+                    ws2.write_string(r, 0, par, f_text)
+                lines = max(1, math.ceil((len(par) + extra) / CHARS_PER_LINE))
+                ws2.set_row(r, min(405, 14 * lines + 4))
+                r += 1
+            offset += len(par) + 1
+
+        for c, h in enumerate(COLS):
+            ws2.write_string(r, c, h, f_head)
+        r += 1
+        for row in by_case[cid]:
+            vals = [row["nr"], cid, row["lang"], row["src"], row["hid"],
+                    row["label"], row["quote"], row["note"], "", "", ""]
+            for c, v in enumerate(vals):
+                if isinstance(v, int):
+                    ws2.write_number(r, c, v, f_cell)
+                elif v:
+                    ws2.write_string(r, c, v, f_cell)
+                else:
+                    ws2.write_blank(r, c, None, f_cell)
+            r += 1
+        for _ in range(3):
+            vals = ["", cid, lang, "Ärztliche Ergänzung"] + [""] * 7
+            for c, v in enumerate(vals):
+                if v:
+                    ws2.write_string(r, c, v, f_add)
+                else:
+                    ws2.write_blank(r, c, None, f_add)
+            r += 1
+        r += 1  # Trennzeile
+
+    ws2.data_validation(0, 8, r, 8, {
+        "validate": "list",
+        "source": ["übernehmen", "ändern", "verwerfen", "unsicher"]})
+    wb.close()
+    return r
 
 
-for cid in case_order:
-    texts_cur = texts[cid]
-    lang = by_case[cid][0]["lang"]
-    # Fallkopf
-    ap(ws2, [f"Fall {cid}  ({lang})"])
-    ri = ws2.max_row
-    ws2.merge_cells(start_row=ri, start_column=1, end_row=ri, end_column=NCOL)
-    cell = ws2.cell(row=ri, column=1)
-    cell.font = Font(bold=True, color="FFFFFF", size=12)
-    cell.fill = CASE_FILL
-    # Volltext, absatzweise
-    marks = merged_marks(cid)
-    offset = 0
-    for par in texts_cur.split("\n"):
-        if par.strip():
-            add_text_paragraph(par, offset, marks)
-        offset += len(par) + 1
-    # Tabellenkopf
-    ap(ws2, COLS)
-    for cell in ws2[ws2.max_row]:
-        cell.font = Font(bold=True)
-        cell.fill = HEAD_FILL
-    # Vorschlagszeilen
-    for r in by_case[cid]:
-        ap(ws2, [r["nr"], cid, r["lang"], r["src"], r["hid"], r["label"],
-                 r["quote"], r["note"], None, None, None])
-        for cell in ws2[ws2.max_row]:
-            cell.alignment = Alignment(wrap_text=True, vertical="top")
-    # Ergaenzungszeilen
-    for _ in range(3):
-        ap(ws2, [None, cid, lang, "Ärztliche Ergänzung",
-                 None, None, None, None, None, None, None])
-        for cell in ws2[ws2.max_row]:
-            cell.fill = ADD_FILL
-            cell.alignment = Alignment(wrap_text=True, vertical="top")
-    ws2.append([])  # Trennzeile
-
-dv = DataValidation(type="list",
-                    formula1='"übernehmen,ändern,verwerfen,unsicher"',
-                    allow_blank=True)
-ws2.add_data_validation(dv)
-dv.add(f"I1:I{ws2.max_row}")
-
+tmp = f"{OUT}/.e3c-de-annotation-review-30.tmp.xlsx"
+total_rows = build_workbook(tmp)
+target = f"{OUT}/e3c-de-annotation-review-30.xlsx"
 try:
-    wb.save(f"{OUT}/e3c-de-annotation-review-30.xlsx")
-    saved = "e3c-de-annotation-review-30.xlsx"
+    os.replace(tmp, target)
+    saved = os.path.basename(target)
 except PermissionError:
-    wb.save(f"{OUT}/e3c-de-annotation-review-30-v2.xlsx")
-    saved = "e3c-de-annotation-review-30-v2.xlsx (Original gesperrt)"
+    alt = f"{OUT}/e3c-de-annotation-review-30-v2.xlsx"
+    os.replace(tmp, alt)
+    saved = os.path.basename(alt) + " (Original gesperrt)"
 
 # --- HTML-Lesensicht -------------------------------------------------------
 def render_case(cid):
