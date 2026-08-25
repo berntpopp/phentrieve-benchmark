@@ -95,7 +95,65 @@ for lang in ("en", "es", "fr"):
             rows.append(dict(case=cid, lang=lang, src=f"Lücken-Vorschlag ({check})",
                              hid=hid, label=hlabel or g["description_de"],
                              quote=g["quote_de"] or "", note=g["description_de"]))
-rows.sort(key=lambda r: (r["case"], not r["src"].startswith("Audit"), r["hid"]))
+# --- Audit-Einzelbestaetigungen (nur ein Pruefdurchgang) --------------------
+AUDIT = "datasets/e3c-de/mappings/audit"
+SAFE = {"direct_valid", "semantic_candidate_exact"}
+KLASSE = {
+    "direct_valid": "direkter Verweis gültig",
+    "semantic_candidate_exact": "exakter Kandidat",
+    "semantic_candidate_broader_or_narrower": "nur breiterer/engerer Kandidat",
+    "no_hpo_but_relevant": "relevant, aber kein passender HPO-Begriff",
+    "not_hpo_relevant": "nicht HPO-relevant",
+    "direct_context_mismatch": "Verweis passt nicht zum Kontext",
+    "ambiguous_direct": "mehrere direkte Ziele",
+    "invalid_or_unrecoverable": "ungültige Quellangabe",
+}
+
+
+def _target(rec):
+    c = rec.get("hpo_candidates") or []
+    return (c[0]["hpo_id"], c[0]["label"]) if c else None
+
+
+audit_a = json.load(open(f"{AUDIT}/agent-a.json", encoding="utf-8"))["records"]
+audit_b = json.load(open(f"{AUDIT}/agent-b.json", encoding="utf-8"))["records"]
+b_idx = {(r["case_id"], r["annotation_id"]): r for r in audit_b}
+seen_by_case = collections.defaultdict(set)
+for r in rows:
+    if r["hid"]:
+        seen_by_case[r["case"]].add(r["hid"])
+lang_of = {r["case"]: r["lang"] for r in rows}
+for ra in audit_a:
+    rb = b_idx.get((ra["case_id"], ra["annotation_id"]))
+    if rb is None:
+        continue
+    ta, tb = _target(ra), _target(rb)
+    safe_a, safe_b = ra["audit_class"] in SAFE, rb["audit_class"] in SAFE
+    if safe_a and safe_b and ta == tb:
+        continue  # Konsens, bereits enthalten
+    for rec, tgt, other, other_tgt in ((ra, ta, rb, tb), (rb, tb, ra, ta)):
+        if not (rec["audit_class"] in SAFE and tgt):
+            continue
+        if rec["relevance"] != "positive_patient_phenotype":
+            continue
+        hid, hlabel = tgt
+        if hid not in terms_db or terms_db[hid]["obsolete"]:
+            continue  # Halluzinations-Gate
+        cid = rec["case_id"]
+        if hid in seen_by_case[cid]:
+            continue
+        seen_by_case[cid].add(hid)
+        if other["audit_class"] in SAFE and other_tgt and other_tgt != tgt:
+            anders = f"anderer Prüfdurchgang wählte {other_tgt[0]} ({other_tgt[1]})"
+        else:
+            anders = f"anderer Prüfdurchgang: {KLASSE.get(other['audit_class'], other['audit_class'])}"
+        rows.append(dict(case=cid, lang=lang_of.get(cid, cid[:2].lower()),
+                         src="Audit (einzeln bestätigt)", hid=hid,
+                         label=terms_db[hid]["name"], quote="",
+                         note=f"Quellspan: '{rec['span']}'; {anders}."))
+
+_RANK = {"Audit-Konsens": 0, "Audit (einzeln bestätigt)": 1}
+rows.sort(key=lambda r: (r["case"], _RANK.get(r["src"], 2), r["hid"]))
 for i, r in enumerate(rows, 1):
     r["nr"] = i
 
@@ -194,6 +252,10 @@ info = [
     ("  zum selben Ergebnis - meist zuverlässig.", False),
     ("- Lücken-Vorschlag (ID geprüft): beim Gegenlesen des deutschen Textes", False),
     ("  zusätzlich gefunden; die HPO-ID existiert und ist aktuell.", False),
+    ("- Audit (einzeln bestätigt): nur einer der beiden Prüfdurchgänge hat", False),
+    ("  diese Zuordnung bestätigt - bitte besonders sorgfältig prüfen. Diese", False),
+    ("  Zeilen haben kein deutsches Zitat und sind daher im Text nicht", False),
+    ("  markiert; bitte im ganzen Text prüfen.", False),
     ("- Lücken-Vorschlag (ohne Vorschlag): eine Auffälligkeit ohne konkreten", False),
     ("  HPO-Begriff - bitte Begriff ergänzen oder Zeile verwerfen.", False),
     ("Alle vorgeschlagenen HPO-IDs wurden automatisch gegen die HPO-Version", False),
@@ -320,7 +382,7 @@ def render_case(cid):
         f'<td class="{"kons" if r["src"].startswith("Audit") else "gap"}">'
         f'{html.escape(r["src"])}</td><td>{r["hid"]}</td>'
         f'<td>{html.escape(r["label"])}</td><td>{html.escape(r["note"])}</td>'
-        f'<td>{"" if r["start"] is not None else "Zitat nicht lokalisiert"}</td></tr>'
+        f'<td>{"" if r["start"] is not None else ("ohne deutsches Zitat" if not r["quote"] else "Zitat nicht lokalisiert")}</td></tr>'
         for r in by_case[cid])
     return (f'<section id="{cid}"><h2>{cid}</h2><div class="text">{body}</div>'
             f'<table><tr><th>Nr</th><th>Herkunft</th><th>HPO-ID</th><th>Label</th>'

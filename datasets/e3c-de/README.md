@@ -36,3 +36,24 @@ UMLS-to-HPO mapping is an independent, local stage and does not require a
 translation or Google credentials. Run
 `uv run phentrieve-benchmark map-hpo e3c`; exact results and classification
 counts are documented under `mappings/`.
+
+## Analysis reading path
+
+The E3C-DE analyses build on each other. Read them in this order:
+
+1. [`mappings/README.md`](mappings/README.md) - mechanical UMLS-to-HPO
+   mapping of all 246 reports: classification counts, OxO2 and
+   Monarch/MedGen probes, and the granularity limits of the source
+   annotations.
+2. [`mappings/audit/README.md`](mappings/audit/README.md) - per-annotation
+   semantic audit of the 458 cohort annotations by two independent passes:
+   consensus set, audit classes, and typical problems.
+3. [`annotation-feasibility/README.md`](annotation-feasibility/README.md) -
+   Phase 0 feasibility probe: do the consensus terms survive the German
+   translation (Part A), triage of the most frequent unresolved CUIs
+   (Part B), and the review workbook generator.
+4. [`translations/README.md`](translations/README.md) - translation
+   operation, costs, artifact separation, and the automatic-check status
+   model.
+5. [`../../docs/project-checklist.md`](../../docs/project-checklist.md) -
+   current status and priorities across the whole project.
