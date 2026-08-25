@@ -12,7 +12,9 @@ cache is built on first run). Outputs go to .artifacts/review-workbooks/.
 Requires the xlsxwriter package (pip install xlsxwriter); openpyxl rich text
 produced files Excel had to repair, xlsxwriter rich strings do not.
 Run from the repository root:
-python datasets/e3c-de/annotation-feasibility/make_annotation_review.py
+python datasets/e3c-de/annotation-feasibility/make_annotation_review.py [en|es|fr]
+Without an argument the workbook covers all 30 cases; with a language it
+covers only that source language's 10 cases as an independent workbook.
 """
 import collections
 import html
@@ -20,6 +22,7 @@ import json
 import math
 import os
 import re
+import sys
 from datetime import date
 
 import xlsxwriter
@@ -31,6 +34,12 @@ HPO_OBO = (".artifacts/objects/sha256/a5/"
 LOOKUP_CACHE = ".artifacts/review-workbooks/hpo-lookup.json"
 OUT = ".artifacts/review-workbooks"
 NCOL = 11  # A..K
+
+LANG_FILTER = sys.argv[1].lower() if len(sys.argv) > 1 else None
+if LANG_FILTER not in (None, "en", "es", "fr"):
+    raise SystemExit(f"Unbekannte Sprache: {LANG_FILTER} (erlaubt: en, es, fr)")
+SUFFIX = LANG_FILTER if LANG_FILTER else "30"
+BASENAME = f"e3c-de-annotation-review-{SUFFIX}"
 
 os.makedirs(OUT, exist_ok=True)
 if not os.path.exists(LOOKUP_CACHE):
@@ -152,6 +161,9 @@ for ra in audit_a:
                          label=terms_db[hid]["name"], quote="",
                          note=f"Quellspan: '{rec['span']}'; {anders}."))
 
+if LANG_FILTER:
+    rows = [r for r in rows if r["lang"] == LANG_FILTER]
+
 _RANK = {"Audit-Konsens": 0, "Audit (einzeln bestätigt)": 1}
 rows.sort(key=lambda r: (r["case"], _RANK.get(r["src"], 2), r["hid"]))
 for i, r in enumerate(rows, 1):
@@ -199,10 +211,10 @@ WIDTHS = (5, 10, 8, 26, 12, 30, 42, 40, 13, 22, 24)
 CHARS_PER_LINE = 150  # gesamte Blattbreite (A..K verbunden)
 
 info = [
-    ("Anleitung: Prüfung der Symptom-Zuordnungen (30 Fallberichte)", True),
+    (f"Anleitung: Prüfung der Symptom-Zuordnungen ({len(case_order)} Fallberichte)", True),
     ("", False),
     ("Worum geht es?", True),
-    ("30 klinische Fallberichte wurden maschinell ins Deutsche übersetzt. Zu", False),
+    (f"{len(case_order)} klinische Fallberichte wurden maschinell ins Deutsche übersetzt. Zu", False),
     ("jedem Text wurden automatisch Symptome bzw. Phänotypen als HPO-Begriffe", False),
     ("vorgeschlagen. Diese Vorschläge sind ungeprüft - erst Ihre Entscheidung", False),
     ("macht daraus verlässliche Daten.", False),
@@ -254,7 +266,7 @@ info = [
     ("v2026-06-23 geprüft; erfundene IDs sind ausgeschlossen.", False),
     ("", False),
     ("Dieselbe Ansicht gibt es auch für den Browser:", False),
-    ("e3c-de-annotation-review-30.html (Markierungen als farbige Textmarker).", False),
+    (f"{BASENAME}.html (Markierungen als farbige Textmarker).", False),
     ("", False),
     (f"Automatisch erstellt am {date.today()}; Datengrundlage:", False),
     ("datasets/e3c-de/annotation-feasibility/", False),
@@ -354,14 +366,14 @@ def build_workbook(path):
     return r
 
 
-tmp = f"{OUT}/.e3c-de-annotation-review-30.tmp.xlsx"
+tmp = f"{OUT}/.{BASENAME}.tmp.xlsx"
 total_rows = build_workbook(tmp)
-target = f"{OUT}/e3c-de-annotation-review-30.xlsx"
+target = f"{OUT}/{BASENAME}.xlsx"
 try:
     os.replace(tmp, target)
     saved = os.path.basename(target)
 except PermissionError:
-    alt = f"{OUT}/e3c-de-annotation-review-30-v2.xlsx"
+    alt = f"{OUT}/{BASENAME}-v2.xlsx"
     os.replace(tmp, alt)
     saved = os.path.basename(alt) + " (Original gesperrt)"
 
@@ -408,11 +420,11 @@ h2{font-family:sans-serif;border-bottom:2px solid #333;padding-bottom:.2rem}
 .legend span{padding:0 .5rem;margin-right:.7rem}
 """
 page = (f'<!DOCTYPE html><html lang="de"><head><meta charset="utf-8">'
-        f'<title>E3C-DE Annotationsreview - Lesensicht (30 Faelle)</title>'
+        f'<title>E3C-DE Annotationsreview - Lesensicht ({len(case_order)} Faelle)</title>'
         f'<style>{style}</style></head><body>'
         f'<header><strong>Maschinell erzeugte Vorschlaege - keine Reviewdaten, '
         f'kein Goldstandard.</strong><br>Lesensicht zur Excel-Datei '
-        f'<code>e3c-de-annotation-review-30.xlsx</code>; Entscheidungen bitte dort '
+        f'<code>{BASENAME}.xlsx</code>; Entscheidungen bitte dort '
         f'eintragen (gleiche Nr.). Die Markierungen sind kein abgeschlossenes '
         f'Inventar: Beim Lesen vermisste Phaenotypen bitte im Excel in den Zeilen '
         f'"Aerztliche Ergaenzung" des Falls nachtragen (Zitat optional; ohne Zitat '
@@ -424,7 +436,7 @@ page = (f'<!DOCTYPE html><html lang="de"><head><meta charset="utf-8">'
         f'<span style="background:#b3e5fc">beides</span></div></header>'
         f'<nav>{nav}</nav>{"".join(render_case(c) for c in case_order)}'
         f'</body></html>')
-with open(f"{OUT}/e3c-de-annotation-review-30.html", "w", encoding="utf-8",
+with open(f"{OUT}/{BASENAME}.html", "w", encoding="utf-8",
           newline="\n") as fh:
     fh.write(page)
 
