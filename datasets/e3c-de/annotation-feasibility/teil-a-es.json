@@ -1,0 +1,1012 @@
+{
+ "provenance": {
+  "generated_by": "Subagent Teil A (ES), maschinell erzeugte Diagnose — keine Reviewdaten, kein Gold",
+  "model": "Claude Fable 5 (claude-fable-5)",
+  "input_bundle": "input/teil-a-faelle.json"
+ },
+ "cases": [
+  {
+   "case_id": "ES100050",
+   "terms": [
+    {
+     "annotation_id": "3417",
+     "source_span": "tumoración",
+     "hpo_id": "HP:0032404",
+     "hpo_label": "Testicular mass",
+     "verdict": "haelt",
+     "quote_de": "leicht schmerzhaften Raumforderung im rechten Hoden",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«tumoración ... en el testículo derecho» ist als «Raumforderung im rechten Hoden» klar wiedergegeben; testikulärer Bezug eindeutig."
+    },
+    {
+     "annotation_id": "3418",
+     "source_span": "dolorosa",
+     "hpo_id": "HP:0012531",
+     "hpo_label": "Pain",
+     "verdict": "haelt",
+     "quote_de": "leicht schmerzhaften",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«ligeramente dolorosa» wird als «leicht schmerzhaft» übertragen; Schmerz einschließlich Abschwächung erhalten."
+    },
+    {
+     "annotation_id": "3431",
+     "source_span": "seminoma",
+     "hpo_id": "HP:0100617",
+     "hpo_label": "Testicular seminoma",
+     "verdict": "haelt",
+     "quote_de": "Der dritte Knoten wurde als klassisches Seminom diagnostiziert",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Seminom wörtlich übernommen, Kontext (Hodenknoten) eindeutig."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Teratokarzinom des Hodens (reifes Teratom mit überwiegend embryonalem Karzinom)",
+     "quote_de": "entsprachen die ersten beiden Knoten Teratokarzinomen (mit reifem Teratom und überwiegend embryonalem Karzinom)",
+     "suggested_hpo": {"id": "HP:0009792", "label": "Teratoma"}
+    },
+    {
+     "description_de": "Hodenvergrößerung mit knotigen Arealen",
+     "quote_de": "zeigte sich eine Hodenvergrößerung mit knotigen Arealen",
+     "suggested_hpo": null
+    }
+   ]
+  },
+  {
+   "case_id": "ES100163",
+   "terms": [
+    {
+     "annotation_id": "2903",
+     "source_span": "dolorosa",
+     "hpo_id": "HP:0012531",
+     "hpo_label": "Pain",
+     "verdict": "haelt",
+     "quote_de": "sie war nicht fluktuierend, schmerzlos und von fibroelastischer Konsistenz",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Negation «no dolorosa» ist als «schmerzlos» exakt erhalten."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Perineale Raumforderung/Schwellung links parakavernös",
+     "quote_de": "eine perineale Raumforderung links parakavernös gelegen",
+     "suggested_hpo": null
+    },
+    {
+     "description_de": "Perineales Hämatom des proximalen linken Schwellkörpers",
+     "quote_de": "den Verdacht auf ein perineales Hämatom nahelegte",
+     "suggested_hpo": {"id": "HP:0001933", "label": "Subcutaneous hemorrhage"}
+    }
+   ]
+  },
+  {
+   "case_id": "ES100214",
+   "terms": [
+    {
+     "annotation_id": "7005",
+     "source_span": "fallo renal agudo",
+     "hpo_id": "HP:0001919",
+     "hpo_label": "Acute kidney injury",
+     "verdict": "haelt",
+     "quote_de": "aufgrund von akutem Nierenversagen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«fallo renal agudo» als «akutes Nierenversagen» direkt und klar wiedergegeben."
+    },
+    {
+     "annotation_id": "7007",
+     "source_span": "coagulación intravascular diseminada",
+     "hpo_id": "HP:0005521",
+     "hpo_label": "Disseminated intravascular coagulation",
+     "verdict": "haelt",
+     "quote_de": "disseminierte intravasale Koagulopathie [DIC]",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Fachbegriff korrekt und vollständig übertragen."
+    },
+    {
+     "annotation_id": "7008",
+     "source_span": "CID",
+     "hpo_id": "HP:0005521",
+     "hpo_label": "Disseminated intravascular coagulation",
+     "verdict": "haelt",
+     "quote_de": "disseminierte intravasale Koagulopathie [DIC]",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Spanische Abkürzung CID durch die im Deutschen gebräuchliche Abkürzung DIC ersetzt; Bedeutung identisch."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Oligo-Anurie (Diurese 0,1 ml/kg/h)",
+     "quote_de": "bedingt durch eine seit 24 Stunden bestehende Oligo-Anurie (Diurese 0,1 ml/kg/h)",
+     "suggested_hpo": {"id": "HP:0100518", "label": "Oliguria"}
+    },
+    {
+     "description_de": "Septischer Schock",
+     "quote_de": "aufgrund von akutem Nierenversagen und septischem Schock",
+     "suggested_hpo": {"id": "HP:0100806", "label": "Sepsis"}
+    },
+    {
+     "description_de": "Kreatininanstieg im Serum",
+     "quote_de": "einen Kreatininanstieg (anfangs 0,7 mg/dl, später 2 mg/dl)",
+     "suggested_hpo": {"id": "HP:0003259", "label": "Elevated circulating creatinine concentration"}
+    },
+    {
+     "description_de": "Dialysat-assoziierte Peritonitis mit Candida albicans (Zellzahlanstieg im Dialysat)",
+     "quote_de": "nahm die Zellzahl im Dialysat zu, und am 16. Tag wurde der Peritonealkatheter entfernt (Wachstum von C. albicans)",
+     "suggested_hpo": {"id": "HP:0002586", "label": "Peritonitis"}
+    }
+   ]
+  },
+  {
+   "case_id": "ES100417",
+   "terms": [
+    {
+     "annotation_id": "11649",
+     "source_span": "estrabismo",
+     "hpo_id": "HP:0000486",
+     "hpo_label": "Strabismus",
+     "verdict": "haelt",
+     "quote_de": "wurde wegen Schielens (Strabismus) vom Kinderarzt überwiesen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Doppelt ausgedrückt («Schielen» und «Strabismus»), eindeutig."
+    },
+    {
+     "annotation_id": "11650",
+     "source_span": "endotropía",
+     "hpo_id": "HP:0000565",
+     "hpo_label": "Esotropia",
+     "verdict": "haelt",
+     "quote_de": "Er weist eine Endotropie (15 Grad)",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«Endotropie» ist ein im Deutschen verwendetes Synonym für Esotropie; im Kontext des Schielens klar."
+    },
+    {
+     "annotation_id": "11651",
+     "source_span": "hipertropía",
+     "hpo_id": "HP:0025586",
+     "hpo_label": "Hypertropia",
+     "verdict": "haelt",
+     "quote_de": "und eine leichte Hypertropie am rechten Auge (RA)",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Wörtlich übernommen, inkl. Seitenangabe."
+    },
+    {
+     "annotation_id": "11652",
+     "source_span": "fijación excéntrica",
+     "hpo_id": "HP:0025549",
+     "hpo_label": "Eccentric visual fixation",
+     "verdict": "haelt",
+     "quote_de": "Der Hornhautreflex lässt eine exzentrische Fixation an beiden Augen vermuten.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Verdachtsstatus («nos hace sospechar» → «lässt ... vermuten») exakt erhalten."
+    },
+    {
+     "annotation_id": "11653",
+     "source_span": "convulsiones febriles",
+     "hpo_id": "HP:0002373",
+     "hpo_label": "Febrile seizure (within the age range of 3 months to 6 years)",
+     "verdict": "haelt",
+     "quote_de": "In der Vorgeschichte des Kindes finden sich Fieberkrämpfe.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Anamnestischer Status («había padecido» → «In der Vorgeschichte») in beiden Sprachen gleich."
+    },
+    {
+     "annotation_id": "11657",
+     "source_span": "retinocoroiditis",
+     "hpo_id": "HP:0012424",
+     "hpo_label": "Chorioretinitis",
+     "verdict": "haelt",
+     "quote_de": "die auf eine abgelaufene Retinochoroiditis hinweisen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Sowohl der Verdachtscharakter («sugestivas de» → «hinweisen auf») als auch der Residualstatus («antigua» → «abgelaufene») sind erhalten."
+    },
+    {
+     "annotation_id": "11659",
+     "source_span": "atrofia coriorretiniana",
+     "hpo_id": "HP:0000533",
+     "hpo_label": "Chorioretinal atrophy",
+     "verdict": "haelt",
+     "quote_de": "zeigt sich eine scharf begrenzte chorioretinale Atrophie mit pigmentierten Rändern",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Fachbegriff wörtlich übertragen."
+    },
+    {
+     "annotation_id": "11661",
+     "source_span": "nistagmo",
+     "hpo_id": "HP:0000639",
+     "hpo_label": "Nystagmus",
+     "verdict": "haelt",
+     "quote_de": "Das Kind zeigt keinen Nystagmus",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Negation («no presenta nistagmo» → «zeigt keinen Nystagmus») exakt erhalten."
+    },
+    {
+     "annotation_id": "11666",
+     "source_span": "coloboma macular",
+     "hpo_id": "HP:0001116",
+     "hpo_label": "Macular pseudocoloboma",
+     "verdict": "haelt",
+     "quote_de": "deutet das Bild auf ein atypisches, beidseitiges Makulakolobom hin",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«Makulakolobom» klar ausgedrückt, Unsicherheit («hace pensar» → «deutet ... hin») erhalten. Ob HP:0001116 (Pseudokolobom) das richtige Ziel ist, ist eine Mapping-Frage, keine Übersetzungsfrage."
+    },
+    {
+     "annotation_id": "11667",
+     "source_span": "hipercalciuria",
+     "hpo_id": "HP:0002150",
+     "hpo_label": "Hypercalciuria",
+     "verdict": "haelt",
+     "quote_de": "Ein solches Kolobom kann auch mit Hyperkalziurie und Hypomagnesiämie assoziiert sein (2); im vorliegenden Fall lagen der Kalzium-Kreatinin-Quotient sowie der Magnesiumspiegel jedoch im Normbereich.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Generische Assoziationsaussage plus Normalbefund beim Patienten in beiden Sprachen identisch; kein positiver Patientenphänotyp."
+    },
+    {
+     "annotation_id": "11668",
+     "source_span": "hipomagnesemia",
+     "hpo_id": "HP:0002917",
+     "hpo_label": "Hypomagnesemia",
+     "verdict": "haelt",
+     "quote_de": "Ein solches Kolobom kann auch mit Hyperkalziurie und Hypomagnesiämie assoziiert sein (2); im vorliegenden Fall lagen der Kalzium-Kreatinin-Quotient sowie der Magnesiumspiegel jedoch im Normbereich.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Wie bei Hyperkalziurie: generische Aussage und Normalbefund («magnesemia dentro de lo normal» → «Magnesiumspiegel im Normbereich») erhalten."
+    },
+    {
+     "annotation_id": "11669",
+     "source_span": "coloboma",
+     "hpo_id": "HP:0001116",
+     "hpo_label": "Macular pseudocoloboma",
+     "verdict": "haelt",
+     "quote_de": "Aufgrund der Größe des Koloboms am rechten Auge wurde von einer Okklusionsbehandlung (Penalisierung mittels Pflaster) abgesehen.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Kolobom als bestehender Befund des rechten Auges in beiden Sprachen gleich ausgedrückt."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Deutlich reduzierte Sehschärfe rechts (später nur Lichtwahrnehmung), links 0,2",
+     "quote_de": "Die Sehschärfe ist am RA gering",
+     "suggested_hpo": {"id": "HP:0007663", "label": "Reduced visual acuity"}
+    },
+    {
+     "description_de": "Asymmetrie der visuell evozierten Potenziale zu Ungunsten des rechten Auges",
+     "quote_de": "zeigten eine deutliche Asymmetrie zu Ungunsten des rechten Auges",
+     "suggested_hpo": {"id": "HP:0000649", "label": "Abnormality of visual evoked potentials"}
+    },
+    {
+     "description_de": "Temporale parapapilläre Atrophie am rechten Auge",
+     "quote_de": "zudem besteht eine temporale parapapilläre Atrophie",
+     "suggested_hpo": null
+    },
+    {
+     "description_de": "Sklerale Ektasie unter der Netzhaut am linken Auge",
+     "quote_de": "unter der Netzhaut ist eine sklerale Ektasie erkennbar",
+     "suggested_hpo": null
+    }
+   ]
+  },
+  {
+   "case_id": "ES100420",
+   "terms": [
+    {
+     "annotation_id": "6144",
+     "source_span": "astenia",
+     "hpo_id": "HP:0025406",
+     "hpo_label": "Asthenia",
+     "verdict": "haelt",
+     "quote_de": "aufgrund von Asthenie und Erschöpfung",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«Asthenie» wörtlich übernommen."
+    },
+    {
+     "annotation_id": "6145",
+     "source_span": "fatiga",
+     "hpo_id": "HP:0012378",
+     "hpo_label": "Fatigue",
+     "verdict": "haelt",
+     "quote_de": "aufgrund von Asthenie und Erschöpfung",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«fatiga» als «Erschöpfung» wiedergegeben; entspricht Fatigue."
+    },
+    {
+     "annotation_id": "6147",
+     "source_span": "disminución de agudeza visual",
+     "hpo_id": "HP:0007663",
+     "hpo_label": "Reduced visual acuity",
+     "verdict": "haelt",
+     "quote_de": "wegen verminderter Sehschärfe",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Direkt und eindeutig übertragen; Visuswerte (0,3/0,6) ebenfalls erhalten."
+    },
+    {
+     "annotation_id": "6148",
+     "source_span": "dolor",
+     "hpo_id": "HP:0012531",
+     "hpo_label": "Pain",
+     "verdict": "haelt",
+     "quote_de": "verminderter Sehschärfe, Schmerzen, Tränenfluss",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«dolor» als «Schmerzen» klar ausgedrückt."
+    },
+    {
+     "annotation_id": "6149",
+     "source_span": "lagrimeo",
+     "hpo_id": "HP:0009926",
+     "hpo_label": "Epiphora",
+     "verdict": "haelt",
+     "quote_de": "Tränenfluss",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«lagrimeo» als «Tränenfluss» wiedergegeben; entspricht Epiphora (Tränenträufeln)."
+    },
+    {
+     "annotation_id": "6150",
+     "source_span": "exoftalmos",
+     "hpo_id": "HP:0000520",
+     "hpo_label": "Proptosis",
+     "verdict": "haelt",
+     "quote_de": "begleitet von einem ipsilateralen Exophthalmus unklaren Beginns",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Wörtlich übernommen, inkl. «unklaren Beginns» («de comienzo incierto»)."
+    },
+    {
+     "annotation_id": "6151",
+     "source_span": "defecto pupilar aferente",
+     "hpo_id": "HP:0200057",
+     "hpo_label": "Marcus Gunn pupil",
+     "verdict": "haelt",
+     "quote_de": "eines relativen afferenten Pupillendefekts (RAPD) von 3+/4+ am RA",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Fachlich korrekt als RAPD übertragen; entspricht dem HPO-Konzept Marcus-Gunn-Pupille."
+    },
+    {
+     "annotation_id": "6152",
+     "source_span": "hiperemia conjuntival",
+     "hpo_id": "HP:0030953",
+     "hpo_label": "Conjunctival hyperemia",
+     "verdict": "haelt",
+     "quote_de": "eine leichte Bindehauthyperämie",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Wörtlich übertragen inkl. Abschwächung «leve» → «leichte»."
+    },
+    {
+     "annotation_id": "6154",
+     "source_span": "diplopia",
+     "hpo_id": "HP:0000651",
+     "hpo_label": "Diplopia",
+     "verdict": "haelt",
+     "quote_de": "mit vertikaler Diplopie",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Wörtlich übernommen."
+    },
+    {
+     "annotation_id": "6155",
+     "source_span": "exoftalmos",
+     "hpo_id": "HP:0000520",
+     "hpo_label": "Proptosis",
+     "verdict": "haelt",
+     "quote_de": "sowie ein leichter ipsilateraler Exophthalmus mit gespannten, ödematösen Augenlidern",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Zweite Nennung ebenfalls wörtlich erhalten."
+    },
+    {
+     "annotation_id": "6156",
+     "source_span": "párpados edematosos",
+     "hpo_id": "HP:0100540",
+     "hpo_label": "Palpebral edema",
+     "verdict": "haelt",
+     "quote_de": "mit gespannten, ödematösen Augenlidern",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«párpados edematosos a tensión» vollständig als «gespannte, ödematöse Augenlider» wiedergegeben."
+    },
+    {
+     "annotation_id": "6159",
+     "source_span": "cataratas",
+     "hpo_id": "HP:0000518",
+     "hpo_label": "Cataract",
+     "verdict": "haelt",
+     "quote_de": "bei gleichzeitigem Vorliegen eines beginnenden Grauen Stars (Katarakt)",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«cataratas incipientes» als «beginnender Grauer Star (Katarakt)»; Zeitbezug («zwei Monate zuvor») in beiden Sprachen gleich."
+    },
+    {
+     "annotation_id": "6162",
+     "source_span": "reducción concéntrica",
+     "hpo_id": "HP:0001133",
+     "hpo_label": "Constriction of peripheral visual field",
+     "verdict": "haelt",
+     "quote_de": "Im Gesichtsfeld zeigte sich zunächst eine konzentrische Einengung, die sich im weiteren Verlauf normalisierte.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Befund und transient-resolvierter Status («posteriormente se normaliza» → «normalisierte sich») exakt erhalten."
+    },
+    {
+     "annotation_id": "6163",
+     "source_span": "cataratas",
+     "hpo_id": "HP:0000518",
+     "hpo_label": "Cataract",
+     "verdict": "haelt",
+     "quote_de": "die Sehschärfe des RA (nach Kataraktoperation) 1,0",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Wie im Original («intervenido de cataratas») wird die Katarakt hier nur über die erfolgte Operation ausgedrückt; Status (behandelt/vergangen) gleich."
+    },
+    {
+     "annotation_id": "6164",
+     "source_span": "palidez papilar",
+     "hpo_id": "HP:0000543",
+     "hpo_label": "Optic disc pallor",
+     "verdict": "haelt",
+     "quote_de": "und es lag keine Papillenblässe vor",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Negation («sin palidez papilar» → «keine Papillenblässe») exakt erhalten; auch die frühere Stelle «die Papille zeigte weder Ödem noch Blässe» ist negiert."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Arteriitis temporalis (aktueller Schub) als Grunderkrankung der Patientin",
+     "quote_de": "im Rahmen eines Schubs einer Arteriitis temporalis",
+     "suggested_hpo": {"id": "HP:0002633", "label": "Vasculitis"}
+    },
+    {
+     "description_de": "Einschränkung der Supraduktion (Hebungseinschränkung) des rechten Auges",
+     "quote_de": "eine Einschränkung der Supraduktion des RA",
+     "suggested_hpo": {"id": "HP:0000602", "label": "Ophthalmoplegia"}
+    },
+    {
+     "description_de": "Orbitaler Pseudotumor mit Verdickung des M. rectus inferior und M. rectus lateralis",
+     "quote_de": "vereinbar mit einem orbitalen Pseudotumor",
+     "suggested_hpo": null
+    }
+   ]
+  },
+  {
+   "case_id": "ES100521",
+   "terms": [
+    {
+     "annotation_id": "10733",
+     "source_span": "sobrepeso",
+     "hpo_id": "HP:0025502",
+     "hpo_label": "Overweight",
+     "verdict": "haelt",
+     "quote_de": "sowie Übergewicht",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Wörtlich übertragen."
+    },
+    {
+     "annotation_id": "10734",
+     "source_span": "sepsis",
+     "hpo_id": "HP:0100806",
+     "hpo_label": "Sepsis",
+     "verdict": "haelt",
+     "quote_de": "entwickelte eine Pneumokokken-Sepsis",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«sepsis por neumococo» vollständig als «Pneumokokken-Sepsis» wiedergegeben."
+    },
+    {
+     "annotation_id": "10737",
+     "source_span": "sepsis",
+     "hpo_id": "HP:0100806",
+     "hpo_label": "Sepsis",
+     "verdict": "haelt",
+     "quote_de": "Aufgrund der sepsisbedingten Minderperfusion",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Zweite Nennung («mala perfusión secundaria a la sepsis») ebenfalls klar erhalten."
+    },
+    {
+     "annotation_id": "10742",
+     "source_span": "necrosis",
+     "hpo_id": "HP:0033126",
+     "hpo_label": "Cutaneous necrosis",
+     "verdict": "haelt",
+     "quote_de": "traten nekrotische Läsionen an den oberen sowie vorwiegend an den distalen unteren Extremitäten auf",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Kutane Nekrosen der Extremitäten klar ausgedrückt; auch «eine Nekrose der linken Fußsohle» ist erhalten."
+    },
+    {
+     "annotation_id": "10743",
+     "source_span": "escara",
+     "hpo_id": "HP:6000793",
+     "hpo_label": "Eschar",
+     "verdict": "haelt",
+     "quote_de": "mit ausgedehnter Schorfbildung im Bereich der Fußsohle",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«amplia escara» als «ausgedehnte Schorfbildung»; weniger fachspezifisch als «Nekroseschorf/Eschar», aber im Wundkontext eindeutig."
+    },
+    {
+     "annotation_id": "10744",
+     "source_span": "necrosis",
+     "hpo_id": "HP:0033126",
+     "hpo_label": "Cutaneous necrosis",
+     "verdict": "haelt",
+     "quote_de": "eine Trockennekrose der Zehen 3, 4 und 5 des rechten Fußes",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«necrosis seca de 3o, 4o y 5o dedos» exakt als «Trockennekrose der Zehen 3, 4 und 5» erhalten."
+    },
+    {
+     "annotation_id": "10745",
+     "source_span": "úlcera",
+     "hpo_id": "HP:0200042",
+     "hpo_label": "Skin ulcer",
+     "verdict": "haelt",
+     "quote_de": "ein 10 x 5 cm großes Ulkus im prä-tibialen Bereich rechts",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Wörtlich übertragen inkl. Größe und Lokalisation."
+    },
+    {
+     "annotation_id": "10746",
+     "source_span": "escaras",
+     "hpo_id": "HP:6000793",
+     "hpo_label": "Eschar",
+     "verdict": "haelt",
+     "quote_de": "um den Großteil der Beläge (Sphaceli) und Schorfbildungen zu entfernen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«esfacelos y escaras» als «Beläge (Sphaceli) und Schorfbildungen»; Schorf/Eschar klar ausgedrückt."
+    },
+    {
+     "annotation_id": "10747",
+     "source_span": "dolor",
+     "hpo_id": "HP:0012531",
+     "hpo_label": "Pain",
+     "verdict": "haelt",
+     "quote_de": "verspürte der Patient keine Schmerzen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Negation («no presentaba dolor» → «keine Schmerzen») inkl. Begründung (Plantaranästhesie, nekrotisches Gewebe) erhalten."
+    },
+    {
+     "annotation_id": "10750",
+     "source_span": "heridas",
+     "hpo_id": "HP:0032674",
+     "hpo_label": "Cutaneous wound",
+     "verdict": "haelt",
+     "quote_de": "und die Wunden verschlossen sich problemlos",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Abgeheilter Status («cicatrizaron bien» → «verschlossen sich problemlos») erhalten."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Multiorganversagen (renal, respiratorisch, hämatologisch, hämodynamisch)",
+     "quote_de": "Diese führte zu einem Multiorganversagen (Nieren, Atemwege, hämatologisches und hämodynamisches System)",
+     "suggested_hpo": null
+    },
+    {
+     "description_de": "Anästhesie (Sensibilitätsverlust) der linken Fußsohle, persistierend bis nach Entlassung",
+     "quote_de": "eine Anästhesie der linken Fußsohle",
+     "suggested_hpo": {"id": "HP:0003474", "label": "Somatic sensory dysfunction"}
+    }
+   ]
+  },
+  {
+   "case_id": "ES100778",
+   "terms": [
+    {
+     "annotation_id": "5773",
+     "source_span": "DM tipo II",
+     "hpo_id": "HP:0005978",
+     "hpo_label": "Type II diabetes mellitus",
+     "verdict": "haelt",
+     "quote_de": "mit bekanntem Diabetes mellitus Typ II (insulinpflichtig)",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Abkürzung korrekt aufgelöst; inkl. Insulintherapie."
+    },
+    {
+     "annotation_id": "5775",
+     "source_span": "polineuropatía",
+     "hpo_id": "HP:0001271",
+     "hpo_label": "Polyneuropathy",
+     "verdict": "haelt",
+     "quote_de": "und chronischen Komplikationen (u. a. Polyneuropathie)",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Wörtlich übertragen, als diabetische Komplikation kontextualisiert wie im Original."
+    },
+    {
+     "annotation_id": "5776",
+     "source_span": "HTA",
+     "hpo_id": "HP:0000822",
+     "hpo_label": "Hypertension",
+     "verdict": "haelt",
+     "quote_de": "sowie behandelter arterieller Hypertonie",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Abkürzung HTA korrekt als «arterielle Hypertonie» aufgelöst; Behandlungsstatus erhalten."
+    },
+    {
+     "annotation_id": "5777",
+     "source_span": "obesa",
+     "hpo_id": "HP:0001513",
+     "hpo_label": "Obesity",
+     "verdict": "haelt",
+     "quote_de": "und Adipositas",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Adjektiv «obesa» als Substantiv «Adipositas» wiedergegeben; Bedeutung identisch."
+    }
+   ],
+   "gaps": []
+  },
+  {
+   "case_id": "ES100791",
+   "terms": [
+    {
+     "annotation_id": "1279",
+     "source_span": "doloroso",
+     "hpo_id": "HP:0012531",
+     "hpo_label": "Pain",
+     "verdict": "haelt",
+     "quote_de": "verschlechterte sich die Schmerzsituation",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«empeoramiento del cuadro doloroso» als «verschlechterte sich die Schmerzsituation»; chronischer Schmerz klar ausgedrückt."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Bandscheibenvorfall als Grunddiagnose",
+     "quote_de": "mit der Diagnose Bandscheibenvorfall",
+     "suggested_hpo": {"id": "HP:0008419", "label": "Intervertebral disk degeneration"}
+    }
+   ]
+  },
+  {
+   "case_id": "ES100840",
+   "terms": [
+    {
+     "annotation_id": "9762",
+     "source_span": "mioma uterino",
+     "hpo_id": "HP:0000131",
+     "hpo_label": "Uterine leiomyoma",
+     "verdict": "haelt",
+     "quote_de": "mit bekannter normofunktioneller diffuser Struma, verkalktem Uterusmyom",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "In beiden Sprachen anamnestisch-positive Nennung; die Audit-Kategorie «negated_or_absent» spiegelt sich weder im Quell- noch im Zieltext wider, die Übersetzung ändert am Status nichts."
+    },
+    {
+     "annotation_id": "9763",
+     "source_span": "dolor abdominal",
+     "hpo_id": "HP:0002027",
+     "hpo_label": "Abdominal pain",
+     "verdict": "haelt",
+     "quote_de": "Sie klagte über kolikartige Bauchschmerzen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Inkl. Charakter «cólico» → «kolikartig» erhalten."
+    },
+    {
+     "annotation_id": "9764",
+     "source_span": "distensión abdominal",
+     "hpo_id": "HP:0003270",
+     "hpo_label": "Abdominal distention",
+     "verdict": "haelt",
+     "quote_de": "eine aufgetriebene Bauchdecke",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Auch der Untersuchungsbefund («Das Abdomen war ... aufgetrieben und tympanitisch») ist erhalten."
+    },
+    {
+     "annotation_id": "9765",
+     "source_span": "deposiciones líquidas",
+     "hpo_id": "HP:0002014",
+     "hpo_label": "Diarrhea",
+     "verdict": "haelt",
+     "quote_de": "und mehrfachen flüssigen Stuhlgang seit 48 Stunden",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Wörtlich als «flüssiger Stuhlgang» wiedergegeben; Diarrhoe klar ausgedrückt."
+    },
+    {
+     "annotation_id": "9771",
+     "source_span": "visceromegalias",
+     "hpo_id": "HP:0003271",
+     "hpo_label": "Visceromegaly",
+     "verdict": "haelt",
+     "quote_de": "Raumforderungen oder Organvergrößerungen waren nicht tastbar",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Negation («sin palparse masas ni visceromegalias») exakt erhalten; «Organvergrößerungen» entspricht Visceromegalie."
+    },
+    {
+     "annotation_id": "9772",
+     "source_span": "peristaltismo disminuido",
+     "hpo_id": "HP:0100771",
+     "hpo_label": "Hypoperistalsis",
+     "verdict": "haelt",
+     "quote_de": "die Peristaltik war vermindert",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Wörtlich übertragen."
+    },
+    {
+     "annotation_id": "9773",
+     "source_span": "leucocitosis",
+     "hpo_id": "HP:0001974",
+     "hpo_label": "Increased total leukocyte count",
+     "verdict": "haelt",
+     "quote_de": "eine leichte Leukozytose mit Granulozyten-Dominanz",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Inkl. Abschwächung «discreta» → «leichte» erhalten."
+    },
+    {
+     "annotation_id": "9776",
+     "source_span": "mioma",
+     "hpo_id": "HP:0000131",
+     "hpo_label": "Uterine leiomyoma",
+     "verdict": "haelt",
+     "quote_de": "uterine Verkalkungen sichtbar, die auf ein Myom hindeuteten",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Verdachtsstatus («sugestivas de mioma» → «auf ein Myom hindeuteten») erhalten."
+    },
+    {
+     "annotation_id": "9777",
+     "source_span": "hiperperistaltismo",
+     "hpo_id": "HP:0100770",
+     "hpo_label": "Hyperperistalsis",
+     "verdict": "haelt",
+     "quote_de": "reichlich Gas und eine Hyperperistaltik im Dünndarm",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Wörtlich übertragen."
+    },
+    {
+     "annotation_id": "9781",
+     "source_span": "miomatoso",
+     "hpo_id": "HP:0000131",
+     "hpo_label": "Uterine leiomyoma",
+     "verdict": "haelt",
+     "quote_de": "der Uterus zeigte sich myomatös verändert mit grobscholligen Verkalkungen",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "CT-Befund «útero miomatoso» klar erhalten."
+    },
+    {
+     "annotation_id": "9787",
+     "source_span": "adenopatías",
+     "hpo_id": "HP:0002716",
+     "hpo_label": "Lymphadenopathy",
+     "verdict": "haelt",
+     "quote_de": "und mesenterialer Lymphadenopathie",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«adenopatías mesentéricas» exakt als «mesenteriale Lymphadenopathie» wiedergegeben."
+    },
+    {
+     "annotation_id": "9788",
+     "source_span": "miomatoso",
+     "hpo_id": "HP:0000131",
+     "hpo_label": "Uterine leiomyoma",
+     "verdict": "haelt",
+     "quote_de": "fiel ein myomatöser Uterus auf",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Intraoperativer Befund klar erhalten."
+    },
+    {
+     "annotation_id": "9789",
+     "source_span": "adherencias",
+     "hpo_id": "HP:0033134",
+     "hpo_label": "Abdominal adhesions",
+     "verdict": "haelt",
+     "quote_de": "ausgeprägte Verwachsungen sowie eine Fibrosierung der Darmwand",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«abundantes adherencias» als «ausgeprägte Verwachsungen»; im ileozökalen Kontext eindeutig abdominale Adhäsionen."
+    }
+   ],
+   "gaps": [
+    {
+     "description_de": "Normofunktionelle diffuse Struma (anamnestisch)",
+     "quote_de": "mit bekannter normofunktioneller diffuser Struma",
+     "suggested_hpo": {"id": "HP:0000853", "label": "Goiter"}
+    },
+    {
+     "description_de": "Mechanischer Dünndarmileus (dilatierte Dünndarmschlingen, Spiegelbildung, Kalibersprung, fehlendes Kolongas)",
+     "quote_de": "zeigten sich dilatierte Dünndarmschlingen mit Flüssigkeitsspiegeln sowie ein Fehlen von Gas im Kolon und in der Rektumampulle",
+     "suggested_hpo": {"id": "HP:0005214", "label": "Intestinal obstruction"}
+    },
+    {
+     "description_de": "CRP-Erhöhung (3,7 mg/dl)",
+     "quote_de": "und einen CRP-Wert von 3,7 mg/dl",
+     "suggested_hpo": {"id": "HP:0011227", "label": "Elevated circulating C-reactive protein concentration"}
+    },
+    {
+     "description_de": "Ileozökale Endometriose (histologisch gesichert: endometrioides Drüsenepithel und Endometriumstroma in der Darmwand)",
+     "quote_de": "Nach der Diagnose einer ileozökalen Endometriose",
+     "suggested_hpo": null
+    }
+   ]
+  },
+  {
+   "case_id": "ES100937",
+   "terms": [
+    {
+     "annotation_id": "7527",
+     "source_span": "fiebre",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "verdict": "haelt",
+     "quote_de": "mit seit 48 Stunden bestehendem Fieber (38 °C)",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Wörtlich übertragen inkl. Temperatur und Dauer."
+    },
+    {
+     "annotation_id": "7528",
+     "source_span": "irritabilidad",
+     "hpo_id": "HP:0000737",
+     "hpo_label": "Irritability",
+     "verdict": "haelt",
+     "quote_de": "Fieber (38 °C), Reizbarkeit und begleitender Nasensekretion",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«irritabilidad» als «Reizbarkeit» klar erhalten."
+    },
+    {
+     "annotation_id": "7529",
+     "source_span": "mucosidad nasal",
+     "hpo_id": "HP:0031417",
+     "hpo_label": "Rhinorrhea",
+     "verdict": "haelt",
+     "quote_de": "und begleitender Nasensekretion",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«mucosidad nasal» als «Nasensekretion»; entspricht Rhinorrhoe."
+    },
+    {
+     "annotation_id": "7530",
+     "source_span": "exantema",
+     "hpo_id": "HP:0000988",
+     "hpo_label": "Skin rash",
+     "verdict": "haelt",
+     "quote_de": "zeigte sich ein kleinfleckiges, erythematöses Exanthem",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Wörtlich übertragen inkl. Morphe («de pequeños elementos» → «kleinfleckig»)."
+    },
+    {
+     "annotation_id": "7532",
+     "source_span": "Febril",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "verdict": "haelt",
+     "quote_de": "Nach 48 Stunden bestand weiterhin Fieber.",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«Febril a las 48 horas» als fortbestehendes Fieber wiedergegeben; positiver Status erhalten."
+    },
+    {
+     "annotation_id": "7533",
+     "source_span": "irritabilidad",
+     "hpo_id": "HP:0000737",
+     "hpo_label": "Irritability",
+     "verdict": "haelt",
+     "quote_de": "Am vierten Tag zeigten sich Reizbarkeit, eine schlechte Hautfarbe und ein verschlechterter Allgemeinzustand",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Zweite Nennung ebenfalls klar erhalten."
+    },
+    {
+     "annotation_id": "7535",
+     "source_span": "exantema",
+     "hpo_id": "HP:0000988",
+     "hpo_label": "Skin rash",
+     "verdict": "haelt",
+     "quote_de": "sowie ein persistierendes, flüchtiges Exanthem",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«persistencia de exantema evanescente» inkl. beider Attribute erhalten."
+    },
+    {
+     "annotation_id": "7536",
+     "source_span": "dificultad respiratoria",
+     "hpo_id": "HP:0002098",
+     "hpo_label": "Respiratory distress",
+     "verdict": "haelt",
+     "quote_de": "und Atemnot",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "«dificultad respiratoria» als «Atemnot»; klinisch äquivalent zu Respiratory distress."
+    },
+    {
+     "annotation_id": "7537",
+     "source_span": "infiltrados",
+     "hpo_id": "HP:0002113",
+     "hpo_label": "Pulmonary infiltrates",
+     "verdict": "haelt",
+     "quote_de": "beidseitige alveolo-interstitielle Infiltrate, links ausgeprägter",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Röntgenbefund vollständig erhalten; pulmonaler Kontext (Röntgen-Thorax) eindeutig."
+    },
+    {
+     "annotation_id": "7538",
+     "source_span": "edema agudo de pulmón",
+     "hpo_id": "HP:0100598",
+     "hpo_label": "Pulmonary edema",
+     "verdict": "haelt",
+     "quote_de": "vereinbar mit einem akuten Lungenödem",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Verdachtsstatus («sugestivos de» → «vereinbar mit») erhalten."
+    },
+    {
+     "annotation_id": "7539",
+     "source_span": "pancitopenia",
+     "hpo_id": "HP:0001876",
+     "hpo_label": "Pancytopenia",
+     "verdict": "haelt",
+     "quote_de": "Angesichts der festgestellten Panzytopenie",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Wörtlich übertragen."
+    },
+    {
+     "annotation_id": "7541",
+     "source_span": "insuficiencia respiratoria",
+     "hpo_id": "HP:0002093",
+     "hpo_label": "Respiratory insufficiency",
+     "verdict": "haelt",
+     "quote_de": "die Diagnose einer Parvovirus-B19-Infektion mit respiratorischer Insuffizienz",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Wörtlich übertragen."
+    },
+    {
+     "annotation_id": "7542",
+     "source_span": "pancitopenia",
+     "hpo_id": "HP:0001876",
+     "hpo_label": "Pancytopenia",
+     "verdict": "haelt",
+     "quote_de": "und assoziierter Panzytopenie",
+     "assertion_de": "erhalten",
+     "cause": null,
+     "note": "Zweite Nennung ebenfalls wörtlich erhalten."
+    }
+   ],
+   "gaps": []
+  }
+ ]
+}

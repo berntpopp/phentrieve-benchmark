@@ -1,0 +1,43 @@
+schema_version: source-recipe/v1
+source_id: raghpo
+repository_url: https://github.com/PoseyPod/RAG-HPO
+source_commit: 080fc3a04c91ee45c8986076765f4d4b4f14ddd9
+archive:
+  url: https://codeload.github.com/PoseyPod/RAG-HPO/zip/080fc3a04c91ee45c8986076765f4d4b4f14ddd9
+  format: zip
+  expected_byte_length: 12524020
+  maximum_byte_length: 13000000
+  sha256: a2ece2b7b44e522a299dff02733dd1cad69d5ba11f7dc4da9c346c201662b52b
+  expected_top_level_directory: RAG-HPO-080fc3a04c91ee45c8986076765f4d4b4f14ddd9
+  maximum_member_count: 20
+  maximum_member_bytes: 21000000
+  maximum_expanded_bytes: 22000000
+  maximum_compression_ratio: 100
+included_paths:
+  - LICENSE
+  - RAG-HPO Tests and Data Analysis copy.xlsx
+  - README.md
+  - Test_Cases.csv
+ignored_path_prefixes:
+  - HPO_Vectorization.ipynb
+  - HPO_addons.csv
+  - RAG-HPO ASHG Poster.pptx
+  - RAG-HPO.ipynb
+  - requirements.txt
+  - setup_environment.py
+  - system_prompts.json
+adapter_id: raghpo-tabular/v1
+source_schema_id: raghpo-tabular/v1
+adapter_contract:
+  kind: raghpo-tabular/v1
+  selected_files:
+    - LICENSE
+    - RAG-HPO Tests and Data Analysis copy.xlsx
+    - README.md
+    - Test_Cases.csv
+  workbook_limits:
+    maximum_member_count: 100
+    maximum_member_bytes: 1000000
+    maximum_expanded_bytes: 5000000
+    maximum_compression_ratio: 100
+license_evidence_sha256: 513f7e98d2e307b68f8b76e3b450817d6258a0e38ed7cda8d10cb0f921dd0325

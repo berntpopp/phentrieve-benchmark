@@ -1,0 +1,1806 @@
+{
+ "provenance": {
+  "generated_by": "Zusammenfuehrung durch Claude (Opus 5) – maschinell erzeugte Diagnose, keine Reviewdaten, kein Gold",
+  "validation": "HPO-Vorschlaege maschinell gegen gepinnte hp.obo v2026-06-23 (sha a5092cbd…) geprueft",
+  "batches": [
+   "teil-b-batch-1.json",
+   "teil-b-batch-2.json",
+   "teil-b-batch-3.json",
+   "teil-b-batch-4.json"
+  ]
+ },
+ "cuis": [
+  {
+   "cui": "C0010709",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Die Beispiele meinen je Vorkommen anderes (Tubenzyste, zerebrale Zyste, osteochondrale Femurzyste); 'cyst' ohne Lokalisation hat keine sichere 1:1-HPO-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0027627",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Metastasis' bezeichnet in allen Beispielen die Ausbreitung einer Tumorerkrankung (Knochenmark, subkutan, Nachsorge-Negation) und ist ein Krankheitsverlaufsmerkmal, kein eigenständiger HPO-Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0041296",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Tuberkulose ist eine Infektionskrankheits-Diagnose (in den Beispielen teils ausgeschlossen bzw. nur Verdacht), keine Einzelphänotyp-Beschreibung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C1457887",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Síntomas' ist eine generische Redewendung ('signos y síntomas', 'síntomas de prostatismo') ohne eigenständigen phänotypischen Inhalt.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0037284",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Skin rashes/lesions' bzw. 'lesiones cutáneas' meint je Kontext anderes (negierter Ausschlag, fehlende Hautverletzung nach Sturz, blutende Hautläsionen); keine sichere 1:1-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0016658",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Alle Beispiele betreffen traumatische bzw. iatrogene Frakturen (OP-Risiko, Beckenfraktur nach Unfall), nicht krankheitsbedingte Knochenbrüchigkeit; eine pauschale Zuordnung zu einem HPO-Frakturterm wäre kontextabhängig.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0016169",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Fistula/sinuses' bezeichnet je Vorkommen verschiedene Lokalisationen und meist postoperative Komplikationen (bronchoperitoneale Fistel, Wundsinus, Anastomosenfistel); kein einheitlicher HPO-Term.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C3714552",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Weakness/debilidad/débilité' schwankt zwischen Allgemeinschwäche bei Fieber, Beinschwäche beim Gehen und 'geschwächtem Terrain' (Diabetes); je nach Kontext wären Asthenie oder Muskelschwäche gemeint.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0025062",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Pneumomediastinum"
+   },
+   "confidence": "hoch",
+   "rationale": "In allen Beispielen radiologisch gesichertes Pneumomediastinum, ein spezifischer und konsistent verwendeter Befund; ein passender HPO-Term ist sehr wahrscheinlich vorhanden.",
+   "hpo_validation": "label_aufgeloest:HP:0025421"
+  },
+  {
+   "cui": "C0563490",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Metástasis hepáticas' beschreibt die Lebermetastasierung einer Tumorerkrankung (teils negiert); Krankheitsverlaufs-/Stadienangabe, kein HPO-Einzelphänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0087086",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "'Trombo/thrombus' ist ein generischer Befund (Cava-Thrombus, negierter Beckenvenenthrombus); ob venöse Thrombose oder anderes gemeint ist, hängt vom Kontext ab.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0578735",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Axillary lymphadenopathy"
+   },
+   "confidence": "mittel",
+   "rationale": "Konsistent axilläre Lymphadenopathie (teils negiert); spezifischer Untersuchungsbefund, für den der Lymphadenopathie-Ast der HPO sehr wahrscheinlich einen passenden Term führt.",
+   "hpo_validation": "label_aufgeloest:HP:0034752"
+  },
+  {
+   "cui": "C0025287",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Meningism"
+   },
+   "confidence": "mittel",
+   "rationale": "'Meningism'/'syndrome méningé' wird in allen Beispielen als klinisches Zeichen meningealer Reizung verwendet (auch negiert); spezifischer neurologischer Befund.",
+   "hpo_validation": "label_nicht_gefunden"
+  },
+  {
+   "cui": "C0038505",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "SWS steht im Beispiel für das Sturge-Weber-Syndrom als Grunddiagnose der Patientin, also eine Krankheitsentität statt eines Einzelphänotyps.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0337664",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Smoker/fumador' ist eine Expositions-/Verhaltensangabe der Anamnese (Raucherstatus, Packungsjahre), kein Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0334094",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Proliferación' ist in allen Beispielen ein histopathologischer Beschreibungsbegriff der Tumordiagnostik (Zellproliferation), kein klinischer Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0153690",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Metástasis óseas/métastase osseuse' bezeichnet die ossäre Metastasierung von Tumorerkrankungen; Krankheitsverlaufsangabe, kein HPO-Einzelphänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0347944",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Masa pélvica/masse pelvienne' ist ein unspezifischer Raumforderungsbefund (zystisch, supra-/latero-uterin) vor Diagnosesicherung; 'mass' ohne Entität hat keine sichere 1:1-HPO-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0149642",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Cervical lymphadenopathy"
+   },
+   "confidence": "mittel",
+   "rationale": "Konsistent zervikale Lymphadenopathie (auch als negierter Palpationsbefund); spezifischer Phänotyp mit sehr wahrscheinlich vorhandenem HPO-Term im Lymphadenopathie-Ast.",
+   "hpo_validation": "label_aufgeloest:HP:0025289"
+  },
+  {
+   "cui": "C0149736",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Das einzige Beispiel beschreibt eine große zervikale Raumforderung (klinisch Struma-Kontext); 'cervical mass' ist ein unspezifischer Massenbefund ohne sichere 1:1-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0008476",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Die synoviale Chondromatose wird in beiden Beispielen als eigenständige bildgebende Diagnose gestellt; Krankheitsentität statt Einzelphänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C3714660",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Trauma/traumatisme' bezeichnet Unfallereignisse bzw. deren Fehlen in der Anamnese; ein äußeres Ereignis, kein Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C1096155",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Das Makrophagenaktivierungssyndrom wird im Beispiel als Komplikations-/Syndromdiagnose bei Griscelli-Syndrom Typ 2 geführt; am ehesten Krankheitsentität, das Korrelat Hämophagozytose wäre separat kodierbar.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C1142307",
+   "category": "unklar",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Die Paratubarzyste ist ein spezifischer struktureller Befund (hier klinische Verdachtsdiagnose vor Hysterektomie); ob HPO jenseits von Ovarial-/Adnexzysten einen passenden Term führt, ist unsicher.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0013502",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Hydatidose/Echinokokkose ist in allen Beispielen die parasitäre Krankheitsdiagnose (orbital, renal, adrenal), keine Einzelphänotyp-Angabe.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0042029",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Die Beispiele mischen behandelte Einzelepisode, rezidivierende Infekte und negierte Anamnese ('No ITUs'); HPO deckt vor allem rezidivierende Harnwegsinfekte ab, eine pauschale 1:1-Zuordnung ist unsicher.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0577180",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Bladder lesion/lesión vesical' meint je Vorkommen anderes (7-mm-Tumorverdacht, mögliche Tuberkulome, ausgeschlossene traumatische Läsion); 'lesion' ohne Entität ist nicht 1:1 zuordenbar.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0271899",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Normocytic anemia"
+   },
+   "confidence": "hoch",
+   "rationale": "In allen drei Sprachen konsistent laborchemisch definierte normochrome, normozytäre Anämie; spezifischer Phänotyp, der in HPO über die Terme für normozytäre/normochrome Anämie abbildbar ist.",
+   "hpo_validation": "label_aufgeloest:HP:0001897"
+  },
+  {
+   "cui": "C0007112",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Prostate cancer"
+   },
+   "confidence": "mittel",
+   "rationale": "Konsistent bioptisch gesichertes Prostata-Adenokarzinom; HPO führt organbezogene Neoplasie-Terme wie 'Prostate cancer', es fehlt nur der UMLS-Querverweis. Zugleich ist es in den Fällen die Grundkrankheitsdiagnose, daher nur mittlere Sicherheit.",
+   "hpo_validation": "label_aufgeloest:HP:0012125"
+  },
+  {
+   "cui": "C0020517",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Allergy"
+   },
+   "confidence": "mittel",
+   "rationale": "'Alergias' erscheint durchweg als negierte Anamneseangabe ('sin alergias conocidas'); das Konzept selbst entspricht dem HPO-Term 'Allergy', die Vorkommen sind aber Routine-Negationen.",
+   "hpo_validation": "label_aufgeloest:HP:0012393"
+  },
+  {
+   "cui": "C0032219",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Pleomorfismo' ist ein zytologisch-histologischer Beschreibungsbegriff in Tumorbefunden (Zell-/Kernpleomorphie), kein klinischer Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0023869",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Litiasis/lithiase' meint je Vorkommen Nierenkelchsteine bzw. residuale Gallenwegssteine; ohne Lokalisation keine sichere Wahl zwischen Nephro- und Cholelithiasis-Termen.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0038536",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Subcutaneous emphysema"
+   },
+   "confidence": "mittel",
+   "rationale": "Konsistent klinisch/radiologisch beschriebenes Hautemphysem (Hals, Gesicht bis Abdomen), traumatisch bzw. mit Pneumomediastinum assoziiert; spezifischer Befund, für den HPO wahrscheinlich einen Term führt.",
+   "hpo_validation": "label_aufgeloest:HP:6001021"
+  },
+  {
+   "cui": "C0151763",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Der Leberschädigungs-Begriff variiert zwischen Organbeteiligung bei Amyloidose, diffusem Leberschaden in der Nekropsie und Transaminasenerhöhung ('cytolyse hépatique'); je Vorkommen wären unterschiedliche HPO-Terme korrekt.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0031485",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "PKU bezeichnet im Beispiel die Stoffwechselkrankheits-Diagnose (Klassifikation 'fenotipo PKU suave-moderado'); Krankheitsentität, der zugehörige Einzelphänotyp wäre die Hyperphenylalaninämie.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C1261287",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Estenosis' betrifft je Beispiel Ösophagus- bzw. Kolonstenosen; ohne Organangabe keine sichere 1:1-HPO-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0850149",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Nonproductive cough"
+   },
+   "confidence": "hoch",
+   "rationale": "In allen Beispielen konsistent trockener Husten als Leitsymptom ('tos seca', 'toux sèche'); HPO führt hierfür den Term 'Nonproductive cough'.",
+   "hpo_validation": "label_aufgeloest:HP:0031246"
+  },
+  {
+   "cui": "C0149649",
+   "category": "unklar",
+   "hpo_proposal": null,
+   "confidence": "niedrig",
+   "rationale": "Das einzige Beispiel ist eine negierte Biopsieaussage (keine Cholesterinembolien nachweisbar); ob HPO für Atheroembolie/Cholesterinembolus einen passenden Term führt, ist unsicher.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C2609129",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Die Autoimmunpankreatitis wird im Beispiel als bildgebende Krankheitsdiagnose (mit retroperitonealer Fibrose) gestellt; spezifische Krankheitsentität, in HPO allenfalls generisch als Pankreatitis abbildbar.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C1299894",
+   "category": "unklar",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Die oronasale Fistel ist im Beispiel Folge-/Restbefund nach Lippen-Kiefer-Gaumenspalt-Operationen (Z. n. Palatoplastik), also eher Behandlungsfolge; ob ein passender HPO-Term existiert, ist unsicher.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0278147",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Radicular pain"
+   },
+   "confidence": "niedrig",
+   "rationale": "Konsistent radikulärer Schmerz (Ischialgie, S1-Radikulopathie) als spezifisches Symptom; ob HPO einen exakten Term führt oder nur übergeordnete Schmerz-/Rückenschmerz-Terme, ist unsicher.",
+   "hpo_validation": "label_nicht_gefunden"
+  },
+  {
+   "cui": "C0011633",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "DM/dermatomyosite ist in beiden Beispielen die rheumatologische Krankheitsdiagnose ('diagnostic d'une panniculite associée à une DM'), keine Einzelphänotyp-Angabe.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0333243",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Pitting edema"
+   },
+   "confidence": "mittel",
+   "rationale": "Beide Beispiele beschreiben eindrückbare Ödeme ('pitting oedema', 'edema con fóvea') als klinischen Untersuchungsbefund; spezifischer Phänotyp, notfalls über den Ödem-Ast der HPO abbildbar.",
+   "hpo_validation": "label_nicht_gefunden"
+  },
+  {
+   "cui": "C1392298",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Focal neurological signs' ist ein (hier negierter) Sammelbegriff für beliebige fokal-neurologische Ausfälle; kein einzelner HPO-Term entspricht 1:1.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0002690",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Amputation stump/moignon' bezeichnet die anatomische Struktur nach Amputation; OP-Folge/Anatomie, kein Phänotyp (die im Beispiel beschriebene Stumpfnekrose/-infektion wäre separat zu kodieren).",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0333280",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "'Diffuse bleeding/saignement diffus' meint je Vorkommen endoskopisch diffuse Schleimhautblutung bzw. intraoperative diffuse Blutung; unspezifischer Blutungsbefund ohne sichere 1:1-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0036974",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Shock"
+   },
+   "confidence": "mittel",
+   "rationale": "Beide Beispiele beschreiben manifesten Kreislaufschock (therapierefraktär bzw. unklarer Genese) als klinischen Zustand; hierfür führt HPO sehr wahrscheinlich einen passenden Term.",
+   "hpo_validation": "label_aufgeloest:HP:0031273"
+  },
+  {
+   "cui": "C0494165",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Liver metastasis/metastases' ist eine (teils negierte) Metastasierungsangabe einer Tumorerkrankung; Krankheitsverlauf/Staging, kein HPO-Einzelphänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0001418",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "'Adenocarcinoma' ist eine histologische Tumordiagnose ohne festen Organbezug (Knochenmarkmetastase, infiltrierender Tumor, Schilddrüsenbefund pulmonalen Ursprungs); HPO-Neoplasieterme sind organbezogen, daher keine sichere 1:1-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0521174",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Microcalcifications' ist ein Bildgebungsbefund mit wechselnder Lokalisation (zervikale Raumforderung, Mamma, teils negiert); ohne Organkontext keine sichere 1:1-HPO-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0948268",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Die Beispiele reichen von manifestem Kreislaufkollaps mit Dobutamin-Bedarf (EN100067) bis zur bloßen Verneinung einer Instabilität (FR100314, FR100748). Hämodynamische Instabilität ist phänotyp-artig, meint aber je Kontext anderes (Schock vs. Zustandsbeschreibung) ohne sichere 1:1-HPO-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C2979982",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Abnormal vaginal bleeding"
+   },
+   "confidence": "mittel",
+   "rationale": "Beide Beispiele beschreiben vaginale Blutung als konkretes klinisches Symptom (Frühschwangerschaft bzw. Zervixläsion). HPO führt Blutungsphänotypen des weiblichen Genitaltrakts (z. B. Metrorrhagie), die passende ID ist mir jedoch nicht sicher bekannt.",
+   "hpo_validation": "label_aufgeloest:HP:0034263"
+  },
+  {
+   "cui": "C0003469",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0000739",
+    "label": "Anxiety"
+   },
+   "confidence": "mittel",
+   "rationale": "Im Beispiel EN100129 wird die medikamentös behandelte Angststörung als klinisches Merkmal der Patientin genannt. Der UMLS-Begriff ist zwar die Diagnosekategorie, inhaltlich deckt der HPO-Term Anxiety das beschriebene Merkmal ab.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C1868679",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Griscelli-Syndrom Typ 2 ist eine genetische Krankheitsentität (Diagnose), kein Einzelphänotyp; im Beispiel EN100372 wird sie als Grunderkrankung genannt. Die Einzelmerkmale des Syndroms wären separat zu annotieren.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0262613",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "\"Renal mass\" ist ein unspezifischer Bildgebungsbefund; in den Beispielen stehen dahinter verschiedene Entitäten (exophytische Raumforderung bei Sichelzellkrankheit, 17-cm-Tumor). Ohne Histologie ist keine sichere 1:1-Zuordnung zu einem HPO-Term wie Renal neoplasm möglich.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C1285498",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "\"Vegetation\" bezeichnet in den Beispielen einmal einen echokardiographischen Negativbefund (EN100399) und einmal eine murale Aspergillus-Vegetation im linken Ventrikel (EN101114). Ein direkter HPO-Term fehlt; die nächste Entsprechung (Endokarditis) trifft nicht jeden Kontext.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0221370",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0003186",
+    "label": "Inverted nipples"
+   },
+   "confidence": "mittel",
+   "rationale": "Beide Beispiele beschreiben Mamillenretraktion als konkreten klinischen Befund bei Mammatumoren (einmal verneint, einmal leicht ausgeprägt). HPO führt Inverted nipples als passenden Term, auch wenn dieser meist kongenital gemeint ist.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C2939419",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "\"Metastasen/metastatic disease\" beschreibt in allen Beispielen Tumorausbreitung bzw. Krankheitsstadium (Lymphknoten-, Fernmetastasen), also ein Merkmal der Tumorerkrankung und keinen eigenständigen Einzelphänotyp im HPO-Sinn.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0392508",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Hernia of the abdominal wall"
+   },
+   "confidence": "niedrig",
+   "rationale": "Die Spieghel-Hernie ist ein spezifischer anatomischer Befund (EN100508, FR100996). Ein exakter HPO-Term für diese Hernienform existiert vermutlich nicht, sodass nur der Oberbegriff der Bauchwandhernie als Zuordnung bliebe.",
+   "hpo_validation": "label_aufgeloest:HP:0004299"
+  },
+  {
+   "cui": "C1260880",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Rhinorrhea"
+   },
+   "confidence": "hoch",
+   "rationale": "Alle drei Beispiele (EN/ES/FR) beschreiben Rhinorrhoe als konkretes Symptom (grippaler Infekt, Säugling mit Atemnot, klare episodische Sekretion). HPO führt einen Rhinorrhea-Term; die genaue ID ist mir nicht sicher.",
+   "hpo_validation": "label_aufgeloest:HP:0031417"
+  },
+  {
+   "cui": "C1306459",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "\"Primär maligner Tumor\" wird in den Beispielen für ganz unterschiedliche Entitäten verwendet (Parotismalignom, Rezidiv eines Nierentumors, undifferenzierter epithelialer Tumor). Der Begriff ist neoplasie-artig, aber ohne organ- oder entitätsspezifische 1:1-HPO-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C4551910",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "AIDP wird im Beispiel EN104655 als durchgemachte Krankheitsdiagnose (Variante des Guillain-Barré-Syndroms) genannt, also als Krankheitsentität und nicht als Einzelphänotyp des aktuellen Falls.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C3887644",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "\"Inflammatory infiltrate\" ist ein unspezifischer histologischer Befund; im Beispiel EN105114 ein plasmazellreiches Infiltrat einer oralen Läsion. Ohne Organ- und Entzündungstyp-Bindung gibt es keine sichere 1:1-HPO-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C1334003",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Barrett esophagus"
+   },
+   "confidence": "mittel",
+   "rationale": "Im Beispiel EN106489 liegt ein Barrett-Ösophagus mit hochgradiger Dysplasie als konkreter endoskopisch-histologischer Befund vor. HPO führt Barrett esophagus; der Dysplasiegrad ginge bei der Zuordnung allerdings verloren.",
+   "hpo_validation": "label_aufgeloest:HP:0100580"
+  },
+  {
+   "cui": "C0001430",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Der generische Begriff \"Adenom\" meint in beiden Beispielen zwar ein Hypophysenadenom (einmal verneint, einmal Mikroadenom), das UMLS-Konzept selbst ist jedoch organunspezifisch, sodass eine konzeptuelle 1:1-Zuordnung zu einem spezifischen HPO-Term unsicher bleibt.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0178415",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Elevated circulating prostate specific antigen concentration"
+   },
+   "confidence": "mittel",
+   "rationale": "Beide Beispiele beschreiben eine PSA-Erhöhung als konkreten Laborphänotyp (6 auf 12 ng/ml bzw. 13,08 ng/ml). HPO führt zahlreiche 'Elevated circulating ...'-Laborterme, eine PSA-Erhöhung ist dort sehr wahrscheinlich abgebildet; die ID ist mir nicht sicher.",
+   "hpo_validation": "label_nicht_gefunden"
+  },
+  {
+   "cui": "C0700148",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "\"Congestión/congestivo\" bezeichnet in den Beispielen unspezifische vaskuläre Kongestion verschiedener Organe (Mukosa, Nebennieren, Hirn) als histologisch-makroskopischen Befund. Dafür gibt es keine sichere organübergreifende 1:1-HPO-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C2143081",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0000508",
+    "label": "Ptosis"
+   },
+   "confidence": "hoch",
+   "rationale": "Im Beispiel ES100064 ist die linksseitige Ptosis palpebral ein klar umschriebener klinischer Einzelphänotyp. HPO deckt dies mit Ptosis ab; lediglich die Lateralität des UMLS-Konzepts geht verloren.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C0267771",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "\"Masa retroperitoneal\" steht in den Beispielen einmal für ein Hämatom (ES100112) und einmal für ein Phäochromozytom (ES100259). Der Massenbefund ist phänotyp-artig, meint aber je Vorkommen etwas anderes und erlaubt keine sichere 1:1-HPO-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0549099",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "\"Perforación\" betrifft in den Beispielen ganz verschiedene Strukturen (Blasenwand, Sklera, Kieferknochen). Ohne Organbindung ist der Begriff zu generisch für eine sichere 1:1-HPO-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0877211",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "\"Deterioro del estado general\" ist eine allgemeine Zustandsbeschreibung (Verschlechterung des Allgemeinzustands, teils präfinal), keine spezifische phänotypische Einzelabweichung; begleitende konkrete Symptome (Asthenie, Anorexie) sind separat genannt.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0085642",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Livedo reticularis"
+   },
+   "confidence": "hoch",
+   "rationale": "Beide Beispiele beschreiben eine Livedo (livedo reticularis am Fuß bei Verdacht auf Cholesterinembolie, Livedo der Beine bei Dermatomyositis) als spezifischen Hautphänotyp. HPO führt hierzu sehr wahrscheinlich einen passenden Term; die ID ist mir nicht sicher.",
+   "hpo_validation": "label_aufgeloest:HP:0033505"
+  },
+  {
+   "cui": "C0231444",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0002317",
+    "label": "Unsteady gait"
+   },
+   "confidence": "mittel",
+   "rationale": "In zwei Beispielen ist eindeutig Gang-/Standunsicherheit gemeint (Chiari-I mit Schwindel, 'inestabilidad a la marcha'); im dritten (ES100848) bleibt die Art der Instabilität vager. Überwiegend passt der HPO-Term Unsteady gait.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C0000768",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "\"Malformación congénita\" ist ein Sammelbegriff, der in den Beispielen völlig verschiedene Fehlbildungen meint (Chiari-Malformation, Kolobom, Ektopia cordis bzw. deren Verneinung). Eine 1:1-Zuordnung unterhalb der HPO-Wurzelebene ist nicht möglich.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0037937",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Das Konzept (Wirbelsäulenerkrankung) wird in den Beispielen uneinheitlich verwendet: osteoporotische Wirbelkörperfrakturen (ES100663) versus 'chirurgie du rachis traumatique' als Eingriffsbeschreibung (FR100168). Keine sichere 1:1-HPO-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0085084",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "\"Enfermedad de motoneurona\" wird im Beispiel ES100978 als Verdachtsdiagnose (Krankheitsentität aus dem ALS-Spektrum) verwendet, nicht als einzelner Phänotyp; die zugrunde liegenden Befunde (CK, EMG) sind separat beschrieben.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0039980",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "\"Traumatisme thoracique\" bezeichnet in allen drei Beispielen ein Unfall-/Verletzungsereignis (Arbeitsunfall, Verkehrsunfall, Fallschirmsprung), also eine äußere Ursache bzw. Verletzungsdiagnose und keinen Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0239134",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0031245",
+    "label": "Productive cough"
+   },
+   "confidence": "hoch",
+   "rationale": "Beide Beispiele beschreiben produktiven Husten als konkretes respiratorisches Symptom (mit purulentem Auswurf bzw. chronisch bei rezidivierenden Infekten). HPO führt hierfür den Term Productive cough.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C1527407",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0002204",
+    "label": "Pulmonary embolism"
+   },
+   "confidence": "hoch",
+   "rationale": "\"EP\" steht im Beispiel FR100346 für eine im Angio-CT bestätigte Lungenembolie mit endoluminalem Füllungsdefekt. Dieser spezifische Befund ist in HPO als Pulmonary embolism abgebildet, nur der Querverweis auf diesen UMLS-CUI fehlt.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C0748164",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Pulmonary nodule"
+   },
+   "confidence": "mittel",
+   "rationale": "Beide Beispiele beschreiben pulmonale Rundherde/Mikronoduli als konkreten Bildgebungsphänotyp (PET-positive Noduli, multiple Mikronoduli). HPO führt sehr wahrscheinlich einen passenden Nodulus-Term; die ID ist mir nicht sicher.",
+   "hpo_validation": "label_aufgeloest:HP:0033608"
+  },
+  {
+   "cui": "C0033822",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "\"PMP\" (Pseudomyxoma peritonei) ist im Beispiel FR100960 die operierte Tumor-Krankheitsentität appendikulären Ursprungs, also eine Diagnose und kein Einzelphänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C4551519",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Abducens palsy"
+   },
+   "confidence": "hoch",
+   "rationale": "Im Beispiel EN100017 ist die rechtsseitige Abduzensparese (VI nerve palsy) mit Diplopie ein klar umschriebener neurologischer Einzelphänotyp. HPO führt hierfür sehr wahrscheinlich einen Term (Abduzens-/6. Hirnnervenparese); die ID ist mir nicht sicher.",
+   "hpo_validation": "label_aufgeloest:HP:0006897"
+  },
+  {
+   "cui": "C0027540",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "\"Necrosis\" bezeichnet in den Beispielen Unterschiedliches (letale Organ-/Darmnekrose bei Sepsis vs. Nekroseareale in der Tumorhistologie). Ohne Gewebekontext ist der Begriff zu generisch für eine sichere 1:1-HPO-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0151744",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "\"Ischaemic Heart Disease\" wird im Beispiel EN100024 als behandelte chronische Krankheitsdiagnose geführt, nicht als einzelner Befund; konkrete Manifestationen wie Angina sind separat annotiert.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0264677",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0001681",
+    "label": "Angina pectoris"
+   },
+   "confidence": "mittel",
+   "rationale": "Im Beispiel EN100024 beschreibt \"angina class III\" belastungsabhängige Angina pectoris nach CCS-Klassifikation als konkretes Symptom. HPO deckt dies mit Angina pectoris ab; die Schweregradstufe geht bei der Zuordnung verloren.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C1565662",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0001919",
+    "label": "Acute kidney injury"
+   },
+   "confidence": "hoch",
+   "rationale": "Beide Beispiele beschreiben ein akutes Nierenversagen als konkreten Phänotyp (im Schock bzw. mit Kreatinin 7,5 mg/dl und Dialysepflicht). HPO bildet dies mit Acute kidney injury ab, nur der Querverweis auf diesen CUI fehlt.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C0278701",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Das Magen-Adenokarzinom ist in beiden Beispielen die histologisch gesicherte Tumordiagnose (Krankheitsentität) und Behandlungsanlass, kein Einzelphänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C4255448",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "\"Metastasis\" beschreibt in den Beispielen die (skelettale) Tumorausbreitung bzw. deren Ausschluss, also Krankheitsstadium/Tumorverhalten und keinen eigenständigen Einzelphänotyp im HPO-Sinn.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0037090",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Der CUI steht für das Meta-Konzept \"Signs and Symptoms\"; in den Beispielen dient er als Sammelbezeichnung (Aufzählung verneinter Kompressionszeichen, unspezifische 'symptômes respiratoires'). Das ist eine allgemeine Aussage, kein konkreter Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C1334458",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0002716",
+    "label": "Lymphadenopathy"
+   },
+   "confidence": "hoch",
+   "rationale": "Beide Beispiele meinen Lymphknotenvergrößerung als klinischen Untersuchungsbefund (einmal nicht palpabel, einmal ausgeprägt bei Griscelli-Syndrom). HPO deckt dies mit Lymphadenopathy ab; nur der Querverweis auf diesen CUI fehlt.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C0030794",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Pelvic pain"
+   },
+   "confidence": "mittel",
+   "rationale": "Beide Beispiele beschreiben Unterbauch-/Beckenschmerz als konkretes Leitsymptom (Frühschwangerschaft, progrediente Beckenschwellung). HPO führt sehr wahrscheinlich einen passenden Schmerzterm für die Beckenregion; die ID ist mir nicht sicher.",
+   "hpo_validation": "label_aufgeloest:HP:0034267"
+  },
+  {
+   "cui": "C2045790",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Chemosis"
+   },
+   "confidence": "mittel",
+   "rationale": "Im Beispiel EN100090 ist die beidseitige Chemosis bei Lideversion des Neugeborenen ein spezifischer ophthalmologischer Befund (Bindehautödem). HPO führt hierfür sehr wahrscheinlich einen Term; die ID ist mir nicht sicher.",
+   "hpo_validation": "label_aufgeloest:HP:0012375"
+  },
+  {
+   "cui": "C0242429",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Sore throat"
+   },
+   "confidence": "mittel",
+   "rationale": "Beide Beispiele beschreiben Halsschmerzen als konkretes Symptom im Rahmen fieberhafter Infekte. Ein entsprechender Pharynxschmerz-Term ist in HPO wahrscheinlich vorhanden; die ID ist mir nicht sicher.",
+   "hpo_validation": "label_aufgeloest:HP:0033050"
+  },
+  {
+   "cui": "C4049440",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Internal jugular vein thrombosis"
+   },
+   "confidence": "niedrig",
+   "rationale": "Im Beispiel EN100123 ist der sonographisch nachgewiesene Verschluss der linken V. jugularis interna (Lemierre-Konstellation) ein spezifischer vaskulärer Befund. Ob HPO dafür mehr als den Oberbegriff der venösen Thrombose führt, ist unsicher.",
+   "hpo_validation": "label_nicht_gefunden"
+  },
+  {
+   "cui": "C0151293",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0002315",
+    "label": "Headache"
+   },
+   "confidence": "mittel",
+   "rationale": "Beide Beispiele beschreiben chronische Kopfschmerzen als eigenständiges, behandeltes Symptom. HPO deckt dies mit Headache ab; die Chronizität des UMLS-Konzepts geht bei der Zuordnung verloren.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C1302824",
+   "category": "unklar",
+   "hpo_proposal": null,
+   "confidence": "niedrig",
+   "rationale": "Die synoviale Metaplasie im Beispiel EN100156 ist ein spezifischer, aber seltener histologischer Zufallsbefund bei Kniegelenksrevision. Ob HPO einen entsprechenden Term führt und ob der Befund als eigenständiger Phänotyp zu werten ist, bleibt unklar.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0425957",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Secondary amenorrhea"
+   },
+   "confidence": "hoch",
+   "rationale": "Im Beispiel EN100275 ist die sekundäre Amenorrhoe die klinisch gestellte, spezifische phänotypische Feststellung bei der Patientin. HPO führt einen Term für sekundäre Amenorrhoe; die genaue ID ist mir nicht sicher.",
+   "hpo_validation": "label_aufgeloest:HP:0000869"
+  },
+  {
+   "cui": "C0275958",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Die Tuberkulose-Endometritis im Beispiel EN100275 ist eine infektiöse Krankheitsdiagnose (Erreger plus Organmanifestation), keine einzelne phänotypische Abweichung im HPO-Sinn.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0020683",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Hypovolemic shock"
+   },
+   "confidence": "mittel",
+   "rationale": "Im Beispiel EN100340 liegt ein hypovolämischer Schock mit konkreten Vitalparametern (RR 76/44 mmHg, HF 136/min) nach postpartaler Blutung vor. HPO führt Schock-Terme; ob die hypovoläme Unterform eigenständig abgebildet ist, weiß ich nicht sicher, daher nur das Label.",
+   "hpo_validation": "label_aufgeloest:HP:0031274"
+  },
+  {
+   "cui": "C0398794",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "\"Griscelli Syndrome\" ist im Beispiel EN100372 die aus Einzelbefunden (silbergraues Haar, rezidivierende Infekte) abgeleitete Syndromdiagnose, also eine Krankheitsentität und kein Einzelphänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0235031",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Sammelbegriff für neurologische bzw. psychiatrische Symptome ohne konkreten Einzelbefund; im EN-Beispiel als Negativaussage ('didn't present neurological signs'), im FR-Beispiel als unspezifisches Symptombündel. Keine sichere 1:1-HPO-Zuordnung möglich.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0002895",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Sichelzellkrankheit ist in beiden Beispielen eine Krankheitsentität der Anamnese ('history of sickle cell disease', 'maladie drépanocytaire'), kein Einzelphänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C5203670",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "COVID-19 wird als Infektionsdiagnose neben Tuberkulose genannt — Krankheitsentität, kein Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0347813",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Talusfraktur nach Sprunggelenkstrauma — traumatische Verletzung infolge äußerer Ursache, kein konstitutioneller Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C3888418",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0002027",
+    "label": "Abdominal pain"
+   },
+   "confidence": "mittel",
+   "rationale": "Kolikartige Bauchschmerzen bei einem Kleinkind sind ein echtes klinisches Symptom; HPO führt 'Abdominal pain' (HP:0002027), einen dedizierten Term für den kolikartigen Charakter kenne ich nicht sicher.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C0159059",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Visible peristalsis"
+   },
+   "confidence": "niedrig",
+   "rationale": "Sichtbare Peristaltik der Bauchwand ist ein spezifischer klinischer Befund (Obstruktionszeichen im Beispiel); ob HPO dafür einen eigenen Term führt, ist unsicher, daher keine ID.",
+   "hpo_validation": "label_nicht_gefunden"
+  },
+  {
+   "cui": "C0010481",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Increased circulating cortisol level"
+   },
+   "confidence": "mittel",
+   "rationale": "Beide Beispiele beschreiben Hyperkortisolismus als klinisch-biochemischen Phänotyp im Rahmen anderer Grunderkrankungen (ACC, ektopes ACTH); passender HPO-Term wäre 'Increased circulating cortisol level', die ID weiß ich nicht sicher.",
+   "hpo_validation": "label_aufgeloest:HP:0003118"
+  },
+  {
+   "cui": "C4087471",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Metastasiertes Cholangiokarzinom ist die Tumordiagnose des Fallberichts, keine Einzelphänotyp-Angabe.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C2183784",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Otorrhea"
+   },
+   "confidence": "niedrig",
+   "rationale": "Chronischer Ohrausfluss ist im Beispiel ein spezifisches Leitsymptom (mit Kopfschmerz, Diplopie, Vertigo); ob HPO einen eigenen Otorrhoe-Term führt, ist unsicher, daher keine ID.",
+   "hpo_validation": "label_nicht_gefunden"
+  },
+  {
+   "cui": "C1879828",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0009792",
+    "label": "Teratoma"
+   },
+   "confidence": "mittel",
+   "rationale": "Benignes (zystisches) Teratom als Tumorbefund in beiden Beispielen; HPO führt 'Teratoma', die Dignitätsangabe 'benigne' ist dort nicht separat abgebildet.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C0018378",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Guillain-Barré-Syndrom wird als frühere Krankheitsdiagnose (AIDP-Variante) genannt — erworbene Krankheitsentität, kein HPO-Einzelphänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0030809",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'PV' steht im Kontext (mukokutane Blasenbildung, Histologie, Immunfluoreszenz, Azathioprin) für Pemphigus vulgaris — Autoimmunkrankheitsdiagnose, kein Einzelphänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0206674",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Villöses Papillom des Gallengangs ist eine histopathologische Tumordiagnose (Zytologiebefund im Beispiel), kein Phänotypmerkmal.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0019621",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "LCH/Langerhans-Zell-Histiozytose ist in beiden Beispielen die (immunhistochemisch bzw. radiologisch gestellte) Krankheitsdiagnose.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0155843",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Retropharyngealabszess ist eine akute Infektionsdiagnose (tiefe Halsinfektion), kein konstitutioneller Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C1963221",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0002835",
+    "label": "Aspiration"
+   },
+   "confidence": "mittel",
+   "rationale": "Im Beispiel rezidivierende Aspiration unter Sondenernährung — funktioneller Schluck-/Atemwegsphänotyp; HPO führt m. W. einen Term 'Aspiration' (HP:0002835).",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C0686619",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Lymphknotenmetastasen sind in beiden Beispielen Staging-/Ausbreitungsbefunde einer Tumorerkrankung, keine HPO-Phänotypen.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C2363142",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "T-Zell-Prolymphozytenleukämie ist eine hämatologische Krankheitsdiagnose (Immunphänotypisierung im Beispiel), kein Einzelphänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0153676",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Lungenmetastasen (EN und FR) sind Tumorprogressions-/Ausbreitungsbefunde, keine eigenständigen Phänotypen.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C1406102",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Sacral wound' bezeichnet die postoperative Wunde nach Stimulator-Implantation — Lokalbefund/Eingriffskomplikation, kein Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0232807",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Das Konzept 'Nierenfunktion' meint je Vorkommen anderes (stumme Einzelniere in der Urographie vs. akute Funktionsverschlechterung mit Kreatinin 7,5 mg/dl); phänotyp-artig, aber ohne eindeutige 1:1-Zuordnung — je nach Kontext käme z. B. HP:0000083 'Renal insufficiency' in Frage.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C3872830",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Lesión inflamatoria' bezeichnet je Beispiel eine entzündliche Läsion an unterschiedlichen Organen (Ureter bzw. Ösophagus/Magen) — zu unspezifisch für einen einzelnen HPO-Term.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0149978",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Rektumadenokarzinom ist in beiden Beispielen die behandelte Tumor-Grunderkrankung (Krankheitsentität), kein Einzelphänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0035648",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Factores de riesgo' ist eine allgemeine epidemiologische Aussage (Risikofaktoren für TBC bzw. Frakturen, jeweils verneint), kein Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0041295",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Tuberkulome (Blase bzw. ZNS) sind Läsionen einer Tuberkulose-Infektion — infektiöse Krankheitsmanifestation, kein HPO-Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0021376",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Histologische 'chronische' bzw. 'akute und chronische' Entzündung an wechselnden Organen (Prostata, Darm) — phänotyp-artig, aber ohne organspezifische 1:1-HPO-Entsprechung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0497179",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "'Veränderung der Stuhlgewohnheiten' (Wechsel von Diarrhö und Obstipation) ist ein Sammelsymptom; HPO bildet eher die Einzelkomponenten (Diarrhö, Obstipation) ab, ein sicherer 1:1-Term fehlt.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C3163918",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Tumorthrombus in Nierenvene/V. cava ist ein Ausbreitungsbefund eines Nierentumors, kein eigenständiger Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0581912",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "'Pesadez' (Schweregefühl in der Flanke) ist ein vages sensorisches Symptom ohne sichere HPO-Entsprechung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0423605",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Cólicos' meint je Kontext anderes (verneinte Nierenkoliken in der Anamnese vs. intestinale kolikartige Schmerzen unter Radiotherapie) — ohne Organbezug keine 1:1-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C1266119",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Solitärer fibröser Tumor ist in beiden Beispielen eine histopathologische Tumorentität (Blase; mit Malignitätszeichen), keine Phänotyp-Angabe.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C3665919",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Síndrome constitucional' ist ein spanischer Sammelbegriff für Asthenie/Anorexie/Gewichtsverlust; als Symptomkomplex ohne einzelnen passenden HPO-Term, die Komponenten wären separat kodierbar.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0035522",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Rippenfrakturen treten in beiden Beispielen als Unfallfolge auf (Verkehrsunfälle, Polytrauma) — traumatische Verletzung, kein konstitutioneller Phänotyp, auch wenn HPO Frakturterme führt.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0948347",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Nephroangiosklerose wird in beiden Beispielen als ätiologische Diagnose der chronischen Niereninsuffizienz genannt — Krankheitsentität, kein Einzelphänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0860239",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Infektionen der Kathetereintrittsstelle sind gerätebezogene Behandlungskomplikationen der Hämodialyse, keine Phänotypen.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0240318",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Mediastinal mass"
+   },
+   "confidence": "mittel",
+   "rationale": "Mediastinale Raumforderung mit Trachealkompression ist ein spezifischer bildgebender Befund; HPO dürfte einen entsprechenden Term ('Mediastinal mass') führen, die ID weiß ich nicht sicher.",
+   "hpo_validation": "label_aufgeloest:HP:0033823"
+  },
+  {
+   "cui": "C0457436",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0001269",
+    "label": "Hemiparesis"
+   },
+   "confidence": "hoch",
+   "rationale": "Linksseitige Hemiparese (ES und FR) ist ein spezifischer neurologischer Phänotyp; HPO führt 'Hemiparesis' (HP:0001269), lediglich die Seitenangabe entfällt.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C0264545",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Pleural thickening"
+   },
+   "confidence": "mittel",
+   "rationale": "Pleuraverdickung ist in beiden Beispielen ein konkreter bildgebender Thoraxbefund; ein passender HPO-Term ist wahrscheinlich, die ID kenne ich nicht sicher.",
+   "hpo_validation": "label_aufgeloest:HP:0031944"
+  },
+  {
+   "cui": "C0028778",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Obstrucción/occlusion' bezeichnet je Beispiel völlig Verschiedenes (Verschluss eines Koronarbypasses vs. Darmverschluss bei Spieghel-Hernie) — ohne Kontext keine 1:1-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0563521",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Diseminación metastásica' ist in beiden Beispielen ein Ausbreitungs-/Verlaufsbefund der Tumorerkrankung (Staging bzw. Todesursache), kein Einzelphänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0000921",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Caída accidental' ist ein einmaliges Unfallereignis (äußere Ursache mit Trauma), kein Phänotyp; HPO-Sturzterme meinen rezidivierende Stürze als Krankheitszeichen, was hier nicht gemeint ist.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0238124",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Nekrotisierende Fasziitis ist eine akute Weichteilinfektionsdiagnose (Verdachtsdiagnose im Beispiel), keine Phänotyp-Angabe.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0022116",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Isquemia' wird an wechselnden Geweben verwendet (Fasziennekrose bei Fasziitis bzw. Lappenperfusion, dort sogar verneint) — zu unspezifisch für einen einzelnen HPO-Term.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0743086",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Granulomatous dermatitis"
+   },
+   "confidence": "niedrig",
+   "rationale": "Granulomatöse Dermatitis ist ein spezifischer histologischer Hautbefund (im Beispiel tuberkuloseverdächtig); ob HPO einen 1:1-Term führt, ist unsicher, daher keine ID.",
+   "hpo_validation": "label_nicht_gefunden"
+  },
+  {
+   "cui": "C0014335",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "'Enteritis' steht im Beispiel für Strahlenenteritis ('enteritis actínica') — erworbene Therapiekomplikation nach Radiotherapie; Darmentzündung generell wäre phänotyp-artig, hier aber Komplikationsdiagnose.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0085666",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Spider angioma"
+   },
+   "confidence": "mittel",
+   "rationale": "'Spiders' bezeichnet Spider-Naevi an Nase und Thorax bei Lebererkrankung — ein spezifischer Hautphänotyp; als Fallback käme 'Telangiectasia' (HP:0001009) in Frage, einen dedizierten Spider-Naevus-Term kenne ich nicht sicher.",
+   "hpo_validation": "label_nicht_gefunden"
+  },
+  {
+   "cui": "C0600452",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Hepatopulmonales Syndrom ist eine definierte Komplikations-/Krankheitsentität der Lebererkrankung (Verdachtsdiagnose mit Gasometrie/Echo im Beispiel), kein Einzelphänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0019372",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Herpesinfektion (histologisch mit Cowdry-Körpern bzw. serologisch) ist eine Infektionskrankheit, kein Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0425291",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'Tabaquismo' ist in beiden Beispielen eine Expositions-/Verhaltensangabe der Anamnese (Raucherstatus), kein Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0025235",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "'SMR' bezeichnet im Kontext (persistierende Unterlippenschwellung, dermatologische Zuweisung) das Melkersson-Rosenthal-Syndrom — Krankheitsdiagnose; der Einzelbefund Lippenschwellung wäre separat kodierbar.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0149663",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Das Beispiel beschreibt eine Nahtdehiszenz nach Palatoplastik (postoperative Komplikation mit oronasaler Fistel). Ein chirurgisches Wundereignis ist kein eigenständiger Phänotyp im HPO-Sinn.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0302313",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0002797",
+    "label": "Osteolysis"
+   },
+   "confidence": "hoch",
+   "rationale": "Beide Beispiele beschreiben osteolytische Läsionen (malar bzw. generalisiert im Kiefer) als radiologischen Befund. Das entspricht direkt dem HPO-Term Osteolysis.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C0158570",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Die Vorkommen meinen Unterschiedliches: einmal eine vaskuläre Läsion/Malformation im Gesicht, einmal Gefäßanomalien der Nabelschnur (drei Arterien, eine Vene). Ohne Kontext keine sichere 1:1-HPO-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0238790",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0002797",
+    "label": "Osteolysis"
+   },
+   "confidence": "mittel",
+   "rationale": "Beide Beispiele beschreiben Destruktion der Kortikalis bzw. der Knochentafeln durch eine expansive Kieferläsion. Als Befund entspricht das am ehesten Osteolysis, wenn auch tumorbedingt.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C0564119",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0001618",
+    "label": "Dysphonia"
+   },
+   "confidence": "mittel",
+   "rationale": "Hauptbeschwerde ist eine Phonationsstörung bei skelettaler Dysmorphie. Eine Störung der Stimm-/Lautbildung wird in HPO durch Dysphonia abgedeckt.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C0302148",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Im Beispiel ein intraoperativ gesehenes subarachnoidales Blutkoagel; der zugrunde liegende Befund wäre die Blutung, nicht das Koagel selbst. Der generische Begriff Blutgerinnsel erlaubt je nach Lokalisation keine feste HPO-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0452160",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Sciatica"
+   },
+   "confidence": "mittel",
+   "rationale": "Persistierende Lumboischialgie nach Spondylodese ist ein spezifisches Schmerzsymptom (Kreuzschmerz mit radikulärer Ausstrahlung). Exakte HPO-ID unsicher, daher nur Label; alternativ Low back pain.",
+   "hpo_validation": "label_aufgeloest:HP:0011868"
+  },
+  {
+   "cui": "C0006266",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Bronchospasm"
+   },
+   "confidence": "hoch",
+   "rationale": "Rezidivierende Bronchospasmus-Episoden bei einem Säugling mit Giemen sind ein klar umrissener respiratorischer Phänotyp. HPO führt sehr wahrscheinlich einen passenden Term (Bronchospasm), ID nicht sicher erinnerlich.",
+   "hpo_validation": "label_aufgeloest:HP:4000007"
+  },
+  {
+   "cui": "C0020452",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Hyperämie wird im Beispiel für Oropharynx und Trommelfell verwendet, also als unspezifisches Rötungszeichen unterschiedlicher Lokalisationen. Ohne Ortsbezug keine eindeutige HPO-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0001546",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Anpassungsstörung nach dem Tod der Ehefrau ist eine psychiatrische Diagnose-/Krankheitsentität mit situativem Auslöser, kein einzelner Phänotyp im HPO-Sinn.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0877271",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "EMG: chronic denervation signs"
+   },
+   "confidence": "mittel",
+   "rationale": "Das Beispiel beschreibt aktive Denervierung im EMG (Fibrillationen, positive scharfe Wellen) bei Motoneuronerkrankung. HPO führt EMG-Denervierungsbefunde; exakte ID unsicher, daher nur Label.",
+   "hpo_validation": "label_aufgeloest:HP:0003444"
+  },
+  {
+   "cui": "C0333641",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Die Vorkommen meinen völlig Verschiedenes: Muskelatrophie der Handbinnenmuskulatur bzw. einen atrophen Uterus. Der generische Begriff Atrophie ist ohne Organbezug nicht 1:1 auf HPO abbildbar.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0016664",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Beschrieben wird eine alte Stressfraktur des Metatarsale als mechanisch bedingte Verletzungsfolge. Eine einzelne belastungsbedingte Fraktur ist ein Ereignis/eine Verletzung, kein Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0031557",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Das Beispiel beschreibt einen zervikalen Phlegmon mit abszedierender Zellulitis, also eine akute bakterielle Infektions-/Krankheitsentität und keinen Einzelphänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0032987",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Extrauteringravidität ist eine gynäkologisch-geburtshilfliche Diagnose (Schwangerschaftslokalisation), kein Phänotyp der Patientin im HPO-Sinn.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0242301",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Der furunkuloide Aspekt beschreibt die Morphologie einer Hautläsion bei Myiasis (Larvenbefall), also eine infektionsbedingte Läsionsbeschreibung und keinen eigenständigen Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0427008",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Der CUI steht für generische Steifigkeit; in beiden Beispielen ist zwar 'raideur rachidienne' (Wirbelsäulensteifigkeit, kontextuell HP:0003306 Spinal rigidity) gemeint, auf CUI-Ebene hängt die Zuordnung aber vom jeweiligen Ortszusatz ab.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0085292",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "SHR steht im Beispiel für das Stiff-Person-Syndrom ('syndrome de l'homme raide'), das per EMG bestätigt wurde. Das ist eine Krankheitsentität, kein Einzelphänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C1611740",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Lymphknotentuberkulose ist in beiden Beispielen eine bioptisch gesicherte Infektionsdiagnose mit anschließender Tuberkulostatika-Therapie, keine phänotypische Einzelmanifestation im HPO-Sinn.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0019343",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Pemphigoid gestationis ist eine per Biopsie und Immunfluoreszenz gestellte dermatologische Krankheitsdiagnose der Schwangerschaft, keine Einzelphänotyp-Annotation.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0026769",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "SEP steht für Multiple Sklerose ('sclérose en plaques'), eine seit 20 Jahren bestehende Krankheitsdiagnose der Patientin. Krankheitsentität, kein Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0220854",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0002789",
+    "label": "Tachypnea"
+   },
+   "confidence": "hoch",
+   "rationale": "Beide Beispiele beschreiben Polypnoe mit 30 Atemzügen/min, also eine beschleunigte Atmung als Untersuchungsbefund. Das entspricht dem HPO-Term Tachypnea.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C1153706",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0012114",
+    "label": "Endometrial carcinoma"
+   },
+   "confidence": "mittel",
+   "rationale": "Das Beispiel benennt ein behandeltes Adenokarzinom des Endometriums. HPO führt Neoplasie-Phänotypterme; Endometrial carcinoma passt direkt.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C0009792",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0004372",
+    "label": "Reduced consciousness/confusion"
+   },
+   "confidence": "mittel",
+   "rationale": "Beide Beispiele beschreiben eine Bewusstseinsstörung als klinisches Zeichen (bei Meningitis bzw. bei Aufnahme). Das entspricht dem HPO-Term für reduzierte Bewusstseinslage.",
+   "hpo_validation": "id_synonym_ok"
+  },
+  {
+   "cui": "C0242966",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Das biologische Entzündungssyndrom fasst je nach Fall CRP-Erhöhung, Leukozytose und BSG zusammen (in beiden Beispielen laborchemisch definiert). Es gibt keinen einzelnen HPO-Term für diese Konstellation; am nächsten kämen Einzelbefunde wie erhöhtes CRP.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0036439",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0002650",
+    "label": "Scoliosis"
+   },
+   "confidence": "hoch",
+   "rationale": "Skoliose wird im Beispiel als klinischer Untersuchungsbefund neben Makrodaktylie und Gigantismus genannt. Eindeutiger, spezifischer Phänotyp mit direktem HPO-Term.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C0410158",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "'Atteinte musculaire' bezeichnet im Beispiel unspezifisch die Muskelbeteiligung (Myalgien plus Gürtelschwäche) bei beginnender Dermatomyositis. Als Sammelbegriff ohne sichere 1:1-Zuordnung; kontextuell käme Myopathy in Frage.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C4086623",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0002113",
+    "label": "Pulmonary infiltrates"
+   },
+   "confidence": "mittel",
+   "rationale": "Retikulonoduläre Verschattungen im Röntgenthorax mit interstitiellem Syndrom sind ein spezifischer bildgebender Lungenbefund. Am nächsten liegt der HPO-Term Pulmonary infiltrates bzw. ein interstitieller Muster-Term.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C0347630",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Ein extrakapsuläres Leberhämatom mit hämorrhagischem Schock ist eine akute Blutungskomplikation (hier peripartal), also ein Ereignis-/Läsionsbefund ohne HPO-Phänotypcharakter.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0041327",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Lungentuberkulose wird in beiden Beispielen als (Differential-)Diagnose einer Infektionskrankheit mit tuberkulostatischer Therapie geführt. Krankheitsentität, kein Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0010823",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Zytomegalievirus wird in beiden Beispielen nur als Erreger im Rahmen negativer Serologien genannt. Ein Pathogen bzw. Labortest ist kein Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0428552",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Glykorrhachie bezeichnet die Liquorglukose als Messgröße mit Zahlenwert; der eigentliche Befund (erniedrigte Liquorglukose) steckt im Wert, nicht im Begriff. Analyt/Messung, kein Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0277797",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Apyrexie bzw. apyretisch beschreibt in beiden Beispielen die Abwesenheit von Fieber, also einen Normal-/Negativbefund und keinen Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0270627",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0012486",
+    "label": "Myelitis"
+   },
+   "confidence": "mittel",
+   "rationale": "Die MRT zeigt eine fokale intramedulläre Signalveränderung D5-D7 im Sinne einer akuten Myelitis. HPO führt Myelitis als entzündlichen Rückenmarksphänotyp.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C0040336",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Chronischer Tabakkonsum (42 Packungsjahre) ist eine Expositions-/Verhaltensangabe aus der Anamnese und kein Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0600142",
+   "category": "unklar",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Hitzewallungen werden im Beispiel als verneinter vegetativer Begleitbefund bei Galaktorrhoe/Amenorrhoe genannt. Zwar symptomartig, aber ein passender HPO-Term ist fraglich und das Vorkommen ist negiert.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0024103",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Der generische Masse-Begriff bezeichnet hier zweimal palpable/mammographische Brusttumoren, kann aber je Vorkommen jede Raumforderung meinen. Ohne Organ- und Dignitätskontext keine sichere 1:1-HPO-Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0235648",
+   "category": "zu_generisch",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Die Brustvergrößerung ist im Beispiel Folge eines rasch wachsenden Tumors, nicht eine entwicklungsbedingte Hypertrophie. Ein HPO-Term wie Breast hypertrophy würde den Kontext verfehlen, daher keine sichere Zuordnung.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0751492",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Sciatica"
+   },
+   "confidence": "mittel",
+   "rationale": "Bilaterale S1-Lumboischialgie mit L4-Radikulalgie ist ein spezifisches radikuläres Schmerzsymptom. Exakte HPO-ID unsicher, daher nur Label; alternativ Low back pain.",
+   "hpo_validation": "label_aufgeloest:HP:0011868"
+  },
+  {
+   "cui": "C0392025",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0003270",
+    "label": "Abdominal distention"
+   },
+   "confidence": "mittel",
+   "rationale": "Das Beispiel beschreibt ein leicht umfangsvermehrtes Abdomen als klinischen Untersuchungsbefund. Das entspricht dem HPO-Term Abdominal distention.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C0221512",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0002027",
+    "label": "Abdominal pain"
+   },
+   "confidence": "hoch",
+   "rationale": "Beide Beispiele beschreiben Bauchschmerzen als führendes Symptom. Direkter, spezifischer Phänotyp mit klarem HPO-Pendant Abdominal pain.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C5243635",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Ein spontan rupturiertes subkapsuläres Milzhämatom mit Splenektomie ist ein akutes Blutungsereignis bzw. eine Komplikationsdiagnose, kein Phänotyp im HPO-Sinn.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0041428",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "mittel",
+   "rationale": "Siamesische Zwillinge bezeichnen eine geburtshilflich-embryologische Entität der Zwillingsschwangerschaft, keinen Einzelphänotyp eines Patienten; ein direkter HPO-Term ist nicht zu erwarten.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0041107",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Die Trisomie betrifft im Beispiel somatische Loci (1q21, 1p36) in Myelom-Plasmazellen, ist also ein zytogenetischer Tumorbefund und kein konstitutioneller Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0009492",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Das Kompartmentsyndrom wird im Beispiel als (Ausschluss-)Diagnose nach Trauma diskutiert. Es handelt sich um eine akute Krankheits-/Komplikationsentität, nicht um einen Phänotyp.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0041330",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Pott (Spondylitis tuberculosa) ist eine multifokale tuberkulöse Infektionsdiagnose der Wirbelsäule mit tuberkulostatischer Therapie, keine Einzelphänotyp-Annotation.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C0085388",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "Das zerebrale Tuberkulom ist eine histologisch gesicherte infektiöse Läsion/Diagnose mit antituberkulöser Therapie, keine phänotypische Einzelmanifestation im HPO-Sinn.",
+   "hpo_validation": null
+  },
+  {
+   "cui": "C5234922",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": "HP:0001342",
+    "label": "Cerebral hemorrhage"
+   },
+   "confidence": "mittel",
+   "rationale": "Beschrieben wird ein hämorrhagischer Schlaganfall des Hirnstamms bei Präeklampsie. Als Manifestation entspricht das der intrakraniellen/zerebralen Blutung, wofür HPO Terme führt.",
+   "hpo_validation": "id_label_ok"
+  },
+  {
+   "cui": "C0007113",
+   "category": "phaenotyp_ohne_xref",
+   "hpo_proposal": {
+    "id": null,
+    "label": "Neoplasm of the rectum"
+   },
+   "confidence": "mittel",
+   "rationale": "Das Beispiel benennt ein metastasiertes Rektumkarzinom. HPO führt Neoplasieterme für das Rektum; die exakte ID ist unsicher, daher nur Label.",
+   "hpo_validation": "label_aufgeloest:HP:0100743"
+  },
+  {
+   "cui": "C4087386",
+   "category": "kein_phaenotyp",
+   "hpo_proposal": null,
+   "confidence": "hoch",
+   "rationale": "VUH steht im Beispiel für die hypokomplementämische Urtikariavaskulitis, eine seit 20 Jahren geführte Krankheitsdiagnose (Urtikaria, Augenentzündung, C1q-Test). Krankheitsentität, kein Einzelphänotyp.",
+   "hpo_validation": null
+  }
+ ]
+}

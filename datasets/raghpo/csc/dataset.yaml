@@ -1,0 +1,21 @@
+schema_version: normalization-recipe/v1
+target_id: csc
+source_id: raghpo
+adapter_id: raghpo-csc/v1
+required_paths:
+  - RAG-HPO Tests and Data Analysis copy.xlsx
+expected_tables:
+  - source_path: RAG-HPO Tests and Data Analysis copy.xlsx
+    sheet_name: CSC Input
+    columns: [Case, clinical_note]
+    data_rows: 116
+  - source_path: RAG-HPO Tests and Data Analysis copy.xlsx
+    sheet_name: CSC Manual Annotations
+    columns: [Patient ID, hpo_description, hpo_term]
+    data_rows: 1789
+expected_counts:
+  - name: documents
+    count: 116
+  - name: annotations
+    count: 1789
+hpo_release: v2026-06-23

@@ -1,0 +1,17 @@
+Die 57-jährige Patientin A.K. ohne relevante Vorerkrankungen stellte sich mit einer seit 12 Monaten bestehenden, rechtsbetonten beidseitigen Nasenatmungsbehinderung und näselnder Stimme sowie einer seit 3 Monaten bestehenden Odynophagie vor.
+Die HNO-ärztliche Untersuchung, insbesondere die endonasale Endoskopie, zeigte einen violetten Tumor an der rechten paramedianen Hinterwand des Nasopharynx, der sich vom unteren Rand der rechten Tubenmündung bis in den Oropharynx erstreckte.
+Der Tumor wies entzündliche Veränderungen auf und zeigte auf der gesamten Oberfläche einen fibrinoiden, pseudomembranösen Belag.
+Es wurden Abstriche entnommen und bakteriologisch untersucht.
+Alle Proben waren negativ; die Tuberkulin-Hautreaktion (Mantoux-Test) ergab eine Induration von 10 mm.
+Die MRT der Kopf-Hals-Region zeigte eine diffuse Verdickung der Nasopharynx-Hinterwand mit Kontrastmittelanreicherung (Gadolinium). Diese setzte sich nach kaudal in einer spindelförmigen, prävertebralen Raumforderung fort, welche das Lumen der oberen Atem- und Speisewege einengte; zudem zeigte sich eine ovale zervikale Lymphadenopathie der Gruppe II rechts (Größe: 17 mm).
+Das Thorax-CT ergab keinen Anhalt für pulmonale Herde, und die Laborwerte waren unauffällig.
+In Allgemeinanästhesie wurde eine Endoskopie durchgeführt und mehrere Biopsien aus der nasopharyngealen Raumforderung entnommen.
+Die ohne Fixierungsmittel eingesandten Biopsieproben wurden sowohl einer konventionellen histologischen Untersuchung als auch einer Analyse mittels Immunmarkierung unterzogen.
+Die pathologisch-anatomische Untersuchung ergab eine durch ein dichtes, diffuses und polymorphes Immunzellinfiltrat stark veränderte respiratorische Schleimhaut. Es zeigten sich großzellige Elemente mit unregelmäßigen Kernkonturen, jedoch keine follikulären Strukturen. Die immunhistochemische Untersuchung ergab eine Expression von LCA, CD20 und CD79a, jedoch keine Expression von EMA, CD3, CD15, CD30 oder CD45RO, woraus die Diagnose eines großzelligen B-Zell-Non-Hodgkin-Lymphoms gestellt wurde.
+Nachdem die Malignität der Läsion bestätigt war, wurde eine 18F-Fluordesoxyglucose-Positronen-Emissions-Tomographie (FDG-PET) angefordert, um die regionale und systemische Ausdehnung des Lymphoms zu bestimmen.
+Die Untersuchung zeigte eine starke Tracer-Anreicherung sowohl im Bereich des Tumors im Nasopharynx (SUVmax = 13,9) als auch in einem vergrößerten Lymphknoten der Gruppe II rechts (SUVmax = 6,9); weitere Läsionen wurden nicht nachgewiesen.
+Der Tumor wurde dementsprechend als großzelliges B-Zell-Non-Hodgkin-Lymphom im Stadium IE (Nasopharynx) gemäß der Ann-Arbor-Klassifikation eingestuft, ohne ungünstige Prognosefaktoren [3, 4].
+Die Patientin erhielt eine spezifische Behandlung, bestehend aus einer Chemotherapie mit drei CHOP-Zyklen (Cyclophosphamid: 750 mg/m², Adriamycin: 50 mg/m², Vincristin: 1,4 mg/m², Prednison) sowie einer Bestrahlung des Waldeyer-Rachenrings und der zervikalen Lymphknotenregionen mit einer Gesamtdosis von 45 Gy unter Anwendung eines entsprechenden Fraktionierungsschemas.
+Nasopharyngoskopie und CT des Nasopharynx zeigten nach Abschluss der Behandlung das Verschwinden des Tumors.
+Regelmäßige endoskopische und radiologische Kontrolluntersuchungen nach Behandlungsende ergaben eine klinische und paraklinische Remission.
+Der Nachbeobachtungszeitraum beträgt 8 Jahre.

@@ -1,0 +1,12 @@
+schema_version: license-evidence/v1
+source_id: raghpo
+repository_url: https://github.com/PoseyPod/RAG-HPO
+source_commit: 080fc3a04c91ee45c8986076765f4d4b4f14ddd9
+license_id: MIT
+license_url: https://github.com/PoseyPod/RAG-HPO/blob/080fc3a04c91ee45c8986076765f4d4b4f14ddd9/LICENSE
+access_date: 2026-07-24
+upstream_statement: MIT License; Copyright (c) 2024 Posey Lab.
+redistribution_decision: source_not_redistributed
+derivative_work_notes: This phase records only text-free metadata and content hashes; source files and clinical text are not redistributed.
+unresolved_questions:
+  - Public release of later text-bearing derivatives remains deferred pending confirmation of the intended clinical review process.

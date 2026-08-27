@@ -1,0 +1,279 @@
+{
+ "provenance": {
+  "generated_by": "Subagent Gap-Relokalisierung EN, maschinell erzeugte Diagnose — keine Reviewdaten, kein Gold",
+  "model": "Claude Fable 5 (claude-fable-5)",
+  "input": "teil-a-en.json gaps + source.en.txt"
+ },
+ "gaps": [
+  {
+   "case_id": "EN100075",
+   "gap_index": 0,
+   "quote_en": "pain in the right lumbar region",
+   "found": true
+  },
+  {
+   "case_id": "EN100075",
+   "gap_index": 1,
+   "quote_en": "There was a right lumbar region mass, tender, indurated and non-fluctuant.",
+   "found": true
+  },
+  {
+   "case_id": "EN100075",
+   "gap_index": 2,
+   "quote_en": "moderately wasted",
+   "found": true
+  },
+  {
+   "case_id": "EN100075",
+   "gap_index": 3,
+   "quote_en": "lympocytosis",
+   "found": true
+  },
+  {
+   "case_id": "EN100075",
+   "gap_index": 4,
+   "quote_en": "monocytosis",
+   "found": true
+  },
+  {
+   "case_id": "EN100075",
+   "gap_index": 5,
+   "quote_en": "eosinophilia",
+   "found": true
+  },
+  {
+   "case_id": "EN100075",
+   "gap_index": 6,
+   "quote_en": "liver function tests (ALT, AST) were elevated",
+   "found": true
+  },
+  {
+   "case_id": "EN100075",
+   "gap_index": 7,
+   "quote_en": "serum protein levels were low",
+   "found": true
+  },
+  {
+   "case_id": "EN100075",
+   "gap_index": 8,
+   "quote_en": "inflamed internal and external oblique muscles of the anterior abdominal wall",
+   "found": true
+  },
+  {
+   "case_id": "EN100114",
+   "gap_index": 0,
+   "quote_en": "low serum albumin level = 29g/L",
+   "found": true
+  },
+  {
+   "case_id": "EN100114",
+   "gap_index": 1,
+   "quote_en": "A chest X-ray film disclosed bilateral pleural effusion.",
+   "found": true
+  },
+  {
+   "case_id": "EN100114",
+   "gap_index": 2,
+   "quote_en": "abdominal distension related to the important ascites",
+   "found": true
+  },
+  {
+   "case_id": "EN100114",
+   "gap_index": 3,
+   "quote_en": "markedly elevated anti-nuclear antibody (ANA) titer of 1/1600",
+   "found": true
+  },
+  {
+   "case_id": "EN100114",
+   "gap_index": 4,
+   "quote_en": "significantly elevated titer of antibody to double-stranded DNA",
+   "found": true
+  },
+  {
+   "case_id": "EN100114",
+   "gap_index": 5,
+   "quote_en": "low serum level of C3 complement component: 67 mg/dL",
+   "found": true
+  },
+  {
+   "case_id": "EN100310",
+   "gap_index": 0,
+   "quote_en": "the final diagnosis was primary thyroid leiomyosarcoma, FNCLCC grade 3",
+   "found": true
+  },
+  {
+   "case_id": "EN100593",
+   "gap_index": 0,
+   "quote_en": "a 3-months history of right upper abdominal pain",
+   "found": true
+  },
+  {
+   "case_id": "EN100593",
+   "gap_index": 1,
+   "quote_en": "generalized itch",
+   "found": true
+  },
+  {
+   "case_id": "EN100593",
+   "gap_index": 2,
+   "quote_en": "significant weight loss",
+   "found": true
+  },
+  {
+   "case_id": "EN100593",
+   "gap_index": 3,
+   "quote_en": "cholestatic jaundice",
+   "found": true
+  },
+  {
+   "case_id": "EN100593",
+   "gap_index": 4,
+   "quote_en": "The abdomen was grossly distended with visible collateral veins.",
+   "found": true
+  },
+  {
+   "case_id": "EN100593",
+   "gap_index": 5,
+   "quote_en": "Aspartate aminotransferase (AST) were raised (4times upper limit)",
+   "found": true
+  },
+  {
+   "case_id": "EN100593",
+   "gap_index": 6,
+   "quote_en": "total protein and albumin were low, 43g/L and 25g/L respectively",
+   "found": true
+  },
+  {
+   "case_id": "EN100593",
+   "gap_index": 7,
+   "quote_en": "Her alphafeto-protein (AFP) was higher (2232 ng/mL).",
+   "found": true
+  },
+  {
+   "case_id": "EN100593",
+   "gap_index": 8,
+   "quote_en": "multi-organ failure",
+   "found": true
+  },
+  {
+   "case_id": "EN100600",
+   "gap_index": 0,
+   "quote_en": "pain and swelling in the left of maxilla",
+   "found": true
+  },
+  {
+   "case_id": "EN100600",
+   "gap_index": 1,
+   "quote_en": "Physical examination revealed a left maxillary swelling.",
+   "found": true
+  },
+  {
+   "case_id": "EN100600",
+   "gap_index": 2,
+   "quote_en": "The canine was impacted.",
+   "found": true
+  },
+  {
+   "case_id": "EN100600",
+   "gap_index": 3,
+   "quote_en": "Hight mobility of lateral incisor was noted.",
+   "found": true
+  },
+  {
+   "case_id": "EN100600",
+   "gap_index": 4,
+   "quote_en": "a wide osteolytic area of the anterior left maxilla",
+   "found": true
+  },
+  {
+   "case_id": "EN100668",
+   "gap_index": 0,
+   "quote_en": "The patient was having severe right sided abdominal pain with sudden onset.",
+   "found": true
+  },
+  {
+   "case_id": "EN100668",
+   "gap_index": 1,
+   "quote_en": "a 15x12cm in size edematous multicystic adnexal mass occupying the mid and upper right abdomen without vascularity",
+   "found": true
+  },
+  {
+   "case_id": "EN100668",
+   "gap_index": 2,
+   "quote_en": "A large edematous, necrotic and dark purple torsion of a right adnexal mass was observed.",
+   "found": true
+  },
+  {
+   "case_id": "EN101318",
+   "gap_index": 0,
+   "quote_en": "The antithrombin level in our patient was low, 44-48% (AT deficiency type I).",
+   "found": true
+  },
+  {
+   "case_id": "EN105832",
+   "gap_index": 0,
+   "quote_en": "known to suffer from late familial hyperinsulinemic hypoglycemia due to a well-known mutation in the insulin receptor gene",
+   "found": true
+  },
+  {
+   "case_id": "EN107021",
+   "gap_index": 0,
+   "quote_en": "retro-orbital pain",
+   "found": true
+  },
+  {
+   "case_id": "EN107021",
+   "gap_index": 1,
+   "quote_en": "altered behavior",
+   "found": true
+  },
+  {
+   "case_id": "EN107021",
+   "gap_index": 2,
+   "quote_en": "painful neck swelling",
+   "found": true
+  },
+  {
+   "case_id": "EN107021",
+   "gap_index": 3,
+   "quote_en": "tremors",
+   "found": true
+  },
+  {
+   "case_id": "EN107021",
+   "gap_index": 4,
+   "quote_en": "acutely swollen, tender thyroid gland",
+   "found": true
+  },
+  {
+   "case_id": "EN107021",
+   "gap_index": 5,
+   "quote_en": "thrombocytopenia",
+   "found": true
+  },
+  {
+   "case_id": "EN107021",
+   "gap_index": 6,
+   "quote_en": "leukopenia",
+   "found": true
+  },
+  {
+   "case_id": "EN107021",
+   "gap_index": 7,
+   "quote_en": "right frontal lobe hematoma",
+   "found": true
+  },
+  {
+   "case_id": "EN107021",
+   "gap_index": 8,
+   "quote_en": "diagnosed as having subacute thyroiditis",
+   "found": true
+  },
+  {
+   "case_id": "EN107424",
+   "gap_index": 0,
+   "quote_en": "The lesion was located in the femoral region of the right lower extremity",
+   "found": true
+  }
+ ]
+}

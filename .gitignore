@@ -1,0 +1,16 @@
+.artifacts/
+.worktrees/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.venv/
+__pycache__/
+*.py[cod]
+.coverage
+htmlcov/
+records/local/
+releases/local/
+configs/providers/local/
+*.env
+.env.*
+!.env.example

@@ -1,0 +1,12 @@
+schema_version: e3c-translation-recipe/v1
+translation_id: e3c-de-feasibility-30-google-nmt-v1
+selection_id: e3c-de-feasibility-30-v1
+provider: google-cloud-translation
+api_version: v3
+model: general/nmt
+location: global
+target_language: de
+pricing:
+  currency: USD
+  price_per_million_input_characters: "20"
+  pricing_snapshot_id: google-cloud-translation-2026-07-24

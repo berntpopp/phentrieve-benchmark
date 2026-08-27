@@ -1,0 +1,166 @@
+from decimal import Decimal
+from pathlib import Path
+
+import yaml  # type: ignore[import-untyped]
+
+from phentrieve_benchmark.acquisition.recipes import (
+    E3cAdapterContract,
+    load_license_evidence,
+    load_source_recipe,
+    load_target_recipe,
+)
+from phentrieve_benchmark.translation.pricing import load_translation_recipe
+
+ROOT = Path(__file__).parents[2]
+E3C_COMMIT = "f74bdf9eaaef7f08437d0c5b930c6dbbc25bbffc"
+RAGHPO_COMMIT = "080fc3a04c91ee45c8986076765f4d4b4f14ddd9"
+TYPES = (
+    "CLINENTITY",
+    "EVENT",
+    "ACTOR",
+    "BODYPART",
+    "TIMEX3",
+    "RML",
+    "TIMEX3TimexLinkLink",
+    "RMLPERTAINSTOLink",
+    "EVENTTLINKLink",
+    "EVENTALINKLink",
+)
+
+
+def test_real_source_locks_and_license_hashes_are_exact() -> None:
+    e3c = load_source_recipe(ROOT / "datasets/e3c-de/dataset.yaml")
+    raghpo = load_source_recipe(ROOT / "datasets/raghpo/source.yaml")
+    e3c_license = load_license_evidence(ROOT / "datasets/e3c-de/license-evidence.yaml")
+    raghpo_license = load_license_evidence(
+        ROOT / "datasets/raghpo/license-evidence.yaml"
+    )
+
+    assert e3c.value.source_commit == E3C_COMMIT
+    assert raghpo.value.source_commit == RAGHPO_COMMIT
+    assert e3c.value.archive.url.endswith(f"/zip/{E3C_COMMIT}")
+    assert raghpo.value.archive.url.endswith(f"/zip/{RAGHPO_COMMIT}")
+    assert e3c.value.archive.expected_byte_length == 233_811_002
+    assert raghpo.value.archive.expected_byte_length == 12_524_020
+    assert e3c.value.archive.sha256 == (
+        "04e06d0a153a8ea845b647459ab51eb2fed5007bdf450d441c1469f8719a2206"
+    )
+    assert raghpo.value.archive.sha256 == (
+        "a2ece2b7b44e522a299dff02733dd1cad69d5ba11f7dc4da9c346c201662b52b"
+    )
+    assert e3c.value.license_evidence_sha256 == e3c_license.sha256
+    assert raghpo.value.license_evidence_sha256 == raghpo_license.sha256
+
+
+def test_e3c_inventory_and_official_counts_are_exact() -> None:
+    source = load_source_recipe(ROOT / "datasets/e3c-de/dataset.yaml").value
+    assert source.included_paths == (
+        "README.md",
+        "data_annotation/English/layer1/*.xml",
+        "data_annotation/French/layer1/*.xml",
+        "data_annotation/Spanish/layer1/*.xml",
+    )
+    assert source.ignored_path_prefixes
+    contract = source.adapter_contract
+    assert isinstance(contract, E3cAdapterContract)
+    assert {
+        item.language: item.expected_documents for item in contract.language_paths
+    } == {"en": 84, "fr": 81, "es": 81}
+    expected = {
+        "en": (1024, 4885, 682, 968, 380, 480, 502, 541, 4350, 114),
+        "fr": (1327, 4312, 427, 659, 333, 508, 236, 474, 3848, 71),
+        "es": (1345, 4767, 319, 814, 383, 391, 604, 473, 4096, 92),
+    }
+    for language in contract.language_paths:
+        assert tuple(item.name for item in language.expected_semantic_counts) == TYPES
+        assert (
+            tuple(item.count for item in language.expected_semantic_counts)
+            == expected[language.language]
+        )
+
+
+def test_raghpo_inventory_tables_and_hpo_release_are_exact() -> None:
+    source = load_source_recipe(ROOT / "datasets/raghpo/source.yaml").value
+    assert source.included_paths == (
+        "LICENSE",
+        "RAG-HPO Tests and Data Analysis copy.xlsx",
+        "README.md",
+        "Test_Cases.csv",
+    )
+    csc = load_target_recipe(ROOT / "datasets/raghpo/csc/dataset.yaml").value
+    gsc = load_target_recipe(ROOT / "datasets/raghpo/gsc/dataset.yaml").value
+    assert sorted(table.data_rows for table in csc.expected_tables) == [116, 1789]
+    assert sorted(table.data_rows for table in gsc.expected_tables) == [114, 1012]
+    assert str(csc.hpo_release) == str(gsc.hpo_release) == "v2026-06-23"
+    assert csc.required_paths == ("RAG-HPO Tests and Data Analysis copy.xlsx",)
+
+
+def test_e3c_google_nmt_recipe_is_pinned() -> None:
+    recipe = load_translation_recipe(ROOT / "datasets/e3c-de/translation.yaml").value
+
+    assert recipe.selection_id == "e3c-de-feasibility-30-v1"
+    assert recipe.provider == "google-cloud-translation"
+    assert recipe.api_version == "v3"
+    assert recipe.model == "general/nmt"
+    assert recipe.location == "global"
+    assert recipe.target_language == "de"
+    assert recipe.pricing.price_per_million_input_characters == Decimal("20")
+
+
+def test_e3c_translation_llm_recipe_is_pinned() -> None:
+    recipe = load_translation_recipe(
+        ROOT / "datasets/e3c-de/translation-llm.yaml"
+    ).value
+
+    assert recipe.translation_id == "e3c-de-feasibility-30-google-tllm-v1"
+    assert recipe.selection_id == "e3c-de-feasibility-30-v1"
+    assert recipe.provider == "google-cloud-translation"
+    assert recipe.api_version == "v3"
+    assert recipe.model == "general/translation-llm"
+    assert recipe.location == "us-central1"
+    assert recipe.target_language == "de"
+    assert recipe.pricing.price_per_million_input_characters == Decimal("10")
+    assert recipe.pricing.price_per_million_output_characters == Decimal("10")
+    assert recipe.pricing.output_expansion_factor == Decimal("1.30")
+
+
+def test_e3c_full_translation_llm_recipe_is_pinned() -> None:
+    recipe = load_translation_recipe(
+        ROOT / "datasets/e3c-de/translation-llm-full.yaml"
+    ).value
+
+    assert recipe.translation_id == "e3c-de-full-246-google-tllm-v1"
+    assert recipe.selection_id == "e3c-de-full-246-v1"
+    assert recipe.provider == "google-cloud-translation"
+    assert recipe.api_version == "v3"
+    assert recipe.model == "general/translation-llm"
+    assert recipe.location == "us-central1"
+    assert recipe.target_language == "de"
+    assert recipe.pricing.price_per_million_input_characters == Decimal("10")
+    assert recipe.pricing.price_per_million_output_characters == Decimal("10")
+    assert recipe.pricing.output_expansion_factor == Decimal("1.30")
+    assert (
+        recipe.pricing.pricing_snapshot_id == "google-cloud-translation-llm-2026-07-27"
+    )
+
+
+def test_e3c_google_nmt_recipe_hash_is_frozen() -> None:
+    loaded = load_translation_recipe(ROOT / "datasets/e3c-de/translation.yaml")
+
+    assert loaded.sha256 == (
+        "abb8542fd1d2362bc714c3c9f1a59cf941fd1f74f4cd3812ddf587abe490c8b0"
+    )
+
+
+def test_e3c_umls_hpo_mapping_recipe_is_pinned() -> None:
+    payload = yaml.safe_load((ROOT / "datasets/e3c-de/mapping.yaml").read_text("utf-8"))
+
+    assert payload == {
+        "schema_version": "e3c-umls-hpo-mapping-recipe/v1",
+        "mapping_id": "e3c-l1-umls-hpo-v2026-06-23-v1",
+        "method": "hpo-umls-xref",
+        "hpo_release": "v2026-06-23",
+        "hpo_recipe": "../../configs/ontologies/hpo-v2026-06-23.yaml",
+        "complete_population": "all-e3c-l1",
+        "selected_population": "e3c-de-feasibility-30-v1",
+    }

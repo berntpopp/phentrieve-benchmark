@@ -1,0 +1,2225 @@
+{
+ "provenance": {
+  "generated_by": "Claude (Opus 5) – maschinell erzeugte Diagnose, keine Reviewdaten, kein Gold",
+  "purpose": "Phase-0-Machbarkeitsprobe (Annotier-Machbarkeit E3C-DE)",
+  "date": "2026-08-24",
+  "inputs": {
+   "mapping_manifest": {
+    "path": "datasets/e3c-de/mappings/e3c-l1-umls-hpo-v2026-06-23-v1.json",
+    "sha256": "6a2498c2b16410b9c951263a49260df82f73d1cdffe32049788ad0fc077f13d5"
+   },
+   "audit_agent_a": {
+    "path": "datasets/e3c-de/mappings/audit/agent-a.json",
+    "sha256": "caf07ffdae55cc489157bec88e3b61068ec3abd6a4bbfbfd2ebb0863e22545ac"
+   },
+   "audit_agent_b": {
+    "path": "datasets/e3c-de/mappings/audit/agent-b.json",
+    "sha256": "d8240d0608929301581991d43574fa5bbcb903e5e0ee399650c18b048cef9bbf"
+   },
+   "translation_manifest_tllm_full_sha256": "759f00260dab85a3fbeb24204683f790b4b14a18759c2bb80910ff1725b4451a",
+   "hpo_release": "v2026-06-23",
+   "ontology_sha256": "a5092cbdf605f568403cf7380d9173014015692433b2cc631bc5c1b053876b1b"
+  }
+ },
+ "term_set": "Audit-Konsens: beide Agenten dasselbe sichere HPO-Ziel (210 Annotationen)",
+ "cases": [
+  {
+   "case_id": "EN100075",
+   "source_file": ".artifacts/views/e3c-de-tllm/EN100075.source.en.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/EN100075.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "9363",
+     "cui": "C0015967",
+     "source_span": "fever",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9370",
+     "cui": "C0042963",
+     "source_span": "vomiting",
+     "hpo_id": "HP:0002013",
+     "hpo_label": "Vomiting",
+     "relevance": "not_positive_patient_phenotype",
+     "problem_categories": [
+      "negated_or_absent"
+     ]
+    },
+    {
+     "annotation_id": "9377",
+     "cui": "C0009806",
+     "source_span": "constipation",
+     "hpo_id": "HP:0002019",
+     "hpo_label": "Constipation",
+     "relevance": "not_positive_patient_phenotype",
+     "problem_categories": [
+      "negated_or_absent"
+     ]
+    },
+    {
+     "annotation_id": "9391",
+     "cui": "C1971624",
+     "source_span": "loss of appetite",
+     "hpo_id": "HP:0004396",
+     "hpo_label": "Poor appetite",
+     "relevance": "not_positive_patient_phenotype",
+     "problem_categories": [
+      "negated_or_absent"
+     ]
+    },
+    {
+     "annotation_id": "9419",
+     "cui": "C0036572",
+     "source_span": "seizures",
+     "hpo_id": "HP:0001250",
+     "hpo_label": "Seizure",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9433",
+     "cui": "C0011175",
+     "source_span": "dehydrated",
+     "hpo_id": "HP:0001944",
+     "hpo_label": "Dehydration",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9440",
+     "cui": "C0015967",
+     "source_span": "febrile",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9447",
+     "cui": "C0151683",
+     "source_span": "neutrophilia",
+     "hpo_id": "HP:0011897",
+     "hpo_label": "Increased total neutrophil count",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9454",
+     "cui": "C0036572",
+     "source_span": "seizures",
+     "hpo_id": "HP:0001250",
+     "hpo_label": "Seizure",
+     "relevance": "historical_or_resolved_patient_phenotype",
+     "problem_categories": [
+      "resolved_or_historical_only"
+     ]
+    },
+    {
+     "annotation_id": "9468",
+     "cui": "C0036572",
+     "source_span": "seizures",
+     "hpo_id": "HP:0001250",
+     "hpo_label": "Seizure",
+     "relevance": "not_positive_patient_phenotype",
+     "problem_categories": [
+      "negated_or_absent",
+      "resolved_or_historical_only"
+     ]
+    }
+   ]
+  },
+  {
+   "case_id": "EN100114",
+   "source_file": ".artifacts/views/e3c-de-tllm/EN100114.source.en.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/EN100114.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "9450",
+     "cui": "C0003962",
+     "source_span": "ascites",
+     "hpo_id": "HP:0001541",
+     "hpo_label": "Ascites",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9457",
+     "cui": "C0004364",
+     "source_span": "autoimmune disease",
+     "hpo_id": "HP:0002960",
+     "hpo_label": "Autoimmunity",
+     "relevance": "non_index_subject",
+     "problem_categories": [
+      "negated_or_absent",
+      "non_index_subject_or_family"
+     ]
+    },
+    {
+     "annotation_id": "9464",
+     "cui": "C0019158",
+     "source_span": "hepatitis",
+     "hpo_id": "HP:0012115",
+     "hpo_label": "Hepatitis",
+     "relevance": "not_positive_patient_phenotype",
+     "problem_categories": [
+      "negated_or_absent"
+     ]
+    },
+    {
+     "annotation_id": "9471",
+     "cui": "C0022346",
+     "source_span": "jaundice",
+     "hpo_id": "HP:0000952",
+     "hpo_label": "Jaundice",
+     "relevance": "not_positive_patient_phenotype",
+     "problem_categories": [
+      "negated_or_absent"
+     ]
+    },
+    {
+     "annotation_id": "9478",
+     "cui": "C0011849",
+     "source_span": "diabetes",
+     "hpo_id": "HP:0000819",
+     "hpo_label": "Diabetes mellitus",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9485",
+     "cui": "C0020538",
+     "source_span": "hypertension",
+     "hpo_id": "HP:0000822",
+     "hpo_label": "Hypertension",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9499",
+     "cui": "C0003962",
+     "source_span": "ascites",
+     "hpo_id": "HP:0001541",
+     "hpo_label": "Ascites",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9513",
+     "cui": "C0003962",
+     "source_span": "ascites",
+     "hpo_id": "HP:0001541",
+     "hpo_label": "Ascites",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9527",
+     "cui": "C3489393",
+     "source_span": "hiatal hernia",
+     "hpo_id": "HP:0002036",
+     "hpo_label": "Hiatus hernia",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9534",
+     "cui": "C0003962",
+     "source_span": "ascite",
+     "hpo_id": "HP:0001541",
+     "hpo_label": "Ascites",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9541",
+     "cui": "C0024141",
+     "source_span": "Systemic lupus erythematosus",
+     "hpo_id": "HP:0002725",
+     "hpo_label": "Systemic lupus erythematosus",
+     "relevance": "uncertain_patient_phenotype",
+     "problem_categories": [
+      "uncertain_or_hypothetical"
+     ]
+    },
+    {
+     "annotation_id": "9548",
+     "cui": "C0032231",
+     "source_span": "pleuritis",
+     "hpo_id": "HP:0002102",
+     "hpo_label": "Pleuritis",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9555",
+     "cui": "C0024312",
+     "source_span": "lymphopenia",
+     "hpo_id": "HP:0001888",
+     "hpo_label": "Decreased total lymphocyte count",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9562",
+     "cui": "C0023530",
+     "source_span": "leucopenia",
+     "hpo_id": "HP:0001882",
+     "hpo_label": "Decreased total leukocyte count",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9569",
+     "cui": "C0024141",
+     "source_span": "SLE",
+     "hpo_id": "HP:0002725",
+     "hpo_label": "Systemic lupus erythematosus",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    }
+   ]
+  },
+  {
+   "case_id": "EN100310",
+   "source_file": ".artifacts/views/e3c-de-tllm/EN100310.source.en.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/EN100310.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "5604",
+     "cui": "C0575164",
+     "source_span": "enlargement of the anterior neck",
+     "hpo_id": "HP:6000176",
+     "hpo_label": "Anterior neck swelling",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5611",
+     "cui": "C0342208",
+     "source_span": "multinodular goiter",
+     "hpo_id": "HP:0005987",
+     "hpo_label": "Multinodular goiter",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5618",
+     "cui": "C0040137",
+     "source_span": "thyroid nodule",
+     "hpo_id": "HP:0025388",
+     "hpo_label": "Thyroid nodule",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5632",
+     "cui": "C0040137",
+     "source_span": "lobe nodule",
+     "hpo_id": "HP:0025388",
+     "hpo_label": "Thyroid nodule",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5660",
+     "cui": "C0027651",
+     "source_span": "tumor",
+     "hpo_id": "HP:0002664",
+     "hpo_label": "Neoplasm",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5667",
+     "cui": "C0027651",
+     "source_span": "neoplasia",
+     "hpo_id": "HP:0002664",
+     "hpo_label": "Neoplasm",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5674",
+     "cui": "C0027651",
+     "source_span": "tumour",
+     "hpo_id": "HP:0002664",
+     "hpo_label": "Neoplasm",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    }
+   ]
+  },
+  {
+   "case_id": "EN100593",
+   "source_file": ".artifacts/views/e3c-de-tllm/EN100593.source.en.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/EN100593.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "6441",
+     "cui": "CUILESS",
+     "source_span": "tea colored urine",
+     "hpo_id": "HP:0040319",
+     "hpo_label": "Dark urine",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": [
+      "invalid_or_missing_source_cui"
+     ]
+    },
+    {
+     "annotation_id": "6448",
+     "cui": "CUILESS",
+     "source_span": "mastic -colored stool",
+     "hpo_id": "HP:0011985",
+     "hpo_label": "Acholic stools",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": [
+      "invalid_or_missing_source_cui"
+     ]
+    },
+    {
+     "annotation_id": "6462",
+     "cui": "C0018681",
+     "source_span": "headache",
+     "hpo_id": "HP:0002315",
+     "hpo_label": "Headache",
+     "relevance": "not_positive_patient_phenotype",
+     "problem_categories": [
+      "negated_or_absent"
+     ]
+    },
+    {
+     "annotation_id": "6469",
+     "cui": "C0344232",
+     "source_span": "blurred vision",
+     "hpo_id": "HP:0000622",
+     "hpo_label": "Blurred vision",
+     "relevance": "not_positive_patient_phenotype",
+     "problem_categories": [
+      "negated_or_absent"
+     ]
+    },
+    {
+     "annotation_id": "6483",
+     "cui": "C0241863",
+     "source_span": "diabetic",
+     "hpo_id": "HP:0000819",
+     "hpo_label": "Diabetes mellitus",
+     "relevance": "not_positive_patient_phenotype",
+     "problem_categories": [
+      "negated_or_absent"
+     ]
+    },
+    {
+     "annotation_id": "6490",
+     "cui": "C0030232",
+     "source_span": "pallor",
+     "hpo_id": "HP:0000980",
+     "hpo_label": "Pallor",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "6504",
+     "cui": "C0019209",
+     "source_span": "Liver was enlarged",
+     "hpo_id": "HP:0002240",
+     "hpo_label": "Hepatomegaly",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "6511",
+     "cui": "C0239340",
+     "source_span": "bipedal edema",
+     "hpo_id": "HP:0010741",
+     "hpo_label": "Pedal edema",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "6518",
+     "cui": "C0023518",
+     "source_span": "leukocytosis",
+     "hpo_id": "HP:0001974",
+     "hpo_label": "Increased total leukocyte count",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "6525",
+     "cui": "C0002871",
+     "source_span": "anemia",
+     "hpo_id": "HP:0001903",
+     "hpo_label": "Anemia",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "6553",
+     "cui": "C2239176",
+     "source_span": "hepatocellular carcinoma",
+     "hpo_id": "HP:0001402",
+     "hpo_label": "Hepatocellular carcinoma",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "6574",
+     "cui": "C0041657",
+     "source_span": "loss of conscious",
+     "hpo_id": "HP:0007185",
+     "hpo_label": "Loss of consciousness",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "6581",
+     "cui": "C0014591",
+     "source_span": "epistaxis",
+     "hpo_id": "HP:0000421",
+     "hpo_label": "Epistaxis",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "6595",
+     "cui": "C1846288",
+     "source_span": "recurrent hypoglycemia",
+     "hpo_id": "HP:0001988",
+     "hpo_label": "Recurrent hypoglycemia",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "6602",
+     "cui": "C0020615",
+     "source_span": "hypoglycemia",
+     "hpo_id": "HP:0001943",
+     "hpo_label": "Hypoglycemia",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    }
+   ]
+  },
+  {
+   "case_id": "EN100600",
+   "source_file": ".artifacts/views/e3c-de-tllm/EN100600.source.en.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/EN100600.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "5759",
+     "cui": "C0015469",
+     "source_span": "facial palsy",
+     "hpo_id": "HP:0007209",
+     "hpo_label": "Facial paralysis",
+     "relevance": "not_positive_patient_phenotype",
+     "problem_categories": [
+      "negated_or_absent"
+     ]
+    },
+    {
+     "annotation_id": "5766",
+     "cui": "C0027651",
+     "source_span": "tumor",
+     "hpo_id": "HP:0002664",
+     "hpo_label": "Neoplasm",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5773",
+     "cui": "C3273930",
+     "source_span": "tumor mass",
+     "hpo_id": "HP:0002664",
+     "hpo_label": "Neoplasm",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    }
+   ]
+  },
+  {
+   "case_id": "EN100668",
+   "source_file": ".artifacts/views/e3c-de-tllm/EN100668.source.en.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/EN100668.translation.de.txt",
+   "consensus_terms": []
+  },
+  {
+   "case_id": "EN101318",
+   "source_file": ".artifacts/views/e3c-de-tllm/EN101318.source.en.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/EN101318.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "1754",
+     "cui": "C0042487",
+     "source_span": "venous thrombosis",
+     "hpo_id": "HP:0004936",
+     "hpo_label": "Venous thrombosis",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    }
+   ]
+  },
+  {
+   "case_id": "EN105832",
+   "source_file": ".artifacts/views/e3c-de-tllm/EN105832.source.en.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/EN105832.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "4014",
+     "cui": "C0015934",
+     "source_span": "intrauterine growth retardation",
+     "hpo_id": "HP:0001511",
+     "hpo_label": "Intrauterine growth retardation",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "4028",
+     "cui": "C0020615",
+     "source_span": "low blood glucose",
+     "hpo_id": "HP:0001943",
+     "hpo_label": "Hypoglycemia",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "4049",
+     "cui": "C4082937",
+     "source_span": "necrotizing enterocolitis",
+     "hpo_id": "HP:0033165",
+     "hpo_label": "Necrotizing enterocolitis",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "4056",
+     "cui": "C4082937",
+     "source_span": "necrotizing enterocolitis",
+     "hpo_id": "HP:0033165",
+     "hpo_label": "Necrotizing enterocolitis",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "4063",
+     "cui": "C0235991",
+     "source_span": "small for gestational age",
+     "hpo_id": "HP:0001518",
+     "hpo_label": "Small for gestational age",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    }
+   ]
+  },
+  {
+   "case_id": "EN107021",
+   "source_file": ".artifacts/views/e3c-de-tllm/EN107021.source.en.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/EN107021.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "3130",
+     "cui": "C0015967",
+     "source_span": "fever",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "3137",
+     "cui": "C0231528",
+     "source_span": "myalgias",
+     "hpo_id": "HP:0003326",
+     "hpo_label": "Myalgia",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "3144",
+     "cui": "C0003862",
+     "source_span": "arthralgias",
+     "hpo_id": "HP:0002829",
+     "hpo_label": "Arthralgia",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "3158",
+     "cui": "C0042963",
+     "source_span": "vomiting",
+     "hpo_id": "HP:0002013",
+     "hpo_label": "Vomiting",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "3165",
+     "cui": null,
+     "source_span": "gum bleeding",
+     "hpo_id": "HP:0000225",
+     "hpo_label": "Gingival bleeding",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": [
+      "invalid_or_missing_source_cui"
+     ]
+    },
+    {
+     "annotation_id": "3172",
+     "cui": "C0018681",
+     "source_span": "headaches",
+     "hpo_id": "HP:0002315",
+     "hpo_label": "Headache",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "3179",
+     "cui": "C0041657",
+     "source_span": "unconsciousness",
+     "hpo_id": "HP:0007185",
+     "hpo_label": "Loss of consciousness",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "3200",
+     "cui": "C0015967",
+     "source_span": "fever",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "3207",
+     "cui": "C0030252",
+     "source_span": "palpitations",
+     "hpo_id": "HP:0001962",
+     "hpo_label": "Palpitations",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "3214",
+     "cui": "C0019825",
+     "source_span": "hoarseness of voice",
+     "hpo_id": "HP:0001609",
+     "hpo_label": "Hoarse voice",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "3221",
+     "cui": "C0221150",
+     "source_span": "odynophagia",
+     "hpo_id": "HP:0032043",
+     "hpo_label": "Odynophagia",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "3242",
+     "cui": "C0020550",
+     "source_span": "hyperthyroidism",
+     "hpo_id": "HP:0000836",
+     "hpo_label": "Hyperthyroidism",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    }
+   ]
+  },
+  {
+   "case_id": "EN107424",
+   "source_file": ".artifacts/views/e3c-de-tllm/EN107424.source.en.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/EN107424.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "1620",
+     "cui": "C0027651",
+     "source_span": "tumor",
+     "hpo_id": "HP:0002664",
+     "hpo_label": "Neoplasm",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    }
+   ]
+  },
+  {
+   "case_id": "ES100050",
+   "source_file": ".artifacts/views/e3c-de-tllm/ES100050.source.es.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/ES100050.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "3417",
+     "cui": "C0577559",
+     "source_span": "tumoraciÃ³n",
+     "hpo_id": "HP:0032404",
+     "hpo_label": "Testicular mass",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "3418",
+     "cui": "C0030193",
+     "source_span": "dolorosa",
+     "hpo_id": "HP:0012531",
+     "hpo_label": "Pain",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "3431",
+     "cui": "C0036631",
+     "source_span": "seminoma",
+     "hpo_id": "HP:0100617",
+     "hpo_label": "Testicular seminoma",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    }
+   ]
+  },
+  {
+   "case_id": "ES100163",
+   "source_file": ".artifacts/views/e3c-de-tllm/ES100163.source.es.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/ES100163.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "2903",
+     "cui": "C0030193",
+     "source_span": "dolorosa",
+     "hpo_id": "HP:0012531",
+     "hpo_label": "Pain",
+     "relevance": "not_positive_patient_phenotype",
+     "problem_categories": [
+      "negated_or_absent"
+     ]
+    }
+   ]
+  },
+  {
+   "case_id": "ES100214",
+   "source_file": ".artifacts/views/e3c-de-tllm/ES100214.source.es.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/ES100214.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "7005",
+     "cui": "C0022660",
+     "source_span": "fallo renal agudo",
+     "hpo_id": "HP:0001919",
+     "hpo_label": "Acute kidney injury",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "7007",
+     "cui": "C0012739",
+     "source_span": "coagulaciÃ³n intravascular diseminada",
+     "hpo_id": "HP:0005521",
+     "hpo_label": "Disseminated intravascular coagulation",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "7008",
+     "cui": "C0012739",
+     "source_span": "CID",
+     "hpo_id": "HP:0005521",
+     "hpo_label": "Disseminated intravascular coagulation",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    }
+   ]
+  },
+  {
+   "case_id": "ES100417",
+   "source_file": ".artifacts/views/e3c-de-tllm/ES100417.source.es.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/ES100417.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "11649",
+     "cui": "C0038379",
+     "source_span": "estrabismo",
+     "hpo_id": "HP:0000486",
+     "hpo_label": "Strabismus",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "11650",
+     "cui": "CUILESS",
+     "source_span": "endotropÃ­a",
+     "hpo_id": "HP:0000565",
+     "hpo_label": "Esotropia",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": [
+      "invalid_or_missing_source_cui"
+     ]
+    },
+    {
+     "annotation_id": "11651",
+     "cui": "C0020575",
+     "source_span": "hipertropÃ­a",
+     "hpo_id": "HP:0025586",
+     "hpo_label": "Hypertropia",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "11652",
+     "cui": "C0262461",
+     "source_span": "fijaciÃ³n excÃ©ntrica",
+     "hpo_id": "HP:0025549",
+     "hpo_label": "Eccentric visual fixation",
+     "relevance": "uncertain_patient_phenotype",
+     "problem_categories": [
+      "uncertain_or_hypothetical"
+     ]
+    },
+    {
+     "annotation_id": "11653",
+     "cui": "C0009952",
+     "source_span": "convulsiones febriles",
+     "hpo_id": "HP:0002373",
+     "hpo_label": "Febrile seizure (within the age range of 3 months to 6 years)",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "11657",
+     "cui": "C0008513",
+     "source_span": "retinocoroiditis",
+     "hpo_id": "HP:0012424",
+     "hpo_label": "Chorioretinitis",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "11659",
+     "cui": "C4048273",
+     "source_span": "atrofia coriorretiniana",
+     "hpo_id": "HP:0000533",
+     "hpo_label": "Chorioretinal atrophy",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "11661",
+     "cui": "C0028738",
+     "source_span": "nistagmo",
+     "hpo_id": "HP:0000639",
+     "hpo_label": "Nystagmus",
+     "relevance": "not_positive_patient_phenotype",
+     "problem_categories": [
+      "negated_or_absent"
+     ]
+    },
+    {
+     "annotation_id": "11666",
+     "cui": "CUILESS",
+     "source_span": "coloboma macular",
+     "hpo_id": "HP:0001116",
+     "hpo_label": "Macular pseudocoloboma",
+     "relevance": "uncertain_patient_phenotype",
+     "problem_categories": [
+      "invalid_or_missing_source_cui",
+      "uncertain_or_hypothetical"
+     ]
+    },
+    {
+     "annotation_id": "11667",
+     "cui": "C0020438",
+     "source_span": "hipercalciuria",
+     "hpo_id": "HP:0002150",
+     "hpo_label": "Hypercalciuria",
+     "relevance": "generic_not_patient_assertion",
+     "problem_categories": [
+      "negated_or_absent",
+      "normal_finding",
+      "generic_statement_or_recommendation"
+     ]
+    },
+    {
+     "annotation_id": "11668",
+     "cui": "C0151723",
+     "source_span": "hipomagnesemia",
+     "hpo_id": "HP:0002917",
+     "hpo_label": "Hypomagnesemia",
+     "relevance": "generic_not_patient_assertion",
+     "problem_categories": [
+      "negated_or_absent",
+      "normal_finding",
+      "generic_statement_or_recommendation"
+     ]
+    },
+    {
+     "annotation_id": "11669",
+     "cui": "CUILESS",
+     "source_span": "coloboma",
+     "hpo_id": "HP:0001116",
+     "hpo_label": "Macular pseudocoloboma",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": [
+      "invalid_or_missing_source_cui"
+     ]
+    }
+   ]
+  },
+  {
+   "case_id": "ES100420",
+   "source_file": ".artifacts/views/e3c-de-tllm/ES100420.source.es.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/ES100420.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "6144",
+     "cui": "C0004093",
+     "source_span": "astenia",
+     "hpo_id": "HP:0025406",
+     "hpo_label": "Asthenia",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "6145",
+     "cui": "C0015672",
+     "source_span": "fatiga",
+     "hpo_id": "HP:0012378",
+     "hpo_label": "Fatigue",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "6147",
+     "cui": "C0234632",
+     "source_span": "disminuciÃ³n de agudeza visual",
+     "hpo_id": "HP:0007663",
+     "hpo_label": "Reduced visual acuity",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "6148",
+     "cui": "C0030193",
+     "source_span": "dolor",
+     "hpo_id": "HP:0012531",
+     "hpo_label": "Pain",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "6149",
+     "cui": "C0152227",
+     "source_span": "lagrimeo",
+     "hpo_id": "HP:0009926",
+     "hpo_label": "Epiphora",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "6150",
+     "cui": "C0015300",
+     "source_span": "exoftalmos",
+     "hpo_id": "HP:0000520",
+     "hpo_label": "Proptosis",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "6151",
+     "cui": "C0549122",
+     "source_span": "defecto pupilar aferente",
+     "hpo_id": "HP:0200057",
+     "hpo_label": "Marcus Gunn pupil",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "6152",
+     "cui": "C1761613",
+     "source_span": "hiperemia conjuntival",
+     "hpo_id": "HP:0030953",
+     "hpo_label": "Conjunctival hyperemia",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "6154",
+     "cui": "C0012569",
+     "source_span": "diplopia",
+     "hpo_id": "HP:0000651",
+     "hpo_label": "Diplopia",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "6155",
+     "cui": "C0015300",
+     "source_span": "exoftalmos",
+     "hpo_id": "HP:0000520",
+     "hpo_label": "Proptosis",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "6156",
+     "cui": "CUILESS",
+     "source_span": "pÃ¡rpados edematosos",
+     "hpo_id": "HP:0100540",
+     "hpo_label": "Palpebral edema",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": [
+      "invalid_or_missing_source_cui"
+     ]
+    },
+    {
+     "annotation_id": "6159",
+     "cui": "C0086543",
+     "source_span": "cataratas",
+     "hpo_id": "HP:0000518",
+     "hpo_label": "Cataract",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "6162",
+     "cui": "C1720306",
+     "source_span": "reducciÃ³n concÃ©ntrica",
+     "hpo_id": "HP:0001133",
+     "hpo_label": "Constriction of peripheral visual field",
+     "relevance": "historical_or_resolved_patient_phenotype",
+     "problem_categories": [
+      "resolved_or_historical_only"
+     ]
+    },
+    {
+     "annotation_id": "6163",
+     "cui": "C0086543",
+     "source_span": "cataratas",
+     "hpo_id": "HP:0000518",
+     "hpo_label": "Cataract",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "6164",
+     "cui": "C0235039",
+     "source_span": "palidez papilar",
+     "hpo_id": "HP:0000543",
+     "hpo_label": "Optic disc pallor",
+     "relevance": "not_positive_patient_phenotype",
+     "problem_categories": [
+      "negated_or_absent"
+     ]
+    }
+   ]
+  },
+  {
+   "case_id": "ES100521",
+   "source_file": ".artifacts/views/e3c-de-tllm/ES100521.source.es.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/ES100521.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "10733",
+     "cui": "C0497406",
+     "source_span": "sobrepeso",
+     "hpo_id": "HP:0025502",
+     "hpo_label": "Overweight",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "10734",
+     "cui": "C0243026",
+     "source_span": "sepsis",
+     "hpo_id": "HP:0100806",
+     "hpo_label": "Sepsis",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "10737",
+     "cui": "C0243026",
+     "source_span": "sepsis",
+     "hpo_id": "HP:0100806",
+     "hpo_label": "Sepsis",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "10742",
+     "cui": "C0151799",
+     "source_span": "necrosis",
+     "hpo_id": "HP:0033126",
+     "hpo_label": "Cutaneous necrosis",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "10743",
+     "cui": "C0521172",
+     "source_span": "escara",
+     "hpo_id": "HP:6000793",
+     "hpo_label": "Eschar",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "10744",
+     "cui": "C0151799",
+     "source_span": "necrosis",
+     "hpo_id": "HP:0033126",
+     "hpo_label": "Cutaneous necrosis",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "10745",
+     "cui": "C0041582",
+     "source_span": "Ãºlcera",
+     "hpo_id": "HP:0200042",
+     "hpo_label": "Skin ulcer",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "10746",
+     "cui": "C0521172",
+     "source_span": "escaras",
+     "hpo_id": "HP:6000793",
+     "hpo_label": "Eschar",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "10747",
+     "cui": "C0030193",
+     "source_span": "dolor",
+     "hpo_id": "HP:0012531",
+     "hpo_label": "Pain",
+     "relevance": "not_positive_patient_phenotype",
+     "problem_categories": [
+      "negated_or_absent"
+     ]
+    },
+    {
+     "annotation_id": "10750",
+     "cui": "C0043250",
+     "source_span": "heridas",
+     "hpo_id": "HP:0032674",
+     "hpo_label": "Cutaneous wound",
+     "relevance": "historical_or_resolved_patient_phenotype",
+     "problem_categories": [
+      "resolved_or_historical_only"
+     ]
+    }
+   ]
+  },
+  {
+   "case_id": "ES100778",
+   "source_file": ".artifacts/views/e3c-de-tllm/ES100778.source.es.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/ES100778.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "5773",
+     "cui": "C0011860",
+     "source_span": "DM tipo II",
+     "hpo_id": "HP:0005978",
+     "hpo_label": "Type II diabetes mellitus",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5775",
+     "cui": "C0152025",
+     "source_span": "polineuropatÃ­a",
+     "hpo_id": "HP:0001271",
+     "hpo_label": "Polyneuropathy",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5776",
+     "cui": "C0020538",
+     "source_span": "HTA",
+     "hpo_id": "HP:0000822",
+     "hpo_label": "Hypertension",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5777",
+     "cui": "C0028754",
+     "source_span": "obesa",
+     "hpo_id": "HP:0001513",
+     "hpo_label": "Obesity",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    }
+   ]
+  },
+  {
+   "case_id": "ES100791",
+   "source_file": ".artifacts/views/e3c-de-tllm/ES100791.source.es.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/ES100791.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "1279",
+     "cui": "CUILESS",
+     "source_span": "doloroso",
+     "hpo_id": "HP:0012531",
+     "hpo_label": "Pain",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": [
+      "invalid_or_missing_source_cui"
+     ]
+    }
+   ]
+  },
+  {
+   "case_id": "ES100840",
+   "source_file": ".artifacts/views/e3c-de-tllm/ES100840.source.es.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/ES100840.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "9762",
+     "cui": "C0042133",
+     "source_span": "mioma uterino",
+     "hpo_id": "HP:0000131",
+     "hpo_label": "Uterine leiomyoma",
+     "relevance": "not_positive_patient_phenotype",
+     "problem_categories": [
+      "negated_or_absent"
+     ]
+    },
+    {
+     "annotation_id": "9763",
+     "cui": "C0000737",
+     "source_span": "dolor abdominal",
+     "hpo_id": "HP:0002027",
+     "hpo_label": "Abdominal pain",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9764",
+     "cui": "C0000731",
+     "source_span": "distensiÃ³n abdominal",
+     "hpo_id": "HP:0003270",
+     "hpo_label": "Abdominal distention",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9765",
+     "cui": "C2129214",
+     "source_span": "deposiciones lÃ­quidas",
+     "hpo_id": "HP:0002014",
+     "hpo_label": "Diarrhea",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9771",
+     "cui": "C0042782",
+     "source_span": "visceromegalias",
+     "hpo_id": "HP:0003271",
+     "hpo_label": "Visceromegaly",
+     "relevance": "not_positive_patient_phenotype",
+     "problem_categories": [
+      "negated_or_absent",
+      "normal_finding"
+     ]
+    },
+    {
+     "annotation_id": "9772",
+     "cui": "C0232475",
+     "source_span": "peristaltismo disminuido",
+     "hpo_id": "HP:0100771",
+     "hpo_label": "Hypoperistalsis",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9773",
+     "cui": "C0023518",
+     "source_span": "leucocitosis",
+     "hpo_id": "HP:0001974",
+     "hpo_label": "Increased total leukocyte count",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9776",
+     "cui": "C0027086",
+     "source_span": "mioma",
+     "hpo_id": "HP:0000131",
+     "hpo_label": "Uterine leiomyoma",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9777",
+     "cui": "C0232474",
+     "source_span": "hiperperistaltismo",
+     "hpo_id": "HP:0100770",
+     "hpo_label": "Hyperperistalsis",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9781",
+     "cui": "C0027086",
+     "source_span": "miomatoso",
+     "hpo_id": "HP:0000131",
+     "hpo_label": "Uterine leiomyoma",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9787",
+     "cui": "C0497156",
+     "source_span": "adenopatÃ­as",
+     "hpo_id": "HP:0002716",
+     "hpo_label": "Lymphadenopathy",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9788",
+     "cui": "C0027086",
+     "source_span": "miomatoso",
+     "hpo_id": "HP:0000131",
+     "hpo_label": "Uterine leiomyoma",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9789",
+     "cui": "C0001511",
+     "source_span": "adherencias",
+     "hpo_id": "HP:0033134",
+     "hpo_label": "Abdominal adhesions",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    }
+   ]
+  },
+  {
+   "case_id": "ES100937",
+   "source_file": ".artifacts/views/e3c-de-tllm/ES100937.source.es.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/ES100937.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "7527",
+     "cui": "C0015967",
+     "source_span": "fiebre",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "7528",
+     "cui": "C0022107",
+     "source_span": "irritabilidad",
+     "hpo_id": "HP:0000737",
+     "hpo_label": "Irritability",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "7529",
+     "cui": "CUILESS",
+     "source_span": "mucosidad nasal",
+     "hpo_id": "HP:0031417",
+     "hpo_label": "Rhinorrhea",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": [
+      "invalid_or_missing_source_cui"
+     ]
+    },
+    {
+     "annotation_id": "7530",
+     "cui": "C0015230",
+     "source_span": "exantema",
+     "hpo_id": "HP:0000988",
+     "hpo_label": "Skin rash",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "7532",
+     "cui": "C0015967",
+     "source_span": "Febril",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "7533",
+     "cui": "C0022107",
+     "source_span": "irritabilidad",
+     "hpo_id": "HP:0000737",
+     "hpo_label": "Irritability",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "7535",
+     "cui": "C0015230",
+     "source_span": "exantema",
+     "hpo_id": "HP:0000988",
+     "hpo_label": "Skin rash",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "7536",
+     "cui": "C0476273",
+     "source_span": "dificultad respiratoria",
+     "hpo_id": "HP:0002098",
+     "hpo_label": "Respiratory distress",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "7537",
+     "cui": "C0332448",
+     "source_span": "infiltrados",
+     "hpo_id": "HP:0002113",
+     "hpo_label": "Pulmonary infiltrates",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "7538",
+     "cui": "C0155919",
+     "source_span": "edema agudo de pulmÃ³n",
+     "hpo_id": "HP:0100598",
+     "hpo_label": "Pulmonary edema",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "7539",
+     "cui": "C0030312",
+     "source_span": "pancitopenia",
+     "hpo_id": "HP:0001876",
+     "hpo_label": "Pancytopenia",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "7541",
+     "cui": "C0035229",
+     "source_span": "insuficiencia respiratoria",
+     "hpo_id": "HP:0002093",
+     "hpo_label": "Respiratory insufficiency",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "7542",
+     "cui": "C0030312",
+     "source_span": "pancitopenia",
+     "hpo_id": "HP:0001876",
+     "hpo_label": "Pancytopenia",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    }
+   ]
+  },
+  {
+   "case_id": "FR100078",
+   "source_file": ".artifacts/views/e3c-de-tllm/FR100078.source.fr.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/FR100078.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "5338",
+     "cui": "C0038363",
+     "source_span": "aphtose buccale",
+     "hpo_id": "HP:0011107",
+     "hpo_label": "Recurrent aphthous stomatitis",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5346",
+     "cui": "C1388277",
+     "source_span": "aphtes gÃ©nitaux",
+     "hpo_id": "HP:0003249",
+     "hpo_label": "Genital ulcers",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5362",
+     "cui": "C0040046",
+     "source_span": "thrombophlÃ©bite",
+     "hpo_id": "HP:0004418",
+     "hpo_label": "Thrombophlebitis",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5410",
+     "cui": "C0042485",
+     "source_span": "insuffisance veineuse",
+     "hpo_id": "HP:0005293",
+     "hpo_label": "Venous insufficiency",
+     "relevance": "not_positive_patient_phenotype",
+     "problem_categories": [
+      "negated_or_absent"
+     ]
+    },
+    {
+     "annotation_id": "5418",
+     "cui": "C0149871",
+     "source_span": "thrombose profonde",
+     "hpo_id": "HP:0002625",
+     "hpo_label": "Deep venous thrombosis",
+     "relevance": "not_positive_patient_phenotype",
+     "problem_categories": [
+      "negated_or_absent"
+     ]
+    },
+    {
+     "annotation_id": "5442",
+     "cui": "C0151436",
+     "source_span": "vascularite dermique leucocytoclasique",
+     "hpo_id": "HP:0034786",
+     "hpo_label": "Leukocytoclastic vasculitis",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5490",
+     "cui": "C0015967",
+     "source_span": "fiÃ¨vre",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5506",
+     "cui": "C4324336",
+     "source_span": "hyperleucocytose",
+     "hpo_id": "HP:0001974",
+     "hpo_label": "Increased total leukocyte count",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    }
+   ]
+  },
+  {
+   "case_id": "FR100185",
+   "source_file": ".artifacts/views/e3c-de-tllm/FR100185.source.fr.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/FR100185.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "2710",
+     "cui": "C1458155",
+     "source_span": "tumeur du sein",
+     "hpo_id": "HP:0100013",
+     "hpo_label": "Neoplasm of the breast",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "2719",
+     "cui": "C0030554",
+     "source_span": "paresthÃ©sies",
+     "hpo_id": "HP:0003401",
+     "hpo_label": "Paresthesia",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "2746",
+     "cui": "C0234146",
+     "source_span": "abolition des reflexes",
+     "hpo_id": "HP:0001284",
+     "hpo_label": "Areflexia",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "2755",
+     "cui": "C0020580",
+     "source_span": "hypoesthÃ©sie",
+     "hpo_id": "HP:0003474",
+     "hpo_label": "Somatic sensory dysfunction",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "2764",
+     "cui": "C0026846",
+     "source_span": "amyotrophie",
+     "hpo_id": "HP:0003202",
+     "hpo_label": "Skeletal muscle atrophy",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    }
+   ]
+  },
+  {
+   "case_id": "FR100275",
+   "source_file": ".artifacts/views/e3c-de-tllm/FR100275.source.fr.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/FR100275.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "9634",
+     "cui": "CUILESS",
+     "source_span": "hypotonique",
+     "hpo_id": "HP:0001252",
+     "hpo_label": "Hypotonia",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": [
+      "invalid_or_missing_source_cui"
+     ]
+    },
+    {
+     "annotation_id": "9642",
+     "cui": "C0010520",
+     "source_span": "cyanose",
+     "hpo_id": "HP:0000961",
+     "hpo_label": "Cyanosis",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9650",
+     "cui": "C0030232",
+     "source_span": "pÃ¢leur",
+     "hpo_id": "HP:0000980",
+     "hpo_label": "Pallor",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9714",
+     "cui": "C0003811",
+     "source_span": "arythmies",
+     "hpo_id": "HP:0011675",
+     "hpo_label": "Arrhythmia",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9722",
+     "cui": "C0011071",
+     "source_span": "mort subite",
+     "hpo_id": "HP:0001699",
+     "hpo_label": "Sudden death",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9754",
+     "cui": "C0014544",
+     "source_span": "Ã©pilepsie",
+     "hpo_id": "HP:0001250",
+     "hpo_label": "Seizure",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    }
+   ]
+  },
+  {
+   "case_id": "FR100282",
+   "source_file": ".artifacts/views/e3c-de-tllm/FR100282.source.fr.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/FR100282.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "5899",
+     "cui": "C0751494",
+     "source_span": "crises convulsives",
+     "hpo_id": "HP:0001250",
+     "hpo_label": "Seizure",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5908",
+     "cui": "C0085639",
+     "source_span": "chute",
+     "hpo_id": "HP:0002527",
+     "hpo_label": "Falls",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5917",
+     "cui": "C0751295",
+     "source_span": "perte de mÃ©moire",
+     "hpo_id": "HP:0002354",
+     "hpo_label": "Memory impairment",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5926",
+     "cui": "C0542476",
+     "source_span": "oubli",
+     "hpo_id": "HP:0002354",
+     "hpo_label": "Memory impairment",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5944",
+     "cui": "C0751494",
+     "source_span": "crises convulsives",
+     "hpo_id": "HP:0001250",
+     "hpo_label": "Seizure",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5953",
+     "cui": "C0231224",
+     "source_span": "crises",
+     "hpo_id": "HP:0001250",
+     "hpo_label": "Seizure",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5962",
+     "cui": "C0231224",
+     "source_span": "crises",
+     "hpo_id": "HP:0001250",
+     "hpo_label": "Seizure",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5998",
+     "cui": "C4317109",
+     "source_span": "crise Ã©pileptique",
+     "hpo_id": "HP:0001250",
+     "hpo_label": "Seizure",
+     "relevance": "not_positive_patient_phenotype",
+     "problem_categories": [
+      "negated_or_absent",
+      "resolved_or_historical_only"
+     ]
+    }
+   ]
+  },
+  {
+   "case_id": "FR100344",
+   "source_file": ".artifacts/views/e3c-de-tllm/FR100344.source.fr.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/FR100344.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "8142",
+     "cui": "C0032460",
+     "source_span": "ovaire droit micropolykystique",
+     "hpo_id": "HP:0000147",
+     "hpo_label": "Polycystic ovaries",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "8158",
+     "cui": "C0030193",
+     "source_span": "douleurs",
+     "hpo_id": "HP:0012531",
+     "hpo_label": "Pain",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "8174",
+     "cui": "C0042143",
+     "source_span": "rupture utÃ©rine",
+     "hpo_id": "HP:0100718",
+     "hpo_label": "Uterine rupture",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "8198",
+     "cui": "C0476273",
+     "source_span": "dÃ©tresse respiratoire",
+     "hpo_id": "HP:0002098",
+     "hpo_label": "Respiratory distress",
+     "relevance": "non_index_subject",
+     "problem_categories": [
+      "non_index_subject_or_family"
+     ]
+    },
+    {
+     "annotation_id": "8214",
+     "cui": "C0018801",
+     "source_span": "insuffisance cardiaque",
+     "hpo_id": "HP:0001635",
+     "hpo_label": "Congestive heart failure",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    }
+   ]
+  },
+  {
+   "case_id": "FR100510",
+   "source_file": ".artifacts/views/e3c-de-tllm/FR100510.source.fr.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/FR100510.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "5320",
+     "cui": "C0005937",
+     "source_span": "kyste osseux",
+     "hpo_id": "HP:0012062",
+     "hpo_label": "Bone cyst",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5328",
+     "cui": "C0152244",
+     "source_span": "kyste osseux anÃ©vrismal",
+     "hpo_id": "HP:0012063",
+     "hpo_label": "Aneurysmal bone cyst",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5336",
+     "cui": "C0027651",
+     "source_span": "tumeur",
+     "hpo_id": "HP:0002664",
+     "hpo_label": "Neoplasm",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "5368",
+     "cui": "C0152244",
+     "source_span": "kyste osseux anÃ©vrysmal",
+     "hpo_id": "HP:0012063",
+     "hpo_label": "Aneurysmal bone cyst",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    }
+   ]
+  },
+  {
+   "case_id": "FR100849",
+   "source_file": ".artifacts/views/e3c-de-tllm/FR100849.source.fr.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/FR100849.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "2186",
+     "cui": "C0232493",
+     "source_span": "epigastralgies",
+     "hpo_id": "HP:0410019",
+     "hpo_label": "Epigastric pain",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "2194",
+     "cui": "C0015967",
+     "source_span": "fÃ©brile",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "2202",
+     "cui": "C0746412",
+     "source_span": "masse palpable",
+     "hpo_id": "HP:0031500",
+     "hpo_label": "Abdominal mass",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    }
+   ]
+  },
+  {
+   "case_id": "FR100882",
+   "source_file": ".artifacts/views/e3c-de-tllm/FR100882.source.fr.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/FR100882.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "8863",
+     "cui": "C0020635",
+     "source_span": "insuffisance antÃ©hypophysaire",
+     "hpo_id": "HP:0040075",
+     "hpo_label": "Hypopituitarism",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "8887",
+     "cui": "C0575081",
+     "source_span": "troubles de la marche",
+     "hpo_id": "HP:0001288",
+     "hpo_label": "Gait disturbance",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "8895",
+     "cui": "C0085639",
+     "source_span": "chutes",
+     "hpo_id": "HP:0002527",
+     "hpo_label": "Falls",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "8903",
+     "cui": "C0036659",
+     "source_span": "troubles sensitifs",
+     "hpo_id": "HP:0003474",
+     "hpo_label": "Somatic sensory dysfunction",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "8927",
+     "cui": "C0013428",
+     "source_span": "dysurie",
+     "hpo_id": "HP:0100518",
+     "hpo_label": "Dysuria",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "8935",
+     "cui": "C0085606",
+     "source_span": "miction impÃ©rieuse",
+     "hpo_id": "HP:0000012",
+     "hpo_label": "Urinary urgency",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "8943",
+     "cui": "C0221166",
+     "source_span": "para parÃ©sie",
+     "hpo_id": "HP:0002385",
+     "hpo_label": "Paraparesis",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "8951",
+     "cui": "C0020580",
+     "source_span": "hypoesthÃ©sie",
+     "hpo_id": "HP:0003474",
+     "hpo_label": "Somatic sensory dysfunction",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "8959",
+     "cui": "C0030193",
+     "source_span": "douleur",
+     "hpo_id": "HP:0012531",
+     "hpo_label": "Pain",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "8975",
+     "cui": "C0037926",
+     "source_span": "syndrome de compression mÃ©dullaire",
+     "hpo_id": "HP:0002176",
+     "hpo_label": "Spinal cord compression",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9031",
+     "cui": "C0037926",
+     "source_span": "compression mÃ©dullaire",
+     "hpo_id": "HP:0002176",
+     "hpo_label": "Spinal cord compression",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9039",
+     "cui": "C0027651",
+     "source_span": "tumeur",
+     "hpo_id": "HP:0002664",
+     "hpo_label": "Neoplasm",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9063",
+     "cui": "C0018916",
+     "source_span": "hÃ©mangiome",
+     "hpo_id": "HP:0001028",
+     "hpo_label": "Hemangioma",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9087",
+     "cui": "C0018916",
+     "source_span": "hÃ©mangiome",
+     "hpo_id": "HP:0001028",
+     "hpo_label": "Hemangioma",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "9167",
+     "cui": "C0013428",
+     "source_span": "dysurie",
+     "hpo_id": "HP:0100518",
+     "hpo_label": "Dysuria",
+     "relevance": "historical_or_resolved_patient_phenotype",
+     "problem_categories": [
+      "resolved_or_historical_only"
+     ]
+    },
+    {
+     "annotation_id": "9175",
+     "cui": "C0085606",
+     "source_span": "miction impÃ©rieuse",
+     "hpo_id": "HP:0000012",
+     "hpo_label": "Urinary urgency",
+     "relevance": "historical_or_resolved_patient_phenotype",
+     "problem_categories": [
+      "resolved_or_historical_only"
+     ]
+    }
+   ]
+  },
+  {
+   "case_id": "FR100925",
+   "source_file": ".artifacts/views/e3c-de-tllm/FR100925.source.fr.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/FR100925.translation.de.txt",
+   "consensus_terms": [
+    {
+     "annotation_id": "3813",
+     "cui": "C0678222",
+     "source_span": "carcinome mammaire",
+     "hpo_id": "HP:0003002",
+     "hpo_label": "Breast carcinoma",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "3821",
+     "cui": "C0267797",
+     "source_span": "hÃ©patite aiguÃ«",
+     "hpo_id": "HP:0200119",
+     "hpo_label": "Acute hepatitis",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "3829",
+     "cui": "C0015967",
+     "source_span": "fÃ©brile",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "3837",
+     "cui": "C2242708",
+     "source_span": "hyper-transaminasÃ©mie",
+     "hpo_id": "HP:0002910",
+     "hpo_label": "Elevated circulating hepatic transaminase concentration",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "3877",
+     "cui": "C0019158",
+     "source_span": "hÃ©patite",
+     "hpo_id": "HP:0012115",
+     "hpo_label": "Hepatitis",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "3885",
+     "cui": "C0015967",
+     "source_span": "fÃ©brile",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "3901",
+     "cui": "C0003962",
+     "source_span": "ascite",
+     "hpo_id": "HP:0001541",
+     "hpo_label": "Ascites",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": []
+    },
+    {
+     "annotation_id": "3917",
+     "cui": "CUILESS",
+     "source_span": "anticorps anti-nuclÃ©aires positifs",
+     "hpo_id": "HP:0003493",
+     "hpo_label": "Antinuclear antibody positivity",
+     "relevance": "positive_patient_phenotype",
+     "problem_categories": [
+      "invalid_or_missing_source_cui"
+     ]
+    },
+    {
+     "annotation_id": "3933",
+     "cui": "C0267797",
+     "source_span": "hÃ©patite aiguÃ«",
+     "hpo_id": "HP:0200119",
+     "hpo_label": "Acute hepatitis",
+     "relevance": "generic_not_patient_assertion",
+     "problem_categories": [
+      "uncertain_or_hypothetical",
+      "generic_statement_or_recommendation"
+     ]
+    },
+    {
+     "annotation_id": "3941",
+     "cui": "C0015967",
+     "source_span": "fÃ©brile",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "relevance": "generic_not_patient_assertion",
+     "problem_categories": [
+      "uncertain_or_hypothetical",
+      "generic_statement_or_recommendation"
+     ]
+    },
+    {
+     "annotation_id": "3981",
+     "cui": "C0004368",
+     "source_span": "auto-immunitÃ©",
+     "hpo_id": "HP:0002960",
+     "hpo_label": "Autoimmunity",
+     "relevance": "generic_not_patient_assertion",
+     "problem_categories": [
+      "uncertain_or_hypothetical",
+      "generic_statement_or_recommendation"
+     ]
+    }
+   ]
+  },
+  {
+   "case_id": "FR100971",
+   "source_file": ".artifacts/views/e3c-de-tllm/FR100971.source.fr.txt",
+   "translation_file": ".artifacts/views/e3c-de-tllm/FR100971.translation.de.txt",
+   "consensus_terms": []
+  }
+ ]
+}
