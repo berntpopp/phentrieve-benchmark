@@ -172,11 +172,62 @@ for ra in audit_a:
                          note=f"Quellspan: '{rec['span']}'; {anders}.",
                          aid=rec["annotation_id"]))
 
+# --- E3C-markiert, aber ohne sichere HPO-Entsprechung (Option C) -----------
+NICHT_KURZ = {
+    "semantic_candidate_broader_or_narrower": "nur ähnlicher Term",
+    "no_hpo_but_relevant": "kein HPO-Term",
+    "not_hpo_relevant": "kein Phänotyp",
+    "direct_context_mismatch": "Verweis unpassend",
+    "ambiguous_direct": "mehrdeutig",
+    "invalid_or_unrecoverable": "Quellcode ungültig",
+}
+REL_TXT = {
+    "uncertain_patient_phenotype": " Befund laut KI unsicher.",
+    "not_positive_patient_phenotype": " Befund laut KI nicht positiv.",
+    "historical_or_resolved_patient_phenotype":
+        " Befund laut KI historisch/ausgeheilt.",
+    "non_index_subject": " Befund laut KI nicht der Indexpatient.",
+    "generic_not_patient_assertion": " Laut KI generische Aussage.",
+}
+MIT_KANDIDAT = {"semantic_candidate_broader_or_narrower",
+                "direct_context_mismatch", "ambiguous_direct"}
+for ra in audit_a:
+    rb = b_idx.get((ra["case_id"], ra["annotation_id"]))
+    if rb is None:
+        continue
+    if ra["audit_class"] in SAFE or rb["audit_class"] in SAFE:
+        continue  # Weg 1/2 bzw. einzeln bestaetigt: bereits behandelt
+    cls_a = ra["audit_class"]
+    hid = hlabel = ""
+    cand = _target(ra)
+    if cand and cls_a in MIT_KANDIDAT:
+        cand_id = cand[0]
+        if cand_id in terms_db and not terms_db[cand_id]["obsolete"]:
+            hid, hlabel = cand_id, terms_db[cand_id]["name"]
+    note = KLASSE.get(cls_a, cls_a)
+    if rb["audit_class"] != cls_a:
+        note += f"; andere Prüfung: {KLASSE.get(rb['audit_class'], rb['audit_class'])}"
+    note += REL_TXT.get(ra["relevance"], "")
+    rows.append(dict(case=ra["case_id"],
+                     lang=lang_of.get(ra["case_id"], ra["case_id"][:2].lower()),
+                     src=f"E3C-markiert ({NICHT_KURZ.get(cls_a, cls_a)})",
+                     hid=hid, label=hlabel, quote="", note=note,
+                     aid=ra["annotation_id"]))
+
 if LANG_FILTER:
     rows = [r for r in rows if r["lang"] == LANG_FILTER]
 
-_RANK = {"Audit-Konsens": 0, "Audit (einzeln bestätigt)": 1}
-rows.sort(key=lambda r: (r["case"], _RANK.get(r["src"], 2), r["hid"]))
+def _rank(src):
+    if src == "Audit-Konsens":
+        return 0
+    if src == "Audit (einzeln bestätigt)":
+        return 1
+    if src.startswith("E3C-markiert"):
+        return 3
+    return 2
+
+
+rows.sort(key=lambda r: (r["case"], _rank(r["src"]), r["hid"]))
 for i, r in enumerate(rows, 1):
     r["nr"] = i
 
@@ -250,87 +301,78 @@ WIDTHS = (5, 10, 8, 26, 12, 30, 42, 40, 13, 22, 24)
 CHARS_PER_LINE = 150  # gesamte Blattbreite (A..K verbunden)
 
 info = [
-    (f"Anleitung: Prüfung der Symptom-Zuordnungen ({len(case_order)} Fallberichte)", True),
+    (f"ANLEITUNG - Prüfung der Symptom-Zuordnungen ({len(case_order)} Fallberichte)", True),
     ("", False),
-    ("Worum geht es?", True),
-    ((f"{len(case_order)} klinische Fallberichte liegen im englischen Original vor. Zu"
-      if SOURCE_MODE else
-      f"{len(case_order)} klinische Fallberichte wurden maschinell ins Deutsche übersetzt. Zu"), False),
-    ("jedem Text wurden automatisch Symptome bzw. Phänotypen als HPO-Begriffe", False),
-    ("vorgeschlagen. Diese Vorschläge sind ungeprüft - erst Ihre Entscheidung", False),
-    ("macht daraus verlässliche Daten.", False),
+    ("WAS IST DAS?", True),
+    (("Fallberichte aus dem E3C-Korpus im englischen Original." if SOURCE_MODE
+      else "Fallberichte aus dem E3C-Korpus, maschinell ins Deutsche übersetzt.")
+     + " Jede Zeile im", False),
+    ("Blatt 'Review' ist ein maschinell erzeugter VORSCHLAG für einen", False),
+    ("HPO-Begriff - erst Ihre Entscheidung macht daraus verlässliche Daten.", False),
     ("", False),
-    ("So ist das Blatt 'Review' aufgebaut:", True),
-    ("1. Blauer Balken = Beginn eines Falls.", False),
-    (("2. Darunter der vollständige englische Originaltext. Stellen, auf die sich ein"
-      if SOURCE_MODE else
-      "2. Darunter der vollständige deutsche Text. Stellen, auf die sich ein"), False),
-    ("   Vorschlag bezieht, sind fett und rot markiert; die Nummer in eckigen", False),
-    ("   Klammern, z. B. [12], verweist auf die Zeile Nr. 12 in der Tabelle.", False),
-    ("3. Danach die Tabelle mit den Vorschlägen dieses Falls.", False),
-    ("4. Gelbe Zeilen am Ende: Platz für eigene Ergänzungen.", False),
+    ("AUFBAU JE FALL", True),
+    ("1. Blauer Balken = neuer Fall", False),
+    ("2. Vollständiger Text; Fundstellen fett/rot, dahinter [Nr] = Zeilen-Nr.", False),
+    ("3. Tabelle mit den Vorschlägen dieses Falls", False),
+    ("4. Gelbe Zeilen = Platz für eigene Ergänzungen", False),
     ("", False),
-    ("So prüfen Sie einen Fall:", True),
-    ("1. Den Text vollständig lesen.", False),
-    ("2. Für jede Tabellenzeile in der Spalte 'Entscheidung' wählen:", False),
-    ("   übernehmen - der Begriff trifft für diesen Patienten zu.", False),
-    ("   ändern - fast richtig, aber ein anderer HPO-Begriff passt besser;", False),
-    ("     den besseren Begriff (ID oder Name) in die Spalte 'Korrektur'", False),
-    ("     schreiben. Der ursprüngliche Vorschlag bleibt dokumentiert.", False),
-    ("   verwerfen - trifft nicht zu.", False),
-    ("   unsicher - nicht sicher entscheidbar; bitte kurze Begründung in", False),
-    ("     der Spalte 'Notiz'.", False),
-    ("3. Fehlt ein Symptom, das im Text steht, aber in keiner Zeile auftaucht?", False),
-    ("   Bitte in eine gelbe Zeile eintragen (HPO-ID und/oder Name). Die", False),
-    ("   Textstelle in 'Zitat' ist hilfreich, aber nicht nötig - ohne Zitat", False),
-    ("   gilt der Begriff für den ganzen Text. Reichen die gelben Zeilen", False),
-    ("   nicht, einfach weitere einfügen.", False),
+    ("IHRE ENTSCHEIDUNG (Spalte 'Entscheidung')", True),
+    ("übernehmen | Begriff trifft für diesen Patienten zu", False),
+    ("ändern     | anderer HPO-Begriff passt besser -> in 'Korrektur' eintragen;", False),
+    ("           | der ursprüngliche Vorschlag bleibt dokumentiert", False),
+    ("verwerfen  | trifft nicht zu", False),
+    ("unsicher   | nicht entscheidbar -> kurze Begründung in 'Notiz'", False),
+    ("leer       | nur bei 'E3C-markiert…'-Zeilen: zur Kenntnis genommen", False),
     ("", False),
-    ("Wichtige Hinweise:", True),
+    ("FEHLT ETWAS IM TEXT?", True),
+    ("Symptome, die im Text stehen, aber in keiner Zeile auftauchen: in eine", False),
+    ("gelbe Zeile eintragen (HPO-ID und/oder Name; Zitat optional - ohne Zitat", False),
+    ("gilt der Begriff für den ganzen Text). Bei Bedarf weitere Zeilen einfügen.", False),
+    ("", False),
+    ("WOHER KOMMEN DIE VORSCHLÄGE? (Spalte 'Herkunft')", True),
+    ("Die E3C-Ersteller hatten medizinische Begriffe in den Texten markiert.", False),
+    ("Diese wurden automatisch in HPO-Begriffe übersetzt; zwei unabhängige", False),
+    ("KI-Prüfungen beurteilten dann jede Stelle im Satzzusammenhang, und eine", False),
+    ("weitere KI-Durchsicht suchte in den Volltexten nach Übersehenem.", False),
+    ("", False),
+    ("Audit-Konsens             | markiert; beide KI-Prüfungen kamen unabhängig", False),
+    ("                          | zum selben Begriff - zuverlässigste Gruppe", False),
+    ("Audit (einzeln bestätigt) | markiert; nur eine KI-Prüfung war sicher, die", False),
+    ("                          | Sicht der anderen steht im 'Hinweis'", False),
+    ("Lücken-Vorschlag          | NICHT markiert; die KI-Durchsicht fand das", False),
+    ("                          | Symptom zusätzlich ('ID geprüft' = Begriff", False),
+    ("                          | existiert; 'ohne Vorschlag' = bitte ergänzen)", False),
+    ("E3C-markiert (…)          | markiert, aber KEINE sichere HPO-Entsprechung", False),
+    ("                          | - Einzelheiten im nächsten Abschnitt", False),
+    ("Ärztliche Ergänzung       | leere gelbe Zeilen für Ihre eigenen Funde", False),
+    ("", False),
+    ("DIE 'E3C-MARKIERT'-ZEILEN IM EINZELNEN", True),
+    ("Diese Stellen waren im Korpus markiert, ließen sich aber nicht sicher in", False),
+    ("einen HPO-Begriff überführen. Sie dürfen leer bleiben (= zur Kenntnis", False),
+    ("genommen); greifen Sie nur ein, wenn Sie doch einen passenden Begriff", False),
+    ("sehen (übernehmen/ändern) oder die Einstufung bestätigen (verwerfen).", False),
+    ("(nur ähnlicher Term)  | HPO hat nur einen breiteren/engeren Begriff;", False),
+    ("                      | er ist als unsicherer Vorschlag vorbefüllt", False),
+    ("(kein HPO-Term)       | relevanter Befund, aber kein passender Begriff", False),
+    ("(Verweis unpassend)   | der automatische Begriff passt nicht zum Satz", False),
+    ("(mehrdeutig)          | mehrere mögliche Begriffe", False),
+    ("(kein Phänotyp)       | laut KI Diagnose/Anatomie/Prozedur, kein Symptom", False),
+    ("", False),
+    ("WAS SIE HIER NICHT SEHEN", True),
+    ("- Markierte Befunde, die verneint, ausgeheilt, unsicher oder auf", False),
+    ("  Angehörige bezogen sind (kein positiver Patientenbefund).", False),
+    ("- Die KI-Volltextdurchsicht war bewusst konservativ (nur klare Fälle) -", False),
+    ("  deshalb sind Ihre eigenen Ergänzungen wichtig.", False),
+    ("", False),
+    ("REGELN", True),
     ("- Es zählt nur, was der Text über den Patienten selbst positiv aussagt.", False),
-    ("  Verneinte, frühere, unsichere oder auf Angehörige bezogene Befunde", False),
-    ("  bitte nicht übernehmen.", False),
-    ("- Steht im Text nur ein Messwert (z. B. 'CRP 3,7 mg/dl') ohne wertende", False),
-    ("  Formulierung, den Begriff trotzdem beurteilen und in 'Notiz'", False),
-    ("  'nicht verbalisiert' vermerken.", False),
+    ("- Nur Messwert ohne Wertung (z. B. 'CRP 3,7 mg/dl'): Begriff trotzdem", False),
+    ("  beurteilen und in 'Notiz' 'nicht verbalisiert' vermerken.", False),
+    ("- Jede HPO-ID wurde automatisch gegen die HPO-Version v2026-06-23", False),
+    ("  abgeglichen; erfundene IDs sind ausgeschlossen. Ob der Begriff", False),
+    ("  inhaltlich stimmt, entscheiden allein Sie.", False),
     ("", False),
-    ("Wie sind die Vorschläge entstanden? (Spalte 'Herkunft')", True),
-    ("Die Fallberichte stammen aus dem frei verfügbaren E3C-Korpus. Dessen", False),
-    ("Ersteller hatten medizinische Begriffe in den Texten markiert. Diese", False),
-    ("Markierungen wurden automatisch in HPO-Begriffe übersetzt, danach haben", False),
-    ("zwei voneinander unabhängige KI-Prüfungen jede markierte Stelle im", False),
-    ("Satzzusammenhang beurteilt (passt der Begriff? ist der Befund verneint,", False),
-    ("historisch, eine andere Person?). Zusätzlich hat eine KI-Durchsicht die", False),
-    ("vollständigen Texte auf Symptome geprüft, die dabei noch fehlten.", False),
-    ("Daraus ergeben sich die Werte in der Spalte 'Herkunft':", False),
-    ("", False),
-    ("- Audit-Konsens: Die Stelle war im E3C-Korpus markiert, und beide", False),
-    ("  KI-Prüfungen kamen unabhängig zum selben HPO-Begriff.", False),
-    ("  Die zuverlässigste Gruppe.", False),
-    ("- Audit (einzeln bestätigt): Die Stelle war markiert, aber nur eine der", False),
-    ("  beiden KI-Prüfungen hielt den Begriff für sicher; was die andere", False),
-    ("  meinte, steht in der Spalte 'Hinweis'. Bitte besonders sorgfältig", False),
-    ("  prüfen." + ("" if SOURCE_MODE else
-     " Diese Zeilen haben kein deutsches Zitat und sind im Text"), False),
-    (("" if SOURCE_MODE else
-      "  nicht markiert; bitte im ganzen Text prüfen."), False),
-    ("- Lücken-Vorschlag (ID geprüft): Diese Stelle war im E3C-Korpus NICHT", False),
-    ("  markiert. Die KI-Durchsicht hat das Symptom zusätzlich gefunden und", False),
-    ("  einen HPO-Begriff vorgeschlagen, der in der HPO existiert und aktiv", False),
-    ("  ist.", False),
-    ("- Lücken-Vorschlag (ohne Vorschlag): Zusätzlich gefundene Auffälligkeit,", False),
-    ("  für die kein konkreter HPO-Begriff vorgeschlagen wurde - bitte selbst", False),
-    ("  ergänzen oder die Zeile verwerfen.", False),
-    ("- Ärztliche Ergänzung: leere gelbe Zeilen für Ihre eigenen Funde.", False),
-    ("", False),
-    ("Wichtig: Alle KI-Vorschläge sind ungeprüfte Hinweise, keine Diagnosen.", False),
-    ("Jede vorgeschlagene HPO-ID wurde automatisch gegen die HPO-Version", False),
-    ("v2026-06-23 abgeglichen; erfundene IDs sind ausgeschlossen. Ob der", False),
-    ("Begriff inhaltlich stimmt, entscheiden allein Sie.", False),
-    ("", False),
-    ("Dieselbe Ansicht gibt es auch für den Browser:", False),
-    (f"{BASENAME}.html (Markierungen als farbige Textmarker).", False),
-    ("", False),
+    (f"Browser-Ansicht mit farbigen Markierungen: {BASENAME}.html", False),
     (f"Automatisch erstellt am {date.today()}; Datengrundlage:", False),
     ("datasets/e3c-de/annotation-feasibility/", False),
 ]
@@ -446,8 +488,14 @@ def render_case(cid):
     out, pos = [], 0
     for s, e, rs in merged_marks(cid):
         out.append(html.escape(txt[pos:s]))
-        kinds = {x["src"].startswith("Audit") for x in rs}
-        cls = "kons" if kinds == {True} else "gap" if kinds == {False} else "mixed"
+        def _kind(src):
+            if src.startswith("Audit"):
+                return "kons"
+            if src.startswith("E3C-markiert"):
+                return "e3c"
+            return "gap"
+        kinds = {_kind(x["src"]) for x in rs}
+        cls = kinds.pop() if len(kinds) == 1 else "mixed"
         tip = " | ".join(f"Nr {x['nr']}: {x['hid'] or '?'} {x['label']}" for x in rs)
         sup = ",".join(str(x["nr"]) for x in rs)
         out.append(f'<mark class="{cls}" title="{html.escape(tip)}">'
@@ -457,7 +505,7 @@ def render_case(cid):
     body = "".join(out).replace("\n", "<br>\n")
     tbl = "".join(
         f'<tr><td>{r["nr"]}</td>'
-        f'<td class="{"kons" if r["src"].startswith("Audit") else "gap"}">'
+        f'<td class="{"kons" if r["src"].startswith("Audit") else ("e3c" if r["src"].startswith("E3C-markiert") else "gap")}">'
         f'{html.escape(r["src"])}</td><td>{r["hid"]}</td>'
         f'<td>{html.escape(r["label"])}</td><td>{html.escape(r["note"])}</td>'
         f'<td>{"" if r["start"] is not None else ("ohne deutsches Zitat" if not r["quote"] else "Zitat nicht lokalisiert")}</td></tr>'
@@ -474,11 +522,11 @@ header{border:2px solid #b00;padding:.7rem 1rem;background:#fff4f4;font-family:s
 nav{position:sticky;top:0;background:#fff;padding:.5rem 0;border-bottom:1px solid #ccc;font-family:sans-serif;font-size:.85rem}
 nav a{margin-right:.55rem;text-decoration:none}
 .text{background:#fafafa;border:1px solid #ddd;padding:1rem 1.3rem;border-radius:6px}
-mark.kons{background:#c8e6c9} mark.gap{background:#ffe082} mark.mixed{background:#b3e5fc}
+mark.kons{background:#c8e6c9} mark.gap{background:#ffe082} mark.mixed{background:#b3e5fc} mark.e3c{background:#e1bee7}
 sup{font-family:sans-serif;font-size:.68em;color:#555}
 table{border-collapse:collapse;font-family:sans-serif;font-size:.83rem;margin:1rem 0 2.5rem;width:100%}
 td,th{border:1px solid #ccc;padding:.25rem .5rem;text-align:left;vertical-align:top}
-td.kons{background:#e8f5e9} td.gap{background:#fff8e1}
+td.kons{background:#e8f5e9} td.gap{background:#fff8e1} td.e3c{background:#f3e5f5}
 h2{font-family:sans-serif;border-bottom:2px solid #333;padding-bottom:.2rem}
 .legend span{padding:0 .5rem;margin-right:.7rem}
 """
@@ -496,6 +544,7 @@ page = (f'<!DOCTYPE html><html lang="de"><head><meta charset="utf-8">'
         f'Erzeugt am {date.today()} von Claude (Opus 5).'
         f'<div class="legend"><span style="background:#c8e6c9">Audit-Konsens</span>'
         f'<span style="background:#ffe082">Luecken-Vorschlag</span>'
+        f'<span style="background:#e1bee7">E3C-markiert, ohne sichere Entsprechung</span>'
         f'<span style="background:#b3e5fc">beides</span></div></header>'
         f'<nav>{nav}</nav>{"".join(render_case(c) for c in case_order)}'
         f'</body></html>')
