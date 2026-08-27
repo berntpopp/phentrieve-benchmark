@@ -301,80 +301,71 @@ WIDTHS = (5, 10, 8, 26, 12, 30, 42, 40, 13, 22, 24)
 CHARS_PER_LINE = 150  # gesamte Blattbreite (A..K verbunden)
 
 info = [
-    (f"ANLEITUNG - Prüfung der Symptom-Zuordnungen ({len(case_order)} Fallberichte)", True),
-    ("", False),
-    ("WAS IST DAS?", True),
-    (("Fallberichte aus dem E3C-Korpus im englischen Original." if SOURCE_MODE
-      else "Fallberichte aus dem E3C-Korpus, maschinell ins Deutsche übersetzt.")
-     + " Jede Zeile im", False),
-    ("Blatt 'Review' ist ein maschinell erzeugter VORSCHLAG für einen", False),
-    ("HPO-Begriff - erst Ihre Entscheidung macht daraus verlässliche Daten.", False),
-    ("", False),
-    ("AUFBAU JE FALL", True),
-    ("1. Blauer Balken = neuer Fall", False),
-    ("2. Vollständiger Text; Fundstellen fett/rot, dahinter [Nr] = Zeilen-Nr.", False),
-    ("3. Tabelle mit den Vorschlägen dieses Falls", False),
-    ("4. Gelbe Zeilen = Platz für eigene Ergänzungen", False),
-    ("", False),
-    ("IHRE ENTSCHEIDUNG (Spalte 'Entscheidung')", True),
-    ("übernehmen | Begriff trifft für diesen Patienten zu", False),
-    ("ändern     | anderer HPO-Begriff passt besser -> in 'Korrektur' eintragen;", False),
-    ("           | der ursprüngliche Vorschlag bleibt dokumentiert", False),
-    ("verwerfen  | trifft nicht zu", False),
-    ("unsicher   | nicht entscheidbar -> kurze Begründung in 'Notiz'", False),
-    ("leer       | nur bei 'E3C-markiert…'-Zeilen: zur Kenntnis genommen", False),
-    ("", False),
-    ("FEHLT ETWAS IM TEXT?", True),
-    ("Symptome, die im Text stehen, aber in keiner Zeile auftauchen: in eine", False),
-    ("gelbe Zeile eintragen (HPO-ID und/oder Name; Zitat optional - ohne Zitat", False),
-    ("gilt der Begriff für den ganzen Text). Bei Bedarf weitere Zeilen einfügen.", False),
-    ("", False),
-    ("WOHER KOMMEN DIE VORSCHLÄGE? (Spalte 'Herkunft')", True),
-    ("Die E3C-Ersteller hatten medizinische Begriffe in den Texten markiert.", False),
-    ("Diese wurden automatisch in HPO-Begriffe übersetzt; zwei unabhängige", False),
-    ("KI-Prüfungen beurteilten dann jede Stelle im Satzzusammenhang, und eine", False),
-    ("weitere KI-Durchsicht suchte in den Volltexten nach Übersehenem.", False),
-    ("", False),
-    ("Audit-Konsens             | markiert; beide KI-Prüfungen kamen unabhängig", False),
-    ("                          | zum selben Begriff - zuverlässigste Gruppe", False),
-    ("Audit (einzeln bestätigt) | markiert; nur eine KI-Prüfung war sicher, die", False),
-    ("                          | Sicht der anderen steht im 'Hinweis'", False),
-    ("Lücken-Vorschlag          | NICHT markiert; die KI-Durchsicht fand das", False),
-    ("                          | Symptom zusätzlich ('ID geprüft' = Begriff", False),
-    ("                          | existiert; 'ohne Vorschlag' = bitte ergänzen)", False),
-    ("E3C-markiert (…)          | markiert, aber KEINE sichere HPO-Entsprechung", False),
-    ("                          | - Einzelheiten im nächsten Abschnitt", False),
-    ("Ärztliche Ergänzung       | leere gelbe Zeilen für Ihre eigenen Funde", False),
-    ("", False),
-    ("DIE 'E3C-MARKIERT'-ZEILEN IM EINZELNEN", True),
-    ("Diese Stellen waren im Korpus markiert, ließen sich aber nicht sicher in", False),
-    ("einen HPO-Begriff überführen. Sie dürfen leer bleiben (= zur Kenntnis", False),
-    ("genommen); greifen Sie nur ein, wenn Sie doch einen passenden Begriff", False),
-    ("sehen (übernehmen/ändern) oder die Einstufung bestätigen (verwerfen).", False),
-    ("(nur ähnlicher Term)  | HPO hat nur einen breiteren/engeren Begriff;", False),
-    ("                      | er ist als unsicherer Vorschlag vorbefüllt", False),
-    ("(kein HPO-Term)       | relevanter Befund, aber kein passender Begriff", False),
-    ("(Verweis unpassend)   | der automatische Begriff passt nicht zum Satz", False),
-    ("(mehrdeutig)          | mehrere mögliche Begriffe", False),
-    ("(kein Phänotyp)       | laut KI Diagnose/Anatomie/Prozedur, kein Symptom", False),
-    ("", False),
-    ("WAS SIE HIER NICHT SEHEN", True),
-    ("- Markierte Befunde, die verneint, ausgeheilt, unsicher oder auf", False),
-    ("  Angehörige bezogen sind (kein positiver Patientenbefund).", False),
-    ("- Die KI-Volltextdurchsicht war bewusst konservativ (nur klare Fälle) -", False),
-    ("  deshalb sind Ihre eigenen Ergänzungen wichtig.", False),
-    ("", False),
-    ("REGELN", True),
-    ("- Es zählt nur, was der Text über den Patienten selbst positiv aussagt.", False),
-    ("- Nur Messwert ohne Wertung (z. B. 'CRP 3,7 mg/dl'): Begriff trotzdem", False),
-    ("  beurteilen und in 'Notiz' 'nicht verbalisiert' vermerken.", False),
-    ("- Jede HPO-ID wurde automatisch gegen die HPO-Version v2026-06-23", False),
-    ("  abgeglichen; erfundene IDs sind ausgeschlossen. Ob der Begriff", False),
-    ("  inhaltlich stimmt, entscheiden allein Sie.", False),
-    ("", False),
-    (f"Browser-Ansicht mit farbigen Markierungen: {BASENAME}.html", False),
-    (f"Automatisch erstellt am {date.today()}; Datengrundlage:", False),
-    ("datasets/e3c-de/annotation-feasibility/", False),
+    ("h", f"ANLEITUNG - Prüfung der Symptom-Zuordnungen ({len(case_order)} Fallberichte)"),
+    ("p", ""),
+    ("h", "WAS IST DAS?"),
+    ("p", ("Fallberichte aus dem E3C-Korpus im englischen Original." if SOURCE_MODE
+           else "Fallberichte aus dem E3C-Korpus, maschinell ins Deutsche übersetzt.")),
+    ("p", "Jede Zeile im Blatt 'Review' ist ein maschinell erzeugter VORSCHLAG für"),
+    ("p", "einen HPO-Begriff - erst Ihre Entscheidung macht daraus verlässliche Daten."),
+    ("p", ""),
+    ("h", "AUFBAU JE FALL"),
+    ("p", "1. Blauer Balken = neuer Fall"),
+    ("p", "2. Vollständiger Text; Fundstellen fett/rot, dahinter [Nr] = Zeilen-Nr."),
+    ("p", "3. Tabelle mit den Vorschlägen dieses Falls"),
+    ("p", "4. Gelbe Zeilen = Platz für eigene Ergänzungen"),
+    ("p", ""),
+    ("h", "IHRE ENTSCHEIDUNG (Spalte 'Entscheidung')"),
+    ("t", "übernehmen", "Begriff trifft für diesen Patienten zu"),
+    ("t", "ändern", "anderer HPO-Begriff passt besser - diesen in 'Korrektur' eintragen; der ursprüngliche Vorschlag bleibt dokumentiert"),
+    ("t", "verwerfen", "trifft nicht zu"),
+    ("t", "unsicher", "nicht entscheidbar - kurze Begründung in 'Notiz'"),
+    ("t", "leer lassen", "nur bei 'E3C-markiert…'-Zeilen erlaubt: zur Kenntnis genommen"),
+    ("p", ""),
+    ("h", "FEHLT ETWAS IM TEXT?"),
+    ("p", "Symptome, die im Text stehen, aber in keiner Zeile auftauchen: in eine"),
+    ("p", "gelbe Zeile eintragen (HPO-ID und/oder Name; Zitat optional - ohne Zitat"),
+    ("p", "gilt der Begriff für den ganzen Text). Bei Bedarf weitere Zeilen einfügen."),
+    ("p", ""),
+    ("h", "WOHER KOMMEN DIE VORSCHLÄGE? (Spalte 'Herkunft')"),
+    ("p", "Die E3C-Ersteller hatten medizinische Begriffe in den Texten markiert."),
+    ("p", "Diese wurden automatisch in HPO-Begriffe übersetzt; zwei unabhängige"),
+    ("p", "KI-Prüfungen beurteilten dann jede Stelle im Satzzusammenhang, und eine"),
+    ("p", "weitere KI-Durchsicht suchte in den Volltexten nach Übersehenem."),
+    ("t", "Audit-Konsens", "markiert; beide KI-Prüfungen kamen unabhängig zum selben Begriff - zuverlässigste Gruppe"),
+    ("t", "Audit (einzeln bestätigt)", "markiert; nur eine KI-Prüfung war sicher, die Sicht der anderen steht im 'Hinweis'"),
+    ("t", "Lücken-Vorschlag", "NICHT markiert; die KI-Durchsicht fand das Symptom zusätzlich ('ID geprüft' = Begriff existiert; 'ohne Vorschlag' = bitte ergänzen)"),
+    ("t", "E3C-markiert (…)", "markiert, aber KEINE sichere HPO-Entsprechung - Einzelheiten in der nächsten Tabelle"),
+    ("t", "Ärztliche Ergänzung", "leere gelbe Zeilen für Ihre eigenen Funde"),
+    ("p", ""),
+    ("h", "DIE 'E3C-MARKIERT'-ZEILEN IM EINZELNEN"),
+    ("p", "Diese Stellen waren markiert, ließen sich aber nicht sicher überführen."),
+    ("p", "Sie dürfen leer bleiben (= zur Kenntnis genommen); greifen Sie nur ein,"),
+    ("p", "wenn Sie doch einen passenden Begriff sehen (übernehmen/ändern) oder die"),
+    ("p", "Einstufung bestätigen (verwerfen)."),
+    ("t", "(nur ähnlicher Term)", "HPO hat nur einen breiteren/engeren Begriff; er ist als unsicherer Vorschlag vorbefüllt"),
+    ("t", "(kein HPO-Term)", "relevanter Befund, aber kein passender Begriff in der HPO"),
+    ("t", "(Verweis unpassend)", "der automatisch verknüpfte Begriff passt nicht zum Satz"),
+    ("t", "(mehrdeutig)", "mehrere mögliche Begriffe"),
+    ("t", "(kein Phänotyp)", "laut KI Diagnose/Anatomie/Prozedur, kein Symptom"),
+    ("p", ""),
+    ("h", "WAS SIE HIER NICHT SEHEN"),
+    ("p", "- Markierte Befunde, die verneint, ausgeheilt, unsicher oder auf"),
+    ("p", "  Angehörige bezogen sind (kein positiver Patientenbefund)."),
+    ("p", "- Die KI-Volltextdurchsicht war bewusst konservativ (nur klare Fälle) -"),
+    ("p", "  deshalb sind Ihre eigenen Ergänzungen wichtig."),
+    ("p", ""),
+    ("h", "REGELN"),
+    ("p", "- Es zählt nur, was der Text über den Patienten selbst positiv aussagt."),
+    ("p", "- Nur Messwert ohne Wertung (z. B. 'CRP 3,7 mg/dl'): Begriff trotzdem"),
+    ("p", "  beurteilen und in 'Notiz' 'nicht verbalisiert' vermerken."),
+    ("p", "- Jede HPO-ID wurde automatisch gegen die HPO-Version v2026-06-23"),
+    ("p", "  abgeglichen; erfundene IDs sind ausgeschlossen. Ob der Begriff"),
+    ("p", "  inhaltlich stimmt, entscheiden allein Sie."),
+    ("p", ""),
+    ("p", f"Browser-Ansicht mit farbigen Markierungen: {BASENAME}.html"),
+    ("p", f"Automatisch erstellt am {date.today()}; Datengrundlage:"),
+    ("p", "datasets/e3c-de/annotation-feasibility/"),
 ]
 
 
@@ -391,11 +382,21 @@ def build_workbook(path):
     f_add = wb.add_format({"text_wrap": True, "valign": "top",
                            "bg_color": "#FDF2DC"})
 
+    f_tkey = wb.add_format({"bold": True, "bg_color": "#F2F2F2",
+                            "border": 1, "valign": "top"})
+    f_tval = wb.add_format({"border": 1, "valign": "top", "text_wrap": True})
     ws = wb.add_worksheet("Anleitung")
-    ws.set_column(0, 0, 95)
-    for i, (txt_, bold) in enumerate(info):
-        if txt_:
-            ws.write_string(i, 0, txt_, f_bold if bold else None)
+    ws.set_column(0, 0, 26)
+    ws.set_column(1, 1, 78)
+    for i, entry in enumerate(info):
+        if entry[0] == "t":
+            _, key, val = entry
+            ws.write_string(i, 0, key, f_tkey)
+            ws.write_string(i, 1, val, f_tval)
+            if len(val) > 78:
+                ws.set_row(i, 14 * (len(val) // 78 + 1) + 4)
+        elif entry[1]:
+            ws.write_string(i, 0, entry[1], f_bold if entry[0] == "h" else None)
 
     ws2 = wb.add_worksheet("Review")
     for c, w in enumerate(WIDTHS):
