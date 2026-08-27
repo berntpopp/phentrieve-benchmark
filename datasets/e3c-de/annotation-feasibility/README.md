@@ -113,14 +113,25 @@ during medical review.
 
 ## Review tooling
 
-`make_annotation_review.py` generates the medical review materials from the
-preserved probe files: an Excel workbook (a single sheet showing, per case,
-the full German text with bolded evidence spans followed by the decision
-table plus addition rows) and an HTML reading view with highlighted spans.
-Run it from the repository root; outputs go to `.artifacts/review-workbooks/`
-and are not tracked. The workbook is written with `xlsxwriter`
-(`pip install xlsxwriter`); openpyxl rich text produced files Excel had to
-repair, xlsxwriter rich strings pass a scripted Excel open/repair check. Every proposed HPO ID/label passes a hallucination gate
-against the pinned `hp.obo` (read from the local artifact store; a lookup
-cache is built on first run). Decisions recorded in the workbook re-enter
-the repository only through the future explicit import step.
+`make_annotation_review.py` generates the medical review materials: an Excel
+workbook (per case the full text with bolded evidence spans, followed by the
+decision table plus addition rows) and an HTML reading view. Run from the
+repository root; optional arguments select a source language and, with
+`--source`, the original texts instead of the German translations
+(e.g. `python …/make_annotation_review.py en --source`). Outputs go to
+`.artifacts/review-workbooks/` and are not tracked.
+
+Each row separates two orthogonal facts. `Ableitung` states how the HPO term
+came to be: `Referenz` (deterministic UMLS-to-HPO cross-reference),
+`KI (E3C-Stelle)` (LLM proposal for an E3C-annotated span), `KI (Volltext)`
+(LLM full-text sweep), `Ärztlich` (reviewer addition), or `-` (E3C span
+without a usable term). `Einschätzung` states the contextual assessment from
+the two independent audit passes (2/2 or 1/2 confirmed, contradiction with
+context, ambiguous, only-similar term, no term, not a phenotype) or, for
+full-text finds, the ID verification status. Every proposed HPO ID/label
+passes a hallucination gate against the pinned `hp.obo` (read from the local
+artifact store; a lookup cache is built on first run). The workbook is
+written with `xlsxwriter` (`pip install xlsxwriter`); generated files are
+verified by a scripted Excel open/repair check. Decisions recorded in the
+workbook re-enter the repository only through the future explicit import
+step.
