@@ -95,3 +95,98 @@ all German reports again, including those of the earlier run.
 
 | Run | Model | Documents | Re-dispatched batches | `validation_sha256` | Status |
 |---|---|---:|---:|---|---|
+| `pilot-v1` | `claude-sonnet-5-5` | 9 | 0 | `b4d7bb7e621cd46c90198c89a80e6e69ca6a50549086caad1ebce41b9f130c82` | pilot; see below |
+
+## Pilot pilot-v1
+
+Run date 2026-10-06. Corpus `f1c1f12d32d7594ce6f55a0d915bbe74ac891b27d86127c9076cb31d70e47c42`,
+prompt v1, 9 reports (3 EN, 3 FR, 3 ES; one per language and length stratum)
+in one batch.
+
+### Dispatch
+
+- One dispatch, no re-dispatch. Validation passed on the first attempt.
+- Files the subagent reported as read: the guideline and its nine text files.
+  No other file in the repository changed.
+- Deviations from the prompt: the subagent wrote a helper script outside the
+  repository (`C:\tmp\gen.py`), ran it to check every phrase and context
+  against the texts and to write the output, and deleted it afterwards. It
+  also ran `proposals validate --help`. The prompt says "Write no other file".
+  The zero rejection rate below was reached with that self-check.
+
+### Validation
+
+| Count | Value |
+|---|---:|
+| Proposals received | 94 |
+| Proposals rejected | 0 (0 %) |
+| Validated proposals | 94 |
+| Mentions evaluated | 101 |
+| Mentions rejected | 0 (0 %) |
+| Label warnings | 0 |
+
+Rejections by reason: none.
+
+Proposals per report: EN100265 26, EN100415 5, EN107423 1, ES100320 30,
+ES100447 13, ES100791 1, FR100161 6, FR100658 11, FR100971 1.
+
+Status of the 94 proposals: 74 present, 16 absent, 2 uncertain (all patient,
+current); 1 present/other/current; 1 present/patient/historical. 8 proposals
+are not verbalized (R6). 5 of 101 spans are longer than 50 characters.
+
+Terms outside *Phenotypic abnormality* (HP:0000118): 1 of 94, *Stillbirth*
+(HP:0003826) in EN100265.
+
+Excerpt volume: the contexts of a report add up to 11-35 % of its text
+length (highest: ES100320, 1,349 of 3,851 characters); the longest single
+context has 93 characters.
+
+Findings the subagent reported as dropped because the lookup returned no
+term: palmar erythema and tenderness (EN100265), a lower-back lump
+(EN107423), intervertebral disc herniation (ES100791), vulvar condylomas,
+ventricular septal rupture (FR100971), germ cell tumor, metastasis.
+
+### Spot check
+
+Three reports, one per language, compared with the text against R0-R6 by the
+main session (not a physician review).
+
+| Report | Proposals | Obvious misses | Wrong terms | Wrong spans | Wrong status | R6 misuse |
+|---|---:|---:|---:|---:|---:|---:|
+| EN100415 | 5 | 0 | 0 | 0 | 0 | 0 |
+| ES100447 | 13 | 4 | 0 | 0 | 0 | 0 |
+| FR100161 | 6 | 2 | 0 | 0 | 0 | 0 |
+
+- EN100415: all five proposals fit the text. *Neuroendocrine neoplasm* was
+  chosen for "neuroendocrine carcinoma of the pancreas" although the more
+  specific *Pancreatic endocrine tumor* (HP:0030405) exists (R1). One further
+  occurrence of the pancreatic tumour ("a large tumour ... in the body and
+  tail of pancreas") is not marked (R5).
+- ES100447: missed are the reduced prothrombin activity (*Prolonged
+  prothrombin time*, HP:0008151), the reduced tear break-up time (*Brief tear
+  break-up time*, HP:6000069), the punctate corneal and conjunctival
+  epithelial staining, and the whitish mottling of the mid-peripheral fundus.
+  "obesidad mórbida" is proposed as *Obesity*; *Class III obesity*
+  (HP:0025501) exists, but the lookup finds nothing for "morbid obesity". The
+  one R6 annotation (retinol 0,07 mg/l) is used correctly.
+- FR100161: missed are the negated adrenal hyperfunction ("pas de signes
+  cliniques en faveur d'un syndrome d'hyperfonctionnement cortico ou
+  médullosurrénalien") and, arguably, fibrosis stage F4. The second
+  occurrence of "cytolyse" is not marked (R5). *Ganglioneuroma* is recorded
+  as present although the text says "un aspect en faveur d'un
+  ganglioneurome"; `uncertain` is arguable.
+
+Outside the three reports: in ES100320, *Pneumonia* is recorded as uncertain
+although "presuntivamente" qualifies the pathogen, not the pneumonia.
+
+### Verdict
+
+Format and location are reliable: every proposal and mention validated, and
+no label deviated from the pinned release. The 24 spot-checked proposals
+contain no wrong term, span, or status; two are less specific than HPO
+allows. Completeness is the weak point: 6 findings with an HPO term are
+missing next to those 24 proposals, mostly specialised examination and
+laboratory findings, and further occurrences of an annotated finding are not
+always marked. Sonnet 5.5 with prompt v1 is usable as a proposal source for
+physician review if reviewers are told to expect missing findings; whether
+that is good enough for the full run is the user's decision.
