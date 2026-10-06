@@ -1,4 +1,6 @@
 import subprocess
+from collections import Counter
+from collections.abc import Iterable
 from dataclasses import replace
 from pathlib import Path
 from typing import Annotated, Literal
@@ -32,6 +34,10 @@ from phentrieve_benchmark.pipeline.translation_review import (
     import_translation_review,
 )
 from phentrieve_benchmark.provenance.code_identity import code_sha256
+from phentrieve_benchmark.selection.groups import (
+    assign_annotation_groups,
+    load_e3c_inventory,
+)
 from phentrieve_benchmark.translation.google_nmt import create_google_nmt_adapter
 from phentrieve_benchmark.translation.pricing import load_translation_recipe
 from phentrieve_benchmark.translation.variants import (
@@ -358,6 +364,34 @@ def select_e3c_command(
         select_e3c(
             cohort, _pipeline_context(dataset_root, artifact_root)
         )
+    )
+
+
+_E3C_INVENTORY = Path("e3c-de/inventories/e3c-v2.0.0-l1-en-fr-es-v1.json")
+_E3C_GROUPS = Path("e3c-de/selections/e3c-annotation-groups-v1.json")
+
+
+@select_app.command("e3c-groups")
+def select_e3c_groups_command(
+    dataset_root: DatasetRoot = Path("datasets"),
+) -> None:
+    """Split all E3C reports into the four annotation groups."""
+    manifest = assign_annotation_groups(
+        load_e3c_inventory((dataset_root / _E3C_INVENTORY).read_bytes())
+    )
+    destination = dataset_root / _E3C_GROUPS
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_bytes(manifest.canonical_bytes())
+    summary = _group_summary(
+        record.annotation_language for record in manifest.records
+    )
+    typer.echo(f"destination={destination} {summary}")
+
+
+def _group_summary(languages: Iterable[str]) -> str:
+    counts = Counter(languages)
+    return " ".join(
+        f"{language}={counts[language]}" for language in ("de", "en", "fr", "es")
     )
 
 
