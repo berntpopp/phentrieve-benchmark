@@ -1,5 +1,4 @@
 import json
-from collections import Counter
 from fractions import Fraction
 
 import pytest
@@ -79,12 +78,13 @@ def test_about_a_quarter_of_each_language_goes_to_german() -> None:
             if record.source_language == language and record.annotation_language == "de"
         ]
         assert len(german) in {21 // 4, 21 // 4 + 1}
-    others = Counter(
-        record.annotation_language
-        for record in manifest.records
-        if record.annotation_language != "de"
-    )
-    assert set(others) == {"en", "fr", "es"}
+        source = [
+            record
+            for record in manifest.records
+            if record.source_language == language
+            and record.annotation_language == language
+        ]
+        assert len(source) == 21 - len(german)
 
 
 def test_german_share_covers_every_length_stratum() -> None:

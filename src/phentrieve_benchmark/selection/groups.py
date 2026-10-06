@@ -22,6 +22,7 @@ from phentrieve_benchmark.selection.metrics import (
     Rational,
 )
 
+AnnotationLanguage = Literal["de", "en", "fr", "es"]
 GROUP_SEED = "phentrieve-e3c-annotation-groups-v1"
 _SOURCE_LANGUAGES: tuple[Literal["en", "fr", "es"], ...] = ("en", "fr", "es")
 _STRATUM_ORDER = {
@@ -37,7 +38,7 @@ class AnnotationGroupRecord(BaseModel):
 
     source_case_id: str = Field(min_length=1)
     source_language: Literal["en", "fr", "es"]
-    annotation_language: Literal["de", "en", "fr", "es"]
+    annotation_language: AnnotationLanguage
     document_sha256: Sha256Hex
     length_stratum: LengthStratum
     total_annotation_density: Rational
@@ -67,7 +68,7 @@ class AnnotationGroupManifest(BaseModel):
     def canonical_bytes(self) -> bytes:
         return canonical_json_bytes(self.model_dump(mode="json"))
 
-    def case_ids(self, annotation_language: str) -> tuple[str, ...]:
+    def case_ids(self, annotation_language: AnnotationLanguage) -> tuple[str, ...]:
         return tuple(
             sorted(
                 record.source_case_id
@@ -104,7 +105,7 @@ def assign_annotation_groups(
         )
         offset = int.from_bytes(_seeded(language), "big") % _GROUP_COUNT
         for index, record in enumerate(ordered):
-            annotation_language: Literal["de", "en", "fr", "es"] = (
+            annotation_language: AnnotationLanguage = (
                 "de" if index % _GROUP_COUNT == offset else language
             )
             assigned.append(
