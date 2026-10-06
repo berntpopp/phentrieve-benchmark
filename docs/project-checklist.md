@@ -36,10 +36,31 @@ Status:
 
 ## E3C – aktiv
 
-Gestufte Strategie (2026-08-24): Stufe 1 liefert ein Dokument-Level-Gold auf
-den deutschen Texten; Stufe 2 ergänzt Evidenzspannen nur für die
-Single-Term-Teilmenge. Die Phase-0-Machbarkeitsprobe
-(`datasets/e3c-de/annotation-feasibility/`) stützt diesen Weg.
+Strategie (revidiert 2026-10-06):
+
+- Alle 246 Texte werden geschichtet auf vier etwa gleich große
+  Annotationsgruppen aufgeteilt: Deutsch (übersetzt), Englisch, Französisch,
+  Spanisch (jeweils Original). Jeder Text wird in genau einer Sprache
+  annotiert; die deutsche Gruppe speist sich zu gleichen Teilen aus allen
+  drei Originalsprachen. Die Gruppen werden getrennt ausgewertet und nie
+  zusammengerechnet. Ein späterer Qualitätscheck kann ungeeignete Texte
+  herausfiltern.
+- Annotiert wird von Anfang an spannenbasiert im Editor, mit allen Vorkommen
+  je Annotation, nach der Richtlinie
+  [`annotation-guidelines/hpo-span-annotation.md`](annotation-guidelines/hpo-span-annotation.md).
+  Bewertet wird weiterhin auf Dokument-Ebene über HPO-IDs.
+- Vorschläge entstehen in einem einheitlichen Schritt für alle Texte, ohne
+  Hinweise aus UMLS-Mapping, E3C-Annotationen oder Phase-0-Audit; diese
+  bleiben unabhängige Vergleichsquellen. Jeder Vorschlag bleibt bis zur
+  Rohausgabe nachverfolgbar.
+
+Umsetzungsentwurf:
+[`superpowers/specs/2026-10-06-e3c-multilingual-span-annotation-design.md`](superpowers/specs/2026-10-06-e3c-multilingual-span-annotation-design.md).
+
+Ersetzt sind damit die gestufte Strategie vom 2026-08-24 (zuerst
+Dokument-Level-Gold ohne Spannen) und die 30er-Kohorte als Arbeitsmenge; die
+30 Fälle waren willkürlich gewählt, ihre Phase-0-Ergebnisse bleiben als
+Vergleichsdaten erhalten.
 
 ### Quelle, Normalisierung und Auswahl
 
@@ -55,6 +76,11 @@ Single-Term-Teilmenge. Die Phase-0-Machbarkeitsprobe
 - [x] Machbarkeitskohorte mit 30 Fällen auswählen:
       10 je Sprache und je 3/4/3 kurze, mittlere und lange Fälle.
 - [x] Auswahlverfahren, Seed, Merkmale und Grenzen dokumentieren.
+- [ ] Alle 246 Texte deterministisch (fester Seed, textfreies Manifest) auf
+      die vier Annotationsgruppen aufteilen: je Originalsprache etwa ein
+      Viertel ins Deutsche (ca. 21 EN, 20 FR, 20 ES), Rest im Original;
+      geschichtet nach Länge und E3C-Annotationsdichte; Gruppen müssen nicht
+      exakt gleich groß sein.
 
 ### Deutsche Übersetzung
 
@@ -120,14 +146,23 @@ Single-Term-Teilmenge. Die Phase-0-Machbarkeitsprobe
       `datasets/e3c-de/annotation-feasibility/`.
 - [x] Entscheidung (2026-08-24): Der Übersetzungsreview bleibt schlank und
       risikobasiert statt anteilig-vollständig; die Übersetzung ist für das
-      Dokument-Level-Ziel kein Engpass.
-- [ ] Risikobasierten Übersetzungsreview durchführen: EN100593 gezielt
-      (beide Probe-Befunde), Stichproben je Sprache; für den Vollkorpus
-      später die 61 `units_added`-Fälle.
-- [ ] Bei kritischen Fehlern eine Ausweitung des manuellen Reviews vorsehen.
+      Dokument-Level-Ziel kein Engpass. Ersetzt am 2026-10-06 (nächster
+      Punkt).
+- [x] Entscheidung (2026-10-06): Jeder Text der deutschen Annotationsgruppe
+      wird vor der Verwendung vollständig geprüft; ungeprüfte Übersetzungen
+      werden nicht verwendet.
+- [ ] Workbook-Export auf die deutsche Annotationsgruppe (`tllm-full`) statt
+      auf die 30er-Kohorte umstellen.
+- [ ] Übersetzungsreview aller Texte der deutschen Gruppe durchführen und
+      importieren.
+- [ ] Je Fall die deutsche Textfassung festschreiben, bevor annotiert wird;
+      eine spätere Korrektur erzeugt eine neue Fassung, deren Spannen neu
+      verankert werden müssen (Richtlinie R7).
+- Entfällt: Ausweitung des manuellen Reviews bei kritischen Fehlern; die
+  deutsche Gruppe wird ohnehin vollständig geprüft.
 - [ ] Reviewbefunde, Korrekturen und Entscheidungen getrennt dokumentieren.
 
-### UMLS-zu-HPO-Mapping und deutsche Annotationen
+### UMLS-zu-HPO-Mapping und Annotation
 
 - [x] UMLS-CUIs aller 246 E3C-L1-Texte gegen die gepinnte HPO-Version auf
       HPO-Kandidaten abbilden.
@@ -140,7 +175,9 @@ Single-Term-Teilmenge. Die Phase-0-Machbarkeitsprobe
       automatische Korrektur ausschließen.
 - [x] Strategieentscheidung (2026-08-24): Zuerst ein Dokument-Level-Gold
       (HPO-Term-Mengen je deutschem Text, wie CSC/GSC); Evidenzspannen erst
-      später und nur für die Single-Term-Teilmenge.
+      später und nur für die Single-Term-Teilmenge. Revidiert am 2026-10-06:
+      spannenbasierte Annotation von Anfang an (siehe oben).
+- [x] Markierungsregeln als Richtlinie festhalten (2026-10-06, Entwurf).
 - [x] Phase-0-Probe zur Annotier-Machbarkeit: Gold-Kern aus 176 positiven
       Konsenstermen plus ~100 maschinell vorgeschlagenen Lückenkandidaten
       (81 gegen die gepinnte HPO aufgelöst); Engpass ist die
@@ -148,21 +185,56 @@ Single-Term-Teilmenge. Die Phase-0-Machbarkeitsprobe
 - [x] CUI-Triage der 200 häufigsten ungeklärten missing-CUIs: 83 kein
       Phänotyp, 64 Phänotyp ohne xref (55 Vorschläge maschinell gegen HPO
       validiert, 0 erfundene IDs), 48 zu generisch, 5 unklar.
-- [ ] Konsolidiertes Vorschlags-Workbook je Fall erzeugen (Konsensterme +
-      Lückenkandidaten, mit Herkunft und deutschem Zitat).
-- [ ] Vorschläge ärztlich prüfen (bestätigen/verwerfen je Term); nicht
-      verbalisierte Befunde nur per Notiz kennzeichnen, keine eigene Spalte.
-- [ ] Akzeptierte Entscheidungen importieren und ein akzeptiertes
-      deutsches Dokument-Level-Gold v1 erzeugen; Restlücke (zu generische
-      und seltene CUIs) offen ausweisen.
+- Entfällt: Konsolidiertes Vorschlags-Workbook je Fall (erzeugt wurde nur
+  die englische Quelltext-Variante). Für die Volltext-Annotation abgelöst
+  durch den Editor (2026-10-06); Excel bleibt nur für den Übersetzungsreview.
+- [ ] Einheitlichen Vorschlagsschritt für alle 246 Texte durchführen
+      (Entscheidungen 2026-10-06):
+  - Claude-Subagenten lesen jeden Text in seiner Annotationssprache und
+    schlagen nach der Richtlinie HPO-Terme mit Spannen (R2/R4, alle
+    Vorkommen) und vorbelegtem Status vor;
+  - ohne Hinweise: keine UMLS-Kandidaten, E3C-Stellen oder
+    Phase-0-Ergebnisse als Eingabe, damit diese später unabhängig verglichen
+    werden können;
+  - deterministische Prüfung: HPO-ID aktiv in der gepinnten Version, jede
+    Spanne wörtlich im Text; Verworfenes mit Grund protokollieren;
+  - Nachverfolgbarkeit: Modell-ID, versionierte Prompt-Datei,
+    Richtlinienversion, Prüfsumme jedes Eingabetexts, unveränderte Ausgabe je
+    Batch mit Vermerk „maschinell, kein Gold“, Prüfbericht; jeder Vorschlag
+    im Editor-Paket verweist auf Batch und Eintrag.
+- [ ] Editor-Pakete je Annotationsgruppe bauen: je Vorkommen eine eigene
+      Belegstelle; Achsen als Pflicht; Spannen beim Abschluss erzwingen;
+      Pflichtachse `verbalized`/`not_verbalized`, vorbelegt mit `verbalized`.
+- [ ] `make_annotation_review.py` löschen und
+      `annotation-feasibility/README.md` anpassen; das Skript wird für den
+      einheitlichen Vorschlagsschritt nicht mehr gebraucht, und seine 31
+      ruff-Fehler halten CI auf `main` derzeit rot.
+- [ ] Festgeschriebene deutsche Texte als benchmark-`Document`s
+      (`translated`) erzeugen; bisher erzeugt keine Stufe übersetzte
+      Dokumente, ein deutsches Annotationsset hat also kein Bezugsdokument.
+- [ ] `curated-annotation-set/v2` einführen: Merkmal „nicht verbalisiert“
+      (Richtlinie R6) und eine Herkunftsart für LLM-Vorschläge; v1 kennt
+      keine passende Herleitungsquelle.
+- [ ] Vorschläge im Editor ärztlich prüfen und Spannen nach der Richtlinie
+      setzen; nicht verbalisierte Befunde strukturiert kennzeichnen.
+- [ ] Editor-Export importieren und je Annotationsgruppe ein akzeptiertes
+      Gold v1 erzeugen.
+      Der Import lehnt unterbrochene Belegstellen ab, fasst bestätigte
+      Vorschläge mit gleichem Term und Status zu einer Annotation zusammen,
+      führt das Editor-Ergebnis „uncertain“ als Rückfrage (nicht Gold) und
+      ergänzt Prüfer-Metadaten aus einer Konfiguration.
 
 ### Single-Term-Aufgabe
 
-- [ ] Single Terms ausschließlich aus den fertig kuratierten deutschen
-      E3C-HPO-Annotationen ableiten (Stufe 2, nach dem Dokument-Level-Gold;
-      erfordert Evidenzspannen nur für diese Teilmenge).
-- [ ] Pro akzeptierter Annotation die deutsche phänotypische Formulierung und
-      HPO-ID übernehmen.
+- [ ] Single Terms ausschließlich aus den Spannen der fertig kuratierten
+      E3C-HPO-Annotationen ableiten; kein eigener Spannen-Durchgang
+      (Auswahlregeln: Richtlinie, Abschnitt „Single-term derivation“).
+- [x] Entscheidung (2026-10-06): Single-Term-Fälle werden aus allen vier
+      Annotationsgruppen abgeleitet, je Sprache als eigene Gruppe.
+- [x] Entscheidung (2026-10-06): Nur klare Befunde (`present`, Patient)
+      gehen in den Single-Term-Benchmark ein.
+- [ ] Pro akzeptierter Annotation die phänotypische Formulierung in der
+      Annotationssprache und die HPO-ID übernehmen.
 - [ ] Single-Term-Fälle erst nach Übersetzung, Mapping und Annotation-Review
       freigeben.
 - [ ] Ableitung und Verbindung zum zugehörigen Volltextfall dokumentieren.
@@ -245,6 +317,12 @@ GSC-Fassungen erzeugt.
 - [x] ⚠ Die Lizenz- und Redistributionsentscheidung für den ungeprüften,
       nichtkommerziellen Review-Snapshot ist als dokumentierte
       Projektarbeitsannahme festgehalten, nicht als rechtliche Freigabe.
+- [ ] Bewertungsregel für das deutsche Gold festlegen: welche Kombinationen
+      aus Aussagestatus, betroffener Person und Zeitlichkeit als Gold zählen
+      (Issue #2).
+- [ ] Lizenznachweis (`license-evidence.yaml`) auf den versionierten
+      246-Texte-Snapshot erweitern; bisher begründet er nur den
+      30-Fälle-Snapshot.
 - [ ] Finale Lizenz- und Redistributionsentscheidung vor der Veröffentlichung
       eines akzeptierten Benchmark-Releases festhalten.
 - [ ] Deterministische Release-Manifeste und Datenkarten erzeugen.
@@ -252,10 +330,12 @@ GSC-Fassungen erzeugt.
 
 ## Aktuelle Priorität
 
-1. Konsolidiertes Annotationsvorschlags-Workbook für die 30er-Kohorte
-   erzeugen und ärztlich prüfen.
-2. Parallel den schlanken risikobasierten Übersetzungsreview durchführen
-   (EN100593, Stichproben).
-3. Akzeptierte Entscheidungen importieren, Dokument-Level-Gold v1 erzeugen,
-   danach Benchmark-Definition und Phentrieve-Adapter.
-4. CSC und GSC bleiben bis zu einer ausdrücklichen Wiederaufnahme pausiert.
+1. Die gesamte Pipeline nach dem Umsetzungsentwurf bauen und Ende-zu-Ende
+   testen (Aufteilung, Korpus, Vorschlagsschritt mit Pilot, Editor-Pakete,
+   Format v2 und Import), bevor menschliche Arbeit beginnt.
+2. Übersetzungsreview aller Texte der deutschen Gruppe durchführen.
+3. Vorschläge für alle Gruppen erzeugen, Editor-Pakete bauen und im Editor
+   spannenbasiert ärztlich prüfen.
+4. Editor-Export importieren, Gold v1 je Gruppe erzeugen, danach
+   Benchmark-Definition und Phentrieve-Adapter.
+5. CSC und GSC bleiben bis zu einer ausdrücklichen Wiederaufnahme pausiert.
