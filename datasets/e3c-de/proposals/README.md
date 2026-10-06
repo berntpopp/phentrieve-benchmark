@@ -105,6 +105,7 @@ all German reports again, including those of the earlier run.
 | `pilot-v1` | `claude-sonnet-5-5` | 9 | 0 | `b4d7bb7e621cd46c90198c89a80e6e69ca6a50549086caad1ebce41b9f130c82` | pilot, prompt v1; see below |
 | `pilot-v2` | `claude-sonnet-5-5` | 9 | 0 | `2236103656da47cd7ff8467d5a5bf937732c9ae4e6287ae5671e9f22baf2e837` | pilot, prompt v2, same reports as `pilot-v1`; see below |
 | `pilot-v2-extra` | `claude-sonnet-5-5` | 9 | 0 | `ff32831802115b47294f8098858bd2398e6141625592f9b7255bc32f3d2464a3` | pilot, prompt v2, nine further reports; see below |
+| `pilot-v3` | `claude-sonnet-5-5` | 9 | 0 | `ae24e1d706c1c12cf3ad1ae32a8eda8350cd10c57915169bb58fe43d635f4dd0` | pilot, prompt v3 and restricted lookup, nine further reports; see below |
 
 ## Pilot pilot-v1
 
@@ -338,4 +339,95 @@ Decision of 2026-10-06, taken after these pilots:
   proposal with such a term reaches the review and is not rejected.
 - Prompt v3 describes this lookup behaviour and replaces the self-check rule:
   helper scripts are allowed, but only in the git-ignored directory that
-  holds the batch's text files. Prompt v3 has not been piloted on its own.
+  holds the batch's text files.
+
+## Pilot pilot-v3
+
+Run date 2026-10-06, same corpus, prompt v3 with the restricted lookup. Nine
+further reports, the third report per original language and length stratum
+in the pilot's seeded order (EN100383, EN100593, EN104179, ES100001,
+ES100526, ES100978, FR100120, FR100519, FR101000), selected with `--case`.
+
+### Dispatch
+
+- One dispatch, no re-dispatch. Validation passed on the first attempt.
+- Files reported as read: the guideline and the nine text files. No other
+  file in the repository changed.
+- The helper script stayed where prompt v3 allows it: `gen.py` in the
+  git-ignored text directory of the batch. Nothing was written to the
+  temporary directory.
+
+### Validation
+
+| Count | Value |
+|---|---:|
+| Proposals received | 111 |
+| Proposals rejected | 0 |
+| Mentions evaluated | 128 |
+| Mentions rejected | 0 |
+| Label warnings | 0 |
+| Not verbalized (R6) | 5 |
+| Terms outside HP:0000118 | 0 |
+| Spans longer than 50 characters | 6 |
+
+Proposals per report: EN100383 13, EN100593 32, EN104179 3, ES100001 3,
+ES100526 2, ES100978 31, FR100120 8, FR100519 17, FR101000 2.
+
+Status of the 111 proposals: 90 present, 14 absent, 3 uncertain (all
+patient, current); 3 present/patient/historical; 1
+present/family_member/current.
+
+### Excerpt volume across the pilots
+
+Share of a report's characters that lie inside at least one context of the
+tracked batch file (overlapping contexts counted once):
+
+| Run | Lowest | Highest |
+|---|---:|---:|
+| `pilot-v1` | 11 % | 27 % (ES100320) |
+| `pilot-v2` | 10 % | 30 % (ES100320) |
+| `pilot-v2-extra` | 3 % | 29 % (EN108139) |
+| `pilot-v3` | 8 % | 40 % (EN100593) |
+
+The limit of 300 characters per string holds everywhere (longest context:
+100 characters). There is no limit on the sum. A report with many findings
+has up to 40 % of its text in the tracked contexts.
+
+### Spot check
+
+Three reports, one per language, compared with the text against R0-R6 by the
+main session (not a physician review).
+
+| Report | Proposals | Obvious misses | Wrong terms | Wrong spans | Wrong status | R6 misuse |
+|---|---:|---:|---:|---:|---:|---:|
+| EN100593 | 32 | 0 | 0 | 1 | 0 | 0 |
+| ES100526 | 2 | 1 | 0 | 0 | 0 | 0 |
+| FR100120 | 8 | 0 | 0 | 0 | 0 | 0 |
+
+- EN100593: the negated lists give one absent proposal per finding
+  (headache, blurred vision, spontaneous bleeding; diabetes, hypertension),
+  shared wording is attached to both terms ("total protein and albumin were
+  low"), and a stated finding and its later measurement are separate
+  proposals (leukocytosis and "WBC 37500 cells/dL"; anemia and "HB-8.4g/dL").
+  The span "grossly distended" for *Abdominal distention* does not express
+  the term on its own (R2). *Splenomegaly* is proposed as absent for "spleen
+  was not palpable", a normal finding by R0, with a note.
+- ES100526: the lymphedema that the lymphography rules out ("para descartar
+  un posible linfedema") is not proposed as absent. Not proposed and
+  arguable: the pain that prevents intercourse (*Dyspareunia* exists) and
+  the soft, mobile tumours (reported as without term).
+- FR100120: "papules prurigineuses" is attached to *Papule* and *Pruritus*
+  (R4). "lésions furonculoïdes" is proposed as *Furuncle* with a note; the
+  lesions are myiasis, so the term is arguable. A third mention of the
+  diabetes is not marked.
+
+### Verdict
+
+Prompt v3 with the restricted lookup removes the two problems it was made
+for: no proposal lies outside *Phenotypic abnormality* (5 of 258 before),
+and the helper script stays in the git-ignored text directory. Format and
+location remain reliable (111 of 111 proposals, 128 of 128 mentions). The
+spot check found one obvious miss, one span that does not stand on its own,
+and two arguable proposals among 42. Open before the full run: the share
+of report text in the tracked contexts (up to 40 %). Whether to start the
+full run is the user's decision.
