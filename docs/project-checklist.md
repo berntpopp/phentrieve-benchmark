@@ -337,7 +337,7 @@ GSC-Fassungen erzeugt.
       `current`/`historical`, kein „ausgeheilt“, kein Aussagekontext;
       hypothetische und allgemeine Aussagen werden nicht annotiert, alle
       übrigen Phänotyp-Befunde jeder Person und jedes Status schon.
-- [ ] Issue #2 auf diesen Stand bringen (Entwurf vor dem Posten zeigen).
+- [x] Issue #2 auf diesen Stand gebracht (Kommentar vom 2026-10-06).
 - [ ] Lizenznachweis (`license-evidence.yaml`) auf den versionierten
       246-Texte-Snapshot erweitern; bisher begründet er nur den
       30-Fälle-Snapshot.
