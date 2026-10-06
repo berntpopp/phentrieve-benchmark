@@ -58,6 +58,10 @@ class MentionLocationError(ValueError):
 
 
 def normalize_typography(text: str) -> NormalizedText:
+    """Normalize typography; `text` must already be NFC (corpus canonical form).
+
+    Phrase and context are NFC-normalized in `locate_mention`; the text is not.
+    """
     characters: list[str] = []
     starts: list[int] = []
     ends: list[int] = []
@@ -96,7 +100,9 @@ def _positions(haystack: str, needle: str, start: int, end: int) -> list[int]:
 def _whole_word(haystack: str, start: int, end: int) -> bool:
     before = haystack[start - 1] if start > 0 else ""
     after = haystack[end] if end < len(haystack) else ""
-    return not before.isalnum() and not after.isalnum()
+    return not (haystack[start].isalnum() and before.isalnum()) and not (
+        haystack[end - 1].isalnum() and after.isalnum()
+    )
 
 
 def locate_mention(

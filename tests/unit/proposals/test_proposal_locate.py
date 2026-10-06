@@ -99,3 +99,22 @@ def test_unlocatable_mentions_name_their_reason(
     text: str, phrase: str, context: str, reason: RejectionReason
 ) -> None:
     assert _reason(text, phrase, context) is reason
+
+
+def test_non_alphanumeric_phrase_edge_needs_no_word_boundary() -> None:
+    text = "Temp 38°C und 39 °C."
+    reason = _reason(text, "°C", "38°C und 39 °C")
+    assert reason is RejectionReason.PHRASE_NOT_UNIQUE_IN_CONTEXT
+
+
+def test_phrase_across_collapsed_whitespace_run_stays_verbatim() -> None:
+    text = "Er hat hohes\r\n  Fieber."
+    span = _locate(text, "hohes Fieber", "hat hohes Fieber")
+    assert text[span.start : span.end] == "hohes\r\n  Fieber"
+
+
+def test_decomposed_phrase_and_context_match_nfc_text() -> None:
+    text = "Er klagt Übelkeit."
+    decomposed = "Übelkeit"
+    span = _locate(text, decomposed, "klagt " + decomposed)
+    assert text[span.start : span.end] == "Übelkeit"
