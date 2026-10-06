@@ -32,12 +32,14 @@ def _trusted_git_environment() -> dict[str, str]:
     return environment
 
 
-def _git_arguments(arguments: tuple[str, ...]) -> list[str]:
+def _git_arguments(
+    arguments: tuple[str, ...], *, literal_pathspecs: bool = True
+) -> list[str]:
     return [
         "git",
         "--no-pager",
         "--no-replace-objects",
-        "--literal-pathspecs",
+        *(["--literal-pathspecs"] if literal_pathspecs else []),
         "-c",
         "core.fsmonitor=false",
         "-c",
@@ -50,9 +52,10 @@ def _git_process(
     repo: Path,
     *arguments: str,
     input_bytes: bytes | None = None,
+    literal_pathspecs: bool = True,
 ) -> subprocess.CompletedProcess[bytes]:
     return subprocess.run(
-        _git_arguments(arguments),
+        _git_arguments(arguments, literal_pathspecs=literal_pathspecs),
         cwd=repo,
         input=input_bytes,
         check=False,
@@ -111,6 +114,8 @@ def _is_in_worktree_gitignore(repo: Path, source: bytes) -> bool:
 
 
 def _is_project_ignored(repo: Path, raw_path: bytes) -> bool:
+    # check-ignore rejects the literal pathspec magic ("pathspec magic not
+    # supported by this command") and exits with 128.
     result = _git_process(
         repo,
         "check-ignore",
@@ -119,6 +124,7 @@ def _is_project_ignored(repo: Path, raw_path: bytes) -> bool:
         "--no-index",
         "--stdin",
         input_bytes=raw_path + b"\0",
+        literal_pathspecs=False,
     )
     if result.returncode == 1:
         return False
