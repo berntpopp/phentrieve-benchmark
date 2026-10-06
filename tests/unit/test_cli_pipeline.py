@@ -121,6 +121,7 @@ def test_review_workbook_export_resolves_tllm_and_omits_nmt_by_default(
             "review_policy_id": "e3c:translation-review/v1",
             "nmt_manifest": None,
             "source_language": None,
+            "case_ids": None,
         }
     ]
     assert invocation.stdout == f"export_sha256={'a' * 64} cases=30\n"

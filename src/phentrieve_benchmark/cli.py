@@ -35,6 +35,7 @@ from phentrieve_benchmark.pipeline.translation_review import (
 )
 from phentrieve_benchmark.provenance.code_identity import code_sha256
 from phentrieve_benchmark.selection.groups import (
+    AnnotationGroupManifest,
     assign_annotation_groups,
     load_e3c_inventory,
 )
@@ -153,16 +154,30 @@ def export_e3c_review_workbook_command(
     destination: Path,
     include_nmt: Annotated[bool, typer.Option("--include-nmt")] = False,
     language: SourceLanguage = None,
+    variant: Variant = "tllm",
+    groups: Annotated[Path | None, typer.Option("--groups")] = None,
     dataset_root: DatasetRoot = Path("datasets"),
     artifact_root: ArtifactRoot = Path(".artifacts"),
 ) -> None:
+    """Export a translation review workbook.
+
+    With --groups, only the German annotation group of that manifest is
+    exported; use it together with --variant tllm-full.
+    """
     context = _pipeline_context(dataset_root, artifact_root)
     tllm_manifest = _resolve_review_translation_manifest(
-        context=context, variant="tllm"
+        context=context, variant=variant
     )
     nmt_manifest = (
         _resolve_review_translation_manifest(context=context, variant="nmt")
         if include_nmt
+        else None
+    )
+    case_ids = (
+        AnnotationGroupManifest.model_validate_json(
+            groups.read_bytes(), strict=True
+        ).case_ids("de")
+        if groups is not None
         else None
     )
     export_sha256 = export_translation_review(
@@ -172,11 +187,13 @@ def export_e3c_review_workbook_command(
         review_policy_id=_TRANSLATION_REVIEW_POLICY_ID,
         nmt_manifest=nmt_manifest,
         source_language=language,
+        case_ids=case_ids,
     )
     exported = [
         record
         for record in tllm_manifest.records
-        if language is None or record.source_language == language
+        if (language is None or record.source_language == language)
+        and (case_ids is None or record.source_case_id in case_ids)
     ]
     typer.echo(f"export_sha256={export_sha256} cases={len(exported)}")
 
