@@ -11,6 +11,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 
 _HPO_ID = re.compile(r"HP:[0-9]{7}", re.ASCII)
+_WORD = re.compile(r"\w+")
 _SYNONYM = re.compile(r'^synonym: "((?:[^"\\]|\\.)*)"')
 
 
@@ -61,9 +62,10 @@ def read_lookup_entries(ontology_bytes: bytes) -> tuple[HpoLookupEntry, ...]:
 
 def _fold(value: str) -> str:
     decomposed = unicodedata.normalize("NFKD", value.casefold())
-    return "".join(
+    stripped = "".join(
         character for character in decomposed if not unicodedata.combining(character)
     )
+    return " ".join(_WORD.findall(stripped))
 
 
 def search_hpo(
