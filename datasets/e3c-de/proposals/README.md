@@ -6,9 +6,10 @@
 
 Design: [`docs/superpowers/specs/2026-10-06-e3c-multilingual-span-annotation-design.md`](../../../docs/superpowers/specs/2026-10-06-e3c-multilingual-span-annotation-design.md) §6.
 Rules applied by the subagents: [`docs/annotation-guidelines/hpo-span-annotation.md`](../../../docs/annotation-guidelines/hpo-span-annotation.md) (R0-R6).
-Prompt template: [`configs/prompts/hpo-span-proposal-v2.md`](../../../configs/prompts/hpo-span-proposal-v2.md)
-(v1, used by `pilot-v1`: [`configs/prompts/hpo-span-proposal-v1.md`](../../../configs/prompts/hpo-span-proposal-v1.md)).
-Each run keeps its own copy as `prompt.md`.
+Prompt template: [`configs/prompts/hpo-span-proposal-v3.md`](../../../configs/prompts/hpo-span-proposal-v3.md).
+Earlier versions: [v1](../../../configs/prompts/hpo-span-proposal-v1.md)
+(`pilot-v1`), [v2](../../../configs/prompts/hpo-span-proposal-v2.md)
+(`pilot-v2`, `pilot-v2-extra`). Each run keeps its own copy as `prompt.md`.
 
 ## Run layout
 
@@ -328,3 +329,13 @@ but not always. Three weaknesses remain:
 
 The self-check without extra files did not work as written in the prompt.
 Whether prompt v2 is good enough for the full run is the user's decision.
+
+Decision of 2026-10-06, taken after these pilots:
+
+- `proposals hpo-lookup` lists only terms under *Phenotypic abnormality* in
+  text search; a lookup by ID marks a term outside it as "not a phenotypic
+  abnormality". The validator still accepts every active term, so a
+  proposal with such a term reaches the review and is not rejected.
+- Prompt v3 describes this lookup behaviour and replaces the self-check rule:
+  helper scripts are allowed, but only in the git-ignored directory that
+  holds the batch's text files. Prompt v3 has not been piloted on its own.

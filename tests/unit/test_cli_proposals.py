@@ -85,7 +85,7 @@ def test_prepare_run_delegates_with_pinned_inputs(
     )
     blobs = {
         "docs/annotation-guidelines/hpo-span-annotation.md": b"# guideline\n",
-        "configs/prompts/hpo-span-proposal-v2.md": b"template",
+        "configs/prompts/hpo-span-proposal-v3.md": b"template",
     }
     context = type(
         "Context",
