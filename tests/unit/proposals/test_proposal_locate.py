@@ -102,8 +102,8 @@ def test_unlocatable_mentions_name_their_reason(
 
 
 def test_non_alphanumeric_phrase_edge_needs_no_word_boundary() -> None:
-    text = "Temp 38°C und 39 °C."
-    reason = _reason(text, "°C", "38°C und 39 °C")
+    text = "Temp 38\u00b0C und 39 \u00b0C."
+    reason = _reason(text, "\u00b0C", "38\u00b0C und 39 \u00b0C")
     assert reason is RejectionReason.PHRASE_NOT_UNIQUE_IN_CONTEXT
 
 
@@ -114,7 +114,7 @@ def test_phrase_across_collapsed_whitespace_run_stays_verbatim() -> None:
 
 
 def test_decomposed_phrase_and_context_match_nfc_text() -> None:
-    text = "Er klagt Übelkeit."
-    decomposed = "Übelkeit"
+    text = "Er klagt \u00dcbelkeit."
+    decomposed = "U\u0308belkeit"
     span = _locate(text, decomposed, "klagt " + decomposed)
-    assert text[span.start : span.end] == "Übelkeit"
+    assert text[span.start : span.end] == "\u00dcbelkeit"
