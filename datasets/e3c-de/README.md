@@ -37,6 +37,17 @@ translation or Google credentials. Run
 `uv run phentrieve-benchmark map-hpo e3c`; exact results and classification
 counts are documented under `mappings/`.
 
+All 246 reports are split into four annotation groups (German, English,
+French, Spanish) by `uv run phentrieve-benchmark select e3c-groups`; the
+tracked, text-free result is `selections/e3c-annotation-groups-v1.json`.
+`uv run phentrieve-benchmark build-corpus e3c [--review-import SHA ...]`
+builds the annotation corpus: original-language reports as native
+documents, German reports only from accepted translation reviews. German
+reports without one are listed as pending. Review imports are applied in the
+given order; for each report the last decision wins. The translation review
+for the German group is exported with
+`uv run phentrieve-benchmark review-workbook export-e3c <destination> --variant tllm-full --groups datasets/e3c-de/selections/e3c-annotation-groups-v1.json`.
+
 ## Analysis reading path
 
 The E3C-DE analyses build on each other. Read them in this order:

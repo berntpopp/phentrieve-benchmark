@@ -75,7 +75,7 @@ Vergleichsdaten erhalten.
 - [x] Machbarkeitskohorte mit 30 Fällen auswählen:
       10 je Sprache und je 3/4/3 kurze, mittlere und lange Fälle.
 - [x] Auswahlverfahren, Seed, Merkmale und Grenzen dokumentieren.
-- [ ] Alle 246 Texte deterministisch (fester Seed, textfreies Manifest) auf
+- [x] Alle 246 Texte deterministisch (fester Seed, textfreies Manifest) auf
       die vier Annotationsgruppen aufteilen: je Originalsprache etwa ein
       Viertel ins Deutsche (ca. 21 EN, 20 FR, 20 ES), Rest im Original;
       geschichtet nach Länge und E3C-Annotationsdichte; Gruppen müssen nicht
@@ -150,7 +150,7 @@ Vergleichsdaten erhalten.
 - [x] Entscheidung (2026-10-06): Jeder Text der deutschen Annotationsgruppe
       wird vor der Verwendung vollständig geprüft; ungeprüfte Übersetzungen
       werden nicht verwendet.
-- [ ] Workbook-Export auf die deutsche Annotationsgruppe (`tllm-full`) statt
+- [x] Workbook-Export auf die deutsche Annotationsgruppe (`tllm-full`) statt
       auf die 30er-Kohorte umstellen.
 - [ ] Übersetzungsreview aller Texte der deutschen Gruppe durchführen und
       importieren.
@@ -204,7 +204,7 @@ Vergleichsdaten erhalten.
 - [ ] Editor-Pakete je Annotationsgruppe bauen: je Vorkommen eine eigene
       Belegstelle; Achsen als Pflicht; Spannen beim Abschluss erzwingen;
       Pflichtachse `verbalized`/`not_verbalized`, vorbelegt mit `verbalized`.
-- [ ] `make_annotation_review.py` löschen und
+- [x] `make_annotation_review.py` löschen und
       `annotation-feasibility/README.md` anpassen; das Skript wird für den
       einheitlichen Vorschlagsschritt nicht mehr gebraucht, und seine 31
       ruff-Fehler halten CI auf `main` derzeit rot.
