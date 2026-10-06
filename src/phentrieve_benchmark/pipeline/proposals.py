@@ -122,6 +122,7 @@ def prepare_proposal_run(
     ontology_sha256: str,
     languages: Collection[AnnotationLanguage] | None,
     pilot: bool,
+    case_ids: Collection[str] | None,
     batch_size: int,
     run_directory: Path,
     input_directory: Path,
@@ -130,15 +131,20 @@ def prepare_proposal_run(
 
     `prompt_template` and `guideline.sha256` must come from the committed
     blobs, not the working tree (line endings differ under core.autocrlf).
+    A run covers the pilot reports, the named cases, or every corpus document
+    of the selected languages.
     """
     if run_directory.exists():
         raise FileExistsError(f"proposal run {run_id} already exists")
+    if pilot and case_ids is not None:
+        raise ValueError("the pilot selects its own reports")
     for path in (run_directory, input_directory):
         _display(path, repository_root)
     corpus, documents = read_corpus(store, corpus_manifest_sha256)
-    case_ids = pilot_case_ids(corpus, groups) if pilot else None
+    if pilot:
+        case_ids = pilot_case_ids(corpus, groups)
     entries = select_run_entries(corpus, languages=languages, case_ids=case_ids)
-    german_selected = not pilot and (languages is None or "de" in languages)
+    german_selected = case_ids is None and (languages is None or "de" in languages)
     run = ProposalRun(
         run_id=run_id,
         run_date=run_date,

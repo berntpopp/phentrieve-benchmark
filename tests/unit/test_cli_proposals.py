@@ -57,14 +57,15 @@ def _message(output: str) -> str:
     return " ".join(output.replace("\u2502", " ").split())
 
 
-def test_prepare_run_rejects_pilot_with_languages() -> None:
+@pytest.mark.parametrize("option", [("--language", "en"), ("--case", "EN100001")])
+def test_prepare_run_rejects_pilot_with_a_selection(option: tuple[str, str]) -> None:
     invocation = CliRunner().invoke(
         cli.app,
         [
             "proposals", "prepare-run", "pilot-v1",
             "--corpus", "a" * 64,
             "--model-id", "claude-sonnet-5-5",
-            "--pilot", "--language", "en",
+            "--pilot", *option,
         ],
     )
     assert invocation.exit_code == 2
@@ -121,12 +122,14 @@ def test_prepare_run_delegates_with_pinned_inputs(
             "--corpus", "a" * 64,
             "--model-id", "claude-sonnet-5-5",
             "--language", "en", "--language", "fr",
+            "--case", "EN100001", "--case", "FR100002",
         ],
     )
 
     assert invocation.exit_code == 0, invocation.exception
     (call,) = calls
     assert call["languages"] == ("en", "fr")
+    assert call["case_ids"] == ("EN100001", "FR100002")
     assert call["pilot"] is False
     assert call["batch_size"] == 10
     assert call["run_date"] == date(2026, 10, 7)

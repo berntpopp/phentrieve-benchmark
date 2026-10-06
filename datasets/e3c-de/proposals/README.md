@@ -51,8 +51,12 @@ object store, and the HPO source lock live in its `.artifacts/`.
    ```bash
    uv run phentrieve-benchmark proposals prepare-run <run_id> \
      --corpus <corpus_sha256> --model-id <model id> \
-     [--pilot | --language de --language en ...] [--batch-size 10]
+     [--pilot | --language de --language en ... | --case EN100001 ...] \
+     [--batch-size 10]
    ```
+
+   `--pilot` picks one report per original language and length stratum.
+   `--case` names source case IDs and can be repeated.
 
 3. Dispatch one Claude Code subagent per batch (Agent tool,
    `subagent_type: general-purpose`, `model` matching `--model-id`). The

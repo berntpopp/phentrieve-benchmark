@@ -599,6 +599,7 @@ def prepare_proposal_run_command(
     corpus: Annotated[str, typer.Option("--corpus")],
     model_id: Annotated[str, typer.Option("--model-id")],
     language: Annotated[list[str] | None, typer.Option("--language")] = None,
+    case: Annotated[list[str] | None, typer.Option("--case")] = None,
     pilot: Annotated[bool, typer.Option("--pilot")] = False,
     batch_size: Annotated[int, typer.Option("--batch-size", min=1)] = 10,
     dataset_root: DatasetRoot = Path("datasets"),
@@ -606,13 +607,15 @@ def prepare_proposal_run_command(
 ) -> None:
     """Plan a proposal run and write the subagent prompts and texts.
 
-    --corpus is the corpus_sha256 printed by build-corpus. Without --language
-    and --pilot, every corpus document is included. --pilot picks one report
-    per original language and length stratum.
+    --corpus is the corpus_sha256 printed by build-corpus. Without --language,
+    --case, and --pilot, every corpus document is included. --pilot picks one
+    report per original language and length stratum; --case names source case
+    IDs and can be repeated.
     """
-    if pilot and language:
+    if pilot and (language or case):
         raise typer.BadParameter(
-            "--pilot selects its own reports", param_hint="--language"
+            "--pilot selects its own reports",
+            param_hint="--language" if language else "--case",
         )
     unknown = sorted(set(language or ()) - set(_ANNOTATION_LANGUAGES))
     if unknown:
@@ -652,6 +655,7 @@ def prepare_proposal_run_command(
             ontology_sha256=ontology_sha256,
             languages=languages,
             pilot=pilot,
+            case_ids=tuple(case) if case else None,
             batch_size=batch_size,
             run_directory=context.dataset_root / PROPOSALS_DIRECTORY / run_id,
             input_directory=input_directory,

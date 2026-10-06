@@ -117,6 +117,8 @@ def _prepare(
     corpus_sha256: str,
     *,
     languages: Collection[AnnotationLanguage] | None = None,
+    case_ids: Collection[str] | None = None,
+    pilot: bool = False,
     input_directory: Path | None = None,
 ) -> ProposalRun:
     return prepare_proposal_run(
@@ -136,7 +138,8 @@ def _prepare(
         hpo_release="v2026-06-23",
         ontology_sha256=sha256(proposal_hpo_obo()).hexdigest(),
         languages=languages,
-        pilot=False,
+        pilot=pilot,
+        case_ids=case_ids,
         batch_size=1,
         run_directory=tmp_path / "datasets/e3c-de/proposals/synthetic-v1",
         input_directory=input_directory
@@ -288,6 +291,22 @@ def test_run_records_german_reports_left_out_as_pending(tmp_path: Path) -> None:
     run = _prepare(tmp_path, store, corpus_sha256, languages=("en", "de"))
     assert [batch.documents[0].source_case_id for batch in run.batches] == ["EN1"]
     assert run.pending_review == ("EN2",)
+
+
+def test_run_can_be_limited_to_named_cases(tmp_path: Path) -> None:
+    store = ArtifactStore(tmp_path / "objects")
+    corpus_sha256 = _corpus(store, german_reviewed=False)
+    run = _prepare(tmp_path, store, corpus_sha256, case_ids=("EN1",))
+    assert [batch.documents[0].source_case_id for batch in run.batches] == ["EN1"]
+    assert run.pending_review == ()
+
+
+def test_named_cases_and_pilot_exclude_each_other(tmp_path: Path) -> None:
+    store = ArtifactStore(tmp_path / "objects")
+    corpus_sha256 = _corpus(store)
+    with pytest.raises(ValueError, match="pilot selects its own reports"):
+        _prepare(tmp_path, store, corpus_sha256, case_ids=("EN1",), pilot=True)
+    assert not (tmp_path / "datasets/e3c-de/proposals/synthetic-v1").exists()
 
 
 def test_validation_rejects_a_changed_prompt(tmp_path: Path) -> None:
