@@ -44,12 +44,21 @@ the text reports for them. Examples from the Phase 0 CUI triage:
 matching phenotype term. A suspected diagnosis ("Verdacht auf SLE") follows
 the same rule with assertion `uncertain`.
 
-Completeness:
+Completeness (decided 2026-10-06): annotate every phenotypic finding in the
+text, whoever it concerns and whatever its status. This includes negated
+("kein Fieber"), suspected ("V. a. Lupus"), historical, family ("Mutter mit
+Epilepsie"), and other-person findings ("Neugeborenes mit Ikterus" in a report
+about the mother). Later evaluations of negation or experiencer are only
+meaningful if these are annotated as completely as positive patient findings.
 
-- annotate every positive finding;
-- annotate explicitly negated phenotypes ("kein Fieber");
-- do not annotate normal findings without a phenotype reference ("Analtonus
-  normal").
+Not annotated:
+
+- hypothetical or conditional statements ("Wiedervorstellung bei erneuten
+  Krampfanfällen", "Risiko einer Niereninsuffizienz im Verlauf"): nothing has
+  occurred;
+- generic medical statements ("SLE kann zu Nierenbeteiligung führen"): no
+  finding of a person;
+- normal findings without a phenotype reference ("Analtonus normal").
 
 ### R1 Term choice
 
@@ -74,12 +83,29 @@ verbunden." the span for *Vomiting* is "Erbrechen".
 
 ### R3 Status is an attribute, not part of the span
 
-Assertion (`present`, `absent`, `uncertain`), experiencer, and temporality are
-recorded on the annotation. "nicht mit Erbrechen" gives the span "Erbrechen"
-on an annotation with assertion `absent`.
+Three attributes are recorded on the annotation (values decided 2026-10-06):
 
-Experiencer `patient` is the index person of the report. In obstetric reports
-the fetus or newborn is `other` ("gesundes Neugeborenes 2,9 kg").
+| Attribute | Values |
+|---|---|
+| Assertion | `present`, `absent`, `uncertain` |
+| Experiencer | `patient`, `family_member`, `other` |
+| Temporality | `current`, `historical` |
+
+"nicht mit Erbrechen" gives the span "Erbrechen" on an annotation with
+assertion `absent`. `uncertain` means the text expresses uncertainty; it never
+means the annotator is unsure.
+
+- Experiencer `patient` is the index person of the report. `family_member`
+  covers relatives ("Mutter mit Epilepsie"). Everyone else is `other`; in
+  obstetric reports the fetus or newborn is `other` ("gesundes Neugeborenes
+  2,9 kg"). There is no `unknown`: a finding without a named person in a case
+  report concerns the patient.
+- Temporality `current` is the reported episode, including findings without
+  an explicit time; `historical` is a finding the text places before it
+  ("Krampfanfälle in der Kindheit"). There is no `future` value (such
+  statements are hypothetical and not annotated, see R0) and no `not_stated`.
+- Whether a finding has resolved is not recorded; it requires too much
+  interpretation.
 
 ### R4 Shared components
 
@@ -163,8 +189,8 @@ frequent phrase such as "Fieber" yields one single-term case.
 
 ## Data model
 
-`CuratedAnnotationSet/v1` can represent the spans and status of R1–R5 and R7
-without change, as checked in
+`CuratedAnnotationSet/v1` can represent the spans of R1–R5 and R7 without
+change, as checked in
 `src/phentrieve_benchmark/models/curated_annotation.py` and
 `src/phentrieve_benchmark/derivation/single_term.py`:
 
@@ -175,8 +201,11 @@ without change, as checked in
 - single-term selection already points to one span (`evidence_span_index`);
 - `document_sha256` binds an annotation set to one text version.
 
-Two things v1 cannot represent:
+Three things v1 cannot represent:
 
+- **Attribute values of R3.** v1 has experiencer `patient`/`other` and
+  temporality `current`/`historical`/`future`. R3 adds `family_member` and
+  drops `future`.
 - **R6 marker.** It needs a new field on the annotation. The model forbids
   extra fields and an existing schema version is not reinterpreted in place,
   so this requires `curated-annotation-set/v2`.
@@ -197,10 +226,11 @@ it changes when spans change.
 
 ## Open questions
 
-- Scoring rule for the gold of all groups: which combinations of assertion,
-  experiencer, and temporality count as gold terms, including temporally
-  sequenced findings (issue #2). The existing `positive_hpo_present_v1` is
-  defined in the manuscript repository, not here.
+- Scoring rules, decided later and not needed for annotation (2026-10-06).
+  The dataset supports at least a present-only patient view (comparable to
+  the existing `positive_hpo_present_v1` results on GSC/CSC, defined in the
+  manuscript repository) and an assertion-aware view that matches HPO ID and
+  assertion, since Phentrieve outputs an assertion per finding.
 - Definition of a span-level evaluation for the full-text task.
 
 Not planned for now: editor support that proposes further occurrences of a

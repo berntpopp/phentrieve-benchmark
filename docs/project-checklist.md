@@ -325,9 +325,19 @@ GSC-Fassungen erzeugt.
 - [x] ⚠ Die Lizenz- und Redistributionsentscheidung für den ungeprüften,
       nichtkommerziellen Review-Snapshot ist als dokumentierte
       Projektarbeitsannahme festgehalten, nicht als rechtliche Freigabe.
-- [ ] Bewertungsregel für das Gold aller Gruppen festlegen: welche Kombinationen
-      aus Aussagestatus, betroffener Person und Zeitlichkeit als Gold zählen
-      (Issue #2).
+- [ ] Qualitätsfilter für ungeeignete Texte vor oder nach dem ärztlichen
+      Review anwenden, in jedem Fall vor Beginn der Benchmark-Analyse;
+      ausgeschlossene Texte mit Begründung gelistet lassen.
+- [ ] Bewertungsregeln nach der Annotation festlegen. Der Datensatz
+      unterstützt mindestens eine Sicht „nur vorhandene Befunde des
+      Patienten“ (vergleichbar mit GSC/CSC) und eine aussagebewusste Sicht
+      (HPO-ID und Aussagestatus).
+- [x] Achsen und Vollständigkeit festgelegt (2026-10-06, Richtlinie R0/R3):
+      betroffene Person `patient`/`family_member`/`other`, Zeitbezug
+      `current`/`historical`, kein „ausgeheilt“, kein Aussagekontext;
+      hypothetische und allgemeine Aussagen werden nicht annotiert, alle
+      übrigen Phänotyp-Befunde jeder Person und jedes Status schon.
+- [ ] Issue #2 auf diesen Stand bringen (Entwurf vor dem Posten zeigen).
 - [ ] Lizenznachweis (`license-evidence.yaml`) auf den versionierten
       246-Texte-Snapshot erweitern; bisher begründet er nur den
       30-Fälle-Snapshot.

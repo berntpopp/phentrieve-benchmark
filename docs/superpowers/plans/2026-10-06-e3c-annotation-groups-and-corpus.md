@@ -1520,8 +1520,493 @@ git commit -m "docs: record annotation groups and corpus build"
 
 ---
 
+### Task 10: Per-report attribution for all 246 reports
+
+The only per-report attribution (author, DOI, URL, license) lives in the
+30-case review snapshot README. The tracked 246-report translations have
+none. CC BY redistribution requires it, so it must exist before Task 11
+removes the snapshot. The values come from the `custom:METADATA` element of
+each E3C Layer 1 XMI file (attributes `docName`, `docAuthor`, `docDOI`,
+`docUrl`, `docLicense`).
+
+**Files:**
+- Create: `src/phentrieve_benchmark/normalization/e3c_attribution.py`
+- Test: `tests/unit/normalization/test_e3c_attribution.py`
+- Modify: `src/phentrieve_benchmark/cli.py`
+- Create (generated): `datasets/e3c-de/ATTRIBUTION.md`
+- Test: `tests/contracts/test_e3c_attribution.py`
+
+- [ ] **Step 1: Write the failing unit tests**
+
+```python
+# tests/unit/normalization/test_e3c_attribution.py
+import pytest
+
+from phentrieve_benchmark.normalization.e3c_attribution import (
+    E3cReportAttribution,
+    extract_attribution,
+    render_attribution_markdown,
+)
+
+_XMI = (
+    '<?xml version="1.0" encoding="UTF-8"?>'
+    '<xmi:XMI xmlns:xmi="http://www.omg.org/XMI" '
+    'xmlns:custom="http:///webanno/custom.ecore">'
+    '<custom:METADATA xmi:id="1" docName="{name}" docAuthor="{author}" '
+    'docDOI="10.1/x" docUrl="https://example.org/x" docLicense="CC BY 4.0"/>'
+    "</xmi:XMI>"
+)
+
+
+def _payload(name: str = "EN1", author: str = "A. Author; B. Author") -> bytes:
+    return _XMI.format(name=name, author=author).encode()
+
+
+def test_extracts_metadata_verbatim() -> None:
+    record = extract_attribution(_payload(), language="en")
+    assert record == E3cReportAttribution(
+        source_case_id="EN1",
+        language="en",
+        author="A. Author; B. Author",
+        doi="10.1/x",
+        url="https://example.org/x",
+        license="CC BY 4.0",
+    )
+
+
+def test_rejects_document_without_metadata() -> None:
+    payload = b'<xmi:XMI xmlns:xmi="http://www.omg.org/XMI"/>'
+    with pytest.raises(ValueError, match="exactly one METADATA"):
+        extract_attribution(payload, language="en")
+
+
+def test_renders_sorted_table_and_escapes_pipes() -> None:
+    first = extract_attribution(_payload("FR2", "X | Y"), language="fr")
+    second = extract_attribution(_payload("EN1"), language="en")
+    markdown = render_attribution_markdown(
+        [first, second], source_commit="f" * 40
+    )
+    rows = [line for line in markdown.splitlines() if line.startswith("| `")]
+    assert rows[0].startswith("| `EN1` | en |")
+    assert "X \\| Y" in rows[1]
+    assert "f" * 40 in markdown
+
+
+def test_rejects_duplicate_cases() -> None:
+    record = extract_attribution(_payload(), language="en")
+    with pytest.raises(ValueError, match="duplicate"):
+        render_attribution_markdown([record, record], source_commit="f" * 40)
+```
+
+- [ ] **Step 2: Run them to verify they fail**
+
+Run: `uv run pytest tests/unit/normalization/test_e3c_attribution.py -v`
+Expected: FAIL with `ModuleNotFoundError`.
+
+- [ ] **Step 3: Implement the module**
+
+```python
+# src/phentrieve_benchmark/normalization/e3c_attribution.py
+"""Per-report attribution from E3C Layer 1 XMI metadata."""
+
+from collections.abc import Sequence
+from typing import Literal
+
+from defusedxml import ElementTree  # type: ignore[import-untyped]
+from pydantic import BaseModel, ConfigDict, Field
+
+
+class E3cReportAttribution(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True, strict=True)
+
+    source_case_id: str = Field(min_length=1)
+    language: Literal["en", "fr", "es"]
+    author: str
+    doi: str
+    url: str
+    license: str
+
+
+def extract_attribution(
+    payload: bytes, *, language: Literal["en", "fr", "es"]
+) -> E3cReportAttribution:
+    root = ElementTree.fromstring(payload)
+    metadata = [
+        element for element in root.iter() if element.tag.endswith("}METADATA")
+    ]
+    if len(metadata) != 1:
+        raise ValueError("E3C document must have exactly one METADATA element")
+    attributes = metadata[0].attrib
+    name = attributes.get("docName", "")
+    if not name:
+        raise ValueError("E3C METADATA lacks docName")
+    return E3cReportAttribution(
+        source_case_id=name,
+        language=language,
+        author=attributes.get("docAuthor", ""),
+        doi=attributes.get("docDOI", ""),
+        url=attributes.get("docUrl", ""),
+        license=attributes.get("docLicense", ""),
+    )
+
+
+def _cell(value: str) -> str:
+    return value.replace("|", "\\|").strip()
+
+
+def render_attribution_markdown(
+    records: Sequence[E3cReportAttribution], *, source_commit: str
+) -> str:
+    case_ids = [record.source_case_id for record in records]
+    if len(case_ids) != len(set(case_ids)):
+        raise ValueError("duplicate E3C case in attribution")
+    lines = [
+        "# E3C report attribution",
+        "",
+        "Every E3C report used in this repository, with the attribution and",
+        "license metadata supplied by the E3C corpus (commit",
+        f"`{source_commit}`), retained verbatim. Generic `CC BY` and `CC-BY`",
+        "values are not assigned an inferred version. German texts are",
+        "machine-translated adaptations of these reports.",
+        "",
+        "Generated by `uv run phentrieve-benchmark attribution e3c`.",
+        "",
+        "| Case ID | Language | Supplied `docAuthor` | Supplied `docDOI` "
+        "| Supplied `docUrl` | Supplied `docLicense` |",
+        "|---|---|---|---|---|---|",
+    ]
+    for record in sorted(records, key=lambda item: item.source_case_id):
+        lines.append(
+            f"| `{record.source_case_id}` | {record.language} "
+            f"| {_cell(record.author)} | {_cell(record.doi)} "
+            f"| {_cell(record.url)} | `{_cell(record.license)}` |"
+        )
+    return "\n".join(lines) + "\n"
+```
+
+- [ ] **Step 4: Run the unit tests**
+
+Run: `uv run pytest tests/unit/normalization/test_e3c_attribution.py -v`
+Expected: 4 passed.
+
+- [ ] **Step 5: Add the command**
+
+In `src/phentrieve_benchmark/cli.py`, add imports
+
+```python
+from phentrieve_benchmark.models.pipeline import SourceSnapshotManifest
+from phentrieve_benchmark.normalization.e3c_attribution import (
+    E3cReportAttribution,
+    extract_attribution,
+    render_attribution_markdown,
+)
+```
+
+register a sub-app next to the others
+
+```python
+attribution_app = typer.Typer(no_args_is_help=True)
+app.add_typer(attribution_app, name="attribution")
+```
+
+and add:
+
+```python
+_E3C_LANGUAGE_DIRECTORIES: dict[str, Literal["en", "fr", "es"]] = {
+    "English": "en",
+    "French": "fr",
+    "Spanish": "es",
+}
+
+
+@attribution_app.command("e3c")
+def attribution_e3c_command(
+    dataset_root: DatasetRoot = Path("datasets"),
+    artifact_root: ArtifactRoot = Path(".artifacts"),
+) -> None:
+    """Write per-report attribution for every E3C report in the inventory."""
+    context = _pipeline_context(dataset_root, artifact_root)
+    _, normalization = verified_e3c_normalization(context)
+    snapshot = SourceSnapshotManifest.model_validate_json(
+        context.store.read_bytes(normalization.source_snapshot_sha256),
+        strict=True,
+    )
+    records: list[E3cReportAttribution] = []
+    for member in snapshot.members:
+        parts = member.path.split("/")
+        if "layer1" not in parts or not member.path.endswith(".xml"):
+            continue
+        language = _E3C_LANGUAGE_DIRECTORIES[parts[parts.index("layer1") - 1]]
+        records.append(
+            extract_attribution(
+                context.store.read_bytes(member.sha256), language=language
+            )
+        )
+    inventory = load_e3c_inventory(
+        (context.dataset_root / _E3C_INVENTORY).read_bytes()
+    )
+    expected = {record.source_case_id for record in inventory}
+    found = {record.source_case_id for record in records}
+    if found != expected:
+        raise typer.BadParameter(
+            f"attribution cases differ from inventory: "
+            f"missing={sorted(expected - found)} extra={sorted(found - expected)}"
+        )
+    destination = context.dataset_root / "e3c-de/ATTRIBUTION.md"
+    destination.write_text(
+        render_attribution_markdown(records, source_commit=snapshot.source_commit),
+        encoding="utf-8",
+        newline="\n",
+    )
+    typer.echo(f"destination={destination} reports={len(records)}")
+```
+
+- [ ] **Step 6: Generate the attribution file**
+
+Run: `uv run phentrieve-benchmark attribution e3c`
+Expected: `destination=datasets/e3c-de/ATTRIBUTION.md reports=246`.
+
+Spot-check: the rows for `EN100075` and `FR100078` must equal the values in
+`datasets/e3c-de/review/e3c-de-feasibility-30-v1/README.md`.
+
+- [ ] **Step 7: Write and run the contract test**
+
+```python
+# tests/contracts/test_e3c_attribution.py
+from pathlib import Path
+
+from phentrieve_benchmark.selection.groups import load_e3c_inventory
+
+ROOT = Path(__file__).parents[2]
+INVENTORY = ROOT / "datasets/e3c-de/inventories/e3c-v2.0.0-l1-en-fr-es-v1.json"
+ATTRIBUTION = ROOT / "datasets/e3c-de/ATTRIBUTION.md"
+
+
+def test_attribution_lists_every_inventory_report_once() -> None:
+    rows = [
+        line
+        for line in ATTRIBUTION.read_text(encoding="utf-8").splitlines()
+        if line.startswith("| `")
+    ]
+    case_ids = [row.split("`")[1] for row in rows]
+    expected = {
+        record.source_case_id
+        for record in load_e3c_inventory(INVENTORY.read_bytes())
+    }
+    assert len(case_ids) == len(set(case_ids))
+    assert set(case_ids) == expected
+```
+
+Run: `uv run pytest tests/contracts/test_e3c_attribution.py tests/unit/normalization -v && uv run ruff check . && uv run mypy`
+Expected: all pass.
+
+- [ ] **Step 8: Point the license documentation to the new file**
+
+In `datasets/e3c-de/LICENSES.md`, replace the paragraph that links the
+review package's per-case attribution appendix with:
+
+```markdown
+Each original report also supplies its own `docAuthor`, `docDOI`, `docUrl`,
+and `docLicense`. Those values are retained verbatim for all 246 reports in
+[`ATTRIBUTION.md`](ATTRIBUTION.md), generated from the pinned source.
+```
+
+- [ ] **Step 9: Commit**
+
+```bash
+git add src/phentrieve_benchmark/normalization/e3c_attribution.py tests/unit/normalization/test_e3c_attribution.py tests/contracts/test_e3c_attribution.py src/phentrieve_benchmark/cli.py datasets/e3c-de/ATTRIBUTION.md datasets/e3c-de/LICENSES.md
+git commit -m "feat: record per-report attribution for all E3C reports"
+```
+
+---
+
+### Task 11: Remove the tracked 30-case feasibility data
+
+Decided 2026-10-06: remove the tracked data only; the code that computes the
+feasibility selection stays and writes to the local artifact store. Removed
+files remain recoverable from Git history (for example
+`git show 697178c:datasets/e3c-de/selections/e3c-de-feasibility-30-v1.json`).
+The Phase 0 probe (`annotation-feasibility/`) and the audit files stay.
+`scripts/build_editor_packages.py e3c` stops working until its Phase 3
+rebuild; `gsc` is unaffected.
+
+**Files:**
+- Delete: `datasets/e3c-de/review/e3c-de-feasibility-30-v1/`
+- Delete: `datasets/e3c-de/selections/e3c-de-feasibility-30-v1.json`
+- Delete: `datasets/e3c-de/mappings/e3c-feasibility-30-umls-hpo-v2026-06-23-v1.json`
+- Delete: `tests/contracts/test_e3c_review_resources.py`, `tests/contracts/test_translation_review_workbook.py`
+- Modify: `.gitattributes`, `tests/contracts/test_tracked_dataset_outputs.py`, `tests/unit/pipeline/test_translate.py`, `tests/unit/pipeline/test_translation_review_export.py`
+- Modify: `README.md`, `datasets/e3c-de/README.md`, `datasets/e3c-de/LICENSES.md`, `datasets/e3c-de/translations/README.md`, `datasets/e3c-de/selection-policy.md`
+
+- [ ] **Step 1: Port the language-filter coverage before deleting its contract test**
+
+Append to `tests/unit/pipeline/test_translation_review_export.py`:
+
+```python
+def test_export_can_be_restricted_to_one_source_language(tmp_path: Path) -> None:
+    store = ArtifactStore(tmp_path / "objects")
+    tllm, _ = _manifests(store)
+
+    export_sha256 = export_translation_review(
+        store=store,
+        tllm_manifest=tllm,
+        destination=tmp_path / "review.xlsx",
+        review_policy_id="medical-review-v1",
+        source_language="fr",
+    )
+
+    export = TranslationReviewExport.model_validate_json(
+        store.read_bytes(export_sha256), strict=True
+    )
+    assert [case.source_case_id for case in export.cases] == ["FR2"]
+
+
+def test_export_rejects_a_language_without_cases(tmp_path: Path) -> None:
+    store = ArtifactStore(tmp_path / "objects")
+    tllm, _ = _manifests(store)
+
+    with pytest.raises(ValueError, match="no case in source language"):
+        export_translation_review(
+            store=store,
+            tllm_manifest=tllm,
+            destination=tmp_path / "review.xlsx",
+            review_policy_id="medical-review-v1",
+            source_language="it",
+        )
+```
+
+Run: `uv run pytest tests/unit/pipeline/test_translation_review_export.py -v`
+Expected: all pass.
+
+- [ ] **Step 2: Compute the feasibility selection in `test_translate.py` instead of reading the tracked file**
+
+In `tests/unit/pipeline/test_translate.py`, in
+`test_current_full_tllm_preview_counts_only_216_untranslated_cases`, replace
+
+```python
+    selected = json.loads(
+        (ROOT / "datasets/e3c-de/selections/e3c-de-feasibility-30-v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    selected_ids = {item["source_case_id"] for item in selected["records"]}
+```
+
+with
+
+```python
+    selection = select_e3c_feasibility(
+        load_e3c_inventory(
+            (
+                ROOT / "datasets/e3c-de/inventories/e3c-v2.0.0-l1-en-fr-es-v1.json"
+            ).read_bytes()
+        )
+    )
+    selected_ids = {record.source_case_id for record in selection.records}
+```
+
+and add the imports
+
+```python
+from phentrieve_benchmark.selection.e3c import select_e3c_feasibility
+from phentrieve_benchmark.selection.groups import load_e3c_inventory
+```
+
+Run: `uv run pytest tests/unit/pipeline/test_translate.py -v`
+Expected: all pass (the computed selection equals the former tracked one).
+
+- [ ] **Step 3: Reduce the tracked-output contract test to the remaining files**
+
+Replace the body of `tests/contracts/test_tracked_dataset_outputs.py` above
+`def test_tracked_e3c_mapping_outputs_are_text_free_and_exact` so that it no
+longer defines `SELECTION` or `SELECTED_MAPPING`, and rename and shorten the
+first test:
+
+```python
+def test_tracked_e3c_inventory_is_text_free_and_exact() -> None:
+    inventory_bytes = INVENTORY.read_bytes()
+    inventory = json.loads(inventory_bytes)
+
+    assert sha256_bytes(inventory_bytes) == (
+        "20070d0e425148ceab9f9828e1b55e2f9fce8ae7762419a6f7f908ec62111e1b"
+    )
+    assert len(inventory) == 246
+    identities = {
+        (item["language"], item["source_case_id"]) for item in inventory
+    }
+    assert len(identities) == 246
+    assert not _keys(inventory) & PROHIBITED
+```
+
+In `test_tracked_e3c_mapping_outputs_are_text_free_and_exact`, delete every
+line that reads or asserts on `SELECTED_MAPPING`/`selected_bytes`/`selected`
+(its hash, `population_case_ids` length 30, `records` length 458, and the
+subset check), and drop `| _keys(selected)` from the final assertion.
+Remove the now unused `Counter` import.
+
+- [ ] **Step 4: Delete the data, the snapshot tests, and the attribute rule**
+
+```bash
+git rm -r -q datasets/e3c-de/review/e3c-de-feasibility-30-v1
+git rm -q datasets/e3c-de/selections/e3c-de-feasibility-30-v1.json \
+  datasets/e3c-de/mappings/e3c-feasibility-30-umls-hpo-v2026-06-23-v1.json \
+  tests/contracts/test_e3c_review_resources.py \
+  tests/contracts/test_translation_review_workbook.py
+```
+
+In `.gitattributes`, delete the line
+`/datasets/e3c-de/review/e3c-de-feasibility-30-v1/** text eol=lf`.
+
+- [ ] **Step 5: Update the documentation**
+
+- `README.md`: replace the sentence about the tracked 30-case snapshot with:
+  "The explicit exception is the tracked, unreviewed 246-report E3C German
+  translation snapshot under `datasets/e3c-de/translations/`, with per-report
+  attribution in `datasets/e3c-de/ATTRIBUTION.md`."
+- `datasets/e3c-de/README.md`: replace the statements that a 30-case snapshot
+  is tracked under `review/` and that "the selected 30 reports have been
+  translated" with the current state: all 246 reports are translated with
+  `tllm-full`; the 30-case NMT/TLLM feasibility snapshot was removed on
+  2026-10-06 and remains in Git history.
+- `datasets/e3c-de/LICENSES.md`: replace "The selected 30-case source and
+  unreviewed German translation snapshot under `review/`" with "The tracked
+  246-report source and unreviewed German translation snapshot under
+  `translations/`".
+- `datasets/e3c-de/translations/README.md`: remove the sentence that the
+  30 cases are additionally tracked in `../review/`.
+- `datasets/e3c-de/selection-policy.md`: add at the top: "The feasibility
+  selection below is historical (Phase 0). Its tracked manifest was removed
+  on 2026-10-06 and remains in Git history; the working split is
+  `selections/e3c-annotation-groups-v1.json` (algorithm in
+  `src/phentrieve_benchmark/selection/groups.py`)."
+
+- [ ] **Step 6: Verify no dangling references remain**
+
+Run:
+
+```bash
+git grep -n -e "review/e3c-de-feasibility-30-v1" -e "selections/e3c-de-feasibility-30-v1.json" -e "e3c-feasibility-30-umls-hpo" -- . ':!docs/superpowers' ':!datasets/e3c-de/mappings/audit' ':!scripts/build_editor_packages.py'
+```
+
+Expected: no output. (Audit JSON files keep their historical paths; the
+editor script is rebuilt in Phase 3.)
+
+Run: `uv run pytest -q && uv run ruff check . && uv run mypy && uv run python scripts/check_repository_safety.py`
+Expected: all pass. (`check_repository_safety.py` requires a clean worktree;
+run it after the commit if it reports unstaged changes.)
+
+- [ ] **Step 7: Commit**
+
+```bash
+git add -A README.md .gitattributes datasets/e3c-de tests
+git commit -m "chore: remove tracked 30-case feasibility data"
+```
+
+---
+
 ## Self-Review Notes
 
+- Decision 2026-10-06 (remove tracked 30-case data, attribution first) → Tasks 10, 11.
 - Spec §4 (cleanup) → Tasks 2, 3. §5.1 (split) → Tasks 4, 5. §5.2 (corpus, reviewed-only German text, pending list) → Tasks 7, 8. §5.3 (review retarget) → Task 6, run in Task 9. §7 coverage exclusion → Task 3.
 - Local `.artifacts` cleanup is intentionally deferred to after Phase 3 (spec §4).
 - Names used across tasks: `assign_annotation_groups`, `load_e3c_inventory`, `AnnotationGroupManifest.case_ids`, `build_annotation_corpus`, `AnnotationCorpusManifest`, `verified_e3c_normalization`, `_E3C_GROUPS`.

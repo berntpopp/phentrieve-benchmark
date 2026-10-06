@@ -45,7 +45,9 @@ Goals:
 Non-goals:
 
 - a quality filter for unsuitable reports. It is planned for later and will
-  be a separate, explicit selection step on top of the split;
+  be a separate, explicit selection step on top of the split. It runs before
+  or after the physician review, but always before the benchmark analysis
+  starts; excluded reports stay listed with a reason (decided 2026-10-06);
 - semantic or automated translation review;
 - span-level evaluation; scoring stays document-level by HPO ID;
 - changes to the editor beyond profile configuration;
@@ -264,7 +266,7 @@ annotation group:
 - one evidence mention per occurrence; the current builder's
   several-spans-as-segments behaviour is removed;
 - profile: assertion, experiencer, and temporality required
-  (`allow_empty=False`); new required axis `verbalization` with
+  (`allow_empty=False`) with the values of guideline R3; new required axis `verbalization` with
   `verbalized`/`not_verbalized`; `evidence_policy` requiring evidence on
   completion;
 - proposal axis values come from the proposal step;
@@ -283,15 +285,18 @@ The GSC package keeps its current content.
 
 v1 is not reinterpreted. v2 adds:
 
+- the attribute values of guideline R3: experiencer `patient`,
+  `family_member`, `other`; temporality `current`, `historical` (no
+  `future`);
 - `verbalized: bool` on each annotation (guideline R6);
 - a derivation source kind `llm_proposal` referencing the proposal run's
   validation report hash and the proposal ID, and a derivation method for
   reviewed machine proposals. Validation checks that the referenced proposal
   belongs to the same corpus document.
 
-Contiguous `EvidenceSpan`s and the status fields stay as in v1. The axis
-values themselves depend on the open schema decision in issue #2 and must be
-settled before the editor profile is final.
+Contiguous `EvidenceSpan`s and assertion values stay as in v1. The axis
+values were settled on 2026-10-06 (guideline R3) and replace the open
+proposals of issue #2 for this dataset; the issue is updated accordingly.
 
 v2 is not a drop-in change: `curation/validation.py`,
 `models/review_decision.py`, `review/merge.py`, and
@@ -362,8 +367,9 @@ planned.
 
 ## 10. Open Questions
 
-- Scoring rule for the gold of each group: which combinations of assertion,
-  experiencer, and temporality count (issue #2).
+- Scoring rules for each group, decided after annotation (2026-10-06). The
+  annotation captures everything needed for both a present-only patient view
+  and an assertion-aware view.
 - Whether the pilot result justifies a second, independent proposal pass for
   comparison (not planned).
 - Timing of the later quality filter relative to annotation.
