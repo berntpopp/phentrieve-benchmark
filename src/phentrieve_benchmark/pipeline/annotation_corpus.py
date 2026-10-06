@@ -52,13 +52,7 @@ def _accepted_reviews(
         manifest = TranslationReviewImportManifest.model_validate_json(
             store.read_bytes(import_sha256), strict=True
         )
-        seen: set[str] = set()
         for entry in manifest.entries:
-            if entry.source_case_id in seen:
-                raise ValueError(
-                    f"case {entry.source_case_id} appears twice in one review import"
-                )
-            seen.add(entry.source_case_id)
             record = TranslationReviewRecord.model_validate_json(
                 store.read_bytes(entry.record_sha256), strict=True
             )
@@ -151,7 +145,7 @@ def build_annotation_corpus(
                 document_id=document.document_id,
                 document_sha256=document.document_sha256,
                 review_import_sha256=import_sha256,
-                review_record_sha256=record_sha256,
+                translation_review_record_sha256=record_sha256,
             )
         )
     documents_sha256 = store.put_bytes(

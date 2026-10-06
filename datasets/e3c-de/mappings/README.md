@@ -23,8 +23,9 @@ annotations. Results are:
 including 311 `CUILESS`, 78 absent identifiers, two `C036572` values, and one
 `C0042963x` value.
 
-The selected 30-case view contains 458 annotations: 162 `unique_active`, 3
-`ambiguous`, 244 `missing`, 0 `obsolete`, and 49 `invalid`.
+The selected 30-case view (no longer tracked; written to the local artifact
+store, earlier version in Git history) contains 458 annotations: 162
+`unique_active`, 3 `ambiguous`, 244 `missing`, 0 `obsolete`, and 49 `invalid`.
 
 The pinned ontology contains one malformed cross-reference,
 `HP:0034420 -> UMLS:0189573`. It is excluded rather than silently rewritten
@@ -65,7 +66,8 @@ by HPO was also tested:
 The file contained 19,213 mappings and was last modified on 2026-07-19. It
 covered 113 of the 945 unique valid CUIs missing from the direct HPO
 cross-references, corresponding to 230 source annotations. In the selected
-30-case view, it covered 19 CUIs and 27 annotations. Every matched CUI had
+30-case view (no longer tracked, see above), it covered 19 CUIs and 27
+annotations. Every matched CUI had
 exactly one target.
 
 Validation against pinned HPO `v2026-06-23` found 108 active targets and five

@@ -15,9 +15,10 @@ directory. An explicit snapshot containing the canonical source texts and the
 unreviewed German translations (`tllm-full` variant) of all 246 reports is
 tracked under `translations/` for non-commercial scientific review.
 
-Only the text-free inventory and selection manifest are tracked for the full
-corpus. Upstream licensing and the explicit translation-snapshot redistribution
-decision are recorded in `license-evidence.yaml` and `LICENSES.md`.
+For the full corpus, the text-free inventory and the annotation group manifest
+(`selections/e3c-annotation-groups-v1.json`) are also tracked. Upstream
+licensing and the explicit translation-snapshot redistribution decision are
+recorded in `license-evidence.yaml` and `LICENSES.md`.
 
 Run `uv run phentrieve-benchmark prepare e3c`; use
 `uv run phentrieve-benchmark smoke live-download` only for an explicit live

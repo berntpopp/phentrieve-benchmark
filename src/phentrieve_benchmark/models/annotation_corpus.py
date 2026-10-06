@@ -14,16 +14,17 @@ class AnnotationCorpusEntry(BaseModel):
     document_id: str = Field(min_length=1)
     document_sha256: Sha256Hex
     review_import_sha256: Sha256Hex | None = None
-    review_record_sha256: Sha256Hex | None = None
+    translation_review_record_sha256: Sha256Hex | None = None
 
     @model_validator(mode="after")
     def german_entries_cite_their_review(self) -> Self:
         cites_review = (
             self.review_import_sha256 is not None
-            and self.review_record_sha256 is not None
+            and self.translation_review_record_sha256 is not None
         )
         no_review = (
-            self.review_import_sha256 is None and self.review_record_sha256 is None
+            self.review_import_sha256 is None
+            and self.translation_review_record_sha256 is None
         )
         if self.annotation_language == "de" and not cites_review:
             raise ValueError("German corpus entries must cite their review")
