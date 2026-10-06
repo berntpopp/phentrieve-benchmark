@@ -108,16 +108,13 @@ records and manifests contain only identifiers, hashes, provider metadata,
 checks, counts, and costs—not report text. A retry creates a new translation
 identity; an existing compatible successful result is reused.
 
-The exact 30-case source texts and both current unreviewed translation variants
-are additionally tracked in the case-oriented `../review/` snapshot for
-non-commercial scientific review. That review snapshot is not the canonical
-artifact store and does not change translation identity or status.
-
 The complete authorized 246-case `tllm-full` result is tracked byte-for-byte
 under [e3c-de-full-246-google-tllm-v1/](e3c-de-full-246-google-tllm-v1/) for
 sharing and backup. It contains the canonical manifest plus the existing flat
 readable view; the manifest SHA-256 is
 `759f00260dab85a3fbeb24204683f790b4b14a18759c2bb80910ff1725b4451a`.
+Per-report attribution and license of the original reports are recorded in
+[`../ATTRIBUTION.md`](../ATTRIBUTION.md).
 
 Reuse is keyed by a semantic hash that contains the recipe hash, so the two
 variants publish independently and neither invalidates the other. The

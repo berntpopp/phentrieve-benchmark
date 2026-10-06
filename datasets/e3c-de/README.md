@@ -11,12 +11,12 @@ with SHA-256
 The recipe selects only Layer 1 XML: 84 English, 81 French, and 81 Spanish
 documents. These are public upstream data. The complete source XML snapshot
 and canonical generated artifacts remain under the Git-ignored `.artifacts/`
-directory. An explicit 30-case snapshot containing selected canonical source
-texts and both unreviewed German translation variants is tracked under
-`review/` for non-commercial scientific review.
+directory. An explicit snapshot containing the canonical source texts and the
+unreviewed German translations (`tllm-full` variant) of all 246 reports is
+tracked under `translations/` for non-commercial scientific review.
 
 Only the text-free inventory and selection manifest are tracked for the full
-corpus. Upstream licensing and the explicit review-snapshot redistribution
+corpus. Upstream licensing and the explicit translation-snapshot redistribution
 decision are recorded in `license-evidence.yaml` and `LICENSES.md`.
 
 Run `uv run phentrieve-benchmark prepare e3c`; use
@@ -25,12 +25,13 @@ verification. XMI offsets are interpreted as UTF-16 code-unit offsets and
 mapped to NFC-normalized canonical text. Terminal formatting newlines are
 removed according to the adapter contract.
 
-The selected 30 reports have been translated into German with both Google
-variants: `general/nmt`, pinned by `translation.yaml`, and
-`general/translation-llm`, pinned by `translation-llm.yaml`. Operation,
-costing, artifact separation, and review boundaries are documented in
-`translations/README.md`. Translation runs remain outside regular offline CI
-and require explicit confirmation after the cost preview.
+All 246 reports have been translated into German with the Google Translation
+LLM (`general/translation-llm`, variant `tllm-full`, pinned by
+`translation-llm-full.yaml`). The earlier 30-case NMT/TLLM feasibility
+snapshot was removed from the tracked files on 2026-10-06 and remains in Git
+history. Operation, costing, artifact separation, and review boundaries are
+documented in `translations/README.md`. Translation runs remain outside
+regular offline CI and require explicit confirmation after the cost preview.
 
 UMLS-to-HPO mapping is an independent, local stage and does not require a
 translation or Google credentials. Run

@@ -1,3 +1,8 @@
+The feasibility selection below is historical (Phase 0). Its tracked manifest
+was removed on 2026-10-06 and remains in Git history; the working split is
+`selections/e3c-annotation-groups-v1.json` (algorithm in
+`src/phentrieve_benchmark/selection/groups.py`).
+
 # E3C feasibility selection policy
 
 Document length is measured locally as `len(canonical_text.split())`.

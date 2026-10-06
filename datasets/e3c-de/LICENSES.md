@@ -8,8 +8,8 @@ This corpus-level statement is the basis for the project's documented working
 assumption about non-commercial scientific review, not legal clearance.
 
 The complete acquired corpus remains in Git-ignored local artifacts. The
-selected 30-case source and unreviewed German translation snapshot under
-`review/` is redistributed for attributed, non-commercial scientific review
+tracked 246-report source and unreviewed German translation snapshot under
+`translations/` is redistributed for attributed, non-commercial scientific review
 under the project's documented working assumption. The unspecified upstream
 license version remains recorded rather than silently resolved.
 
@@ -21,9 +21,12 @@ version-unspecified; no license version is inferred from them. Seven reports
 supply `CC BY-NC`; their non-commercial condition applies independently of how
 the corpus-level license is resolved.
 
-Every German `*.de.txt` file in the review package is an unreviewed
-machine-translated adaptation of its attributed original report. This applies
-to both the NMT and Translation LLM variants.
+Every German `*.translation.de.txt` file under
+`translations/e3c-de-full-246-google-tllm-v1/` is an unreviewed
+machine-translated adaptation of its attributed original report. The files
+themselves carry no notice; the adaptation status is stated here and the
+per-report attribution is in [`ATTRIBUTION.md`](ATTRIBUTION.md). Only the
+Translation LLM variant (`tllm-full`) is tracked.
 
-The review snapshot is not an accepted benchmark release and must not be used
-for clinical decisions.
+The translation snapshot is not an accepted benchmark release and must not be
+used for clinical decisions.
