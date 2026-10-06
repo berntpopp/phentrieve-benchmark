@@ -1,11 +1,17 @@
 from dataclasses import dataclass
 from decimal import Decimal
+from fractions import Fraction
 from pathlib import Path
 
+import pytest
 from typer.testing import CliRunner
 
 from phentrieve_benchmark import cli
 from phentrieve_benchmark.artifacts.store import ArtifactStore
+from phentrieve_benchmark.models.annotation_corpus import (
+    AnnotationCorpusEntry,
+    AnnotationCorpusManifest,
+)
 from phentrieve_benchmark.models.pipeline import ProvenanceSubjectRole
 from phentrieve_benchmark.models.review import (
     ManualReviewRequirement,
@@ -24,6 +30,11 @@ from phentrieve_benchmark.pipeline.translate import (
 )
 from phentrieve_benchmark.policies.paid_operations import CostEstimate
 from phentrieve_benchmark.provenance.canonical import canonical_json_bytes
+from phentrieve_benchmark.selection.groups import (
+    AnnotationGroupManifest,
+    AnnotationGroupRecord,
+)
+from phentrieve_benchmark.selection.metrics import LengthStratum, Rational
 
 
 def test_acquire_command_prints_only_stable_stage_identity(
@@ -70,6 +81,8 @@ def test_pipeline_command_groups_are_exposed() -> None:
         "prepare",
         "translate",
         "review-workbook",
+        "build-corpus",
+        "attribution",
         "map-hpo",
         "smoke",
     ):
@@ -121,6 +134,7 @@ def test_review_workbook_export_resolves_tllm_and_omits_nmt_by_default(
             "review_policy_id": "e3c:translation-review/v1",
             "nmt_manifest": None,
             "source_language": None,
+            "case_ids": None,
         }
     ]
     assert invocation.stdout == f"export_sha256={'a' * 64} cases=30\n"
@@ -572,3 +586,221 @@ def test_review_workbook_export_filters_language_and_reports_that_count(
     assert invocation.exit_code == 0, invocation.exception
     assert calls[0]["source_language"] == "fr"
     assert invocation.stdout == f"export_sha256={'a' * 64} cases=10\n"
+
+
+def test_review_workbook_export_restricts_to_the_german_group(
+    tmp_path: Path, monkeypatch: object
+) -> None:
+    def group_record(
+        case_id: str, source_language: str, annotation_language: str
+    ) -> AnnotationGroupRecord:
+        return AnnotationGroupRecord(
+            source_case_id=case_id,
+            source_language=source_language,  # type: ignore[arg-type]
+            annotation_language=annotation_language,  # type: ignore[arg-type]
+            document_sha256="d" * 64,
+            length_stratum=LengthStratum.SHORT,
+            total_annotation_density=Rational.from_fraction(Fraction(1)),
+        )
+
+    groups_path = tmp_path / "groups.json"
+    groups_path.write_bytes(
+        AnnotationGroupManifest(
+            inventory_sha256="e" * 64,
+            records=(
+                group_record("FR2", "fr", "de"),
+                group_record("EN1", "en", "en"),
+                group_record("ES3", "es", "de"),
+            ),
+            aggregate_sha256="f" * 64,
+        ).canonical_bytes()
+    )
+    tllm_manifest = type(
+        "Manifest",
+        (),
+        {
+            "records": tuple(
+                type("Record", (), {"source_case_id": case_id})()
+                for case_id in ("EN1", "ES3", "FR2", "FR9")
+            )
+        },
+    )()
+    context = type(
+        "Context",
+        (),
+        {
+            "store": object(),
+            "artifact_root": tmp_path / "artifacts",
+            "dataset_root": tmp_path / "datasets",
+        },
+    )()
+    monkeypatch.setattr(cli, "_pipeline_context", lambda *_: context)  # type: ignore[attr-defined]
+    resolved: list[str] = []
+    monkeypatch.setattr(
+        cli,
+        "_resolve_review_translation_manifest",
+        lambda *, context, variant: resolved.append(variant) or tllm_manifest,
+    )  # type: ignore[attr-defined]
+    calls: list[dict[str, object]] = []
+    monkeypatch.setattr(
+        cli,
+        "export_translation_review",
+        lambda **kwargs: calls.append(kwargs) or "a" * 64,
+    )  # type: ignore[attr-defined]
+
+    invocation = CliRunner().invoke(
+        cli.app,
+        [
+            "review-workbook",
+            "export-e3c",
+            str(tmp_path / "review.xlsx"),
+            "--variant",
+            "tllm-full",
+            "--groups",
+            str(groups_path),
+        ],
+    )
+
+    assert invocation.exit_code == 0, invocation.exception
+    assert resolved == ["tllm-full"]
+    assert calls[0]["case_ids"] == ("ES3", "FR2")
+    assert invocation.stdout == f"export_sha256={'a' * 64} cases=2\n"
+
+
+@pytest.mark.parametrize(
+    ("extra_args", "message"),
+    [
+        ([], "requires --variant tllm-full"),
+        (
+            ["--variant", "tllm-full", "--include-nmt"],
+            "cannot be combined with --include-nmt",
+        ),
+    ],
+)
+def test_review_workbook_export_guards_group_options(
+    tmp_path: Path, extra_args: list[str], message: str
+) -> None:
+    invocation = CliRunner().invoke(
+        cli.app,
+        [
+            "review-workbook",
+            "export-e3c",
+            str(tmp_path / "review.xlsx"),
+            "--groups",
+            str(tmp_path / "groups.json"),
+            *extra_args,
+        ],
+    )
+
+    assert invocation.exit_code == 2
+    assert message in " ".join(invocation.stderr.split())
+
+
+def _build_corpus_fixture(
+    tmp_path: Path, monkeypatch: object, *, groups_inventory: str
+) -> tuple[list[dict[str, object]], Path]:
+    dataset_root = tmp_path / "datasets"
+    groups_path = dataset_root / cli._E3C_GROUPS  # type: ignore[attr-defined]
+    groups_path.parent.mkdir(parents=True)
+    groups_path.write_bytes(
+        AnnotationGroupManifest(
+            inventory_sha256=groups_inventory,
+            records=(),
+            aggregate_sha256="f" * 64,
+        ).canonical_bytes()
+    )
+    corpus = AnnotationCorpusManifest(
+        groups_sha256="1" * 64,
+        native_documents_sha256="2" * 64,
+        documents_sha256="3" * 64,
+        entries=(
+            AnnotationCorpusEntry(
+                source_case_id="EN1",
+                annotation_language="en",
+                document_id="en-1",
+                document_sha256="4" * 64,
+            ),
+        ),
+        pending_review=("ES3", "FR2"),
+    )
+    store = type(
+        "Store", (), {"read_bytes": lambda self, digest: corpus.canonical_bytes()}
+    )()
+    context = type(
+        "Context",
+        (),
+        {
+            "store": store,
+            "artifact_root": tmp_path / "artifacts",
+            "dataset_root": dataset_root,
+        },
+    )()
+    normalization = type(
+        "Normalization",
+        (),
+        {
+            "inventory": type("Ref", (), {"sha256": "e" * 64})(),
+            "documents": type("Ref", (), {"sha256": "d" * 64})(),
+        },
+    )()
+    monkeypatch.setattr(cli, "_pipeline_context", lambda *_: context)  # type: ignore[attr-defined]
+    monkeypatch.setattr(
+        cli,
+        "verified_e3c_normalization",
+        lambda _context: (object(), normalization),
+    )  # type: ignore[attr-defined]
+    calls: list[dict[str, object]] = []
+    monkeypatch.setattr(
+        cli,
+        "build_annotation_corpus",
+        lambda **kwargs: calls.append(kwargs) or "c" * 64,
+    )  # type: ignore[attr-defined]
+    return calls, dataset_root
+
+
+def test_build_corpus_passes_review_imports_in_the_given_order(
+    tmp_path: Path, monkeypatch: object
+) -> None:
+    calls, dataset_root = _build_corpus_fixture(
+        tmp_path, monkeypatch, groups_inventory="e" * 64
+    )
+
+    invocation = CliRunner().invoke(
+        cli.app,
+        [
+            "build-corpus",
+            "e3c",
+            "--review-import",
+            "b" * 64,
+            "--review-import",
+            "a" * 64,
+            "--dataset-root",
+            str(dataset_root),
+        ],
+    )
+
+    assert invocation.exit_code == 0, invocation.exception
+    assert len(calls) == 1
+    assert calls[0]["review_import_sha256s"] == ("b" * 64, "a" * 64)
+    assert calls[0]["native_documents_sha256"] == "d" * 64
+    assert invocation.stdout == (
+        f"corpus_sha256={'c' * 64} de=0 en=1 fr=0 es=0 pending_review=2\n"
+    )
+
+
+def test_build_corpus_rejects_groups_from_a_different_inventory(
+    tmp_path: Path, monkeypatch: object
+) -> None:
+    calls, dataset_root = _build_corpus_fixture(
+        tmp_path, monkeypatch, groups_inventory="9" * 64
+    )
+
+    invocation = CliRunner().invoke(
+        cli.app,
+        ["build-corpus", "e3c", "--dataset-root", str(dataset_root)],
+    )
+
+    assert invocation.exit_code == 2
+    message = " ".join(invocation.stderr.replace("│", " ").split())
+    assert "different inventory" in message
+    assert calls == []

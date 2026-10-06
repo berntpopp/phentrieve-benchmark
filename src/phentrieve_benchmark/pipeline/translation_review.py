@@ -1,6 +1,6 @@
 import re
 import tempfile
-from collections.abc import Sequence
+from collections.abc import Collection, Sequence
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
@@ -176,14 +176,27 @@ def export_translation_review(
     review_policy_id: str,
     nmt_manifest: TranslationManifest | None = None,
     source_language: str | None = None,
+    case_ids: Collection[str] | None = None,
 ) -> str:
     """Store a canonical review export and write its Excel review workbook."""
+    all_records = _records_by_case(
+        tllm_manifest,
+        model="general/translation-llm",
+        variant="TLLM",
+    )
+    if case_ids is not None:
+        if nmt_manifest is not None:
+            raise ValueError("NMT comparison is not supported for case lists")
+        missing = set(case_ids) - all_records.keys()
+        if missing:
+            raise ValueError(f"TLLM manifest lacks cases: {sorted(missing)}")
+        all_records = {
+            case_id: record
+            for case_id, record in all_records.items()
+            if case_id in case_ids
+        }
     tllm_records = _filter_language(
-        _records_by_case(
-            tllm_manifest,
-            model="general/translation-llm",
-            variant="TLLM",
-        ),
+        all_records,
         source_language=source_language,
         variant="TLLM",
     )

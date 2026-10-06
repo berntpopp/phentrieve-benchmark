@@ -1,4 +1,6 @@
 import subprocess
+from collections import Counter
+from collections.abc import Iterable
 from dataclasses import replace
 from pathlib import Path
 from typing import Annotated, Literal
@@ -7,11 +9,19 @@ import typer
 
 from phentrieve_benchmark import __version__
 from phentrieve_benchmark.artifacts.store import ArtifactStore
+from phentrieve_benchmark.models.annotation_corpus import AnnotationCorpusManifest
+from phentrieve_benchmark.models.pipeline import SourceSnapshotManifest
 from phentrieve_benchmark.models.review import ManualReviewStatus, ReviewRecord
 from phentrieve_benchmark.models.translation import TranslationManifest
 from phentrieve_benchmark.models.translation_review import (
     TranslationReviewImportManifest,
 )
+from phentrieve_benchmark.normalization.e3c_attribution import (
+    E3cReportAttribution,
+    extract_attribution,
+    render_attribution_markdown,
+)
+from phentrieve_benchmark.pipeline.annotation_corpus import build_annotation_corpus
 from phentrieve_benchmark.pipeline.map_hpo import map_hpo_e3c
 from phentrieve_benchmark.pipeline.prepare import (
     PipelineContext,
@@ -20,6 +30,7 @@ from phentrieve_benchmark.pipeline.prepare import (
     normalize_target,
     prepare_target,
     select_e3c,
+    verified_e3c_normalization,
 )
 from phentrieve_benchmark.pipeline.translate import (
     estimate_prepared_translation,
@@ -32,6 +43,11 @@ from phentrieve_benchmark.pipeline.translation_review import (
     import_translation_review,
 )
 from phentrieve_benchmark.provenance.code_identity import code_sha256
+from phentrieve_benchmark.selection.groups import (
+    AnnotationGroupManifest,
+    assign_annotation_groups,
+    load_e3c_inventory,
+)
 from phentrieve_benchmark.translation.google_nmt import create_google_nmt_adapter
 from phentrieve_benchmark.translation.pricing import load_translation_recipe
 from phentrieve_benchmark.translation.variants import (
@@ -55,6 +71,8 @@ recheck_app = typer.Typer(no_args_is_help=True)
 recheck_translations_app = typer.Typer(no_args_is_help=True)
 map_hpo_app = typer.Typer(no_args_is_help=True)
 review_workbook_app = typer.Typer(no_args_is_help=True)
+build_corpus_app = typer.Typer(no_args_is_help=True)
+attribution_app = typer.Typer(no_args_is_help=True)
 DatasetRoot = Annotated[Path, typer.Option()]
 ArtifactRoot = Annotated[Path, typer.Option()]
 Cohort = Annotated[Literal["feasibility-30"], typer.Option()]
@@ -72,6 +90,8 @@ app.add_typer(recheck_app, name="recheck")
 recheck_app.add_typer(recheck_translations_app, name="translations")
 app.add_typer(map_hpo_app, name="map-hpo")
 app.add_typer(review_workbook_app, name="review-workbook")
+app.add_typer(build_corpus_app, name="build-corpus")
+app.add_typer(attribution_app, name="attribution")
 
 _TRANSLATION_REVIEW_POLICY_ID = "e3c:translation-review/v1"
 
@@ -147,16 +167,38 @@ def export_e3c_review_workbook_command(
     destination: Path,
     include_nmt: Annotated[bool, typer.Option("--include-nmt")] = False,
     language: SourceLanguage = None,
+    variant: Variant = "tllm",
+    groups: Annotated[Path | None, typer.Option("--groups")] = None,
     dataset_root: DatasetRoot = Path("datasets"),
     artifact_root: ArtifactRoot = Path(".artifacts"),
 ) -> None:
+    """Export a translation review workbook.
+
+    With --groups, only the German annotation group of that manifest is
+    exported; use it together with --variant tllm-full.
+    """
+    if groups is not None and variant != "tllm-full":
+        raise typer.BadParameter(
+            "requires --variant tllm-full", param_hint="--groups"
+        )
+    if groups is not None and include_nmt:
+        raise typer.BadParameter(
+            "cannot be combined with --include-nmt", param_hint="--groups"
+        )
     context = _pipeline_context(dataset_root, artifact_root)
     tllm_manifest = _resolve_review_translation_manifest(
-        context=context, variant="tllm"
+        context=context, variant=variant
     )
     nmt_manifest = (
         _resolve_review_translation_manifest(context=context, variant="nmt")
         if include_nmt
+        else None
+    )
+    case_ids = (
+        AnnotationGroupManifest.model_validate_json(
+            groups.read_bytes(), strict=True
+        ).case_ids("de")
+        if groups is not None
         else None
     )
     export_sha256 = export_translation_review(
@@ -166,11 +208,13 @@ def export_e3c_review_workbook_command(
         review_policy_id=_TRANSLATION_REVIEW_POLICY_ID,
         nmt_manifest=nmt_manifest,
         source_language=language,
+        case_ids=case_ids,
     )
     exported = [
         record
         for record in tllm_manifest.records
-        if language is None or record.source_language == language
+        if (language is None or record.source_language == language)
+        and (case_ids is None or record.source_case_id in case_ids)
     ]
     typer.echo(f"export_sha256={export_sha256} cases={len(exported)}")
 
@@ -359,6 +403,126 @@ def select_e3c_command(
             cohort, _pipeline_context(dataset_root, artifact_root)
         )
     )
+
+
+_E3C_INVENTORY = Path("e3c-de/inventories/e3c-v2.0.0-l1-en-fr-es-v1.json")
+_E3C_GROUPS = Path("e3c-de/selections/e3c-annotation-groups-v1.json")
+
+
+@select_app.command("e3c-groups")
+def select_e3c_groups_command(
+    dataset_root: DatasetRoot = Path("datasets"),
+) -> None:
+    """Split all E3C reports into the four annotation groups."""
+    manifest = assign_annotation_groups(
+        load_e3c_inventory((dataset_root / _E3C_INVENTORY).read_bytes())
+    )
+    destination = dataset_root / _E3C_GROUPS
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_bytes(manifest.canonical_bytes())
+    summary = _group_summary(
+        record.annotation_language for record in manifest.records
+    )
+    typer.echo(f"destination={destination} {summary}")
+
+
+def _group_summary(languages: Iterable[str]) -> str:
+    counts = Counter(languages)
+    return " ".join(
+        f"{language}={counts[language]}" for language in ("de", "en", "fr", "es")
+    )
+
+
+@build_corpus_app.command("e3c")
+def build_e3c_corpus_command(
+    review_import: Annotated[
+        list[str] | None, typer.Option("--review-import")
+    ] = None,
+    dataset_root: DatasetRoot = Path("datasets"),
+    artifact_root: ArtifactRoot = Path(".artifacts"),
+) -> None:
+    """Build the annotation corpus from the tracked group manifest.
+
+    Review imports are applied in the given order; for each case the last
+    decision wins (a later rejection or question makes it pending again).
+    """
+    context = _pipeline_context(dataset_root, artifact_root)
+    _, normalization = verified_e3c_normalization(context)
+    groups = AnnotationGroupManifest.model_validate_json(
+        (context.dataset_root / _E3C_GROUPS).read_bytes(), strict=True
+    )
+    if groups.inventory_sha256 != normalization.inventory.sha256:
+        raise typer.BadParameter(
+            "group manifest was built from a different inventory",
+            param_hint="--dataset-root",
+        )
+    corpus_sha256 = build_annotation_corpus(
+        store=context.store,
+        groups=groups,
+        native_documents_sha256=normalization.documents.sha256,
+        review_import_sha256s=tuple(review_import or ()),
+    )
+    manifest = AnnotationCorpusManifest.model_validate_json(
+        context.store.read_bytes(corpus_sha256), strict=True
+    )
+    summary = _group_summary(
+        entry.annotation_language for entry in manifest.entries
+    )
+    typer.echo(
+        f"corpus_sha256={corpus_sha256} {summary} "
+        f"pending_review={len(manifest.pending_review)}"
+    )
+
+
+_E3C_LANGUAGE_DIRECTORIES: dict[str, Literal["en", "fr", "es"]] = {
+    "English": "en",
+    "French": "fr",
+    "Spanish": "es",
+}
+
+
+@attribution_app.command("e3c")
+def attribution_e3c_command(
+    dataset_root: DatasetRoot = Path("datasets"),
+    artifact_root: ArtifactRoot = Path(".artifacts"),
+) -> None:
+    """Write per-report attribution for every E3C report in the inventory."""
+    context = _pipeline_context(dataset_root, artifact_root)
+    _, normalization = verified_e3c_normalization(context)
+    snapshot = SourceSnapshotManifest.model_validate_json(
+        context.store.read_bytes(normalization.source_snapshot_sha256),
+        strict=True,
+    )
+    records: list[E3cReportAttribution] = []
+    for member in snapshot.members:
+        parts = member.path.split("/")
+        if len(parts) != 4 or parts[0] != "data_annotation":
+            continue
+        if parts[2] != "layer1" or not member.path.endswith(".xml"):
+            continue
+        records.append(
+            extract_attribution(
+                context.store.read_bytes(member.sha256),
+                language=_E3C_LANGUAGE_DIRECTORIES[parts[1]],
+            )
+        )
+    inventory = load_e3c_inventory(
+        (context.dataset_root / _E3C_INVENTORY).read_bytes()
+    )
+    expected = {record.source_case_id for record in inventory}
+    found = {record.source_case_id for record in records}
+    if found != expected:
+        raise typer.BadParameter(
+            f"attribution cases differ from inventory: "
+            f"missing={sorted(expected - found)} extra={sorted(found - expected)}"
+        )
+    destination = context.dataset_root / "e3c-de/ATTRIBUTION.md"
+    destination.write_text(
+        render_attribution_markdown(records, source_commit=snapshot.source_commit),
+        encoding="utf-8",
+        newline="\n",
+    )
+    typer.echo(f"destination={destination} reports={len(records)}")
 
 
 def _prepare_command(

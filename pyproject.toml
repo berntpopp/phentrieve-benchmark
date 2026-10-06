@@ -53,3 +53,14 @@ python_version = "3.11"
 strict = true
 packages = ["phentrieve_benchmark", "scripts"]
 mypy_path = ["src"]
+
+# scripts/build_editor_packages.py runs in an overlay env with the editor
+# checkout (uv run --with-editable ../ontocurator); ontocurator is
+# not a dependency of this repository.
+[[tool.mypy.overrides]]
+module = ["ontocurator.*"]
+ignore_missing_imports = true
+
+# Runs only in the Ontocurator overlay environment; not measured in CI.
+[tool.coverage.run]
+omit = ["scripts/build_editor_packages.py"]

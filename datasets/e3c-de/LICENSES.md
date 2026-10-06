@@ -8,20 +8,35 @@ This corpus-level statement is the basis for the project's documented working
 assumption about non-commercial scientific review, not legal clearance.
 
 The complete acquired corpus remains in Git-ignored local artifacts. The
-selected 30-case source and unreviewed German translation snapshot under
-`review/` is redistributed for attributed, non-commercial scientific review
+tracked 246-report source and unreviewed German translation snapshot under
+`translations/` is redistributed for attributed, non-commercial scientific review
 under the project's documented working assumption. The unspecified upstream
 license version remains recorded rather than silently resolved.
 
-Each selected original report also supplies its own `docAuthor`, `docDOI`,
-`docUrl`, and `docLicense`. Those values are retained verbatim in the review
-package's [per-case attribution appendix](review/e3c-de-feasibility-30-v1/README.md#original-report-attribution-and-adaptation-notice).
-The generic supplied values `CC BY` and `CC-BY` remain version-unspecified; no
-license version is inferred from them.
+Each original report also supplies its own `docAuthor`, `docDOI`, `docUrl`,
+and `docLicense`. Those values are retained verbatim for all 246 reports in
+[`ATTRIBUTION.md`](ATTRIBUTION.md), generated from the pinned source.
+The generic supplied values `CC BY`, `CC-BY`, and `CC BY-NC` remain
+version-unspecified; no license version is inferred from them. Seven reports
+supply `CC BY-NC`; their non-commercial condition applies independently of how
+the corpus-level license is resolved.
 
-Every German `*.de.txt` file in the review package is an unreviewed
-machine-translated adaptation of its attributed original report. This applies
-to both the NMT and Translation LLM variants.
+The supplied `docLicense` values were checked against the publisher or archive
+copy of every report on 2026-10-06; the result and its evidence are in
+[`PUBLISHER-LICENSES.md`](PUBLISHER-LICENSES.md). Five reports (`EN102305`,
+`EN104179`, `EN104184`, `EN104263`, `EN106233`, Journal of Orthopaedic Case
+Reports) are published under CC BY-NC-SA 3.0, not the `CC BY-NC` that E3C
+supplies. Their ShareAlike condition requires adaptations to be shared under
+the same or a compatible license, so it applies to the German translations of
+these five reports. The license under which the project shares those
+translations is not yet decided.
 
-The review snapshot is not an accepted benchmark release and must not be used
-for clinical decisions.
+Every German `*.translation.de.txt` file under
+`translations/e3c-de-full-246-google-tllm-v1/` is an unreviewed
+machine-translated adaptation of its attributed original report. The files
+themselves carry no notice; the adaptation status is stated here and the
+per-report attribution is in [`ATTRIBUTION.md`](ATTRIBUTION.md). Only the
+Translation LLM variant (`tllm-full`) is tracked.
+
+The translation snapshot is not an accepted benchmark release and must not be
+used for clinical decisions.

@@ -27,6 +27,8 @@ from phentrieve_benchmark.pipeline.translate import (
     recheck_e3c_translations,
     translate_e3c,
 )
+from phentrieve_benchmark.selection.e3c import select_e3c_feasibility
+from phentrieve_benchmark.selection.groups import load_e3c_inventory
 from phentrieve_benchmark.translation.e3c import (
     TranslationInput,
     translate_documents,
@@ -184,12 +186,14 @@ def test_current_full_tllm_preview_counts_only_216_untranslated_cases() -> None:
             encoding="utf-8"
         )
     )
-    selected = json.loads(
-        (ROOT / "datasets/e3c-de/selections/e3c-de-feasibility-30-v1.json").read_text(
-            encoding="utf-8"
+    selection = select_e3c_feasibility(
+        load_e3c_inventory(
+            (
+                ROOT / "datasets/e3c-de/inventories/e3c-v2.0.0-l1-en-fr-es-v1.json"
+            ).read_bytes()
         )
     )
-    selected_ids = {item["source_case_id"] for item in selected["records"]}
+    selected_ids = {record.source_case_id for record in selection.records}
     recipe = load_translation_recipe(
         ROOT / "datasets/e3c-de/translation-llm-full.yaml"
     ).value

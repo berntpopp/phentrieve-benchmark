@@ -14,8 +14,9 @@ and readable view. None replaces another.
 | `tllm` | `../translation-llm.yaml` | `general/translation-llm` | `us-central1` | 10 USD per million input **and** 10 USD per million output characters |
 | `tllm-full` | `../translation-llm-full.yaml` | `general/translation-llm` | `us-central1` | same pinned TLLM price |
 
-The 30-case `tllm` snapshot is the basis for the current manual review;
-`tllm-full` extends the same model to the complete corpus.
+The 30-case `tllm` snapshot was the Phase 0 review basis; the German annotation
+group is now reviewed from `tllm-full`, which extends the same model to the
+complete corpus.
 
 ## Cost preview
 
@@ -108,16 +109,13 @@ records and manifests contain only identifiers, hashes, provider metadata,
 checks, counts, and costs—not report text. A retry creates a new translation
 identity; an existing compatible successful result is reused.
 
-The exact 30-case source texts and both current unreviewed translation variants
-are additionally tracked in the case-oriented `../review/` snapshot for
-non-commercial scientific review. That review snapshot is not the canonical
-artifact store and does not change translation identity or status.
-
 The complete authorized 246-case `tllm-full` result is tracked byte-for-byte
 under [e3c-de-full-246-google-tllm-v1/](e3c-de-full-246-google-tllm-v1/) for
 sharing and backup. It contains the canonical manifest plus the existing flat
 readable view; the manifest SHA-256 is
 `759f00260dab85a3fbeb24204683f790b4b14a18759c2bb80910ff1725b4451a`.
+Per-report attribution and license of the original reports are recorded in
+[`../ATTRIBUTION.md`](../ATTRIBUTION.md).
 
 Reuse is keyed by a semantic hash that contains the recipe hash, so the two
 variants publish independently and neither invalidates the other. The
@@ -161,14 +159,29 @@ existing artifacts, and never modifies canonical objects or provenance state.
 
 ## Medical review workbook
 
-The 30-case TLLM snapshot is the default input for bilingual medical review.
-Export the internal Excel workbook after the translation artifacts are present:
+The German annotation group (61 reports) is reviewed from the `tllm-full`
+translations. Export the internal Excel workbook after the translation
+artifacts are present:
+
+```text
+uv run phentrieve-benchmark review-workbook export-e3c review.xlsx --variant tllm-full --groups datasets/e3c-de/selections/e3c-annotation-groups-v1.json
+```
+
+`--language en|fr|es` can be combined with this command to split the work
+across reviewers (see below). `--include-nmt` cannot be combined with it.
+
+Legacy 30-case path: the 30-case TLLM snapshot (the default without
+`--variant`) was the Phase 0 input for bilingual medical review. Its tracked
+review snapshot and selection manifest were removed on 2026-10-06 and remain
+in Git history. The commands without `--variant tllm-full` are kept for that
+path:
 
 ```text
 uv run phentrieve-benchmark review-workbook export-e3c review.xlsx
 ```
 
-Add the existing NMT text as a read-only comparison column only when needed:
+Add the existing NMT text as a read-only comparison column only when needed
+(legacy 30-case path only):
 
 ```text
 uv run phentrieve-benchmark review-workbook export-e3c review.xlsx --include-nmt

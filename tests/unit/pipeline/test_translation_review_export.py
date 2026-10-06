@@ -235,3 +235,116 @@ def test_export_decodes_artifact_text_as_strict_utf8(tmp_path: Path) -> None:
             destination=tmp_path / "review.xlsx",
             review_policy_id="medical-review-v1",
         )
+
+
+def test_export_can_be_restricted_to_listed_cases(tmp_path: Path) -> None:
+    store = ArtifactStore(tmp_path / "objects")
+    tllm, _ = _manifests(store)
+
+    export_sha256 = export_translation_review(
+        store=store,
+        tllm_manifest=tllm,
+        destination=tmp_path / "review.xlsx",
+        review_policy_id="medical-review-v1",
+        case_ids=("FR2", "EN1"),
+    )
+
+    export = TranslationReviewExport.model_validate_json(
+        store.read_bytes(export_sha256), strict=True
+    )
+    assert [case.source_case_id for case in export.cases] == ["EN1", "FR2"]
+
+
+def test_export_rejects_listed_cases_missing_from_the_manifest(
+    tmp_path: Path,
+) -> None:
+    store = ArtifactStore(tmp_path / "objects")
+    tllm, _ = _manifests(store)
+
+    with pytest.raises(ValueError, match="lacks cases"):
+        export_translation_review(
+            store=store,
+            tllm_manifest=tllm,
+            destination=tmp_path / "review.xlsx",
+            review_policy_id="medical-review-v1",
+            case_ids=("EN1", "XX9"),
+        )
+
+
+def test_export_rejects_nmt_comparison_for_case_lists(tmp_path: Path) -> None:
+    store = ArtifactStore(tmp_path / "objects")
+    tllm, nmt = _manifests(store)
+
+    with pytest.raises(ValueError, match="NMT comparison"):
+        export_translation_review(
+            store=store,
+            tllm_manifest=tllm,
+            destination=tmp_path / "review.xlsx",
+            review_policy_id="medical-review-v1",
+            nmt_manifest=nmt,
+            case_ids=("EN1",),
+        )
+
+
+def test_export_can_be_restricted_to_one_source_language(tmp_path: Path) -> None:
+    store = ArtifactStore(tmp_path / "objects")
+    tllm, _ = _manifests(store)
+
+    export_sha256 = export_translation_review(
+        store=store,
+        tllm_manifest=tllm,
+        destination=tmp_path / "review.xlsx",
+        review_policy_id="medical-review-v1",
+        source_language="fr",
+    )
+
+    export = TranslationReviewExport.model_validate_json(
+        store.read_bytes(export_sha256), strict=True
+    )
+    assert [case.source_case_id for case in export.cases] == ["FR2"]
+
+
+def test_export_rejects_a_language_without_cases(tmp_path: Path) -> None:
+    store = ArtifactStore(tmp_path / "objects")
+    tllm, _ = _manifests(store)
+
+    with pytest.raises(ValueError, match="no case in source language"):
+        export_translation_review(
+            store=store,
+            tllm_manifest=tllm,
+            destination=tmp_path / "review.xlsx",
+            review_policy_id="medical-review-v1",
+            source_language="it",
+        )
+
+
+def test_default_workbook_has_instruction_and_review_sheets_without_nmt_column(
+    tmp_path: Path,
+) -> None:
+    store = ArtifactStore(tmp_path / "objects")
+    tllm, nmt = _manifests(store)
+    default = tmp_path / "default.xlsx"
+    compared = tmp_path / "compared.xlsx"
+
+    export_translation_review(
+        store=store,
+        tllm_manifest=tllm,
+        destination=default,
+        review_policy_id="medical-review-v1",
+    )
+    export_translation_review(
+        store=store,
+        tllm_manifest=tllm,
+        nmt_manifest=nmt,
+        destination=compared,
+        review_policy_id="medical-review-v1",
+    )
+
+    for path, has_nmt in ((default, False), (compared, True)):
+        workbook = load_workbook(path)
+        try:
+            assert workbook.sheetnames == ["Anleitung", "Review"]
+            headers = [cell.value for cell in workbook["Review"][1]]
+            assert ("NMT-Vergleich" in headers) is has_nmt
+        finally:
+            workbook.close()
