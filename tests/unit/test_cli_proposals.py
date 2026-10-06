@@ -1,4 +1,6 @@
+import io
 import subprocess
+import sys
 from datetime import UTC, date, datetime
 from hashlib import sha256
 from pathlib import Path
@@ -274,4 +276,21 @@ def test_hpo_lookup_prints_matches_per_query(
         "HP:0009999\tObsolete fever variant\tobsolete\n"
         "# nothing\n"
         "(no match)\n"
+    )
+
+
+def test_hpo_lookup_prints_queries_outside_the_console_code_page(
+    tmp_path: Path, monkeypatch: Any
+) -> None:
+    store = ArtifactStore(tmp_path / "objects")
+    digest = store.put_bytes(proposal_hpo_obo())
+    monkeypatch.setattr(cli, "_pinned_hpo_sha256", lambda *_: (object(), digest))
+    buffer = io.BytesIO()
+    monkeypatch.setattr(
+        sys, "stdout", io.TextIOWrapper(buffer, encoding="cp1252", newline="\n")
+    )
+    cli.hpo_lookup_command(["\u03b2-thalassemia", "fever"], 1, tmp_path)
+    sys.stdout.flush()
+    assert buffer.getvalue().decode("utf-8") == (
+        "# \u03b2-thalassemia\n(no match)\n# fever\nHP:0001945\tFever\n"
     )

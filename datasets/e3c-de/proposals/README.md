@@ -87,8 +87,9 @@ German reports enter the corpus only with an accepted translation review.
 Until then `prepare-run --language de` stops with "N German reports pending
 translation review". Once reviews are imported, rebuild the corpus with
 `--review-import` and prepare a separate run, for example `de-v1`, with
-`--language de`. A run may cover part of the German group; a later run covers
-the rest.
+`--language de`. Such a run covers every German report reviewed by then. If
+only part of the group is reviewed, a later run on the rebuilt corpus covers
+all German reports again, including those of the earlier run.
 
 ## Runs
 

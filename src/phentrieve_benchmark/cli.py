@@ -1,4 +1,6 @@
+import io
 import subprocess
+import sys
 from collections import Counter
 from collections.abc import Iterable
 from dataclasses import replace
@@ -704,6 +706,10 @@ def hpo_lookup_command(
     artifact_root: ArtifactRoot = Path(".artifacts"),
 ) -> None:
     """Search the pinned HPO release by English label, synonym, or ID."""
+    # Queries are echoed back and may hold characters outside the code page
+    # of a piped Windows stdout.
+    if isinstance(sys.stdout, io.TextIOWrapper):
+        sys.stdout.reconfigure(encoding="utf-8")
     store = ArtifactStore(artifact_root.resolve() / "objects")
     _, ontology_sha256 = _pinned_hpo_sha256(artifact_root.resolve(), store)
     entries = read_lookup_entries(store.read_bytes(ontology_sha256))

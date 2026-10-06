@@ -55,12 +55,17 @@ def test_tracked_run_is_complete_bound_and_text_free(run_directory: Path) -> Non
     assert {digest.batch_id: digest.sha256 for digest in report.batches} == {
         path.stem: sha256_bytes(path.read_bytes()) for path in batch_files
     }
-    batch_ids = {batch.batch_id for batch in run.batches}
-    assert {path.stem for path in batch_files} == batch_ids
-    assert {
-        path.name.removesuffix(".prompt.md")
-        for path in run_directory.glob("batch-*.prompt.md")
-    } == batch_ids
+    # Exact file set: a stray file could carry report text into the repository.
+    assert {path.name for path in run_directory.iterdir()} == {
+        "prompt.md",
+        "run.json",
+        "validation.json",
+        *(
+            f"{batch.batch_id}{suffix}"
+            for batch in run.batches
+            for suffix in (".json", ".prompt.md")
+        ),
+    }
     for path in batch_files:
         payload = json.loads(path.read_bytes())
         assert payload["provenance"] == PROPOSAL_PROVENANCE
