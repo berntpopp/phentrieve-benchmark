@@ -3,7 +3,7 @@ from collections import Counter
 from collections.abc import Iterable
 from dataclasses import replace
 from pathlib import Path
-from typing import Annotated, Literal
+from typing import Annotated, Literal, cast
 
 import typer
 
@@ -21,8 +21,15 @@ from phentrieve_benchmark.normalization.e3c_attribution import (
     extract_attribution,
     render_attribution_markdown,
 )
+from phentrieve_benchmark.ontology.hpo import (
+    HpoIndex,
+    HpoSourceRecipe,
+    load_hpo_index,
+    load_hpo_source_recipe,
+)
+from phentrieve_benchmark.ontology.hpo_lookup import read_lookup_entries, search_hpo
 from phentrieve_benchmark.pipeline.annotation_corpus import build_annotation_corpus
-from phentrieve_benchmark.pipeline.map_hpo import map_hpo_e3c
+from phentrieve_benchmark.pipeline.map_hpo import load_or_acquire_hpo, map_hpo_e3c
 from phentrieve_benchmark.pipeline.prepare import (
     PipelineContext,
     StageResult,
@@ -31,6 +38,14 @@ from phentrieve_benchmark.pipeline.prepare import (
     prepare_target,
     select_e3c,
     verified_e3c_normalization,
+)
+from phentrieve_benchmark.pipeline.proposals import (
+    GUIDELINE,
+    PROMPT_TEMPLATE,
+    PROPOSALS_DIRECTORY,
+    GuidelineVersion,
+    prepare_proposal_run,
+    validate_run_directory,
 )
 from phentrieve_benchmark.pipeline.translate import (
     estimate_prepared_translation,
@@ -42,9 +57,12 @@ from phentrieve_benchmark.pipeline.translation_review import (
     export_translation_review,
     import_translation_review,
 )
+from phentrieve_benchmark.proposals.validate import ProposalBatchError
 from phentrieve_benchmark.provenance.code_identity import code_sha256
+from phentrieve_benchmark.provenance.digests import sha256_bytes
 from phentrieve_benchmark.selection.groups import (
     AnnotationGroupManifest,
+    AnnotationLanguage,
     assign_annotation_groups,
     load_e3c_inventory,
 )
@@ -73,6 +91,7 @@ map_hpo_app = typer.Typer(no_args_is_help=True)
 review_workbook_app = typer.Typer(no_args_is_help=True)
 build_corpus_app = typer.Typer(no_args_is_help=True)
 attribution_app = typer.Typer(no_args_is_help=True)
+proposals_app = typer.Typer(no_args_is_help=True)
 DatasetRoot = Annotated[Path, typer.Option()]
 ArtifactRoot = Annotated[Path, typer.Option()]
 Cohort = Annotated[Literal["feasibility-30"], typer.Option()]
@@ -92,6 +111,7 @@ app.add_typer(map_hpo_app, name="map-hpo")
 app.add_typer(review_workbook_app, name="review-workbook")
 app.add_typer(build_corpus_app, name="build-corpus")
 app.add_typer(attribution_app, name="attribution")
+app.add_typer(proposals_app, name="proposals")
 
 _TRANSLATION_REVIEW_POLICY_ID = "e3c:translation-review/v1"
 
@@ -523,6 +543,182 @@ def attribution_e3c_command(
         newline="\n",
     )
     typer.echo(f"destination={destination} reports={len(records)}")
+
+
+_HPO_RECIPE = Path("configs/ontologies/hpo-v2026-06-23.yaml")
+_ANNOTATION_LANGUAGES = ("de", "en", "fr", "es")
+
+
+def _pinned_hpo_sha256(
+    artifact_root: Path, store: ArtifactStore
+) -> tuple[HpoSourceRecipe, str]:
+    recipe = load_hpo_source_recipe(_HPO_RECIPE).value
+    return recipe, load_or_acquire_hpo(
+        recipe, artifact_root=artifact_root, store=store
+    )
+
+
+def _pinned_hpo_index(artifact_root: Path, store: ArtifactStore) -> HpoIndex:
+    recipe, ontology_sha256 = _pinned_hpo_sha256(artifact_root, store)
+    return load_hpo_index(
+        store.read_bytes(ontology_sha256),
+        release=recipe.release,
+        ontology_sha256=ontology_sha256,
+    )
+
+
+def _committed_blob(repository_root: Path, path: Path) -> tuple[str, bytes]:
+    """Return the last commit of a clean file and its committed bytes.
+
+    The committed blob is used instead of the working-tree file because
+    line endings differ under core.autocrlf.
+    """
+
+    def git(*arguments: str) -> bytes:
+        return subprocess.run(
+            ["git", *arguments],
+            cwd=repository_root,
+            check=True,
+            capture_output=True,
+        ).stdout
+
+    posix = path.as_posix()
+    if git("status", "--porcelain", "--", posix).strip():
+        raise typer.BadParameter(f"{posix} has uncommitted changes")
+    commit = git("log", "-1", "--format=%H", "--", posix).decode().strip()
+    if not commit:
+        raise typer.BadParameter(f"{posix} is not committed")
+    return commit, git("show", f"{commit}:{posix}")
+
+
+@proposals_app.command("prepare-run")
+def prepare_proposal_run_command(
+    run_id: str,
+    corpus: Annotated[str, typer.Option("--corpus")],
+    model_id: Annotated[str, typer.Option("--model-id")],
+    language: Annotated[list[str] | None, typer.Option("--language")] = None,
+    pilot: Annotated[bool, typer.Option("--pilot")] = False,
+    batch_size: Annotated[int, typer.Option("--batch-size", min=1)] = 10,
+    dataset_root: DatasetRoot = Path("datasets"),
+    artifact_root: ArtifactRoot = Path(".artifacts"),
+) -> None:
+    """Plan a proposal run and write the subagent prompts and texts.
+
+    --corpus is the corpus_sha256 printed by build-corpus. Without --language
+    and --pilot, every corpus document is included. --pilot picks one report
+    per original language and length stratum.
+    """
+    if pilot and language:
+        raise typer.BadParameter(
+            "--pilot selects its own reports", param_hint="--language"
+        )
+    unknown = sorted(set(language or ()) - set(_ANNOTATION_LANGUAGES))
+    if unknown:
+        raise typer.BadParameter(
+            f"unknown annotation languages: {unknown}", param_hint="--language"
+        )
+    languages = (
+        cast(tuple[AnnotationLanguage, ...], tuple(language)) if language else None
+    )
+    context = _pipeline_context(dataset_root, artifact_root)
+    recipe, ontology_sha256 = _pinned_hpo_sha256(context.artifact_root, context.store)
+    guideline_commit, guideline_bytes = _committed_blob(
+        context.repository_root, GUIDELINE
+    )
+    guideline = GuidelineVersion(
+        path=GUIDELINE.as_posix(),
+        commit=guideline_commit,
+        sha256=sha256_bytes(guideline_bytes),
+    )
+    _, prompt_template = _committed_blob(context.repository_root, PROMPT_TEMPLATE)
+    groups = AnnotationGroupManifest.model_validate_json(
+        (context.dataset_root / _E3C_GROUPS).read_bytes(), strict=True
+    )
+    input_directory = context.artifact_root / "proposals" / run_id
+    try:
+        run = prepare_proposal_run(
+            store=context.store,
+            repository_root=context.repository_root,
+            corpus_manifest_sha256=corpus,
+            groups=groups,
+            run_id=run_id,
+            model_id=model_id,
+            run_date=context.clock().date(),
+            prompt_template=prompt_template,
+            guideline=guideline,
+            hpo_release=recipe.release,
+            ontology_sha256=ontology_sha256,
+            languages=languages,
+            pilot=pilot,
+            batch_size=batch_size,
+            run_directory=context.dataset_root / PROPOSALS_DIRECTORY / run_id,
+            input_directory=input_directory,
+        )
+    except (FileExistsError, FileNotFoundError, ValueError) as error:
+        raise typer.BadParameter(str(error)) from error
+    documents = sum(len(batch.documents) for batch in run.batches)
+    typer.echo(
+        f"run_id={run.run_id} documents={documents} "
+        f"batches={len(run.batches)} pending_review={len(run.pending_review)} "
+        f"inputs={input_directory}"
+    )
+
+
+@proposals_app.command("validate")
+def validate_proposal_run_command(
+    run_id: str,
+    dataset_root: DatasetRoot = Path("datasets"),
+    artifact_root: ArtifactRoot = Path(".artifacts"),
+) -> None:
+    """Validate the archived batch outputs of a run and write validation.json."""
+    store = ArtifactStore(artifact_root.resolve() / "objects")
+    hpo_index = _pinned_hpo_index(artifact_root.resolve(), store)
+    try:
+        report, validation_sha256 = validate_run_directory(
+            run_directory=dataset_root.resolve() / PROPOSALS_DIRECTORY / run_id,
+            store=store,
+            hpo_index=hpo_index,
+        )
+    except ProposalBatchError as error:
+        typer.echo(f"batch_error={error}", err=True)
+        raise typer.Exit(1) from error
+    except (FileNotFoundError, ValueError) as error:
+        typer.echo(f"error={error}", err=True)
+        raise typer.Exit(1) from error
+    summary = report.summary
+    typer.echo(
+        f"validation_sha256={validation_sha256} documents={summary.documents} "
+        f"proposals={summary.proposals_received} "
+        f"rejected_proposals={summary.proposals_rejected} "
+        f"validated_proposals={summary.validated_proposals} "
+        f"mentions={summary.mentions_evaluated} "
+        f"rejected_mentions={summary.mentions_rejected} "
+        f"warnings={len(report.warnings)}"
+    )
+
+
+@proposals_app.command("hpo-lookup")
+def hpo_lookup_command(
+    queries: Annotated[list[str], typer.Argument()],
+    limit: Annotated[int, typer.Option("--limit", min=1)] = 15,
+    artifact_root: ArtifactRoot = Path(".artifacts"),
+) -> None:
+    """Search the pinned HPO release by English label, synonym, or ID."""
+    store = ArtifactStore(artifact_root.resolve() / "objects")
+    _, ontology_sha256 = _pinned_hpo_sha256(artifact_root.resolve(), store)
+    entries = read_lookup_entries(store.read_bytes(ontology_sha256))
+    for query in queries:
+        typer.echo(f"# {query}")
+        matches = search_hpo(entries, query, limit=limit)
+        if not matches:
+            typer.echo("(no match)")
+        for match in matches:
+            parts = [match.entry.hpo_id, match.entry.label]
+            if match.matched != match.entry.label:
+                parts.append(f"synonym: {match.matched}")
+            if match.entry.obsolete:
+                parts.append("obsolete")
+            typer.echo("\t".join(parts))
 
 
 def _prepare_command(
