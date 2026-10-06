@@ -95,11 +95,20 @@ def _proposal_id_of(item: Any) -> str | None:
     return None
 
 
+def _reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate JSON key {key[:40]!r}")
+        result[key] = value
+    return result
+
+
 def _strings(value: Any) -> list[str]:
     if isinstance(value, str):
         return [value]
     if isinstance(value, dict):
-        return [s for item in value.values() for s in _strings(item)]
+        return [s for key, item in value.items() for s in (key, *_strings(item))]
     if isinstance(value, list):
         return [s for item in value for s in _strings(item)]
     return []
@@ -109,9 +118,11 @@ def parse_batch_output(
     raw: bytes, *, run_id: str, batch: ProposalBatch
 ) -> ProposalBatchOutput:
     try:
-        parsed = json.loads(raw)
+        parsed = json.loads(raw, object_pairs_hook=_reject_duplicate_keys)
     except (UnicodeDecodeError, json.JSONDecodeError) as error:
         raise ProposalBatchError(f"{batch.batch_id}: not valid JSON") from error
+    except ValueError as error:
+        raise ProposalBatchError(f"{batch.batch_id}: {error}") from error
     too_long = [s for s in _strings(parsed) if len(s) > MAX_EXCERPT_CHARS]
     if too_long:
         raise ProposalBatchError(

@@ -349,6 +349,19 @@ _VALID_REPORT = _report([_proposal()])
             _output([_report([_proposal(note="x" * (MAX_EXCERPT_CHARS + 1))])]),
             f"exceed {MAX_EXCERPT_CHARS} characters",
         ),
+        (
+            _output(
+                [_report([dict(_proposal(), **{"k" * (MAX_EXCERPT_CHARS + 1): 1})])]
+            ),
+            f"exceed {MAX_EXCERPT_CHARS} characters",
+        ),
+        (
+            _output([_report([_proposal(note="NOTE_PLACEHOLDER")])]).replace(
+                b'"note": "NOTE_PLACEHOLDER"',
+                b'"note": "' + b"x" * (MAX_EXCERPT_CHARS + 1) + b'", "note": "short"',
+            ),
+            "duplicate JSON key",
+        ),
     ],
 )
 def test_batch_level_defects_fail_the_batch(raw: bytes, message: str) -> None:
@@ -394,3 +407,63 @@ def test_all_batch_errors_are_reported_together() -> None:
         )
     assert "batch-01" in str(caught.value)
     assert "batch-02" in str(caught.value)
+
+
+def test_merged_mentions_are_sorted_by_position() -> None:
+    report = _validate(
+        [
+            _proposal(mentions=[_SECOND_FEVER]),
+            _proposal("p002", mentions=[_FIRST_FEVER]),
+        ]
+    )
+    (proposal,) = report.documents[0].proposals
+    positions = [(m.start, m.end) for m in proposal.mentions]
+    assert len(positions) == 2
+    assert positions == sorted(positions)
+
+
+def test_documents_are_sorted_by_document_id() -> None:
+    english = Document.from_text(
+        source_case_id="EN2",
+        case_group_id="e3c:v2.0.0:EN2",
+        document_id="e3c:v2.0.0:en:EN2:native",
+        language="en",
+        translation_status=TranslationStatus.NATIVE,
+        text="Fever.",
+    )
+    batch = ProposalBatch(
+        batch_id="batch-01",
+        documents=(
+            *_run().batches[0].documents,
+            BatchDocument(
+                document_id=english.document_id,
+                document_sha256=english.document_sha256,
+                source_case_id="EN2",
+                annotation_language="en",
+            ),
+        ),
+    )
+    run = _run().model_copy(update={"batches": (batch,)})
+    english_report = {
+        "document_id": english.document_id,
+        "document_sha256": english.document_sha256,
+        "annotations": [],
+    }
+    report = validate_proposal_run(
+        run=run,
+        run_sha256="6" * 64,
+        batch_outputs={"batch-01": _output([english_report, _report([])])},
+        documents={_GERMAN.document_id: _GERMAN, english.document_id: english},
+        hpo_index=_index(),
+    )
+    ids = [document.document_id for document in report.documents]
+    assert len(ids) == 2
+    assert ids == sorted(ids)
+
+
+@pytest.mark.parametrize("item", [42, "x"])
+def test_non_object_annotation_is_rejected_without_proposal_id(item: Any) -> None:
+    report = _validate([item])
+    (rejection,) = report.rejections
+    assert rejection.reason is RejectionReason.INVALID_SCHEMA
+    assert rejection.proposal_id is None
