@@ -72,3 +72,5 @@ The E3C-DE analyses build on each other. Read them in this order:
    current status and priorities across the whole project.
 6. [`../../docs/annotation-guidelines/hpo-span-annotation.md`](../../docs/annotation-guidelines/hpo-span-annotation.md) -
    span annotation rules for all four annotation groups.
+7. [`proposals/README.md`](proposals/README.md) - LLM proposal runs
+   (machine generated, not gold), their validation, and the runbook.
