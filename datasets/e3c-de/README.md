@@ -50,10 +50,12 @@ The E3C-DE analyses build on each other. Read them in this order:
    consensus set, audit classes, and typical problems.
 3. [`annotation-feasibility/README.md`](annotation-feasibility/README.md) -
    Phase 0 feasibility probe: do the consensus terms survive the German
-   translation (Part A), triage of the most frequent unresolved CUIs
-   (Part B), and the review workbook generator.
+   translation (Part A) and triage of the most frequent unresolved CUIs
+   (Part B). Kept as comparison data; superseded as a working plan.
 4. [`translations/README.md`](translations/README.md) - translation
    operation, costs, artifact separation, and the automatic-check status
    model.
 5. [`../../docs/project-checklist.md`](../../docs/project-checklist.md) -
    current status and priorities across the whole project.
+6. [`../../docs/annotation-guidelines/hpo-span-annotation.md`](../../docs/annotation-guidelines/hpo-span-annotation.md) -
+   span annotation rules for all four annotation groups.
