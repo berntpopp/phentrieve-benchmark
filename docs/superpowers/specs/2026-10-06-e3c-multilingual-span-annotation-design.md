@@ -49,7 +49,14 @@ Non-goals:
 - semantic or automated translation review;
 - span-level evaluation; scoring stays document-level by HPO ID;
 - changes to the editor beyond profile configuration;
-- proposing further occurrences of a marked phrase in the editor.
+- proposing further occurrences of a marked phrase in the editor;
+- mandatory double annotation. The original pipeline design required a
+  blinded primary review and a separate adjudication step (§7.7 there).
+  This design deliberately makes that optional (decided 2026-10-06): every
+  package can be built without proposals (§7), so a blinded second
+  annotation of a subset with adjudication and an agreement measure stays
+  possible later without new tooling. Until then the gold rests on one
+  physician review per report, and this limitation is reported with it.
 
 ## 3. Phases
 
@@ -67,6 +74,13 @@ steps (translation review of the German group, physician review in the
 editor) are not part of this design and start only once the whole pipeline
 stands. Running the proposal step for the German group requires its reviewed
 texts; the code for it does not.
+
+The first human step after the pipeline stands is a workflow pilot (decided
+2026-10-06): two to three reports per original-language group go end to end
+through editor, export, import, and gold v1 with a real reviewer before the
+full annotation starts. The German group joins once its first texts are
+reviewed. The pilot tests tooling and instructions; its annotations count as
+regular gold if they pass review.
 
 ## 4. Phase 0: Cleanup
 
@@ -190,6 +204,14 @@ A pipeline command validates each batch output and never edits it:
 - assertion, experiencer, and temporality use the allowed values;
 - each `context` occurs exactly once in the text and each `phrase` exactly
   once in its `context`; the resulting offsets are recorded;
+- matching tolerates typography the model may alter (quotation marks,
+  dashes, non-breaking and repeated spaces): both strings and the text are
+  compared in a normalized form, and offsets are mapped back to the original
+  text, so the stored span is always the verbatim original;
+- a mention may carry an optional `occurrence` index (1-based) when the
+  phrase occurs more than once in its context, for example "Schmerzen" in
+  "Bauchschmerzen und Schmerzen"; whole-word matches take precedence over
+  matches inside longer words;
 - mentions of one proposal do not overlap.
 
 Rejected proposals and mentions are listed with a reason in a validation
@@ -215,13 +237,19 @@ existing Phase 0 files; this fits the documented non-commercial review
 assumption in `license-evidence.yaml`. Every proposal in an editor package
 references run, batch, and proposal ID.
 
+Reproducibility: subagent runs have no pinned temperature or seed and cannot
+be regenerated identically. What is reproducible is everything downstream of
+the archived raw outputs: validation, packages, and import are deterministic
+functions of the stored batches. Claims about the proposal step are limited
+to that.
+
 ### 6.4 Pilot
 
 Before the full run, a pilot of about eight reports from the three
 original-language groups (mixed languages and lengths) is processed and
 validated. German texts are not used before their review, so the German path
-is exercised end to end only with synthetic data until then. The pilot shows the rejection rate and
-proposal quality; the prompt is revised if needed. The full run starts only
+is exercised end to end only with synthetic data until then. The pilot shows
+the rejection rate and proposal quality; the prompt is revised if needed. The full run starts only
 after explicit confirmation. Pilot outputs are kept as their own run.
 
 ## 7. Phase 3: Editor Packages
@@ -239,7 +267,9 @@ annotation group:
   (`allow_empty=False`); new required axis `verbalization` with
   `verbalized`/`not_verbalized`; `evidence_policy` requiring evidence on
   completion;
-- proposal axis values come from the proposal step.
+- proposal axis values come from the proposal step;
+- an option builds a package without any proposals, for blinded annotation
+  (see the double-annotation note in §2).
 
 The builder stays a script in the Ontocurator overlay environment. Coverage
 statistics are not a design driver; the script is excluded from the CI
@@ -259,8 +289,14 @@ v1 is not reinterpreted. v2 adds:
   reviewed machine proposals. Validation checks that the referenced proposal
   belongs to the same corpus document.
 
-Everything else, including contiguous `EvidenceSpan`s and the status fields,
-stays as in v1.
+Contiguous `EvidenceSpan`s and the status fields stay as in v1. The axis
+values themselves depend on the open schema decision in issue #2 and must be
+settled before the editor profile is final.
+
+v2 is not a drop-in change: `curation/validation.py`,
+`models/review_decision.py`, `review/merge.py`, and
+`derivation/single_term.py` are typed against the v1 set and must accept v2
+(or a common interface) in the same phase.
 
 ### 8.2 Import adapter
 
@@ -280,12 +316,37 @@ v2 `CuratedAnnotationSet` per document:
 - reviewer ID in `namespace:id` form, stage ID, scopes, and second-precision
   UTC timestamps come from an import configuration.
 
+The import also writes a text-free review statistics report per annotation
+group (decided 2026-10-06): proposals confirmed unchanged, changed (term,
+span, or axes), and rejected; gold annotations added by the reviewer without
+a proposal; and the share of gold annotations that originate from a
+proposal. This makes transparent how strongly the gold rests on the LLM
+proposals. It does not replace double annotation: findings missed by both
+the proposal and the reviewer, and anchoring effects, stay unmeasured.
+
 ### 8.3 Single-term derivation
 
-Unchanged code path, applied per annotation group: candidates follow the
-guideline (assertion `present`, experiencer `patient`, span owned by one
-annotation, verbalized) and are merged by phrase text and HPO ID within one
-language.
+The existing derivation takes an explicit, hand-built `SingleTermSelection`
+whose records each point to one annotation span (`models/single_term.py`).
+Two additions are needed:
+
+- a selector that builds the selection from the accepted gold of one
+  annotation group by the guideline criteria (assertion `present`,
+  experiencer `patient`, span owned by one annotation, verbalized);
+- merging candidates with identical phrase text and HPO ID across documents
+  of one language. The current record ties a case to a single span, so the
+  merged case keeps one representative span and lists the others as
+  additional sources.
+
+Per annotation group, the result is one single-term set.
+
+### 8.4 Text corrections after annotation (guideline R7)
+
+A German text corrected after annotation becomes a new corpus document. Its
+existing annotations stay bound to the old version. The case is re-annotated
+on the new version; proposals and earlier decisions may be shown as a
+starting point. Automatic remapping of spans through the review diff is not
+planned.
 
 ## 9. Testing
 
@@ -297,7 +358,7 @@ language.
 - Validator: each rejection reason, offset computation, merge by HPO ID and
   status, no mutation of input.
 - v2 model and import: discontinuous rejection, merge, `uncertain` mapping,
-  hash mismatch.
+  hash mismatch, review statistics counts.
 
 ## 10. Open Questions
 

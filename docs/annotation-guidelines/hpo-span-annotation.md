@@ -197,7 +197,7 @@ it changes when spans change.
 
 ## Open questions
 
-- Scoring rule for the German gold: which combinations of assertion,
+- Scoring rule for the gold of all groups: which combinations of assertion,
   experiencer, and temporality count as gold terms, including temporally
   sequenced findings (issue #2). The existing `positive_hpo_present_v1` is
   defined in the manuscript repository, not here.

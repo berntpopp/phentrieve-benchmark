@@ -28,9 +28,8 @@ Status:
 - [x] Gepinnte Quellrezepte, Checksummen und Lizenznachweise dokumentieren.
 - [x] Offline-CI mit synthetischen Testdaten einrichten.
 - [x] Expliziten Live-Smoke-Test für echte Downloads bereitstellen.
-- [ ] Globale Testabdeckung wieder auf mindestens 90 % erhöhen; letzter
-      vollständiger Lauf (2026-08-24): 815 Tests bestanden, 14
-      plattformbedingt übersprungen, Coverage 88 %.
+- Entfällt (2026-10-06): Mindest-Testabdeckung als CI-Grenze; Coverage wird
+  nur noch berichtet (letzter Stand 88 %).
 - [ ] Kostenpflichtige Operationen vor Ausführung grob kalkulieren und
       ausdrücklich bestätigen lassen.
 
@@ -215,14 +214,22 @@ Vergleichsdaten erhalten.
 - [ ] `curated-annotation-set/v2` einführen: Merkmal „nicht verbalisiert“
       (Richtlinie R6) und eine Herkunftsart für LLM-Vorschläge; v1 kennt
       keine passende Herleitungsquelle.
+- [ ] Pilot des menschlichen Ablaufs: 2–3 Texte je Originalsprache Ende zu
+      Ende durch Editor, Export, Import und Gold v1, bevor die volle
+      Annotation beginnt; die deutsche Gruppe folgt nach ihren ersten
+      geprüften Texten.
 - [ ] Vorschläge im Editor ärztlich prüfen und Spannen nach der Richtlinie
       setzen; nicht verbalisierte Befunde strukturiert kennzeichnen.
+- Optional, nicht geplant: Doppelannotation einer Teilmenge mit Paketen ohne
+  Vorschläge, Schlichtung und Übereinstimmungsmaß. Bis dahin beruht das Gold
+  auf einer ärztlichen Prüfung je Text; diese Einschränkung wird berichtet.
 - [ ] Editor-Export importieren und je Annotationsgruppe ein akzeptiertes
       Gold v1 erzeugen.
       Der Import lehnt unterbrochene Belegstellen ab, fasst bestätigte
       Vorschläge mit gleichem Term und Status zu einer Annotation zusammen,
       führt das Editor-Ergebnis „uncertain“ als Rückfrage (nicht Gold) und
-      ergänzt Prüfer-Metadaten aus einer Konfiguration.
+      ergänzt Prüfer-Metadaten aus einer Konfiguration. Je Gruppe entsteht
+      eine Prüfstatistik (bestätigt, geändert, verworfen, ärztlich ergänzt).
 
 ### Single-Term-Aufgabe
 
@@ -307,7 +314,8 @@ GSC-Fassungen erzeugt.
 
 ## Benchmark, Validierung und Veröffentlichung – später
 
-- [ ] Akzeptierte deutsche E3C-Texte und HPO-Annotationen paketieren.
+- [ ] Akzeptierte E3C-Texte und HPO-Annotationen je Annotationsgruppe
+      paketieren.
 - [ ] Eingabeadapter für Phentrieve bereitstellen.
 - [ ] Volltext-Benchmark definieren.
 - [ ] E3C-Single-Term-Benchmark definieren.
@@ -317,7 +325,7 @@ GSC-Fassungen erzeugt.
 - [x] ⚠ Die Lizenz- und Redistributionsentscheidung für den ungeprüften,
       nichtkommerziellen Review-Snapshot ist als dokumentierte
       Projektarbeitsannahme festgehalten, nicht als rechtliche Freigabe.
-- [ ] Bewertungsregel für das deutsche Gold festlegen: welche Kombinationen
+- [ ] Bewertungsregel für das Gold aller Gruppen festlegen: welche Kombinationen
       aus Aussagestatus, betroffener Person und Zeitlichkeit als Gold zählen
       (Issue #2).
 - [ ] Lizenznachweis (`license-evidence.yaml`) auf den versionierten

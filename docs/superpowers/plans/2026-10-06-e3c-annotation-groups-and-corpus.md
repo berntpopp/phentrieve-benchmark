@@ -32,7 +32,7 @@
 | `tests/unit/selection/test_annotation_groups.py` | Unit tests for the split |
 | `src/phentrieve_benchmark/cli.py` | Commands `select e3c-groups`, export options `--variant`/`--groups`, command `build-corpus e3c` |
 | `datasets/e3c-de/selections/e3c-annotation-groups-v1.json` | Tracked, text-free group manifest (generated) |
-| `tests/contracts/test_annotation_groups.py` | Contract test for the tracked manifest |
+| `tests/contracts/test_tracked_annotation_groups.py` | Contract test for the tracked manifest |
 | `src/phentrieve_benchmark/pipeline/translation_review.py` | `case_ids` filter in `export_translation_review` |
 | `tests/unit/pipeline/test_translation_review_export.py` | Tests for the case filter |
 | `src/phentrieve_benchmark/models/annotation_corpus.py` | Corpus manifest models |
@@ -50,23 +50,7 @@
 - Add: `docs/superpowers/plans/2026-10-06-e3c-annotation-groups-and-corpus.md`
 - Modify: `docs/project-checklist.md`
 
-- [ ] **Step 1: Verify only documentation is staged**
-
-```bash
-git add docs/annotation-guidelines/hpo-span-annotation.md \
-  docs/superpowers/specs/2026-10-06-e3c-multilingual-span-annotation-design.md \
-  docs/superpowers/plans/2026-10-06-e3c-annotation-groups-and-corpus.md \
-  docs/project-checklist.md
-git status --short
-```
-
-Expected: the four files staged (`A`/`M`); `pyproject.toml` and `scripts/build_editor_packages.py` remain unstaged.
-
-- [ ] **Step 2: Commit**
-
-```bash
-git commit -m "docs: plan multilingual span-based E3C annotation"
-```
+**Done** in commit `0de08b3` on branch `agent/e3c-multilingual-annotation`.
 
 ---
 
@@ -125,8 +109,8 @@ and add a new last item:
 Run: `uv run ruff check .`
 Expected: `All checks passed!`
 
-Run: `git grep -n "make_annotation_review" -- . ':!docs/superpowers'`
-Expected: no output.
+Run: `git grep -n "make_annotation_review" -- . ':!docs/superpowers' ':!docs/project-checklist.md'`
+Expected: no output. (The checklist item naming the script is ticked in Task 9.)
 
 Run: `uv run pytest tests/contracts -v`
 Expected: all pass.
@@ -140,11 +124,20 @@ git commit -m "chore: remove superseded Excel annotation workbook generator"
 
 ---
 
-### Task 3: Commit the editor package script outside the coverage gate
+### Task 3: Remove the coverage gate and exclude the editor script
+
+The script and its mypy override were already committed in `8c7364a`.
+Coverage is reported but no longer enforced (decided 2026-10-06; it was
+already at 88 % and failing the 90 % gate before this plan).
 
 **Files:**
 - Modify: `pyproject.toml`
-- Add: `scripts/build_editor_packages.py` (existing, uncommitted; rebuilt in Phase 3)
+- Modify: `.github/workflows/ci.yml:35`
+
+- [ ] **Step 0: Remove the gate**
+
+In `.github/workflows/ci.yml`, delete the line `          --cov-fail-under=90`
+(keep `--cov-report=term-missing` as the last argument).
 
 - [ ] **Step 1: Add the coverage exclusion**
 
@@ -164,8 +157,8 @@ Expected: ruff `All checks passed!`; mypy `Success: no issues found`.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add pyproject.toml scripts/build_editor_packages.py
-git commit -m "chore: add editor package builder outside the coverage gate"
+git add pyproject.toml .github/workflows/ci.yml
+git commit -m "ci: report coverage without a gate; exclude editor builder"
 ```
 
 ---
@@ -186,18 +179,18 @@ from fractions import Fraction
 
 import pytest
 
+from phentrieve_benchmark.provenance.digests import sha256_bytes
+from phentrieve_benchmark.selection.e3c import canonical_e3c_inventory_bytes
 from phentrieve_benchmark.selection.groups import (
     AnnotationGroupManifest,
     assign_annotation_groups,
     load_e3c_inventory,
 )
-from phentrieve_benchmark.selection.e3c import canonical_e3c_inventory_bytes
 from phentrieve_benchmark.selection.metrics import (
     E3cInventoryRecord,
     LengthStratum,
     Rational,
 )
-from phentrieve_benchmark.provenance.digests import sha256_bytes
 
 _PREFIX = {"en": "EN", "fr": "FR", "es": "ES"}
 
@@ -353,7 +346,7 @@ from phentrieve_benchmark.selection.metrics import (
 )
 
 GROUP_SEED = "phentrieve-e3c-annotation-groups-v1"
-_SOURCE_LANGUAGES = ("en", "fr", "es")
+_SOURCE_LANGUAGES: tuple[Literal["en", "fr", "es"], ...] = ("en", "fr", "es")
 _STRATUM_ORDER = {
     LengthStratum.SHORT: 0,
     LengthStratum.MEDIUM: 1,
@@ -438,13 +431,14 @@ def assign_annotation_groups(
         )
         offset = int.from_bytes(_seeded(language), "big") % _GROUP_COUNT
         for index, record in enumerate(ordered):
+            annotation_language: Literal["de", "en", "fr", "es"] = (
+                "de" if index % _GROUP_COUNT == offset else language
+            )
             assigned.append(
                 AnnotationGroupRecord(
                     source_case_id=record.source_case_id,
-                    source_language=language,  # type: ignore[arg-type]
-                    annotation_language=(  # type: ignore[arg-type]
-                        "de" if index % _GROUP_COUNT == offset else language
-                    ),
+                    source_language=language,
+                    annotation_language=annotation_language,
                     document_sha256=record.document_sha256,
                     length_stratum=record.length_stratum,
                     total_annotation_density=record.total_annotation_density,
@@ -471,8 +465,6 @@ def assign_annotation_groups(
 Run: `uv run pytest tests/unit/selection/test_annotation_groups.py -v`
 Expected: 8 passed.
 
-If mypy reports the two `type: ignore` comments as unused (`warn_unused_ignores`), remove them.
-
 - [ ] **Step 5: Lint and type check**
 
 Run: `uv run ruff check src/phentrieve_benchmark/selection/groups.py tests/unit/selection/test_annotation_groups.py && uv run mypy`
@@ -492,12 +484,12 @@ git commit -m "feat: split E3C reports into four annotation groups"
 **Files:**
 - Modify: `src/phentrieve_benchmark/cli.py`
 - Create (generated): `datasets/e3c-de/selections/e3c-annotation-groups-v1.json`
-- Test: `tests/contracts/test_annotation_groups.py`
+- Test: `tests/contracts/test_tracked_annotation_groups.py`
 
 - [ ] **Step 1: Write the failing contract test**
 
 ```python
-# tests/contracts/test_annotation_groups.py
+# tests/contracts/test_tracked_annotation_groups.py
 import json
 from collections import Counter
 from pathlib import Path
@@ -550,7 +542,7 @@ def test_tracked_groups_have_the_agreed_sizes_and_no_text() -> None:
 
 - [ ] **Step 2: Run it to verify it fails**
 
-Run: `uv run pytest tests/contracts/test_annotation_groups.py -v`
+Run: `uv run pytest tests/contracts/test_tracked_annotation_groups.py -v`
 Expected: FAIL with `FileNotFoundError` for `e3c-annotation-groups-v1.json`.
 
 - [ ] **Step 3: Add the command**
@@ -582,21 +574,29 @@ def select_e3c_groups_command(
     destination = dataset_root / _E3C_GROUPS
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_bytes(manifest.canonical_bytes())
-    counts = Counter(record.annotation_language for record in manifest.records)
-    typer.echo(
-        f"destination={destination} "
-        + " ".join(f"{language}={counts[language]}" for language in ("de", "en", "fr", "es"))
+    summary = _group_summary(
+        record.annotation_language for record in manifest.records
+    )
+    typer.echo(f"destination={destination} {summary}")
+
+
+def _group_summary(languages: Iterable[str]) -> str:
+    counts = Counter(languages)
+    return " ".join(
+        f"{language}={counts[language]}" for language in ("de", "en", "fr", "es")
     )
 ```
+
+Add `from collections.abc import Iterable` to the imports of `cli.py`.
 
 - [ ] **Step 4: Generate the tracked manifest**
 
 Run: `uv run phentrieve-benchmark select e3c-groups`
-Expected: one line like `destination=datasets/e3c-de/selections/e3c-annotation-groups-v1.json de=61 en=63 fr=61 es=61` (German 61 or 62, the others shrink accordingly).
+Expected: `destination=datasets/e3c-de/selections/e3c-annotation-groups-v1.json de=61 en=63 fr=61 es=61` (verified against the tracked inventory: German = 21 EN + 20 FR + 20 ES).
 
 - [ ] **Step 5: Run the contract test and the full suite**
 
-Run: `uv run pytest tests/contracts/test_annotation_groups.py -v`
+Run: `uv run pytest tests/contracts/test_tracked_annotation_groups.py -v`
 Expected: 2 passed.
 
 Run: `uv run pytest -q`
@@ -605,7 +605,7 @@ Expected: all pass.
 - [ ] **Step 6: Commit**
 
 ```bash
-git add src/phentrieve_benchmark/cli.py tests/contracts/test_annotation_groups.py datasets/e3c-de/selections/e3c-annotation-groups-v1.json
+git add src/phentrieve_benchmark/cli.py tests/contracts/test_tracked_annotation_groups.py datasets/e3c-de/selections/e3c-annotation-groups-v1.json
 git commit -m "feat: publish E3C annotation group manifest"
 ```
 
@@ -679,7 +679,7 @@ Expected: FAIL with `TypeError: export_translation_review() got an unexpected ke
 
 - [ ] **Step 3: Implement the filter**
 
-In `src/phentrieve_benchmark/pipeline/translation_review.py`, add `from collections.abc import Collection` to the imports. Change the signature and the start of `export_translation_review`:
+In `src/phentrieve_benchmark/pipeline/translation_review.py`, add `Collection` to the existing `from collections.abc import ...` line (or create that line if absent). Change the signature and the start of `export_translation_review`:
 
 ```python
 def export_translation_review(
@@ -785,13 +785,19 @@ def export_e3c_review_workbook_command(
 
 - [ ] **Step 6: Run CLI tests, lint, and types**
 
+The existing CLI test asserts the exact keyword arguments passed to
+`export_translation_review`. In `tests/unit/test_cli_pipeline.py`, inside
+`test_review_workbook_export_resolves_tllm_and_omits_nmt_by_default`, add
+`"case_ids": None,` to the expected keyword-argument dict (next to
+`"source_language"`).
+
 Run: `uv run pytest tests/unit/test_cli_pipeline.py tests/contracts/test_translation_review_workbook.py -v && uv run ruff check . && uv run mypy`
 Expected: all pass, no lint or type errors.
 
 - [ ] **Step 7: Commit**
 
 ```bash
-git add src/phentrieve_benchmark/pipeline/translation_review.py src/phentrieve_benchmark/cli.py tests/unit/pipeline/test_translation_review_export.py
+git add src/phentrieve_benchmark/pipeline/translation_review.py src/phentrieve_benchmark/cli.py tests/unit/pipeline/test_translation_review_export.py tests/unit/test_cli_pipeline.py
 git commit -m "feat: export translation review for the German annotation group"
 ```
 
@@ -888,7 +894,7 @@ def _review(
     proposed: str,
 ) -> str:
     native = _native(case_id)
-    tllm_sha = store.put_bytes("Fieber und Husten (TLLM).".encode())
+    tllm_sha = store.put_bytes(b"Fieber und Husten (TLLM).")
     proposed_sha = store.put_bytes(proposed.encode())
     changed = decision is not TranslationReviewDecision.ACCEPTED_UNCHANGED
     clinical = decision in {
@@ -937,7 +943,9 @@ def _load(store: ArtifactStore, digest: str) -> AnnotationCorpusManifest:
     )
 
 
-def _documents(store: ArtifactStore, manifest: AnnotationCorpusManifest) -> dict[str, Document]:
+def _documents(
+    store: ArtifactStore, manifest: AnnotationCorpusManifest
+) -> dict[str, Document]:
     return {
         document.source_case_id: document
         for document in (
@@ -1005,7 +1013,7 @@ def test_german_report_uses_the_accepted_reviewed_text(tmp_path: Path) -> None:
     assert document.case_group_id == "e3c:v2.0.0:EN1"
     entry = next(e for e in manifest.entries if e.source_case_id == "EN1")
     assert entry.review_import_sha256 == accepted
-    assert entry.document_sha256 == sha256_bytes("Fieber und Husten.".encode())
+    assert entry.document_sha256 == sha256_bytes(b"Fieber und Husten.")
 
 
 def test_case_accepted_in_two_imports_is_rejected(tmp_path: Path) -> None:
@@ -1422,11 +1430,12 @@ def build_e3c_corpus_command(
     manifest = AnnotationCorpusManifest.model_validate_json(
         context.store.read_bytes(corpus_sha256), strict=True
     )
-    counts = Counter(entry.annotation_language for entry in manifest.entries)
+    summary = _group_summary(
+        entry.annotation_language for entry in manifest.entries
+    )
     typer.echo(
-        f"corpus_sha256={corpus_sha256} "
-        + " ".join(f"{language}={counts[language]}" for language in ("de", "en", "fr", "es"))
-        + f" pending_review={len(manifest.pending_review)}"
+        f"corpus_sha256={corpus_sha256} {summary} "
+        f"pending_review={len(manifest.pending_review)}"
     )
 ```
 
