@@ -82,6 +82,7 @@ def test_pipeline_command_groups_are_exposed() -> None:
         "translate",
         "review-workbook",
         "build-corpus",
+        "attribution",
         "map-hpo",
         "smoke",
     ):

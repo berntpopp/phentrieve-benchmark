@@ -16,8 +16,10 @@ license version remains recorded rather than silently resolved.
 Each original report also supplies its own `docAuthor`, `docDOI`, `docUrl`,
 and `docLicense`. Those values are retained verbatim for all 246 reports in
 [`ATTRIBUTION.md`](ATTRIBUTION.md), generated from the pinned source.
-The generic supplied values `CC BY` and `CC-BY` remain version-unspecified; no
-license version is inferred from them.
+The generic supplied values `CC BY`, `CC-BY`, and `CC BY-NC` remain
+version-unspecified; no license version is inferred from them. Seven reports
+supply `CC BY-NC`; their non-commercial condition applies independently of how
+the corpus-level license is resolved.
 
 Every German `*.de.txt` file in the review package is an unreviewed
 machine-translated adaptation of its attributed original report. This applies
