@@ -626,7 +626,6 @@ def prepare_proposal_run_command(
         cast(tuple[AnnotationLanguage, ...], tuple(language)) if language else None
     )
     context = _pipeline_context(dataset_root, artifact_root)
-    recipe, ontology_sha256 = _pinned_hpo_sha256(context.artifact_root, context.store)
     guideline_commit, guideline_bytes = _committed_blob(
         context.repository_root, GUIDELINE
     )
@@ -636,11 +635,14 @@ def prepare_proposal_run_command(
         sha256=sha256_bytes(guideline_bytes),
     )
     _, prompt_template = _committed_blob(context.repository_root, PROMPT_TEMPLATE)
-    groups = AnnotationGroupManifest.model_validate_json(
-        (context.dataset_root / _E3C_GROUPS).read_bytes(), strict=True
-    )
     input_directory = context.artifact_root / "proposals" / run_id
     try:
+        recipe, ontology_sha256 = _pinned_hpo_sha256(
+            context.artifact_root, context.store
+        )
+        groups = AnnotationGroupManifest.model_validate_json(
+            (context.dataset_root / _E3C_GROUPS).read_bytes(), strict=True
+        )
         run = prepare_proposal_run(
             store=context.store,
             repository_root=context.repository_root,
@@ -678,8 +680,8 @@ def validate_proposal_run_command(
 ) -> None:
     """Validate the archived batch outputs of a run and write validation.json."""
     store = ArtifactStore(artifact_root.resolve() / "objects")
-    hpo_index = _pinned_hpo_index(artifact_root.resolve(), store)
     try:
+        hpo_index = _pinned_hpo_index(artifact_root.resolve(), store)
         report, validation_sha256 = validate_run_directory(
             run_directory=dataset_root.resolve() / PROPOSALS_DIRECTORY / run_id,
             store=store,
@@ -715,8 +717,12 @@ def hpo_lookup_command(
     if isinstance(sys.stdout, io.TextIOWrapper):
         sys.stdout.reconfigure(encoding="utf-8")
     store = ArtifactStore(artifact_root.resolve() / "objects")
-    _, ontology_sha256 = _pinned_hpo_sha256(artifact_root.resolve(), store)
-    entries = read_lookup_entries(store.read_bytes(ontology_sha256))
+    try:
+        _, ontology_sha256 = _pinned_hpo_sha256(artifact_root.resolve(), store)
+        entries = read_lookup_entries(store.read_bytes(ontology_sha256))
+    except (FileNotFoundError, ValueError) as error:
+        typer.echo(f"error={error}", err=True)
+        raise typer.Exit(1) from error
     for query in queries:
         typer.echo(f"# {query}")
         matches = search_hpo(entries, query, limit=limit)

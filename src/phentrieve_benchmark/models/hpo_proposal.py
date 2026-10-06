@@ -127,6 +127,7 @@ class RejectionReason(StrEnum):
     DUPLICATE_PROPOSAL_ID = "duplicate_proposal_id"
     UNKNOWN_HPO_ID = "unknown_hpo_id"
     OBSOLETE_HPO_ID = "obsolete_hpo_id"
+    HPO_ID_NOT_PHENOTYPIC = "hpo_id_not_phenotypic"
     NO_VALID_MENTIONS = "no_valid_mentions"
     PHRASE_NOT_TRIMMED = "phrase_not_trimmed"
     CONTEXT_NOT_FOUND = "context_not_found"

@@ -302,3 +302,65 @@ def test_hpo_lookup_prints_queries_outside_the_console_code_page(
     assert buffer.getvalue().decode("utf-8") == (
         "# \u03b2-thalassemia\n(no match)\n# fever\nHP:0001945\tFever\n"
     )
+
+
+def test_prepare_run_reports_a_missing_group_manifest_without_a_traceback(
+    tmp_path: Path, monkeypatch: Any
+) -> None:
+    context = type(
+        "Context",
+        (),
+        {
+            "repository_root": tmp_path,
+            "dataset_root": tmp_path / "datasets",
+            "artifact_root": tmp_path / "artifacts",
+            "store": object(),
+            "clock": lambda self: datetime(2026, 10, 7, 8, 0, tzinfo=UTC),
+        },
+    )()
+    monkeypatch.setattr(cli, "_pipeline_context", lambda *_: context)
+    monkeypatch.setattr(cli, "_committed_blob", lambda root, path: ("c" * 40, b"x"))
+    monkeypatch.setattr(
+        cli,
+        "_pinned_hpo_sha256",
+        lambda *_: (type("Recipe", (), {"release": "v2026-06-23"})(), "d" * 64),
+    )
+    invocation = CliRunner().invoke(
+        cli.app,
+        [
+            "proposals", "prepare-run", "full-v1",
+            "--corpus", "a" * 64,
+            "--model-id", "claude-sonnet-5-5",
+        ],
+    )
+    assert invocation.exit_code == 2
+    assert not isinstance(invocation.exception, FileNotFoundError)
+
+
+@pytest.mark.parametrize(
+    "arguments",
+    [
+        ["proposals", "validate", "pilot-v1"],
+        ["proposals", "hpo-lookup", "fever"],
+        [
+            "proposals", "prepare-run", "full-v1",
+            "--corpus", "a" * 64,
+            "--model-id", "claude-sonnet-5-5",
+        ],
+    ],
+    ids=["validate", "hpo-lookup", "prepare-run"],
+)
+def test_an_unresolvable_hpo_pin_is_reported_without_a_traceback(
+    arguments: list[str], tmp_path: Path, monkeypatch: Any
+) -> None:
+    def fail(*_: Any) -> None:
+        raise ValueError("invalid YAML recipe: hpo-v2026-06-23.yaml")
+
+    monkeypatch.setattr(cli, "_pinned_hpo_sha256", fail)
+    monkeypatch.setattr(cli, "_committed_blob", lambda root, path: ("c" * 40, b"x"))
+    invocation = CliRunner().invoke(
+        cli.app, [*arguments, "--artifact-root", str(tmp_path)]
+    )
+    assert invocation.exit_code in (1, 2)
+    assert isinstance(invocation.exception, SystemExit)
+    assert "invalid YAML recipe" in _message(invocation.stderr)

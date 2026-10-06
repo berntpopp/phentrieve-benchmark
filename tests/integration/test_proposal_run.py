@@ -236,6 +236,7 @@ def test_german_report_goes_end_to_end_from_corpus_to_validation(
         (run_directory / f"{batch_id}.json").write_bytes(raw)
 
     body = proposal_hpo_obo()
+    store.put_bytes(body)
     index = load_hpo_index(
         body, release="v2026-06-23", ontology_sha256=sha256(body).hexdigest()
     )
@@ -314,6 +315,7 @@ def test_validation_rejects_a_changed_prompt(tmp_path: Path) -> None:
     _prepare(tmp_path, store, _corpus(store))
     run_directory = tmp_path / "datasets/e3c-de/proposals/synthetic-v1"
     (run_directory / "prompt.md").write_bytes(b"edited")
+    (run_directory / "validation.json").write_bytes(b"{}")
     body = proposal_hpo_obo()
     index = load_hpo_index(
         body, release="v2026-06-23", ontology_sha256=sha256(body).hexdigest()
@@ -322,3 +324,4 @@ def test_validation_rejects_a_changed_prompt(tmp_path: Path) -> None:
         validate_run_directory(
             run_directory=run_directory, store=store, hpo_index=index
         )
+    assert not (run_directory / "validation.json").exists()

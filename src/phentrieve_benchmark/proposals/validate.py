@@ -12,7 +12,7 @@ that a measurement (R6) never inherits the flag of a worded mention.
 
 import json
 from collections import Counter
-from collections.abc import Mapping
+from collections.abc import Collection, Mapping
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -161,7 +161,12 @@ def parse_batch_output(
 
 
 def _accepted_proposal(
-    item: Any, *, seen: set[str], hpo_index: HpoIndex, log: _ReportLog
+    item: Any,
+    *,
+    seen: set[str],
+    hpo_index: HpoIndex,
+    phenotypic_ids: Collection[str],
+    log: _ReportLog,
 ) -> ProposedAnnotation | None:
     try:
         proposal = ProposedAnnotation.model_validate_json(json.dumps(item), strict=True)
@@ -196,6 +201,13 @@ def _accepted_proposal(
         log.reject(
             RejectionReason.OBSOLETE_HPO_ID,
             "obsolete in the pinned HPO release",
+            proposal_id=proposal.proposal_id,
+        )
+        return None
+    if proposal.hpo_id not in phenotypic_ids:
+        log.reject(
+            RejectionReason.HPO_ID_NOT_PHENOTYPIC,
+            "not under Phenotypic abnormality (HP:0000118)",
             proposal_id=proposal.proposal_id,
         )
         return None
@@ -290,6 +302,7 @@ def _validate_report(
     report: ReportOutput,
     document: Document,
     hpo_index: HpoIndex,
+    phenotypic_ids: Collection[str],
     log: _ReportLog,
 ) -> tuple[DocumentProposals, int]:
     """Return the document's validated proposals and its evaluated mentions."""
@@ -298,7 +311,13 @@ def _validate_report(
     groups: dict[_StatusKey, list[_Located]] = {}
     evaluated = 0
     for item in report.annotations:
-        proposal = _accepted_proposal(item, seen=seen, hpo_index=hpo_index, log=log)
+        proposal = _accepted_proposal(
+            item,
+            seen=seen,
+            hpo_index=hpo_index,
+            phenotypic_ids=phenotypic_ids,
+            log=log,
+        )
         if proposal is None:
             continue
         evaluated += len(proposal.mentions)
@@ -340,7 +359,13 @@ def validate_proposal_run(
     batch_outputs: Mapping[str, bytes],
     documents: Mapping[str, Document],
     hpo_index: HpoIndex,
+    phenotypic_ids: Collection[str],
 ) -> ProposalValidationReport:
+    """Validate every batch output of a run against its documents.
+
+    `phenotypic_ids` are the terms under Phenotypic abnormality in the same
+    HPO release; a proposal with any other term is rejected (guideline R0).
+    """
     if (
         hpo_index.release != run.hpo_release
         or hpo_index.ontology_sha256 != run.ontology_sha256
@@ -381,7 +406,11 @@ def validate_proposal_run(
                 )
             log = _ReportLog(batch_id=batch.batch_id, document_id=document.document_id)
             result, count = _validate_report(
-                report=report, document=document, hpo_index=hpo_index, log=log
+                report=report,
+                document=document,
+                hpo_index=hpo_index,
+                phenotypic_ids=phenotypic_ids,
+                log=log,
             )
             results.append(result)
             rejections.extend(log.rejections)

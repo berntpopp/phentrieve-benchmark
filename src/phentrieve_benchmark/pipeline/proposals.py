@@ -21,6 +21,7 @@ from phentrieve_benchmark.models.hpo_proposal import (
     ProposalValidationReport,
 )
 from phentrieve_benchmark.ontology.hpo import HpoIndex
+from phentrieve_benchmark.ontology.hpo_lookup import read_lookup_entries
 from phentrieve_benchmark.proposals.run import (
     pilot_case_ids,
     plan_batches,
@@ -183,8 +184,13 @@ def validate_run_directory(
     """Validate a run's batch outputs and write validation.json.
 
     Batch files are only read. Returns the report and the SHA-256 of the
-    canonical validation.json bytes.
+    canonical validation.json bytes. An earlier validation.json is removed
+    first, so a failed validation never leaves a stale report behind. The
+    pinned ontology is read from the store to tell which terms lie under
+    Phenotypic abnormality.
     """
+    validation_path = run_directory / "validation.json"
+    validation_path.unlink(missing_ok=True)
     run_bytes = (run_directory / "run.json").read_bytes()
     run = ProposalRun.model_validate_json(run_bytes, strict=True)
     if sha256_bytes((run_directory / "prompt.md").read_bytes()) != run.prompt_sha256:
@@ -196,13 +202,19 @@ def validate_run_directory(
         path.stem: path.read_bytes()
         for path in sorted(run_directory.glob("batch-*.json"))
     }
+    phenotypic_ids = frozenset(
+        entry.hpo_id
+        for entry in read_lookup_entries(store.read_bytes(run.ontology_sha256))
+        if entry.phenotypic
+    )
     report = validate_proposal_run(
         run=run,
         run_sha256=sha256_bytes(run_bytes),
         batch_outputs=outputs,
         documents=documents,
         hpo_index=hpo_index,
+        phenotypic_ids=phenotypic_ids,
     )
     payload = report.canonical_bytes()
-    (run_directory / "validation.json").write_bytes(payload)
+    validation_path.write_bytes(payload)
     return report, sha256_bytes(payload)

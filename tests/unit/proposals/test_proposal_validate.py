@@ -16,6 +16,7 @@ from phentrieve_benchmark.models.hpo_proposal import (
     RejectionReason,
 )
 from phentrieve_benchmark.ontology.hpo import HpoIndex, load_hpo_index
+from phentrieve_benchmark.ontology.hpo_lookup import read_lookup_entries
 from phentrieve_benchmark.proposals.validate import (
     ProposalBatchError,
     validate_proposal_run,
@@ -36,6 +37,11 @@ _GERMAN = Document.from_text(
 )
 _FIRST_FEVER = {"phrase": "Fieber", "context": "mit hohem Fieber einher"}
 _SECOND_FEVER = {"phrase": "Fieber", "context": "erneut Fieber, Temperatur"}
+_PHENOTYPIC = frozenset(
+    entry.hpo_id
+    for entry in read_lookup_entries(proposal_hpo_obo())
+    if entry.phenotypic
+)
 
 
 def _index() -> HpoIndex:
@@ -122,6 +128,7 @@ def _validate_outputs(outputs: dict[str, bytes]) -> ProposalValidationReport:
         batch_outputs=outputs,
         documents={_GERMAN.document_id: _GERMAN},
         hpo_index=_index(),
+        phenotypic_ids=_PHENOTYPIC,
     )
 
 
@@ -187,6 +194,11 @@ def test_different_status_stays_separate() -> None:
         ("HP:1234567", RejectionReason.UNKNOWN_HPO_ID, "not in the pinned"),
         ("HP:0009998", RejectionReason.UNKNOWN_HPO_ID, "alternate ID of HP:0001945"),
         ("HP:0009999", RejectionReason.OBSOLETE_HPO_ID, "obsolete"),
+        (
+            "HP:0003826",
+            RejectionReason.HPO_ID_NOT_PHENOTYPIC,
+            "not under Phenotypic abnormality",
+        ),
     ],
 )
 def test_invalid_hpo_ids_are_rejected(
@@ -404,6 +416,7 @@ def test_all_batch_errors_are_reported_together() -> None:
             batch_outputs={"batch-01": b"{", "batch-02": b"["},
             documents={_GERMAN.document_id: _GERMAN, english.document_id: english},
             hpo_index=_index(),
+        phenotypic_ids=_PHENOTYPIC,
         )
     assert "batch-01" in str(caught.value)
     assert "batch-02" in str(caught.value)
@@ -455,6 +468,7 @@ def test_documents_are_sorted_by_document_id() -> None:
         batch_outputs={"batch-01": _output([english_report, _report([])])},
         documents={_GERMAN.document_id: _GERMAN, english.document_id: english},
         hpo_index=_index(),
+        phenotypic_ids=_PHENOTYPIC,
     )
     ids = [document.document_id for document in report.documents]
     assert len(ids) == 2
