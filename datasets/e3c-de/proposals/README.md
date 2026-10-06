@@ -66,7 +66,11 @@ object store, and the HPO source lock live in its `.artifacts/`.
    its reply with the files it read and the commands it ran: reject the
    batch (delete its output, dispatch again) if it opened anything under
    `datasets/` other than its own output, for example E3C annotations,
-   mappings, or `annotation-feasibility/`.
+   mappings, or `annotation-feasibility/`. Afterwards
+   `git status --short --untracked-files=all` must show the run directory
+   with exactly its expected files and nothing else; a new run directory is
+   untracked, so without `--untracked-files=all` a stray file in it stays
+   invisible.
 
 4. Validate:
 
@@ -80,9 +84,17 @@ object store, and the HPO source lock live in its `.artifacts/`.
    `batch-NN.json` files and dispatch the same prompts again; failed attempts
    are not kept, but count them for the table below. Proposal- and
    mention-level problems never stop validation; they are listed in
-   `validation.json` with a reason.
+   `validation.json` with a reason. This includes a term outside *Phenotypic
+   abnormality* (`hpo_id_not_phenotypic`). Every validation first removes an
+   earlier `validation.json`, so a failed validation leaves none behind.
+   `error=...` (exit code 1) reports anything else that stops validation,
+   for example a changed `prompt.md` or a missing corpus.
 
 5. Add the run to the table below and commit the run directory.
+
+To prepare a run again, delete `datasets/e3c-de/proposals/<run_id>/` and
+`.artifacts/proposals/<run_id>/` first; `prepare-run` refuses an existing
+run directory.
 
 Reproducibility: subagent runs have no pinned temperature or seed and cannot
 be regenerated identically. Validation, editor packages, and import are
@@ -102,10 +114,18 @@ all German reports again, including those of the earlier run.
 
 | Run | Model | Documents | Re-dispatched batches | `validation_sha256` | Status |
 |---|---|---:|---:|---|---|
-| `pilot-v1` | `claude-sonnet-5-5` | 9 | 0 | `b4d7bb7e621cd46c90198c89a80e6e69ca6a50549086caad1ebce41b9f130c82` | pilot, prompt v1; see below |
-| `pilot-v2` | `claude-sonnet-5-5` | 9 | 0 | `2236103656da47cd7ff8467d5a5bf937732c9ae4e6287ae5671e9f22baf2e837` | pilot, prompt v2, same reports as `pilot-v1`; see below |
-| `pilot-v2-extra` | `claude-sonnet-5-5` | 9 | 0 | `ff32831802115b47294f8098858bd2398e6141625592f9b7255bc32f3d2464a3` | pilot, prompt v2, nine further reports; see below |
+| `pilot-v1` | `claude-sonnet-5-5` | 9 | 0 | `9a8116e461ac2751b6667329c754d213fb66bc698a0a5bcf5adb481792a558de` | pilot, prompt v1; see below |
+| `pilot-v2` | `claude-sonnet-5-5` | 9 | 0 | `5acae5caf0a727f08a4c22f01c9b475a8be536f920f161773a923339693b84d4` | pilot, prompt v2, same reports as `pilot-v1`; see below |
+| `pilot-v2-extra` | `claude-sonnet-5-5` | 9 | 0 | `b9e654c7fafc573136fe84077657c9b2baa0192d64c9cd1e6efc20d61c33a8cf` | pilot, prompt v2, nine further reports; see below |
 | `pilot-v3` | `claude-sonnet-5-5` | 9 | 0 | `ae24e1d706c1c12cf3ad1ae32a8eda8350cd10c57915169bb58fe43d635f4dd0` | pilot, prompt v3 and restricted lookup, nine further reports; see below |
+
+The three earlier pilots were validated again on 2026-10-06 after the
+validator began to reject terms outside *Phenotypic abnormality*; the table
+shows the current hashes. The pilot sections below report the counts of the
+first validation, when those proposals still passed: *Stillbirth* in
+`pilot-v1` and `pilot-v2`, and three proposals in `pilot-v2-extra` are now
+listed as rejected (93, 103, and 57 validated proposals). `pilot-v3` is
+unchanged.
 
 ## Pilot pilot-v1
 
@@ -431,3 +451,48 @@ spot check found one obvious miss, one span that does not stand on its own,
 and two arguable proposals among 42. Open before the full run: the share
 of report text in the tracked contexts (up to 40 %). Whether to start the
 full run is the user's decision.
+
+## Guideline clarifications after the pilots
+
+Decided on 2026-10-06 and added to the guideline (R0, R3, R5):
+
+- A finding or diagnosis the text only suggests ("en faveur de", "consistent
+  with", "suggestive of") is `uncertain`; a hedge on the cause or pathogen
+  leaves the finding `present`.
+- A back-reference ("the tumour", "this pain") is not a further occurrence.
+- A normal examination finding is not a negated phenotype: "spleen was not
+  palpable" gives no annotation.
+- A finding stated in words and its later measurement stay two proposals
+  (verbalized and not verbalized). No rule is added: not verbalized
+  annotations are excluded from single-term derivation (R6).
+
+All four pilots ran before these clarifications. Known deviations in their
+proposals, left to the physician review: *Sarcoma* (`pilot-v2-extra`,
+FR100629) recorded as present for "en faveur de"; a bare "Pain" marked as a
+further mention of *Epigastric pain* (`pilot-v2`, EN100265); *Splenomegaly*
+proposed as absent for a non-palpable spleen (`pilot-v3`, EN100593).
+
+## Proposal source for the piloted reports
+
+Decided on 2026-10-06: the pilot outputs are kept as the proposals for their
+reports and are not repeated in the full run. Subagent runs are not
+deterministic, so a repetition would give a different, not a better defined
+result.
+
+| Reports | Proposal source |
+|---|---|
+| EN100265, EN100415, EN107423, ES100320, ES100447, ES100791, FR100161, FR100658, FR100971 | `pilot-v2` (`pilot-v1` covers the same reports with prompt v1 and is kept for comparison only) |
+| EN100068, EN106156, EN108139, ES100561, ES100633, ES100937, FR100579, FR100629, FR100663 | `pilot-v2-extra` |
+| EN100383, EN100593, EN104179, ES100001, ES100526, ES100978, FR100120, FR100519, FR101000 | `pilot-v3` |
+
+The full run then covers the remaining 158 of the 185 reports of the
+original-language groups, selected with `--case`.
+
+Limits of these 27 reports as a proposal source:
+
+- They were produced with prompt v2 (18 reports) or v3 (9 reports) and
+  before the guideline clarifications above, so they are not uniform with the
+  full run.
+- The main session compared 9 of the 27 reports with their texts (three per
+  run, see the spot checks). The other 18 were only validated, not read
+  against the text.
