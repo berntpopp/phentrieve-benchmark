@@ -117,6 +117,7 @@ def _prepare(
     corpus_sha256: str,
     *,
     languages: Collection[AnnotationLanguage] | None = None,
+    input_directory: Path | None = None,
 ) -> ProposalRun:
     return prepare_proposal_run(
         store=store,
@@ -138,7 +139,8 @@ def _prepare(
         pilot=False,
         batch_size=1,
         run_directory=tmp_path / "datasets/e3c-de/proposals/synthetic-v1",
-        input_directory=tmp_path / ".artifacts/proposals/synthetic-v1",
+        input_directory=input_directory
+        or tmp_path / ".artifacts/proposals/synthetic-v1",
     )
 
 
@@ -260,6 +262,16 @@ def test_existing_run_is_not_overwritten(tmp_path: Path) -> None:
     _prepare(tmp_path, store, corpus_sha256)
     with pytest.raises(FileExistsError, match="synthetic-v1"):
         _prepare(tmp_path, store, corpus_sha256)
+
+
+def test_paths_outside_the_repository_are_refused(tmp_path: Path) -> None:
+    store = ArtifactStore(tmp_path / "objects")
+    corpus_sha256 = _corpus(store)
+    outside = tmp_path.parent / f"{tmp_path.name}-elsewhere"
+    with pytest.raises(ValueError, match="outside the repository root"):
+        _prepare(tmp_path, store, corpus_sha256, input_directory=outside)
+    assert not (tmp_path / "datasets/e3c-de/proposals/synthetic-v1").exists()
+    assert not outside.exists()
 
 
 def test_german_run_stops_while_reviews_are_pending(tmp_path: Path) -> None:

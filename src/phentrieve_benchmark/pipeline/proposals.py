@@ -61,10 +61,13 @@ def read_corpus(
 
 
 def _display(path: Path, repository_root: Path) -> str:
+    """Repo-relative POSIX path; tracked prompts must not hold machine paths."""
     try:
         return path.resolve().relative_to(repository_root.resolve()).as_posix()
     except ValueError:
-        return path.resolve().as_posix()
+        raise ValueError(
+            f"{path} is outside the repository root {repository_root}"
+        ) from None
 
 
 def _write_batch_inputs(
@@ -130,6 +133,8 @@ def prepare_proposal_run(
     """
     if run_directory.exists():
         raise FileExistsError(f"proposal run {run_id} already exists")
+    for path in (run_directory, input_directory):
+        _display(path, repository_root)
     corpus, documents = read_corpus(store, corpus_manifest_sha256)
     case_ids = pilot_case_ids(corpus, groups) if pilot else None
     entries = select_run_entries(corpus, languages=languages, case_ids=case_ids)
