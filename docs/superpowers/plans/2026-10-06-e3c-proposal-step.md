@@ -34,7 +34,7 @@
 - **Rendered batch prompts are tracked:** the exact prompt for each batch (template plus paths, document IDs, and hashes, but no report text) is written as `batch-NN.prompt.md` into the run directory (spec §6.3 "the exact prompt used").
 - **Texts as one file per document:** the Read tool truncates lines longer than 2,000 characters, and E3C texts have lines of up to about 4,000. The prompt therefore tells subagents to read texts with `cat`. Each text sits in its own file, so a single `cat` stays well below the Bash output limit.
 - **`occurrence` ordering:** whole-word matches are counted first, then matches inside longer words. The prompt describes this ordering in the same words.
-- **No restriction to HP:0000118 (decided 2026-10-06):** the lookup and the validator accept every active term. The physician review catches out-of-scope terms, and the pilot shows whether this is a problem.
+- **No restriction to HP:0000118 (decided 2026-10-06; superseded the same day after the pilots, see "Changes after the plan was written"):** the lookup and the validator accept every active term. The physician review catches out-of-scope terms, and the pilot shows whether this is a problem.
 - **Permissions:** the user runs Claude Code in auto mode, which should cover the subagents' `uv run`, `cat`, and file writes. The single-batch pilot shows this. No permission settings are changed by this plan.
 - **Pilot size:** one report per original language and length stratum gives 9 reports. The spec says "about eight", so this fits.
 
@@ -3809,3 +3809,42 @@ git commit -m "data: add proposal run full-v1 for the original-language groups"
 - §9 validator tests (each rejection reason, offsets, merge, no input mutation) → Tasks 2, 4, 6 (batch files unchanged after validation).
 - German support without reviewed texts: `select_run_entries` explains pending reports when nothing else is selected; otherwise `run.json` records them in `pending_review` and `prepare-run` prints their count; `prepare-run --language de` works unchanged once the corpus holds German documents.
 - Names used across tasks: `PROPOSAL_PROVENANCE`, `MAX_EXCERPT_CHARS`, `ProposalRun`, `ProposalBatch`, `BatchDocument`, `ProposalBatchOutput`, `ProposedAnnotation`, `RejectionReason`, `ProposalValidationReport`, `ValidationSummary`, `normalize_typography`, `locate_mention`, `read_lookup_entries`, `search_hpo`, `validate_proposal_run`, `ProposalBatchError`, `pilot_case_ids`, `select_run_entries`, `plan_batches`, `render_batch_prompt`, `GuidelineVersion`, `prepare_proposal_run`, `validate_run_directory`, `PROPOSALS_DIRECTORY`, `PROMPT_TEMPLATE`, `GUIDELINE`, `_pinned_hpo_sha256`, `_pinned_hpo_index`, `_committed_blob`.
+
+---
+
+## Changes after the plan was written (2026-10-06)
+
+Tasks 1-10 are done. The code blocks above are the plan as written; the
+implementation differs where reviews and the pilots led to changes. The
+runbook `datasets/e3c-de/proposals/README.md` holds the pilot results.
+
+Review-driven changes in Tasks 1-9:
+
+- Models: `ResolvedMention` rejects `end <= start`; the counts of
+  `ValidationSummary` are non-negative.
+- Locator: the whole-word check requires a boundary only on a side where
+  the phrase's own edge character is alphanumeric.
+- Lookup: queries and names are compared as word runs, so punctuation,
+  hyphens, and apostrophes do not block a match.
+- Validator: JSON keys over 300 characters and duplicate JSON keys are batch
+  errors.
+- Pipeline: paths outside the repository root are refused; the contract test
+  requires the exact file set of a run directory.
+- CLI: `hpo-lookup` writes UTF-8.
+
+Changes after the pilots:
+
+- Prompt v2 and v3 (`configs/prompts/`); `PROMPT_TEMPLATE` points to v3.
+- `prepare-run --case` selects reports by source case ID.
+- `proposals hpo-lookup` lists only terms under *Phenotypic abnormality* in
+  text search and marks other terms on a lookup by ID. The validator rejects
+  a proposal with a term outside that branch (`hpo_id_not_phenotypic`). This
+  supersedes the decision "No restriction to HP:0000118".
+- `proposals validate` removes an earlier `validation.json` before it runs.
+  Expected failures of the three commands are reported without a traceback.
+- Guideline R0, R3, and R5 carry three clarifications (hedged findings are
+  `uncertain`; back-references are not occurrences; a normal finding is not
+  a negated phenotype).
+- Task 10 Step 3 should use `git status --short --untracked-files=all`.
+- Task 11: the 27 piloted reports keep their pilot outputs as proposals; the
+  full run covers the remaining 158 reports with `--case`, not all 185.

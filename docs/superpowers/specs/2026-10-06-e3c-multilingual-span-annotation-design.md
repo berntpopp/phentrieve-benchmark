@@ -196,6 +196,10 @@ and `context`, a short excerpt that contains the phrase exactly once and
 occurs exactly once in the text. Language models do not count characters
 reliably; the validator computes offsets.
 
+Subagents may look terms up in the pinned release with
+`proposals hpo-lookup` (labels and synonyms; added 2026-10-06). Text search
+lists only terms under *Phenotypic abnormality*.
+
 ### 6.2 Deterministic validation
 
 A pipeline command validates each batch output and never edits it:
@@ -203,6 +207,8 @@ A pipeline command validates each batch output and never edits it:
 - the document ID and hash match the corpus artifact;
 - the HPO ID is an active term of the pinned release `v2026-06-23`; the label
   is informational and is not used to resolve IDs;
+- the HPO ID lies under *Phenotypic abnormality* (HP:0000118), the branch
+  guideline R0 covers (added 2026-10-06 after the pilots);
 - assertion, experiencer, and temporality use the allowed values;
 - each `context` occurs exactly once in the text and each `phrase` exactly
   once in its `context`; the resulting offsets are recorded;
@@ -253,6 +259,11 @@ validated. German texts are not used before their review, so the German path
 is exercised end to end only with synthetic data until then. The pilot shows
 the rejection rate and proposal quality; the prompt is revised if needed. The full run starts only
 after explicit confirmation. Pilot outputs are kept as their own run.
+
+Status 2026-10-06: four pilots with 27 reports are tracked; prompt, lookup,
+and validator were revised between them. Results, the decisions taken, and
+the use of the pilot outputs as proposals for their reports are recorded in
+`datasets/e3c-de/proposals/README.md`.
 
 ## 7. Phase 3: Editor Packages
 
