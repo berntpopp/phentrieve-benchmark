@@ -13,9 +13,9 @@ selected 30-case source and unreviewed German translation snapshot under
 under the project's documented working assumption. The unspecified upstream
 license version remains recorded rather than silently resolved.
 
-Each selected original report also supplies its own `docAuthor`, `docDOI`,
-`docUrl`, and `docLicense`. Those values are retained verbatim in the review
-package's [per-case attribution appendix](review/e3c-de-feasibility-30-v1/README.md#original-report-attribution-and-adaptation-notice).
+Each original report also supplies its own `docAuthor`, `docDOI`, `docUrl`,
+and `docLicense`. Those values are retained verbatim for all 246 reports in
+[`ATTRIBUTION.md`](ATTRIBUTION.md), generated from the pinned source.
 The generic supplied values `CC BY` and `CC-BY` remain version-unspecified; no
 license version is inferred from them.
 

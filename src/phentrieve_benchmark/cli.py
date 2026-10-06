@@ -10,10 +10,16 @@ import typer
 from phentrieve_benchmark import __version__
 from phentrieve_benchmark.artifacts.store import ArtifactStore
 from phentrieve_benchmark.models.annotation_corpus import AnnotationCorpusManifest
+from phentrieve_benchmark.models.pipeline import SourceSnapshotManifest
 from phentrieve_benchmark.models.review import ManualReviewStatus, ReviewRecord
 from phentrieve_benchmark.models.translation import TranslationManifest
 from phentrieve_benchmark.models.translation_review import (
     TranslationReviewImportManifest,
+)
+from phentrieve_benchmark.normalization.e3c_attribution import (
+    E3cReportAttribution,
+    extract_attribution,
+    render_attribution_markdown,
 )
 from phentrieve_benchmark.pipeline.annotation_corpus import build_annotation_corpus
 from phentrieve_benchmark.pipeline.map_hpo import map_hpo_e3c
@@ -66,6 +72,7 @@ recheck_translations_app = typer.Typer(no_args_is_help=True)
 map_hpo_app = typer.Typer(no_args_is_help=True)
 review_workbook_app = typer.Typer(no_args_is_help=True)
 build_corpus_app = typer.Typer(no_args_is_help=True)
+attribution_app = typer.Typer(no_args_is_help=True)
 DatasetRoot = Annotated[Path, typer.Option()]
 ArtifactRoot = Annotated[Path, typer.Option()]
 Cohort = Annotated[Literal["feasibility-30"], typer.Option()]
@@ -84,6 +91,7 @@ recheck_app.add_typer(recheck_translations_app, name="translations")
 app.add_typer(map_hpo_app, name="map-hpo")
 app.add_typer(review_workbook_app, name="review-workbook")
 app.add_typer(build_corpus_app, name="build-corpus")
+app.add_typer(attribution_app, name="attribution")
 
 _TRANSLATION_REVIEW_POLICY_ID = "e3c:translation-review/v1"
 
@@ -464,6 +472,57 @@ def build_e3c_corpus_command(
         f"corpus_sha256={corpus_sha256} {summary} "
         f"pending_review={len(manifest.pending_review)}"
     )
+
+
+_E3C_LANGUAGE_DIRECTORIES: dict[str, Literal["en", "fr", "es"]] = {
+    "English": "en",
+    "French": "fr",
+    "Spanish": "es",
+}
+
+
+@attribution_app.command("e3c")
+def attribution_e3c_command(
+    dataset_root: DatasetRoot = Path("datasets"),
+    artifact_root: ArtifactRoot = Path(".artifacts"),
+) -> None:
+    """Write per-report attribution for every E3C report in the inventory."""
+    context = _pipeline_context(dataset_root, artifact_root)
+    _, normalization = verified_e3c_normalization(context)
+    snapshot = SourceSnapshotManifest.model_validate_json(
+        context.store.read_bytes(normalization.source_snapshot_sha256),
+        strict=True,
+    )
+    records: list[E3cReportAttribution] = []
+    for member in snapshot.members:
+        parts = member.path.split("/")
+        if len(parts) != 4 or parts[0] != "data_annotation":
+            continue
+        if parts[2] != "layer1" or not member.path.endswith(".xml"):
+            continue
+        records.append(
+            extract_attribution(
+                context.store.read_bytes(member.sha256),
+                language=_E3C_LANGUAGE_DIRECTORIES[parts[1]],
+            )
+        )
+    inventory = load_e3c_inventory(
+        (context.dataset_root / _E3C_INVENTORY).read_bytes()
+    )
+    expected = {record.source_case_id for record in inventory}
+    found = {record.source_case_id for record in records}
+    if found != expected:
+        raise typer.BadParameter(
+            f"attribution cases differ from inventory: "
+            f"missing={sorted(expected - found)} extra={sorted(found - expected)}"
+        )
+    destination = context.dataset_root / "e3c-de/ATTRIBUTION.md"
+    destination.write_text(
+        render_attribution_markdown(records, source_commit=snapshot.source_commit),
+        encoding="utf-8",
+        newline="\n",
+    )
+    typer.echo(f"destination={destination} reports={len(records)}")
 
 
 def _prepare_command(
