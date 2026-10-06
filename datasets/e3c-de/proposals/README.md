@@ -6,7 +6,9 @@
 
 Design: [`docs/superpowers/specs/2026-10-06-e3c-multilingual-span-annotation-design.md`](../../../docs/superpowers/specs/2026-10-06-e3c-multilingual-span-annotation-design.md) §6.
 Rules applied by the subagents: [`docs/annotation-guidelines/hpo-span-annotation.md`](../../../docs/annotation-guidelines/hpo-span-annotation.md) (R0-R6).
-Prompt template: [`configs/prompts/hpo-span-proposal-v1.md`](../../../configs/prompts/hpo-span-proposal-v1.md).
+Prompt template: [`configs/prompts/hpo-span-proposal-v2.md`](../../../configs/prompts/hpo-span-proposal-v2.md)
+(v1, used by `pilot-v1`: [`configs/prompts/hpo-span-proposal-v1.md`](../../../configs/prompts/hpo-span-proposal-v1.md)).
+Each run keeps its own copy as `prompt.md`.
 
 ## Run layout
 
