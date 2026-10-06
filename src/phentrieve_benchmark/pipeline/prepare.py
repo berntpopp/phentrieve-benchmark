@@ -30,7 +30,7 @@ from phentrieve_benchmark.models.pipeline import (
 from phentrieve_benchmark.normalization.contracts import NormalizedTarget
 from phentrieve_benchmark.normalization.e3c import normalize_e3c_members
 from phentrieve_benchmark.normalization.raghpo import normalize_raghpo_target
-from phentrieve_benchmark.pipeline.state import StageState
+from phentrieve_benchmark.pipeline.state import StagePointer, StageState
 from phentrieve_benchmark.provenance.canonical import (
     canonical_json_bytes,
     canonical_jsonl_bytes,
@@ -419,9 +419,10 @@ def normalize_target(target_id: TargetId, context: PipelineContext) -> StageResu
     )
 
 
-def select_e3c(cohort: CohortId, context: PipelineContext) -> StageResult:
-    if cohort != "feasibility-30":
-        raise ValueError("unsupported E3C cohort")
+def verified_e3c_normalization(
+    context: PipelineContext,
+) -> tuple[StagePointer, NormalizationManifest]:
+    """Return the verified E3C normalization for the current code identity."""
     source_recipe = load_source_recipe(
         _source_recipe_path("e3c", context.dataset_root)
     )
@@ -452,6 +453,15 @@ def select_e3c(cohort: CohortId, context: PipelineContext) -> StageResult:
         context.store.read_bytes(normalization_pointer.subject_sha256),
         strict=True,
     )
+    return normalization_pointer, normalization
+
+
+def select_e3c(cohort: CohortId, context: PipelineContext) -> StageResult:
+    if cohort != "feasibility-30":
+        raise ValueError("unsupported E3C cohort")
+    target_recipe = _load_target_config("e3c", context.dataset_root)
+    state = StageState(context.artifact_root / "state", context.store)
+    normalization_pointer, normalization = verified_e3c_normalization(context)
     seed_sha256 = context.store.put_bytes(
         b"phentrieve-e3c-de-feasibility-30-v1"
     )

@@ -9,11 +9,13 @@ import typer
 
 from phentrieve_benchmark import __version__
 from phentrieve_benchmark.artifacts.store import ArtifactStore
+from phentrieve_benchmark.models.annotation_corpus import AnnotationCorpusManifest
 from phentrieve_benchmark.models.review import ManualReviewStatus, ReviewRecord
 from phentrieve_benchmark.models.translation import TranslationManifest
 from phentrieve_benchmark.models.translation_review import (
     TranslationReviewImportManifest,
 )
+from phentrieve_benchmark.pipeline.annotation_corpus import build_annotation_corpus
 from phentrieve_benchmark.pipeline.map_hpo import map_hpo_e3c
 from phentrieve_benchmark.pipeline.prepare import (
     PipelineContext,
@@ -22,6 +24,7 @@ from phentrieve_benchmark.pipeline.prepare import (
     normalize_target,
     prepare_target,
     select_e3c,
+    verified_e3c_normalization,
 )
 from phentrieve_benchmark.pipeline.translate import (
     estimate_prepared_translation,
@@ -62,6 +65,7 @@ recheck_app = typer.Typer(no_args_is_help=True)
 recheck_translations_app = typer.Typer(no_args_is_help=True)
 map_hpo_app = typer.Typer(no_args_is_help=True)
 review_workbook_app = typer.Typer(no_args_is_help=True)
+build_corpus_app = typer.Typer(no_args_is_help=True)
 DatasetRoot = Annotated[Path, typer.Option()]
 ArtifactRoot = Annotated[Path, typer.Option()]
 Cohort = Annotated[Literal["feasibility-30"], typer.Option()]
@@ -79,6 +83,7 @@ app.add_typer(recheck_app, name="recheck")
 recheck_app.add_typer(recheck_translations_app, name="translations")
 app.add_typer(map_hpo_app, name="map-hpo")
 app.add_typer(review_workbook_app, name="review-workbook")
+app.add_typer(build_corpus_app, name="build-corpus")
 
 _TRANSLATION_REVIEW_POLICY_ID = "e3c:translation-review/v1"
 
@@ -417,6 +422,47 @@ def _group_summary(languages: Iterable[str]) -> str:
     counts = Counter(languages)
     return " ".join(
         f"{language}={counts[language]}" for language in ("de", "en", "fr", "es")
+    )
+
+
+@build_corpus_app.command("e3c")
+def build_e3c_corpus_command(
+    review_import: Annotated[
+        list[str] | None, typer.Option("--review-import")
+    ] = None,
+    dataset_root: DatasetRoot = Path("datasets"),
+    artifact_root: ArtifactRoot = Path(".artifacts"),
+) -> None:
+    """Build the annotation corpus from the tracked group manifest.
+
+    Review imports are applied in the given order; for each case the last
+    decision wins (a later rejection or question makes it pending again).
+    """
+    context = _pipeline_context(dataset_root, artifact_root)
+    _, normalization = verified_e3c_normalization(context)
+    groups = AnnotationGroupManifest.model_validate_json(
+        (context.dataset_root / _E3C_GROUPS).read_bytes(), strict=True
+    )
+    if groups.inventory_sha256 != normalization.inventory.sha256:
+        raise typer.BadParameter(
+            "group manifest was built from a different inventory",
+            param_hint="--dataset-root",
+        )
+    corpus_sha256 = build_annotation_corpus(
+        store=context.store,
+        groups=groups,
+        native_documents_sha256=normalization.documents.sha256,
+        review_import_sha256s=tuple(review_import or ()),
+    )
+    manifest = AnnotationCorpusManifest.model_validate_json(
+        context.store.read_bytes(corpus_sha256), strict=True
+    )
+    summary = _group_summary(
+        entry.annotation_language for entry in manifest.entries
+    )
+    typer.echo(
+        f"corpus_sha256={corpus_sha256} {summary} "
+        f"pending_review={len(manifest.pending_review)}"
     )
 
 

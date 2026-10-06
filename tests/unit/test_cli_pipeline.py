@@ -8,6 +8,10 @@ from typer.testing import CliRunner
 
 from phentrieve_benchmark import cli
 from phentrieve_benchmark.artifacts.store import ArtifactStore
+from phentrieve_benchmark.models.annotation_corpus import (
+    AnnotationCorpusEntry,
+    AnnotationCorpusManifest,
+)
 from phentrieve_benchmark.models.pipeline import ProvenanceSubjectRole
 from phentrieve_benchmark.models.review import (
     ManualReviewRequirement,
@@ -77,6 +81,7 @@ def test_pipeline_command_groups_are_exposed() -> None:
         "prepare",
         "translate",
         "review-workbook",
+        "build-corpus",
         "map-hpo",
         "smoke",
     ):
@@ -688,3 +693,113 @@ def test_review_workbook_export_guards_group_options(
 
     assert invocation.exit_code == 2
     assert message in " ".join(invocation.stderr.split())
+
+
+def _build_corpus_fixture(
+    tmp_path: Path, monkeypatch: object, *, groups_inventory: str
+) -> tuple[list[dict[str, object]], Path]:
+    dataset_root = tmp_path / "datasets"
+    groups_path = dataset_root / cli._E3C_GROUPS  # type: ignore[attr-defined]
+    groups_path.parent.mkdir(parents=True)
+    groups_path.write_bytes(
+        AnnotationGroupManifest(
+            inventory_sha256=groups_inventory,
+            records=(),
+            aggregate_sha256="f" * 64,
+        ).canonical_bytes()
+    )
+    corpus = AnnotationCorpusManifest(
+        groups_sha256="1" * 64,
+        native_documents_sha256="2" * 64,
+        documents_sha256="3" * 64,
+        entries=(
+            AnnotationCorpusEntry(
+                source_case_id="EN1",
+                annotation_language="en",
+                document_id="en-1",
+                document_sha256="4" * 64,
+            ),
+        ),
+        pending_review=("ES3", "FR2"),
+    )
+    store = type(
+        "Store", (), {"read_bytes": lambda self, digest: corpus.canonical_bytes()}
+    )()
+    context = type(
+        "Context",
+        (),
+        {
+            "store": store,
+            "artifact_root": tmp_path / "artifacts",
+            "dataset_root": dataset_root,
+        },
+    )()
+    normalization = type(
+        "Normalization",
+        (),
+        {
+            "inventory": type("Ref", (), {"sha256": "e" * 64})(),
+            "documents": type("Ref", (), {"sha256": "d" * 64})(),
+        },
+    )()
+    monkeypatch.setattr(cli, "_pipeline_context", lambda *_: context)  # type: ignore[attr-defined]
+    monkeypatch.setattr(
+        cli,
+        "verified_e3c_normalization",
+        lambda _context: (object(), normalization),
+    )  # type: ignore[attr-defined]
+    calls: list[dict[str, object]] = []
+    monkeypatch.setattr(
+        cli,
+        "build_annotation_corpus",
+        lambda **kwargs: calls.append(kwargs) or "c" * 64,
+    )  # type: ignore[attr-defined]
+    return calls, dataset_root
+
+
+def test_build_corpus_passes_review_imports_in_the_given_order(
+    tmp_path: Path, monkeypatch: object
+) -> None:
+    calls, dataset_root = _build_corpus_fixture(
+        tmp_path, monkeypatch, groups_inventory="e" * 64
+    )
+
+    invocation = CliRunner().invoke(
+        cli.app,
+        [
+            "build-corpus",
+            "e3c",
+            "--review-import",
+            "b" * 64,
+            "--review-import",
+            "a" * 64,
+            "--dataset-root",
+            str(dataset_root),
+        ],
+    )
+
+    assert invocation.exit_code == 0, invocation.exception
+    assert len(calls) == 1
+    assert calls[0]["review_import_sha256s"] == ("b" * 64, "a" * 64)
+    assert calls[0]["native_documents_sha256"] == "d" * 64
+    assert invocation.stdout == (
+        f"corpus_sha256={'c' * 64} de=0 en=1 fr=0 es=0 pending_review=2\n"
+    )
+
+
+def test_build_corpus_rejects_groups_from_a_different_inventory(
+    tmp_path: Path, monkeypatch: object
+) -> None:
+    calls, dataset_root = _build_corpus_fixture(
+        tmp_path, monkeypatch, groups_inventory="9" * 64
+    )
+
+    invocation = CliRunner().invoke(
+        cli.app,
+        ["build-corpus", "e3c", "--dataset-root", str(dataset_root)],
+    )
+
+    assert invocation.exit_code == 2
+    message = " ".join(invocation.stderr.replace("│", " ").split())
+    assert "different inventory" in message
+    assert calls == []
