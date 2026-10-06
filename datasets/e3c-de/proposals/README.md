@@ -101,7 +101,9 @@ all German reports again, including those of the earlier run.
 
 | Run | Model | Documents | Re-dispatched batches | `validation_sha256` | Status |
 |---|---|---:|---:|---|---|
-| `pilot-v1` | `claude-sonnet-5-5` | 9 | 0 | `b4d7bb7e621cd46c90198c89a80e6e69ca6a50549086caad1ebce41b9f130c82` | pilot; see below |
+| `pilot-v1` | `claude-sonnet-5-5` | 9 | 0 | `b4d7bb7e621cd46c90198c89a80e6e69ca6a50549086caad1ebce41b9f130c82` | pilot, prompt v1; see below |
+| `pilot-v2` | `claude-sonnet-5-5` | 9 | 0 | `2236103656da47cd7ff8467d5a5bf937732c9ae4e6287ae5671e9f22baf2e837` | pilot, prompt v2, same reports as `pilot-v1`; see below |
+| `pilot-v2-extra` | `claude-sonnet-5-5` | 9 | 0 | `ff32831802115b47294f8098858bd2398e6141625592f9b7255bc32f3d2464a3` | pilot, prompt v2, nine further reports; see below |
 
 ## Pilot pilot-v1
 
@@ -196,3 +198,133 @@ laboratory findings, and further occurrences of an annotated finding are not
 always marked. Sonnet 5.5 with prompt v1 is usable as a proposal source for
 physician review if reviewers are told to expect missing findings; whether
 that is good enough for the full run is the user's decision.
+
+Decision of 2026-10-06: revise the prompt and repeat the pilot.
+
+## Pilots pilot-v2 and pilot-v2-extra
+
+Run date 2026-10-06, same corpus, prompt v2. Prompt v2 adds to v1: a
+completeness pass over all kinds of findings, marking reworded further
+occurrences, alternative lookup wordings, phenotypic terms only, `uncertain`
+only for a hedge on the finding itself, and an inline self-check instead of
+extra files.
+
+- `pilot-v2`: the nine reports of `pilot-v1`.
+- `pilot-v2-extra`: nine further reports, the second report per original
+  language and length stratum in the pilot's seeded order (EN100068,
+  EN106156, EN108139, ES100561, ES100633, ES100937, FR100579, FR100629,
+  FR100663), selected with `--case`.
+
+### Dispatch
+
+- One dispatch per run, no re-dispatch. Both validated on the first attempt.
+- Files reported as read: the guideline and the run's own nine text files.
+  No other file in the repository changed.
+- Deviation from the prompt in both runs: the inline self-check suggested by
+  prompt v2 failed with a shell parse error, and each subagent then wrote a
+  generator script to the user's temporary directory outside the repository.
+  One deleted it; the other was removed by the main session.
+
+### Validation
+
+| Count | `pilot-v1` | `pilot-v2` | `pilot-v2-extra` |
+|---|---:|---:|---:|
+| Proposals received | 94 | 104 | 60 |
+| Proposals rejected | 0 | 0 | 0 |
+| Mentions evaluated | 101 | 113 | 69 |
+| Mentions rejected | 0 | 0 | 0 |
+| Label warnings | 0 | 0 | 0 |
+| Not verbalized (R6) | 8 | 10 | 4 |
+| Terms outside HP:0000118 | 1 | 1 | 3 |
+| Spans longer than 50 characters | 5 | 5 | 1 |
+| Context characters / text length, per report | 11-35 % | 10-38 % | 3-32 % |
+
+Proposals per report, `pilot-v2`: EN100265 29, EN100415 5, EN107423 1,
+ES100320 33, ES100447 16, ES100791 1, FR100161 6, FR100658 11, FR100971 2.
+`pilot-v2-extra`: EN100068 11, EN106156 2, EN108139 12, ES100561 3,
+ES100633 4, ES100937 11, FR100579 3, FR100629 11, FR100663 3.
+
+Terms outside *Phenotypic abnormality*: *Stillbirth* again in `pilot-v2`
+(EN100265); in `pilot-v2-extra` *Ectopic pregnancy* twice (EN100068, under
+*Past medical history*) and *Chest pain triggered by palpation* (FR100629,
+under *Clinical modifier*). The lookup output does not show the branch of a
+term.
+
+### pilot-v1 against pilot-v2 on the same reports
+
+84 proposals (HPO ID and status) are identical in both runs; 10 occur only
+in `pilot-v1`, 20 only in `pilot-v2`. The differences mix prompt effects
+with run-to-run variation.
+
+| Report | v1 proposals | v2 proposals | v1 obvious misses | still missing in v2 |
+|---|---:|---:|---:|---:|
+| EN100415 | 5 | 5 | 0 | 0 |
+| ES100447 | 13 | 16 | 4 | 1 |
+| FR100161 | 6 | 6 | 2 | 2 |
+
+- EN100415: unchanged apart from the span "neuroendocrine carcinoma of the
+  pancreas". The term is still *Neuroendocrine neoplasm*, and the second
+  description of the pancreatic tumour is still not marked.
+- ES100447: v2 adds the punctate epithelial staining (*Punctate keratitis*),
+  the fundus mottling (*Retinal flecks*), and the reduced prothrombin
+  activity, the latter as *Abnormality of prothrombin* although *Prolonged
+  prothrombin time* (HP:0008151) carries the synonym "Reduced prothrombin
+  activity". "obesidad mórbida" is now *Class III obesity*. The reduced tear
+  break-up time is still missing; the subagent reported no lookup match.
+- FR100161: the negated adrenal hyperfunction and fibrosis stage F4 are
+  still not proposed, and the second "cytolyse" is still not marked.
+  *Ganglioneuroma* is now `uncertain`. Two spans now include a word or value
+  that does not determine the term ("légère cytolyse hépatique",
+  "hyperglycémie à 8,54 mmol/l"; R2).
+
+Elsewhere: in ES100320, *Pneumonia* is now `present`, the vulvar condylomas
+are proposed (*Genital warts*), and the mediastinal mass has the more
+specific *Anterior mediastinal mass*; but the thrombocytosis proposed in v1
+(682.000 platelets/µL) is absent in v2, and "tos seca" went from
+*Nonproductive cough* to the less specific *Cough*. In EN100265, a bare
+"Pain" is attached to *Epigastric pain* as a further mention. In FR100971, a
+post-infarction "rupture septale apicale" is proposed as *Apical muscular
+ventricular septal defect*, with a note.
+
+### Spot check of pilot-v2-extra
+
+Three reports, one per language, compared with the text against R0-R6 by the
+main session (not a physician review).
+
+| Report | Proposals | Obvious misses | Wrong terms | Wrong spans | Wrong status | R6 misuse |
+|---|---:|---:|---:|---:|---:|---:|
+| EN108139 | 12 | 0 | 0 | 0 | 0 | 0 |
+| ES100937 | 11 | 0 | 0 | 0 | 0 | 0 |
+| FR100629 | 11 | 0 | 1 | 0 | 0 | 0 |
+
+- EN108139: further occurrences are marked ("T-cell prolymphocytic
+  leukemia" and "T-PLL"), and the historical and the current breast
+  carcinoma are separate proposals. The sternum destruction is not proposed
+  (reported as without term).
+- ES100937: repeated findings carry two mentions each (fever, irritability,
+  rash, pancytopenia), and "sugestivos de edema agudo de pulmón" is
+  `uncertain`. Not proposed and arguable: CSF protein 133,9 mg/dl, pH 7,32,
+  and 5 % atypical lymphocytes. CRP 8,9 mg/l is proposed as not verbalized
+  although it is borderline.
+- FR100629: *Chest pain triggered by palpation* is a clinical modifier, not
+  a phenotypic abnormality (counted as wrong term). *Sarcoma* is recorded as
+  present for "en faveur d'un sarcome épithélioide".
+
+### Verdict
+
+Format and location stay reliable with prompt v2: all 164 proposals and 182
+mentions of the two runs validated on the first attempt. Completeness
+improved: of the six findings missed in the `pilot-v1` spot check, three are
+now proposed, and the spot check of the nine further reports found no
+obvious miss in three reports. Further occurrences are marked more often,
+but not always. Three weaknesses remain:
+
+- terms outside *Phenotypic abnormality* (5 of 258 proposals over all three
+  runs), which an instruction in the prompt did not prevent;
+- less specific terms where the lookup wording did not lead to the specific
+  one;
+- run-to-run variation: a finding proposed in one run can be absent in the
+  next.
+
+The self-check without extra files did not work as written in the prompt.
+Whether prompt v2 is good enough for the full run is the user's decision.
