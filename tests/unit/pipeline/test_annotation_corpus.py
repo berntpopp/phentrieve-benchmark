@@ -76,6 +76,7 @@ def _review(
     *,
     decision: TranslationReviewDecision,
     proposed: str,
+    source_text_sha256: str | None = None,
 ) -> str:
     native = _native(case_id)
     tllm_sha = store.put_bytes(b"Fieber und Husten (TLLM).")
@@ -90,7 +91,7 @@ def _review(
         source_case_id=case_id,
         source_language=native.language,  # type: ignore[arg-type]
         target_language="de",
-        source_text_sha256=native.document_sha256,
+        source_text_sha256=source_text_sha256 or native.document_sha256,
         tllm_text_sha256=tllm_sha if changed else proposed_sha,
         proposed_text_sha256=proposed_sha,
         reviewer_id="reviewer-1",
@@ -200,7 +201,7 @@ def test_german_report_uses_the_accepted_reviewed_text(tmp_path: Path) -> None:
     assert entry.document_sha256 == sha256_bytes(b"Fieber und Husten.")
 
 
-def test_case_accepted_in_two_imports_is_rejected(tmp_path: Path) -> None:
+def test_later_review_import_replaces_earlier_acceptance(tmp_path: Path) -> None:
     store = ArtifactStore(tmp_path / "objects")
     first = _review(
         store,
@@ -214,12 +215,100 @@ def test_case_accepted_in_two_imports_is_rejected(tmp_path: Path) -> None:
         decision=TranslationReviewDecision.ACCEPTED_CORRECTED,
         proposed="Fieber, Husten.",
     )
-    with pytest.raises(ValueError, match="more than one review import"):
+    digest = build_annotation_corpus(
+        store=store,
+        groups=_groups(german={"EN1"}),
+        native_documents_sha256=_store_native(store),
+        review_import_sha256s=(first, second),
+    )
+    manifest = _load(store, digest)
+    assert _documents(store, manifest)["EN1"].text == "Fieber, Husten."
+    entry = next(e for e in manifest.entries if e.source_case_id == "EN1")
+    assert entry.review_import_sha256 == second
+
+
+def test_later_rejection_makes_case_pending(tmp_path: Path) -> None:
+    store = ArtifactStore(tmp_path / "objects")
+    accepted = _review(
+        store,
+        "EN1",
+        decision=TranslationReviewDecision.ACCEPTED_CORRECTED,
+        proposed="Fieber und Husten.",
+    )
+    rejected = _review(
+        store,
+        "EN1",
+        decision=TranslationReviewDecision.REJECTED,
+        proposed="Fieber und Husten (TLLM).",
+    )
+    digest = build_annotation_corpus(
+        store=store,
+        groups=_groups(german={"EN1"}),
+        native_documents_sha256=_store_native(store),
+        review_import_sha256s=(accepted, rejected),
+    )
+    manifest = _load(store, digest)
+    assert manifest.pending_review == ("EN1",)
+    assert "EN1" not in _documents(store, manifest)
+
+
+def test_question_decision_is_pending(tmp_path: Path) -> None:
+    store = ArtifactStore(tmp_path / "objects")
+    question = _review(
+        store,
+        "EN1",
+        decision=TranslationReviewDecision.QUESTION,
+        proposed="Fieber und Husten (TLLM).",
+    )
+    digest = build_annotation_corpus(
+        store=store,
+        groups=_groups(german={"EN1"}),
+        native_documents_sha256=_store_native(store),
+        review_import_sha256s=(question,),
+    )
+    manifest = _load(store, digest)
+    assert manifest.pending_review == ("EN1",)
+    assert "EN1" not in _documents(store, manifest)
+
+
+def test_review_of_different_source_text_is_rejected(tmp_path: Path) -> None:
+    store = ArtifactStore(tmp_path / "objects")
+    accepted = _review(
+        store,
+        "EN1",
+        decision=TranslationReviewDecision.ACCEPTED_CORRECTED,
+        proposed="Fieber und Husten.",
+        source_text_sha256="9" * 64,
+    )
+    with pytest.raises(ValueError, match="does not match the native source text"):
         build_annotation_corpus(
             store=store,
             groups=_groups(german={"EN1"}),
             native_documents_sha256=_store_native(store),
-            review_import_sha256s=(first, second),
+            review_import_sha256s=(accepted,),
+        )
+
+
+def test_duplicate_native_case_is_rejected(tmp_path: Path) -> None:
+    store = ArtifactStore(tmp_path / "objects")
+    duplicate = _native("EN1").model_copy(
+        update={"document_id": "e3c:v2.0.0:fr:EN1:native"}
+    )
+    native = store.put_bytes(
+        canonical_jsonl_bytes(
+            [
+                _native("EN1").model_dump(mode="json"),
+                duplicate.model_dump(mode="json"),
+            ],
+            identity_key="document_id",
+        )
+    )
+    with pytest.raises(ValueError, match="more than one native document"):
+        build_annotation_corpus(
+            store=store,
+            groups=_groups(german=set()),
+            native_documents_sha256=native,
+            review_import_sha256s=(),
         )
 
 

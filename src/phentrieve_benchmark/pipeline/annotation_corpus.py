@@ -2,7 +2,9 @@
 
 Original-language reports reuse the verified native documents. German
 reports use only text from an accepted translation review; reports without
-one are listed as pending and left out.
+one are listed as pending and left out. Review imports are applied in the
+order given and the last decision for a case wins, so a later acceptance
+replaces an earlier one and a later rejection or question makes it pending.
 """
 
 from collections.abc import Sequence
@@ -50,22 +52,32 @@ def _accepted_reviews(
         manifest = TranslationReviewImportManifest.model_validate_json(
             store.read_bytes(import_sha256), strict=True
         )
+        seen: set[str] = set()
         for entry in manifest.entries:
+            if entry.source_case_id in seen:
+                raise ValueError(
+                    f"case {entry.source_case_id} appears twice in one review import"
+                )
+            seen.add(entry.source_case_id)
             record = TranslationReviewRecord.model_validate_json(
                 store.read_bytes(entry.record_sha256), strict=True
             )
-            if record.decision not in _ACCEPTED:
-                continue
-            if entry.source_case_id in accepted:
+            if (
+                entry.source_case_id != record.source_case_id
+                or entry.proposed_text_sha256 != record.proposed_text_sha256
+            ):
                 raise ValueError(
-                    f"case {entry.source_case_id} is accepted in more than one "
-                    "review import"
+                    f"review import entry for {entry.source_case_id} does not "
+                    "match its review record"
                 )
-            accepted[entry.source_case_id] = (
-                import_sha256,
-                entry.record_sha256,
-                record,
-            )
+            if record.decision in _ACCEPTED:
+                accepted[entry.source_case_id] = (
+                    import_sha256,
+                    entry.record_sha256,
+                    record,
+                )
+            else:
+                accepted.pop(entry.source_case_id, None)
     return accepted
 
 
@@ -77,7 +89,7 @@ def _german_document(
             f"review for {source.source_case_id} does not match the native source text"
         )
     version_prefix = source.case_group_id.rsplit(":", 1)[0]
-    return Document.from_text(
+    document = Document.from_text(
         source_case_id=source.source_case_id,
         case_group_id=source.case_group_id,
         document_id=f"{version_prefix}:de:{source.source_case_id}:translated",
@@ -85,6 +97,11 @@ def _german_document(
         translation_status=TranslationStatus.TRANSLATED,
         text=store.read_bytes(record.proposed_text_sha256).decode("utf-8"),
     )
+    if document.document_sha256 != record.proposed_text_sha256:
+        raise ValueError(
+            f"corpus text for {source.source_case_id} is not the reviewed text"
+        )
+    return document
 
 
 def build_annotation_corpus(
