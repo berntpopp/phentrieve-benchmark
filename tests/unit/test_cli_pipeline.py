@@ -1,7 +1,9 @@
 from dataclasses import dataclass
 from decimal import Decimal
+from fractions import Fraction
 from pathlib import Path
 
+import pytest
 from typer.testing import CliRunner
 
 from phentrieve_benchmark import cli
@@ -24,6 +26,11 @@ from phentrieve_benchmark.pipeline.translate import (
 )
 from phentrieve_benchmark.policies.paid_operations import CostEstimate
 from phentrieve_benchmark.provenance.canonical import canonical_json_bytes
+from phentrieve_benchmark.selection.groups import (
+    AnnotationGroupManifest,
+    AnnotationGroupRecord,
+)
+from phentrieve_benchmark.selection.metrics import LengthStratum, Rational
 
 
 def test_acquire_command_prints_only_stable_stage_identity(
@@ -573,3 +580,111 @@ def test_review_workbook_export_filters_language_and_reports_that_count(
     assert invocation.exit_code == 0, invocation.exception
     assert calls[0]["source_language"] == "fr"
     assert invocation.stdout == f"export_sha256={'a' * 64} cases=10\n"
+
+
+def test_review_workbook_export_restricts_to_the_german_group(
+    tmp_path: Path, monkeypatch: object
+) -> None:
+    def group_record(
+        case_id: str, source_language: str, annotation_language: str
+    ) -> AnnotationGroupRecord:
+        return AnnotationGroupRecord(
+            source_case_id=case_id,
+            source_language=source_language,  # type: ignore[arg-type]
+            annotation_language=annotation_language,  # type: ignore[arg-type]
+            document_sha256="d" * 64,
+            length_stratum=LengthStratum.SHORT,
+            total_annotation_density=Rational.from_fraction(Fraction(1)),
+        )
+
+    groups_path = tmp_path / "groups.json"
+    groups_path.write_bytes(
+        AnnotationGroupManifest(
+            inventory_sha256="e" * 64,
+            records=(
+                group_record("FR2", "fr", "de"),
+                group_record("EN1", "en", "en"),
+                group_record("ES3", "es", "de"),
+            ),
+            aggregate_sha256="f" * 64,
+        ).canonical_bytes()
+    )
+    tllm_manifest = type(
+        "Manifest",
+        (),
+        {
+            "records": tuple(
+                type("Record", (), {"source_case_id": case_id})()
+                for case_id in ("EN1", "ES3", "FR2", "FR9")
+            )
+        },
+    )()
+    context = type(
+        "Context",
+        (),
+        {
+            "store": object(),
+            "artifact_root": tmp_path / "artifacts",
+            "dataset_root": tmp_path / "datasets",
+        },
+    )()
+    monkeypatch.setattr(cli, "_pipeline_context", lambda *_: context)  # type: ignore[attr-defined]
+    resolved: list[str] = []
+    monkeypatch.setattr(
+        cli,
+        "_resolve_review_translation_manifest",
+        lambda *, context, variant: resolved.append(variant) or tllm_manifest,
+    )  # type: ignore[attr-defined]
+    calls: list[dict[str, object]] = []
+    monkeypatch.setattr(
+        cli,
+        "export_translation_review",
+        lambda **kwargs: calls.append(kwargs) or "a" * 64,
+    )  # type: ignore[attr-defined]
+
+    invocation = CliRunner().invoke(
+        cli.app,
+        [
+            "review-workbook",
+            "export-e3c",
+            str(tmp_path / "review.xlsx"),
+            "--variant",
+            "tllm-full",
+            "--groups",
+            str(groups_path),
+        ],
+    )
+
+    assert invocation.exit_code == 0, invocation.exception
+    assert resolved == ["tllm-full"]
+    assert calls[0]["case_ids"] == ("ES3", "FR2")
+    assert invocation.stdout == f"export_sha256={'a' * 64} cases=2\n"
+
+
+@pytest.mark.parametrize(
+    ("extra_args", "message"),
+    [
+        ([], "requires --variant tllm-full"),
+        (
+            ["--variant", "tllm-full", "--include-nmt"],
+            "cannot be combined with --include-nmt",
+        ),
+    ],
+)
+def test_review_workbook_export_guards_group_options(
+    tmp_path: Path, extra_args: list[str], message: str
+) -> None:
+    invocation = CliRunner().invoke(
+        cli.app,
+        [
+            "review-workbook",
+            "export-e3c",
+            str(tmp_path / "review.xlsx"),
+            "--groups",
+            str(tmp_path / "groups.json"),
+            *extra_args,
+        ],
+    )
+
+    assert invocation.exit_code == 2
+    assert message in " ".join(invocation.stderr.split())

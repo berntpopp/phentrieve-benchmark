@@ -164,6 +164,14 @@ def export_e3c_review_workbook_command(
     With --groups, only the German annotation group of that manifest is
     exported; use it together with --variant tllm-full.
     """
+    if groups is not None and variant != "tllm-full":
+        raise typer.BadParameter(
+            "requires --variant tllm-full", param_hint="--groups"
+        )
+    if groups is not None and include_nmt:
+        raise typer.BadParameter(
+            "cannot be combined with --include-nmt", param_hint="--groups"
+        )
     context = _pipeline_context(dataset_root, artifact_root)
     tllm_manifest = _resolve_review_translation_manifest(
         context=context, variant=variant
