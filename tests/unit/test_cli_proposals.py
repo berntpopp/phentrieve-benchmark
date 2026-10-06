@@ -268,6 +268,7 @@ def test_hpo_lookup_prints_matches_per_query(
         cli.app,
         [
             "proposals", "hpo-lookup", "muscle pain", "HP:0009999", "nothing",
+            "stillbirth", "HP:0003826",
             "--artifact-root", str(tmp_path),
         ],
     )
@@ -279,6 +280,10 @@ def test_hpo_lookup_prints_matches_per_query(
         "HP:0009999\tObsolete fever variant\tobsolete\n"
         "# nothing\n"
         "(no match)\n"
+        "# stillbirth\n"
+        "(no match)\n"
+        "# HP:0003826\n"
+        "HP:0003826\tStillbirth\tnot a phenotypic abnormality\n"
     )
 
 

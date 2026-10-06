@@ -54,39 +54,59 @@ def proposal_hpo_obo() -> bytes:
 ontology: hp
 
 [Term]
+id: HP:0000118
+name: Phenotypic abnormality
+
+[Term]
+id: HP:0012823
+name: Clinical modifier
+
+[Term]
+id: HP:0003826
+name: Stillbirth
+is_a: HP:0012823 ! Clinical modifier
+
+[Term]
 id: HP:0001945
 name: Fever
 synonym: "Pyrexia" EXACT []
 synonym: "Hyperthermia" RELATED []
 alt_id: HP:0009998
+is_a: HP:0000118 ! Phenotypic abnormality
 
 [Term]
 id: HP:0002013
 name: Vomiting
 synonym: "Emesis" EXACT []
+is_a: HP:0000118 ! Phenotypic abnormality
 
 [Term]
 id: HP:0002019
 name: Constipation
+is_a: HP:0000118 ! Phenotypic abnormality
 
 [Term]
 id: HP:0012735
 name: Cough
+is_a: HP:0000118 ! Phenotypic abnormality
 
 [Term]
 id: HP:0002373
 name: Febrile seizure (within the age range of 3 months to 6 years)
 synonym: "Febrile convulsion" EXACT []
+is_a: HP:0000118 ! Phenotypic abnormality
 
 [Term]
 id: HP:0003326
 name: Myalgia
 synonym: "Muscle pain" EXACT []
+is_a: HP:0000118 ! Phenotypic abnormality
 
 [Term]
 id: HP:0002829
 name: Arthralgia
 synonym: "Joint pain" EXACT []
+is_a: HP:0000118 ! Phenotypic abnormality
 
 [Term]
 id: HP:0009999

@@ -728,6 +728,8 @@ def hpo_lookup_command(
                 parts.append(f"synonym: {match.matched}")
             if match.entry.obsolete:
                 parts.append("obsolete")
+            elif not match.entry.phenotypic:
+                parts.append("not a phenotypic abnormality")
             typer.echo("\t".join(parts))
 
 

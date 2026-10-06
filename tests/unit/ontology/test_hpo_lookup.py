@@ -11,6 +11,10 @@ def _ids(query: str, limit: int = 15) -> list[str]:
     return [match.entry.hpo_id for match in search_hpo(_ENTRIES, query, limit=limit)]
 
 
+def _term(hpo_id: str, name: str, parent: str = "HP:0000118") -> bytes:
+    return f"[Term]\nid: {hpo_id}\nname: {name}\nis_a: {parent} ! parent\n\n".encode()
+
+
 def test_fixture_is_a_valid_strict_hpo_index() -> None:
     body = proposal_hpo_obo()
     index = load_hpo_index(
@@ -58,11 +62,10 @@ def test_punctuation_hyphens_and_apostrophes_do_not_block_matches() -> None:
     assert _ids("febrile-convulsion.") == ["HP:0002373"]
     assert _ids("(fever)") == ["HP:0001945"]
     assert _ids("  joint   pain ") == ["HP:0002829"]
-    obo = (
-        b"[Term]\nid: HP:0000001\nname: Raynaud's phenomenon\n\n"
-        b"[Term]\nid: HP:0000002\nname: Fever-induced seizure\n"
+    entries = read_lookup_entries(
+        _term("HP:0000001", "Raynaud's phenomenon")
+        + _term("HP:0000002", "Fever-induced seizure")
     )
-    entries = read_lookup_entries(obo)
     curly = search_hpo(entries, "Raynaud\u2019s phenomenon")
     assert [m.entry.hpo_id for m in curly] == ["HP:0000001"]
     hyphen = search_hpo(entries, "fever induced seizure")
@@ -76,11 +79,34 @@ def test_punctuation_only_query_matches_nothing() -> None:
 
 
 def test_exact_ranks_before_prefix_before_infix_regardless_of_length() -> None:
-    obo = (
-        b"[Term]\nid: HP:0000001\nname: Big ab\n\n"
-        b"[Term]\nid: HP:0000002\nname: Abnormal thing\n\n"
-        b"[Term]\nid: HP:0000003\nname: Ab\n"
+    entries = read_lookup_entries(
+        _term("HP:0000001", "Big ab")
+        + _term("HP:0000002", "Abnormal thing")
+        + _term("HP:0000003", "Ab")
     )
-    entries = read_lookup_entries(obo)
     ids = [m.entry.hpo_id for m in search_hpo(entries, "ab")]
     assert ids == ["HP:0000003", "HP:0000002", "HP:0000001"]
+
+
+def test_text_search_lists_only_phenotypic_abnormalities() -> None:
+    assert _ids("stillbirth") == []
+    assert _ids("clinical modifier") == []
+    assert _ids("phenotypic abnormality") == ["HP:0000118"]
+
+
+def test_descendants_of_phenotypic_abnormality_count_at_any_depth() -> None:
+    entries = read_lookup_entries(
+        _term("HP:0000001", "Parent finding")
+        + _term("HP:0000002", "Child finding", parent="HP:0000001")
+        + _term("HP:0000003", "Modifier finding", parent="HP:0012823")
+    )
+    ids = [m.entry.hpo_id for m in search_hpo(entries, "finding")]
+    assert ids == ["HP:0000002", "HP:0000001"]
+
+
+def test_id_query_returns_a_term_outside_phenotypic_abnormality() -> None:
+    (match,) = search_hpo(_ENTRIES, "HP:0003826")
+    assert match.entry.label == "Stillbirth"
+    assert not match.entry.phenotypic
+    (fever,) = search_hpo(_ENTRIES, "HP:0001945")
+    assert fever.entry.phenotypic
