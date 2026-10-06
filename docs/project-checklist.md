@@ -340,7 +340,12 @@ GSC-Fassungen erzeugt.
 - [x] Issue #2 auf diesen Stand gebracht (Kommentar vom 2026-10-06).
 - [ ] Lizenznachweis (`license-evidence.yaml`) auf den versionierten
       246-Texte-Snapshot erweitern; bisher begründet er nur den
-      30-Fälle-Snapshot.
+      30-Fälle-Snapshot. Dabei die Lizenz der deutschen Übersetzungen der
+      fünf CC-BY-NC-SA-3.0-Berichte festlegen (ShareAlike, siehe
+      `datasets/e3c-de/PUBLISHER-LICENSES.md`).
+- [x] Gelieferte `docLicense`-Werte aller 246 Berichte gegen Verlag/Archiv
+      geprüft (2026-10-06): fünf JOCR-Berichte sind CC BY-NC-SA 3.0 statt
+      `CC BY-NC`; alle übrigen stimmen in den Lizenzbedingungen überein.
 - [ ] Finale Lizenz- und Redistributionsentscheidung vor der Veröffentlichung
       eines akzeptierten Benchmark-Releases festhalten.
 - [ ] Deterministische Release-Manifeste und Datenkarten erzeugen.
