@@ -8,6 +8,7 @@ from phentrieve_benchmark.models.annotation_corpus import (
     AnnotationCorpusEntry,
     AnnotationCorpusManifest,
 )
+from phentrieve_benchmark.models.hpo_proposal import BatchDocument
 from phentrieve_benchmark.proposals.run import (
     pilot_case_ids,
     plan_batches,
@@ -41,7 +42,13 @@ def _record(
     )
 
 
-def _groups() -> AnnotationGroupManifest:
+def _manifest(records: list[AnnotationGroupRecord]) -> AnnotationGroupManifest:
+    return AnnotationGroupManifest(
+        inventory_sha256="a" * 64, records=tuple(records), aggregate_sha256="b" * 64
+    )
+
+
+def _base_records() -> list[AnnotationGroupRecord]:
     records = [
         _record(f"{source.upper()}{stratum.value}{index}", source, source, stratum)
         for source in _SOURCES
@@ -51,9 +58,11 @@ def _groups() -> AnnotationGroupManifest:
     records += [
         _record(f"ENDE{index}", "en", "de", LengthStratum.SHORT) for index in range(2)
     ]
-    return AnnotationGroupManifest(
-        inventory_sha256="a" * 64, records=tuple(records), aggregate_sha256="b" * 64
-    )
+    return records
+
+
+def _groups() -> AnnotationGroupManifest:
+    return _manifest(_base_records())
 
 
 def _entry(record: AnnotationGroupRecord) -> AnnotationCorpusEntry:
@@ -97,7 +106,29 @@ def test_pilot_takes_one_report_per_original_language_and_stratum() -> None:
     assert len(case_ids) == 9
     assert set(cells.values()) == {1}
     assert all(language != "de" for language, _ in cells)
-    assert case_ids == pilot_case_ids(_corpus(groups), groups)
+    assert case_ids == (
+        "ENlong0",
+        "ENmedium0",
+        "ENshort0",
+        "ESlong0",
+        "ESmedium0",
+        "ESshort1",
+        "FRlong1",
+        "FRmedium0",
+        "FRshort1",
+    )
+
+
+def test_pilot_skips_a_cell_without_candidates() -> None:
+    records = [
+        r
+        for r in _base_records()
+        if (r.annotation_language, r.length_stratum) != ("es", LengthStratum.LONG)
+    ]
+    groups = _manifest(records)
+    case_ids = pilot_case_ids(_corpus(groups), groups)
+    assert len(case_ids) == 8
+    assert not any(case_id.startswith("ESlong") for case_id in case_ids)
 
 
 def test_pilot_rejects_a_corpus_from_another_group_manifest() -> None:
@@ -158,3 +189,43 @@ def test_prompt_template_must_contain_every_placeholder() -> None:
             output_path="o",
             documents="d",
         )
+
+
+def test_selection_sorts_by_language_before_case_id() -> None:
+    records = [*_base_records(), _record("FRDE0", "fr", "de", LengthStratum.SHORT)]
+    entries = select_run_entries(
+        _corpus(_manifest(records)), languages=("de", "en"), case_ids=None
+    )
+    assert [entry.source_case_id for entry in entries][:4] == [
+        "ENDE0",
+        "ENDE1",
+        "FRDE0",
+        "ENlong0",
+    ]
+
+
+def test_selection_by_case_id_returns_exactly_those_cases() -> None:
+    entries = select_run_entries(
+        _corpus(_groups()), languages=None, case_ids=("FRshort1", "ENlong0")
+    )
+    assert [entry.source_case_id for entry in entries] == ["ENlong0", "FRshort1"]
+
+
+def test_batches_keep_entry_order_and_document_fields() -> None:
+    entries = select_run_entries(_corpus(_groups()), languages=("en",), case_ids=None)
+    batches = plan_batches(entries, batch_size=4)
+    flattened = [d.source_case_id for b in batches for d in b.documents]
+    assert flattened == [entry.source_case_id for entry in entries]
+    first = entries[0]
+    assert batches[0].documents[0] == BatchDocument(
+        document_id=first.document_id,
+        document_sha256=first.document_sha256,
+        source_case_id=first.source_case_id,
+        annotation_language=first.annotation_language,
+    )
+
+
+def test_batch_size_must_be_positive() -> None:
+    entries = select_run_entries(_corpus(_groups()), languages=("en",), case_ids=None)
+    with pytest.raises(ValueError, match="batch size must be positive"):
+        plan_batches(entries, batch_size=0)
