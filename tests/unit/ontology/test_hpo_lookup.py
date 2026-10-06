@@ -39,7 +39,7 @@ def test_synonym_match_reports_the_synonym() -> None:
 
 
 def test_all_tokens_must_match_and_accents_fold() -> None:
-    assert _ids("Fébrile convulsion") == ["HP:0002373"]
+    assert _ids("F\u00e9brile convulsion") == ["HP:0002373"]
     assert _ids("joint fever") == []
 
 
