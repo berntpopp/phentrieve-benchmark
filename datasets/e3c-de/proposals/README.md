@@ -118,6 +118,7 @@ all German reports again, including those of the earlier run.
 | `pilot-v2` | `claude-sonnet-5-5` | 9 | 0 | `5acae5caf0a727f08a4c22f01c9b475a8be536f920f161773a923339693b84d4` | pilot, prompt v2, same reports as `pilot-v1`; see below |
 | `pilot-v2-extra` | `claude-sonnet-5-5` | 9 | 0 | `b9e654c7fafc573136fe84077657c9b2baa0192d64c9cd1e6efc20d61c33a8cf` | pilot, prompt v2, nine further reports; see below |
 | `pilot-v3` | `claude-sonnet-5-5` | 9 | 0 | `ae24e1d706c1c12cf3ad1ae32a8eda8350cd10c57915169bb58fe43d635f4dd0` | pilot, prompt v3 and restricted lookup, nine further reports; see below |
+| `sample60-v3` | `claude-sonnet-5-5` | 60 | 0 | `b8cace6c5c2f2e0a8c0b953b732b757384a14eed5b6fe1498e8f8c7a6cdf0228` | 60 further reports, prompt v3, cross-read by `claude-opus-5-5`; see below |
 
 The three earlier pilots were validated again on 2026-10-06 after the
 validator began to reject terms outside *Phenotypic abnormality*; the table
@@ -472,27 +473,135 @@ FR100629) recorded as present for "en faveur de"; a bare "Pain" marked as a
 further mention of *Epigastric pain* (`pilot-v2`, EN100265); *Splenomegaly*
 proposed as absent for a non-palpable spleen (`pilot-v3`, EN100593).
 
-## Proposal source for the piloted reports
+## Which results count
 
-Decided on 2026-10-06: the pilot outputs are kept as the proposals for their
-reports and are not repeated in the full run. Subagent runs are not
-deterministic, so a repetition would give a different, not a better defined
-result.
+Decided on 2026-10-07: proposals count as results only after they were
+cross-read against the report text. Validation alone is not enough.
 
-| Reports | Proposal source |
-|---|---|
-| EN100265, EN100415, EN107423, ES100320, ES100447, ES100791, FR100161, FR100658, FR100971 | `pilot-v2` (`pilot-v1` covers the same reports with prompt v1 and is kept for comparison only) |
-| EN100068, EN106156, EN108139, ES100561, ES100633, ES100937, FR100579, FR100629, FR100663 | `pilot-v2-extra` |
-| EN100383, EN100593, EN104179, ES100001, ES100526, ES100978, FR100120, FR100519, FR101000 | `pilot-v3` |
+| Run | Reports | Cross-read |
+|---|---:|---|
+| `sample60-v3` | 60 | all 60, by Opus subagents (see below) |
+| `pilot-v2`, `pilot-v2-extra`, `pilot-v3` | 27 | 9 by the main session in the spot checks; 18 not yet |
+| `pilot-v1` | 9 | superseded by `pilot-v2` on the same reports |
 
-The full run then covers the remaining 158 of the 185 reports of the
-original-language groups, selected with `--case`.
+The 18 pilot reports that were only validated do not count as results until
+they are cross-read. All pilots also predate the guideline clarifications
+above.
 
-Limits of these 27 reports as a proposal source:
+## Sample run sample60-v3 with agentic cross-reading
 
-- They were produced with prompt v2 (18 reports) or v3 (9 reports) and
-  before the guideline clarifications above, so they are not uniform with the
-  full run.
-- The main session compared 9 of the 27 reports with their texts (three per
-  run, see the spot checks). The other 18 were only validated, not read
-  against the text.
+Run date 2026-10-06 (UTC). Sixty reports that were in no pilot: 20 per
+original language (7 short, 7 medium, 6 long; ranks 4 and up in the pilot's
+seeded order), selected with `--case`, in six batches of ten. State of the
+tools: prompt v3, the guideline with the clarifications of 2026-10-06, the
+lookup restricted to *Phenotypic abnormality*, and the validator that
+rejects other terms.
+
+### Procedure
+
+1. Proposals: one `claude-sonnet-5-5` subagent per batch, five in parallel
+   and the sixth when the first had finished. Each subagent was told to read
+   its `batch-NN.prompt.md` and carry it out; the prompt was not pasted into
+   the dispatch.
+2. Validation with `proposals validate`.
+3. Cross-reading: one `claude-opus-5-5` subagent per batch with the prompt
+   [`configs/prompts/hpo-span-crossread-v1.md`](../../../configs/prompts/hpo-span-crossread-v1.md).
+   Its input per report is the text and the validated proposals; it may use
+   the lookup. Its output lists issues of proposals (`not_a_finding`,
+   `wrong_term`, `wrong_span`, `wrong_status`, `wrong_verbalized`,
+   `missing_occurrence`, `extra_occurrence`) and missed findings, each rated
+   `clear` or `arguable`, with a correction.
+
+The cross-read outputs are stored unchanged in
+[`../proposal-crossreads/sample60-v3/`](../proposal-crossreads/sample60-v3/)
+(`batch-NN.json`, schema `e3c-hpo-crossread/v1`). They are machine
+generated, not review data, and not gold. The proposals themselves are
+unchanged: no correction has been applied.
+
+### Validation
+
+| Count | Value |
+|---|---:|
+| Proposals received | 530 |
+| Proposals rejected | 0 |
+| Mentions evaluated | 639 |
+| Mentions rejected | 0 |
+| Label warnings | 0 |
+| Re-dispatched batches | 0 |
+| Not verbalized (R6) | 25 |
+
+`validation_sha256`:
+`b8cace6c5c2f2e0a8c0b953b732b757384a14eed5b6fe1498e8f8c7a6cdf0228`.
+Per language: EN 185 proposals, ES 168, FR 177. Assertion: 446 present, 62
+absent, 22 uncertain. All six subagents kept their helper script in the
+git-ignored text directory.
+
+### Tokens and time
+
+Subagent tokens and durations as reported by the Agent tool. The main
+session's own tokens for orchestration are not included.
+
+| Stage | Model | Agents | Tokens | Tokens per report | Agent time | Per batch | Wall clock |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Proposals | Sonnet 5.5 | 6 | 550,536 | 9,176 | 30.3 min | 3.3-6.3 min | 8.1 min |
+| Validation | none | - | - | - | 4 s | - | 4 s |
+| Cross-reading | Opus 5.5 | 6 | 825,761 | 13,763 | 59.5 min | 7.7-13.0 min | 17.0 min |
+| Total | | 12 | 1,376,297 | 22,938 | 89.9 min | | 25.3 min |
+
+Per batch, proposals / cross-reading in tokens: batch-01 107,187 / 132,563;
+batch-02 68,935 / 115,044; batch-03 104,133 / 149,678; batch-04 86,224 /
+126,104; batch-05 101,090 / 165,012; batch-06 82,967 / 137,360. The 60
+reports have 117,401 characters.
+
+At these rates the 125 reports of the original-language groups that are not
+in this run would need about 2.9 million subagent tokens, of which 1.7
+million are Opus.
+
+### What the cross-reading found
+
+| | EN | ES | FR | Total |
+|---|---:|---:|---:|---:|
+| Proposals | 185 | 168 | 177 | 530 |
+| Issues, clear | 28 | 26 | 26 | 80 |
+| Issues, arguable | 26 | 35 | 39 | 100 |
+| Missed findings, clear | 15 | 14 | 19 | 48 |
+| Missed findings, arguable | 30 | 31 | 31 | 92 |
+
+Issues by kind (clear / arguable): wrong span 53 / 43; wrong term 15 / 31;
+missing occurrence 10 / 15; not a finding 2 / 5; wrong status 0 / 3; extra
+occurrence 0 / 3; wrong verbalized 0 / 0.
+
+- Span edges are the main point: 53 of the 80 clear issues are span
+  corrections, most of which drop a leading or trailing word that does not
+  determine the term (side, size, intensity: "bilateral pleural effusion",
+  "hematoma de 12 cm", "grosse végétation très mobile"). R2 excludes such
+  words, but the subagents rated the same pattern differently, some as clear
+  and some as arguable.
+- Without span issues, 27 clear issues remain for 530 proposals (5 %): 15
+  terms with a more specific or better fitting alternative, 10 unmarked
+  further occurrences, 2 proposals that are no finding. No status was rated
+  clearly wrong.
+- 48 findings are clearly missed, 0.8 per report: 35 present and 13 absent;
+  7 of them are measurements without interpretation.
+- 20 of the 60 reports have neither a clear issue nor a clear miss.
+
+Checks of the cross-read outputs: every one of the 140 missed findings has
+an active term under *Phenotypic abnormality* and a phrase and context the
+locator finds; every issue refers to an existing proposal; every corrected
+term is valid; no string is longer than 179 characters. The main session
+read three reports (EN108254, ES100736, FR100603) against their cross-read:
+all six clear points hold.
+
+Observations for the guideline and the lookup:
+
+- *Preeclampsia* (HP:0100602) is not under *Phenotypic abnormality* in the
+  pinned release, so it can no longer be proposed.
+- The pinned release has tuberculosis terms (for example *Tuberculosis
+  infection*, HP:5210111), although R0 names "Tuberkulose" as a diagnosis
+  without a matching term.
+- Positive cultures and negative serology were handled inconsistently
+  (finding or not).
+
+Open: whether and how the cross-read corrections are applied to the
+proposals. They are structured (term, status, phrase with context), so the
+clear ones could be applied mechanically and validated like a batch output.

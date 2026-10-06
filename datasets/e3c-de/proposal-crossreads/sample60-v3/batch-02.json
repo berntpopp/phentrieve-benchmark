@@ -1,0 +1,393 @@
+{
+  "schema_version": "e3c-hpo-crossread/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "sample60-v3",
+  "batch_id": "batch-02",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:en:EN100655:native",
+      "document_sha256": "772a08645287605062b431e8f003393fb5dbe4875dc50646c1fb56cec5da1ec6",
+      "issues": [
+        {
+          "proposal_id": "p002",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "temperature was 39°C",
+            "context": "His temperature was 39°C"
+          },
+          "note": "The span of an uninterpreted measurement covers the measurement including what was measured (R6), as in the other laboratory spans."
+        },
+        {
+          "proposal_id": "p004",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0030840",
+            "hpo_label": "Ankle pain",
+            "phrase": "pain or limitation of the range of motion of the ankle",
+            "context": "pain or limitation of the range of motion of the ankle"
+          },
+          "note": "The first mention shares the location \"of the ankle\" with the limitation (R4), which makes it Ankle pain/absent on the whole construction; the second mention stays Pain."
+        },
+        {
+          "proposal_id": "p005",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "pain or limitation of the range of motion of the ankle",
+            "context": "pain or limitation of the range of motion of the ankle"
+          },
+          "note": "If the ankle location is shared with the pain term, the whole construction is the span of both terms (R4)."
+        },
+        {
+          "proposal_id": "p006",
+          "kind": "wrong_term",
+          "severity": "clear",
+          "correction": {
+            "hpo_id": "HP:0001785",
+            "hpo_label": "Ankle swelling"
+          },
+          "note": "Both mentions describe swelling of the ankle, for which the more specific term Ankle swelling exists (R1)."
+        },
+        {
+          "proposal_id": "p006",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "ankle was noted to be slightly edematous",
+            "context": "The ankle was noted to be slightly edematous"
+          },
+          "note": "With Ankle swelling the site determines the term and belongs to the span (R2)."
+        },
+        {
+          "proposal_id": "p006",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "soft tissue swelling around the ankle joint",
+            "context": "soft tissue swelling around the ankle joint"
+          },
+          "note": "With Ankle swelling the site determines the term and belongs to the span (R2)."
+        },
+        {
+          "proposal_id": "p010",
+          "kind": "wrong_status",
+          "severity": "arguable",
+          "correction": {
+            "temporality": "current"
+          },
+          "note": "The suspicion a few days before admission belongs to the reported episode rather than to the time before it."
+        },
+        {
+          "proposal_id": "p012",
+          "kind": "missing_occurrence",
+          "severity": "clear",
+          "correction": {
+            "phrase": "osteomyelitis",
+            "context": "precise diagnosis of osteomyelitis"
+          },
+          "note": "The scintigraphy sentence names osteomyelitis again and leaves it unconfirmed, so it is a further uncertain occurrence (R5)."
+        },
+        {
+          "proposal_id": "p012",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "osteomyelitis",
+            "context": "talar osteomyelitis"
+          },
+          "note": "The site \"talar\" does not determine the term Osteomyelitis, so the shortest span is the noun alone (R2)."
+        },
+        {
+          "proposal_id": "p013",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "septic arthritis",
+            "context": "septic arthritis of the ankle"
+          },
+          "note": "The site \"of the ankle\" does not determine the term Septic arthritis, so the shortest span is \"septic arthritis\" (R2)."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0008095",
+          "hpo_label": "Osteolysis of talus",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "lytic lesion of the talus",
+          "context": "posterior-medial lytic lesion of the talus",
+          "severity": "clear",
+          "note": "Abnormal X-ray finding without a proposal."
+        },
+        {
+          "hpo_id": "HP:0031864",
+          "hpo_label": "Bacteremia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "blood culture and the specimen of the joint isolated Staphylococcus aureus",
+          "context": "The blood culture and the specimen of the joint isolated Staphylococcus aureus Meti-R",
+          "severity": "arguable",
+          "note": "A positive blood culture is a laboratory finding (Bacteremia); the pathogen itself is not annotated."
+        },
+        {
+          "hpo_id": "HP:0001288",
+          "hpo_label": "Gait disturbance",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "limitation in walking and running",
+          "context": "had no pain or limitation in walking and running",
+          "severity": "arguable",
+          "note": "The text names and negates a limitation in walking; the phrase is shared with Difficulty running (R4)."
+        },
+        {
+          "hpo_id": "HP:0009046",
+          "hpo_label": "Difficulty running",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "limitation in walking and running",
+          "context": "had no pain or limitation in walking and running",
+          "severity": "arguable",
+          "note": "The text names and negates a limitation in running; the phrase is shared with Gait disturbance (R4)."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN101318:native",
+      "document_sha256": "9beb750b345365a13cf32d2f29d14c31086e910036ea50cee39567f86a706286",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN102305:native",
+      "document_sha256": "65a17cec78ee34e7d1c160378fa826d7e4fe53712f9caef479a7621b2ce93a51",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN103266:native",
+      "document_sha256": "9cc56aa4a7ac18475034ce1f2845165107dc6927aa4b45186861904354b0f284",
+      "issues": [],
+      "missed": [
+        {
+          "hpo_id": "HP:0009911",
+          "hpo_label": "Abnormal temporal bone morphology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "asymmetrical signal changes in the bilateral petrous bone",
+          "context": "asymmetrical signal changes in the bilateral petrous bone",
+          "severity": "arguable",
+          "note": "Abnormal MRI finding of the petrous bone; the lookup has no term for petrositis, only this general temporal bone term."
+        },
+        {
+          "hpo_id": "HP:0011384",
+          "hpo_label": "Abnormality of the internal auditory canal",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "enhancing lesion in the left internal auditory meatus",
+          "context": "enhancing lesion in the left internal auditory meatus",
+          "severity": "arguable",
+          "note": "Abnormal MRI finding in the internal auditory meatus; only the general term fits."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN104184:native",
+      "document_sha256": "4b7eb14715159b7d25e356d04b05a31e3978b4e48af162f36a4eb4721b723686",
+      "issues": [
+        {
+          "proposal_id": "p001",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "hemivertebra at the C4 level",
+            "context": "hemivertebra at the C4 level"
+          },
+          "note": "The level is what makes the term Cervical hemivertebrae, so it belongs to the span (R2)."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0008516",
+          "hpo_label": "Abnormality of the vertebral spinous processes",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "elongated left spinous process",
+          "context": "an elongated left spinous process in the neck",
+          "severity": "clear",
+          "note": "Abnormal radiographic finding without a proposal."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN104263:native",
+      "document_sha256": "0a7b200c399a9b10c78a8658d4542236a618e994f9cf55aede1eb38b1cc180a2",
+      "issues": [
+        {
+          "proposal_id": "p001",
+          "kind": "missing_occurrence",
+          "severity": "clear",
+          "correction": {
+            "phrase": "hip dislocation",
+            "context": "closed reduction of hip dislocation"
+          },
+          "note": "The treatment sentence names the patient's hip dislocation again (R5)."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN105223:native",
+      "document_sha256": "4e5fa38ada4c4d7a68679c8db3534d39bc3bccd0f14c80cec3a8b6b32629c838",
+      "issues": [
+        {
+          "proposal_id": "p002",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "neoplasm",
+            "context": "poorly differentiated neoplasm"
+          },
+          "note": "The grade \"poorly differentiated\" does not determine the term Neoplasm, so the shortest span is the noun alone (R2)."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0034884",
+          "hpo_label": "Uterine cervix mass",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "cystic lesion arising from her cervix",
+          "context": "cystic lesion arising from her cervix",
+          "severity": "clear",
+          "note": "Abnormal examination finding without a proposal; Abnormal uterine cervix morphology (HP:0012888) is the more general alternative."
+        },
+        {
+          "hpo_id": "HP:0030731",
+          "hpo_label": "Carcinoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "small cell carcinoma",
+          "context": "She was diagnosed with small cell carcinoma",
+          "severity": "arguable",
+          "note": "The text states this diagnosis before revising it to Ewing sarcoma; the lookup has no small cell carcinoma term outside the lung."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN105832:native",
+      "document_sha256": "6190efdf31fd74dda4ade83935c138b845cd4f4cf42447c840be1f0452ab30e3",
+      "issues": [
+        {
+          "proposal_id": "p001",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "hyperinsulinemic hypoglycemia",
+            "context": "known to suffer from late familial hyperinsulinemic hypoglycemia"
+          },
+          "note": "The words \"late familial\" do not determine the term, so the shortest span is \"hyperinsulinemic hypoglycemia\" (R2)."
+        },
+        {
+          "proposal_id": "p003",
+          "kind": "missing_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "small fetus",
+            "context": "showed a small fetus with appropriate growth"
+          },
+          "note": "Ultrasound describes the same child as small before birth; the appropriate growth speaks for Small for gestational age rather than growth retardation."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0033400",
+          "hpo_label": "Acute abdomen",
+          "assertion": "present",
+          "experiencer": "other",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "abdominal catastrophe",
+          "context": "signs of an abdominal catastrophe",
+          "severity": "arguable",
+          "note": "The newborn's abdominal catastrophe is a clinical finding of its own beside the suspected enterocolitis."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN108055:native",
+      "document_sha256": "1199784e5861a6c6ac292923f06c887ed23fa1403c45d2d41933d20869c8a3c8",
+      "issues": [
+        {
+          "proposal_id": "p002",
+          "kind": "not_a_finding",
+          "severity": "arguable",
+          "correction": {},
+          "note": "Parkinson's disease is a disease diagnosis, the lookup lists it neither as label nor as synonym of Parkinsonism, and the text reports no parkinsonian sign (R0)."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN108254:native",
+      "document_sha256": "60d02964037934fa941f2a7362ac80971a2b98ce08a72fadf5e72d0000a71414",
+      "issues": [
+        {
+          "proposal_id": "p003",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "loss of reflex penile erection and bladder emptying",
+            "context": "loss of reflex penile erection and bladder emptying"
+          },
+          "note": "The words \"loss of reflex\" are shared with the bladder finding, so the whole construction is the span of both terms (R4)."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0000016",
+          "hpo_label": "Urinary retention",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "loss of reflex penile erection and bladder emptying",
+          "context": "loss of reflex penile erection and bladder emptying",
+          "severity": "clear",
+          "note": "Loss of reflex bladder emptying has no proposal; it shares the construction with Erectile dysfunction (R4)."
+        },
+        {
+          "hpo_id": "HP:6000095",
+          "hpo_label": "Draining sinus tract in skin",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "sinuses in dorsal wound exuding purulent material",
+          "context": "sinuses in dorsal wound exuding purulent material",
+          "severity": "clear",
+          "note": "Examination finding of 1999 without a proposal."
+        }
+      ]
+    }
+  ]
+}

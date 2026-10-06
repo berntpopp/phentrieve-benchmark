@@ -1,0 +1,883 @@
+{
+  "schema_version": "e3c-hpo-crossread/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "sample60-v3",
+  "batch_id": "batch-05",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100227:native",
+      "document_sha256": "40182a37675c61fd91b1cd0b078afc19a9a08e86768fdefc00af776308e42ce8",
+      "issues": [
+        {
+          "proposal_id": "p002",
+          "kind": "wrong_term",
+          "severity": "clear",
+          "correction": {
+            "hpo_id": "HP:0011141",
+            "hpo_label": "Age-related cataract"
+          },
+          "note": "The text says senile cataract; Age-related cataract is the more specific term (R1)."
+        },
+        {
+          "proposal_id": "p003",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "hyperaction du droit inferieur",
+            "context": "avec hyperaction du droit inferieur gauche"
+          },
+          "note": "Trailing laterality does not determine the term; R2 asks for the shortest phrase."
+        },
+        {
+          "proposal_id": "p004",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0031747",
+            "hpo_label": "Superior rectus muscle underaction"
+          },
+          "note": "The text names the superior rectus, so a muscle-specific term fits better (R1); Superior rectus muscle restriction (HP:0031746) is the alternative."
+        },
+        {
+          "proposal_id": "p005",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "atteinte du grand oblique",
+            "context": "une atteinte du grand oblique droit"
+          },
+          "note": "Trailing laterality does not determine the term; R2 asks for the shortest phrase."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100296:native",
+      "document_sha256": "dcf8044bb9f06ea5898a48019c41cf920d182796da489414c08a3be1d25b6a74",
+      "issues": [
+        {
+          "proposal_id": "p001",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "sciatique",
+            "context": "depuis 3 mois une sciatique droite S1 hyperalgique"
+          },
+          "note": "Trailing laterality and root level do not determine the term; R2 asks for the shortest phrase."
+        },
+        {
+          "proposal_id": "p001",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "sciatique",
+            "context": "une sciatique droite de topographie S1 sans lombalgie"
+          },
+          "note": "Trailing laterality and root level do not determine the term; R2 asks for the shortest phrase."
+        },
+        {
+          "proposal_id": "p002",
+          "kind": "missing_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "brulure; décharges électriques",
+            "context": "phénomènes neuropathiques de type brulure; décharges électriques"
+          },
+          "note": "Burning and electric-shock sensations are dysesthesias named in the examination sentence."
+        },
+        {
+          "proposal_id": "p010",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "hypoesthésie plantaire",
+            "context": "une hypoesthésie plantaire droite"
+          },
+          "note": "Trailing laterality does not determine the term; R2 asks for the shortest phrase."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0005108",
+          "hpo_label": "Abnormal intervertebral disk morphology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "discopathie protrusive",
+          "context": "une discopathie protrusive de petit volume en L5 S1 droite",
+          "severity": "arguable",
+          "note": "Abnormal MRI finding without a proposal; no disc protrusion term exists, so the general disc term is the closest."
+        },
+        {
+          "hpo_id": "HP:0004610",
+          "hpo_label": "Lumbar spinal canal stenosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "récessus latéral était sténosé",
+          "context": "Le récessus latéral était sténosé.",
+          "severity": "arguable",
+          "note": "Operative finding of a stenosed L5-S1 lateral recess; lateral recess stenosis is a form of lumbar spinal stenosis."
+        },
+        {
+          "hpo_id": "HP:0011868",
+          "hpo_label": "Sciatica",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "sciatalgie",
+          "context": "avec une disparition de la sciatalgie",
+          "severity": "arguable",
+          "note": "The text states the sciatica is gone at discharge; R5 gives a later absence its own annotation, but R3 does not record resolution."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100344:native",
+      "document_sha256": "1c53752c1d51b6bd3da44ffae2d309d6bba578e2bb963c419db6d1da2a6cf5bb",
+      "issues": [
+        {
+          "proposal_id": "p005",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "douleurs sus pubiennes",
+            "context": "s'était plainte de douleurs sus pubiennes atroces"
+          },
+          "note": "The trailing intensity adjective does not determine the term (R2)."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0000822",
+          "hpo_label": "Hypertension",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "chiffres tensionnels étaient devenus instables et incontrôlables",
+          "context": "chiffres tensionnels étaient devenus instables et incontrôlables",
+          "severity": "arguable",
+          "note": "Unstable, uncontrollable blood pressure under antihypertensive treatment; Labile Hypertension (HP:6000321) is an alternative."
+        },
+        {
+          "hpo_id": "HP:0003270",
+          "hpo_label": "Abdominal distention",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "voussure péri ombilicale",
+          "context": "apparition brutale d'une voussure péri ombilicale",
+          "severity": "arguable",
+          "note": "Sudden periumbilical bulge has no proposal; Abdominal distention (synonym Abdominal swelling) is the closest term."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100597:native",
+      "document_sha256": "e1218ae4cc338ad1042898d4d14a2f4c77d1ff8035391aeb21a4840923e11983",
+      "issues": [
+        {
+          "proposal_id": "p001",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "masse du pelvis",
+            "context": "la présence d'une volumineuse masse du pelvis"
+          },
+          "note": "The leading size adjective does not determine the term (R2)."
+        },
+        {
+          "proposal_id": "p003",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0031105",
+            "hpo_label": "Abnormal uterus morphology"
+          },
+          "note": "A small atrophic uterus at 78 after seven deliveries is involution, not hypoplasia; a general term or no annotation fits better."
+        },
+        {
+          "proposal_id": "p007",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0031459",
+            "hpo_label": "Soft tissue neoplasm"
+          },
+          "note": "A solitary fibrous tumour is a mesenchymal soft tissue tumour, so a more specific term than Neoplasm is available (R1)."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0031500",
+          "hpo_label": "Abdominal mass",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "masse pelvi-abdominale",
+          "context": "la présence d'une masse pelvi-abdominale",
+          "severity": "arguable",
+          "note": "The compound adjective names both sites, so the span can also carry Abdominal mass (R4), as done for FR100614."
+        },
+        {
+          "hpo_id": "HP:0004936",
+          "hpo_label": "Venous thrombosis",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "thrombus",
+          "context": "Il n'y avait pas de thrombus visible",
+          "severity": "arguable",
+          "note": "The text names and negates a thrombus in the compressed pelvic veins; no proposal covers it."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100603:native",
+      "document_sha256": "b35c4d40ea5d6ea437017df71d12f7d1d94574a77ffb3b2aa68bca1854ff8f99",
+      "issues": [
+        {
+          "proposal_id": "p001",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0006689",
+            "hpo_label": "Bacterial endocarditis"
+          },
+          "note": "Blood and valve cultures grew Staphylococcus aureus, so the text supports Bacterial endocarditis (synonym Infective endocarditis) (R1)."
+        },
+        {
+          "proposal_id": "p002",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "végétation",
+            "context": "l'image de grosse végétation très mobile"
+          },
+          "note": "Size and mobility descriptors do not determine the term (R2)."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0033511",
+          "hpo_label": "Addictive substance use",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "phrase": "toxicomanie",
+          "context": "sans antécédents de toxicomanie",
+          "severity": "clear",
+          "note": "Negated history of drug addiction without a proposal."
+        },
+        {
+          "hpo_id": "HP:0031864",
+          "hpo_label": "Bacteremia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "phrase": "hémocultures et la culture de la valve ont retrouvé un staphylococcus aureus",
+          "context": "hémocultures et la culture de la valve ont retrouvé un staphylococcus aureus",
+          "severity": "arguable",
+          "note": "Positive blood cultures are an abnormal laboratory finding the text does not name as bacteremia; the pathogen itself is not annotated."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100611:native",
+      "document_sha256": "458c831c1d39c39396827f2f62a4fc7d736a48ad9416b70c999c86f25cb01a2a",
+      "issues": [
+        {
+          "proposal_id": "p001",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0002427",
+            "hpo_label": "Expressive aphasia",
+            "phrase": "trouble du langage avec réduction de la fluence verbale",
+            "context": "trouble du langage avec réduction de la fluence verbale"
+          },
+          "note": "The non-fluent language disorder is the same finding as the Broca aphasia of p002; Language impairment looks like an ancestor of it (R1)."
+        },
+        {
+          "proposal_id": "p003",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "syndrome pyramidal",
+            "context": "un syndrome pyramidal latéralisé à droite"
+          },
+          "note": "Trailing laterality does not determine the term; R2 asks for the shortest phrase."
+        },
+        {
+          "proposal_id": "p007",
+          "kind": "not_a_finding",
+          "severity": "clear",
+          "correction": {},
+          "note": "CSF pleocytosis is the parent of CSF lymphocytic pleiocytosis (p008) for the same CSF finding; R1 forbids the ancestor."
+        },
+        {
+          "proposal_id": "p008",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "pléiocytose à 280 leucocytes/mm3 avec une lymphocytose",
+            "context": "pléiocytose à 280 leucocytes/mm3 avec une lymphocytose"
+          },
+          "note": "'lymphocytose' alone does not express a CSF lymphocytic pleocytosis; the whole construction does (R2, R4)."
+        },
+        {
+          "proposal_id": "p009",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "micronodules pulmonaires",
+            "context": "de multiples micronodules pulmonaires prédominant"
+          },
+          "note": "The leading quantifier does not determine the term Pulmonary nodule (R2)."
+        },
+        {
+          "proposal_id": "p011",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:5210342",
+            "hpo_label": "Granulomatous lymphadenopathy"
+          },
+          "note": "The granuloma is found in the lymph node biopsy, which the more specific term covers (R1)."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:6000585",
+          "hpo_label": "Brain parenchymal tuberculoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "tuberculomes intra-parenchymateux cérébraux",
+          "context": "des tuberculomes intra-parenchymateux cérébraux",
+          "severity": "clear",
+          "note": "MRI finding with an exactly matching term and no proposal."
+        },
+        {
+          "hpo_id": "HP:0032070",
+          "hpo_label": "Leptomeningeal enhancement",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "prise de contraste intense des méninges",
+          "context": "prise de contraste intense des méninges en regard",
+          "severity": "arguable",
+          "note": "Meningeal contrast enhancement on MRI has no proposal; the text does not say which meningeal layer."
+        },
+        {
+          "hpo_id": "HP:0033655",
+          "hpo_label": "Pulmonary cavity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "image cavitaire",
+          "context": "une image cavitaire à paroi épaissie",
+          "severity": "clear",
+          "note": "Cavitary lung lesion on chest CT without a proposal."
+        },
+        {
+          "hpo_id": "HP:0025142",
+          "hpo_label": "Constitutional symptom",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "altération de l'état général",
+          "context": "un contexte d'altération de l'état général",
+          "severity": "arguable",
+          "note": "Impaired general condition is stated without its components; the grouping term is the only fit."
+        },
+        {
+          "hpo_id": "HP:5210112",
+          "hpo_label": "Disseminated tuberculosis infection",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "tuberculose multifocale",
+          "context": "Le diagnostic de tuberculose multifocale",
+          "severity": "arguable",
+          "note": "The pinned release models tuberculosis as a phenotype term, although the guideline example treats 'Tuberkulose' as not annotatable."
+        },
+        {
+          "hpo_id": "HP:5210111",
+          "hpo_label": "Tuberculosis infection",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "phrase": "tuberculose",
+          "context": "sans antécédent de tuberculose",
+          "severity": "arguable",
+          "note": "Negated history of tuberculosis; same reservation as for the multifocal tuberculosis diagnosis."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100614:native",
+      "document_sha256": "7d2126866b1c3c01b00d5b9f82d9f3d24363cf9d4813dda5906bcb8840849a74",
+      "issues": [
+        {
+          "proposal_id": "p004",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "masse anéchogène, occupant la totalité du pelvis",
+            "context": "une énorme masse anéchogène, occupant la totalité du pelvis"
+          },
+          "note": "The leading size adjective does not determine the term (R2)."
+        },
+        {
+          "proposal_id": "p004",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "masse pelvienne",
+            "context": "a montré une masse pelvienne supra et latéro-utérinedroite"
+          },
+          "note": "'masse pelvienne' expresses the term on its own; the further location description is rest of the sentence (R2)."
+        },
+        {
+          "proposal_id": "p004",
+          "kind": "missing_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "kyste pelvien",
+            "context": "a trouvé un kyste pelvien de 30 cm de diamètre"
+          },
+          "note": "Surgery names the same pelvic mass again as a pelvic cyst; no pelvic cyst term exists."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0033134",
+          "hpo_label": "Abdominal adhesions",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "adhérences",
+          "context": "la libération de la masse de ses adhérences",
+          "severity": "arguable",
+          "note": "The cyst adheres to neighbouring organs and its adhesions are named at surgery; no proposal covers them."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100620:native",
+      "document_sha256": "2550d99cae3e7bcee7868229e5c73816e17ffab1485ec311b74c23297a2a40b0",
+      "issues": [
+        {
+          "proposal_id": "p007",
+          "kind": "wrong_status",
+          "severity": "arguable",
+          "correction": {
+            "assertion": "uncertain"
+          },
+          "note": "The only marked mention is hedged ('en faveur d'un pneumothorax'), the same cue that made p019 uncertain (R3); later text confirms it."
+        },
+        {
+          "proposal_id": "p009",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "douleur basithoracique",
+            "context": "une douleur basithoracique droite spontanée"
+          },
+          "note": "Trailing laterality does not determine the term; R2 asks for the shortest phrase."
+        },
+        {
+          "proposal_id": "p015",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0033541",
+            "hpo_label": "Irreversible airflow obstruction",
+            "phrase": "trouble ventilatoire obstructif sévère non réversible après bronchodilatateurs",
+            "context": "trouble ventilatoire obstructif sévère non réversible après bronchodilatateurs"
+          },
+          "note": "The obstructive defect is stated as not reversible after bronchodilators, which a more specific term covers (R1)."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0030864",
+          "hpo_label": "Intercostal retractions",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "tirage sus sternal",
+          "context": "un tirage sus sternal",
+          "severity": "arguable",
+          "note": "Suprasternal retraction has no proposal; the term's synonym Chest retractions is the closest fit."
+        },
+        {
+          "hpo_id": "HP:0032355",
+          "hpo_label": "Decreased peak expiratory flow",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "phrase": "DEP à 170 L/min",
+          "context": "un DEP à 170 L/min",
+          "severity": "clear",
+          "note": "A peak flow of 170 L/min in a 22-year-old man is clearly reduced and not interpreted in the text (R6)."
+        },
+        {
+          "hpo_id": "HP:0002107",
+          "hpo_label": "Pneumothorax",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "syndrome d'épanchement aérique",
+          "context": "un syndrome d'épanchement aérique de tout l'hémithorax droit",
+          "severity": "arguable",
+          "note": "The examination states the clinical pneumothorax syndrome without a hedge; it is an occurrence of p007 if that stays present."
+        },
+        {
+          "hpo_id": "HP:0025179",
+          "hpo_label": "Ground-glass opacification",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "aspect en verre dépoli",
+          "context": "un aspect en verre dépoli au niveau des deux pyramides basales",
+          "severity": "clear",
+          "note": "CT finding with an exactly matching term and no proposal."
+        },
+        {
+          "hpo_id": "HP:0033608",
+          "hpo_label": "Pulmonary nodule",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "lésions micronodulaires",
+          "context": "Des lésions micronodulaires à contours flous",
+          "severity": "clear",
+          "note": "Pulmonary micronodules on CT without a proposal."
+        },
+        {
+          "hpo_id": "HP:0033240",
+          "hpo_label": "Elevated RV/TLC ratio",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "distension thoracique (VR/CPT 216%)",
+          "context": "distension thoracique (VR/CPT 216%)",
+          "severity": "clear",
+          "note": "Hyperinflation on plethysmography with its RV/TLC value; the term has the synonym 'Hyperinflation on pulmonary function test'."
+        },
+        {
+          "hpo_id": "HP:0030877",
+          "hpo_label": "Reduced FEV1/FVC ratio",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "phrase": "Tiffeneau < 0,7",
+          "context": "une Tiffeneau < 0,7",
+          "severity": "arguable",
+          "note": "Pathological Tiffeneau index given as a measurement (R6); it may be seen as covered by the obstructive defect of p015."
+        },
+        {
+          "hpo_id": "HP:0032358",
+          "hpo_label": "Decreased post-bronchodilator forced expiratory volume in one second",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "phrase": "VEMS après BD de 1,85L soit 45% de la théorique",
+          "context": "un VEMS après BD de 1,85L soit 45% de la théorique",
+          "severity": "clear",
+          "note": "Post-bronchodilator FEV1 of 45% predicted is pathological and not interpreted in the text (R6)."
+        },
+        {
+          "hpo_id": "HP:0012649",
+          "hpo_label": "Increased inflammatory response",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "syndrome inflammatoire biologique",
+          "context": "un syndrome inflammatoire biologique sans hyperleucocytose",
+          "severity": "arguable",
+          "note": "A laboratory inflammatory syndrome is stated without values; this general term is the closest fit."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100666:native",
+      "document_sha256": "b2077d46892bbbeeb1d74de6577cf35755cb15243ad014e32e0d6120733ab662",
+      "issues": [
+        {
+          "proposal_id": "p006",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "douleurs du membre inférieur",
+            "context": "des douleurs du membre inférieur droit"
+          },
+          "note": "Trailing laterality does not determine the term; R2 asks for the shortest phrase."
+        },
+        {
+          "proposal_id": "p008",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "déficit moteur ni sensitif",
+            "context": "il n'a pas été noté de déficit moteur ni sensitif"
+          },
+          "note": "Motor and sensory deficit share the noun, so both terms take the whole construction as span (R4)."
+        },
+        {
+          "proposal_id": "p009",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "asymétrie faciale",
+            "context": "une asymétrie faciale gauche"
+          },
+          "note": "Trailing laterality does not determine the term; R2 asks for the shortest phrase."
+        },
+        {
+          "proposal_id": "p011",
+          "kind": "wrong_term",
+          "severity": "clear",
+          "correction": {
+            "hpo_id": "HP:0030072",
+            "hpo_label": "Paranasal sinus neoplasm",
+            "phrase": "processus tumoral comblant les sinus maxillaires",
+            "context": "processus tumoral comblant les sinus maxillaires"
+          },
+          "note": "The tumour is located in the maxillary sinuses, so the site-specific term is supported (R1)."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0003474",
+          "hpo_label": "Somatic sensory dysfunction",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "déficit moteur ni sensitif",
+          "context": "il n'a pas été noté de déficit moteur ni sensitif",
+          "severity": "clear",
+          "note": "Negated sensory deficit without a proposal; the term has the synonym Sensory impairment."
+        },
+        {
+          "hpo_id": "HP:0002797",
+          "hpo_label": "Osteolysis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "lésions ostéolytiques",
+          "context": "des lésions ostéolytiques généralisées",
+          "severity": "clear",
+          "note": "Osteolytic lesions on the panoramic radiograph without a proposal."
+        },
+        {
+          "hpo_id": "HP:0034494",
+          "hpo_label": "Opacified paranasal sinuses",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "opacité comblant la moitié inférieure du sinus maxillaire",
+          "context": "une opacité comblant la moitié inférieure du sinus maxillaire gauche",
+          "severity": "clear",
+          "note": "Maxillary sinus opacity on the radiograph without a proposal."
+        },
+        {
+          "hpo_id": "HP:0025435",
+          "hpo_label": "Increased circulating lactate dehydrogenase concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "phrase": "LDH à 931UI/l",
+          "context": "un taux de LDH à 931UI/l",
+          "severity": "clear",
+          "note": "An LDH of 931 IU/l is pathological and not interpreted in the text (R6)."
+        },
+        {
+          "hpo_id": "HP:0000155",
+          "hpo_label": "Oral ulcer",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "tuméfactions bourgeonnantes, ulcérées",
+          "context": "la présence de tuméfactions bourgeonnantes, ulcérées par endroit",
+          "severity": "arguable",
+          "note": "The gingival swellings are described as ulcerated in places; no proposal covers the ulceration."
+        },
+        {
+          "hpo_id": "HP:0000692",
+          "hpo_label": "Tooth malposition",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "dents avec des déplacements",
+          "context": "recouvrant les dents avec des déplacements et mobilités",
+          "severity": "arguable",
+          "note": "Displaced teeth are reported; the term usually describes developmental malposition, and tooth mobility has no term."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100683:native",
+      "document_sha256": "f2d5450c55d9b217c3463a871a1240f2f9df2c9c414dcbe8d0c49ad33d1074f2",
+      "issues": [
+        {
+          "proposal_id": "p001",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "galactorrhée",
+            "context": "thyroïde non palpable; galactorrhée bilatérale"
+          },
+          "note": "Trailing laterality does not determine the term; R2 asks for the shortest phrase."
+        },
+        {
+          "proposal_id": "p004",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "bouffées de chaleur",
+            "context": "avec apparition de bouffées de chaleur"
+          },
+          "note": "'apparition de' is an onset expression, not part of the finding (R2)."
+        },
+        {
+          "proposal_id": "p009",
+          "kind": "wrong_term",
+          "severity": "clear",
+          "correction": {
+            "hpo_id": "HP:0025499",
+            "hpo_label": "Class I obesity"
+          },
+          "note": "A BMI of 32 kg/m2 lies in the class I range, so the more specific term is supported (R1)."
+        },
+        {
+          "proposal_id": "p011",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "micro adénome",
+            "context": "un micro adénome gauche de 8mm de diamètre"
+          },
+          "note": "Trailing laterality does not determine the term; R2 asks for the shortest phrase."
+        },
+        {
+          "proposal_id": "p012",
+          "kind": "wrong_term",
+          "severity": "clear",
+          "correction": {
+            "hpo_id": "HP:0003141",
+            "hpo_label": "Elevated circulating LDL-C concentration"
+          },
+          "note": "The measurement is LDL cholesterol, for which a more specific term exists (R1)."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0008222",
+          "hpo_label": "Female infertility",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "phrase": "stérilité",
+          "context": "elle n'avait pas d'histoire de stérilité",
+          "severity": "clear",
+          "note": "Negated history of infertility without a proposal."
+        },
+        {
+          "hpo_id": "HP:0000938",
+          "hpo_label": "Osteopenia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "phrase": "T score à-1,3",
+          "context": "a montré un T score à-1,3",
+          "severity": "clear",
+          "note": "A vertebral T-score of -1.3 lies in the osteopenia range and is not interpreted in the text (R6)."
+        },
+        {
+          "hpo_id": "HP:6000102",
+          "hpo_label": "Breast intraductal papilloma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "papillomatose",
+          "context": "une papillomatose diffuse bilatérale",
+          "severity": "arguable",
+          "note": "Breast papillomatosis on imaging has no proposal; this is the closest breast term, Papilloma (HP:0012740) the general one."
+        },
+        {
+          "hpo_id": "HP:0025691",
+          "hpo_label": "Impaired fasting glucose",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "phrase": "glycémie à jeun: 5,99 mmol/l",
+          "context": "glycémie à jeun: 5,99 mmol/l",
+          "severity": "arguable",
+          "note": "Fasting glucose of 5.99 mmol/l is impaired by the 5.6 mmol/l threshold but not by the 6.1 mmol/l one (R6)."
+        },
+        {
+          "hpo_id": "HP:0011998",
+          "hpo_label": "Postprandial hyperglycemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "phrase": "glycémie post prandiale à 8,08 mmol/l",
+          "context": "glycémie post prandiale à 8,08 mmol/l",
+          "severity": "arguable",
+          "note": "Postprandial glucose of 8.08 mmol/l is slightly above the usual 7.8 mmol/l limit (R6)."
+        },
+        {
+          "hpo_id": "HP:0012743",
+          "hpo_label": "Abdominal obesity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "phrase": "tour de taille: 90 cm",
+          "context": "tour de taille: 90 cm",
+          "severity": "arguable",
+          "note": "A waist of 90 cm in a woman exceeds the usual 80 or 88 cm cut-offs; the text does not interpret it (R6)."
+        }
+      ]
+    }
+  ]
+}

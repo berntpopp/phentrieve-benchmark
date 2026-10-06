@@ -260,9 +260,11 @@ is exercised end to end only with synthetic data until then. The pilot shows
 the rejection rate and proposal quality; the prompt is revised if needed. The full run starts only
 after explicit confirmation. Pilot outputs are kept as their own run.
 
-Status 2026-10-06: four pilots with 27 reports are tracked; prompt, lookup,
-and validator were revised between them. Results, the decisions taken, and
-the use of the pilot outputs as proposals for their reports are recorded in
+Status 2026-10-07: four pilots with 27 reports are tracked; prompt, lookup,
+and validator were revised between them. Proposals count as results only
+after they were cross-read against the text: a run of 60 further reports
+was proposed by Sonnet subagents and cross-read by Opus subagents. Results,
+measurements, and decisions are recorded in
 `datasets/e3c-de/proposals/README.md`.
 
 ## 7. Phase 3: Editor Packages

@@ -1,0 +1,474 @@
+{
+ "schema_version": "e3c-hpo-crossread/v1",
+ "provenance": "machine generated, not review data, not gold",
+ "run_id": "sample60-v3",
+ "batch_id": "batch-04",
+ "reports": [
+  {
+   "document_id": "e3c:v2.0.0:es:ES100663:native",
+   "document_sha256": "3416e473ae7cbc7efc6205d88f65c448e9d428ebdfae598cb748999f00ad0ac1",
+   "issues": [
+    {
+     "proposal_id": "p010",
+     "kind": "wrong_span",
+     "severity": "arguable",
+     "correction": {
+      "phrase": "adenopatías",
+      "context": "No se aprecian adenopatías periféricas"
+     },
+     "note": "The trailing 'periféricas' does not determine Lymphadenopathy; the shortest phrase is 'adenopatías' (R2)."
+    },
+    {
+     "proposal_id": "p011",
+     "kind": "missing_occurrence",
+     "severity": "clear",
+     "correction": {
+      "phrase": "masa tumoral en tercio superior esofágico",
+      "context": "captación en forma de masa tumoral en tercio superior esofágico"
+     },
+     "note": "The PET report names the esophageal tumour mass again (R5)."
+    },
+    {
+     "proposal_id": "p011",
+     "kind": "missing_occurrence",
+     "severity": "arguable",
+     "correction": {
+      "phrase": "efecto masa en tercio superior esofágico",
+      "context": "observando efecto masa en tercio superior esofágico"
+     },
+     "note": "The CT names the esophageal mass for the first time, as a mass effect of undefined nature."
+    },
+    {
+     "proposal_id": "p013",
+     "kind": "wrong_term",
+     "severity": "arguable",
+     "correction": {
+      "hpo_id": "HP:0041084",
+      "hpo_label": "Compression-fractured thoracic vertebra"
+     },
+     "note": "The lesions lie at D7 and D9-D12, so the thoracic term is supported (R1); the span alone does not carry the level."
+    }
+   ],
+   "missed": [
+    {
+     "hpo_id": "HP:0008441",
+     "hpo_label": "Herniation of intervertebral nuclei",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "historical",
+     "verbalized": true,
+     "phrase": "hernia discal",
+     "context": "fibromialgia y hernia discal D3-D4",
+     "severity": "clear",
+     "note": "Disc herniation in the personal history has no proposal."
+    },
+    {
+     "hpo_id": "HP:0000939",
+     "hpo_label": "Osteoporosis",
+     "assertion": "uncertain",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "phrase": "aplastamientos vertebrales osteoporóticos",
+     "context": "compatibles con aplastamientos vertebrales osteoporóticos",
+     "severity": "arguable",
+     "note": "The crush fractures are called osteoporotic, later 'de origen osteoporótico'; the span is shared with p013 (R4)."
+    },
+    {
+     "hpo_id": "HP:0002540",
+     "hpo_label": "Inability to walk",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "phrase": "imposibilita la deambulación",
+     "context": "lumbalgia que imposibilita la deambulación",
+     "severity": "arguable",
+     "note": "The text states that the pain makes walking impossible."
+    },
+    {
+     "hpo_id": "HP:0004791",
+     "hpo_label": "Esophageal ulceration",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "phrase": "ulcerada",
+     "context": "submucosa, no ulcerada",
+     "severity": "arguable",
+     "note": "Endoscopy names ulceration of the esophageal mass and negates it."
+    },
+    {
+     "hpo_id": "HP:0002896",
+     "hpo_label": "Neoplasm of the liver",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "phrase": "metástasis hepáticas",
+     "context": "metástasis hepáticas en segmento IV",
+     "severity": "arguable",
+     "note": "Liver metastases are named twice (also 'metástasis hepáticas múltiples'); the guideline has no metastasis term, but a liver neoplasm term fits."
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:es:ES100686:native",
+   "document_sha256": "2b14858085667c4649b7c44034efdf419b8bb9f065300a6c3566799847d14670",
+   "issues": [
+    {
+     "proposal_id": "p002",
+     "kind": "wrong_term",
+     "severity": "arguable",
+     "correction": {
+      "hpo_id": "HP:0000329",
+      "hpo_label": "Facial hemangioma"
+     },
+     "note": "The lesion lies in the nasoorbital region and on the nasal dorsum, so the facial term is supported (R1); the span alone does not carry the site."
+    }
+   ],
+   "missed": [
+    {
+     "hpo_id": "HP:0012733",
+     "hpo_label": "Macule",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "historical",
+     "verbalized": true,
+     "phrase": "mancha azulada",
+     "context": "presentó mancha azulada en la región nasoorbitaria derecha",
+     "severity": "arguable",
+     "note": "Bluish patch at birth, described before the lesion is called a hemangioma."
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:es:ES100736:native",
+   "document_sha256": "3e05e83e7e818ceb40c5278c7b5532e07db75f134ddae964d8c374bbe8e7f772",
+   "issues": [
+    {
+     "proposal_id": "p003",
+     "kind": "missing_occurrence",
+     "severity": "arguable",
+     "correction": {
+      "phrase": "118.000",
+      "context": "34.000, 118.000, 338.000"
+     },
+     "note": "The second platelet count is also below 150,000/mm3 and is not interpreted (R6)."
+    },
+    {
+     "proposal_id": "p004",
+     "kind": "wrong_span",
+     "severity": "arguable",
+     "correction": {
+      "phrase": "ciatalgia",
+      "context": "atención por ciatalgia derecha aislada"
+     },
+     "note": "The trailing laterality does not determine Sciatica; the shortest phrase is 'ciatalgia' (R2)."
+    },
+    {
+     "proposal_id": "p005",
+     "kind": "wrong_span",
+     "severity": "arguable",
+     "correction": {
+      "phrase": "paraparesia",
+      "context": "a una paraparesia bilateral"
+     },
+     "note": "The trailing 'bilateral' does not determine Paraparesis; the shortest phrase is 'paraparesia' (R2)."
+    }
+   ],
+   "missed": [
+    {
+     "hpo_id": "HP:0002176",
+     "hpo_label": "Spinal cord compression",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "phrase": "comprimía dorsalmente el cono medular",
+     "context": "coágulo sanguíneo subaracnoideo comprimía dorsalmente el cono medular",
+     "severity": "clear",
+     "note": "Surgery confirms compression of the conus medullaris; the MRI states it too ('comprimía cono medular y cola de caballo')."
+    },
+    {
+     "hpo_id": "HP:0003474",
+     "hpo_label": "Somatic sensory dysfunction",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "phrase": "alteraciones de la sensibilidad",
+     "context": "No se observaron alteraciones de la sensibilidad",
+     "severity": "clear",
+     "note": "Sensory disturbance is named and negated without a proposal."
+    },
+    {
+     "hpo_id": "HP:0002839",
+     "hpo_label": "Urinary bladder sphincter dysfunction",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "phrase": "alteraciones esfinterianas",
+     "context": "sin alteraciones esfinterianas",
+     "severity": "arguable",
+     "note": "Sphincter disturbance is negated twice (also 'ni de los esfínteres'); the term covers only the bladder sphincter."
+    },
+    {
+     "hpo_id": "HP:0011868",
+     "hpo_label": "Sciatica",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "phrase": "dolor radicular",
+     "context": "ni dolor radicular",
+     "severity": "arguable",
+     "note": "Radicular pain is negated after surgery, which gives a separate absent annotation for the sciatica (R5)."
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:es:ES100778:native",
+   "document_sha256": "c517fa3d294f9f1924d053653ff732924d28325f55edb1807e81c0df990af750",
+   "issues": [],
+   "missed": []
+  },
+  {
+   "document_id": "e3c:v2.0.0:es:ES100803:native",
+   "document_sha256": "1bc8974b6c2751656c62ec33a476c2e61597fe6414231ba409b5c1281634e915",
+   "issues": [],
+   "missed": []
+  },
+  {
+   "document_id": "e3c:v2.0.0:es:ES100848:native",
+   "document_sha256": "6e893b32e84e806bd74978a51cd9c7f9be65cd36dbb2376f672d5999579989f9",
+   "issues": [],
+   "missed": [
+    {
+     "hpo_id": "HP:0000155",
+     "hpo_label": "Oral ulcer",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "phrase": "úlcera de aspecto necrótico de 4-5 cm de diámetro en pilar amigdalino",
+     "context": "úlcera de aspecto necrótico de 4-5 cm de diámetro en pilar amigdalino",
+     "severity": "arguable",
+     "note": "The ulcer of the tonsillar pillar and tonsil has no proposal; Oral ulcer is the closest term, there is none for the oropharynx."
+    },
+    {
+     "hpo_id": "HP:0031851",
+     "hpo_label": "Reduced hematocrit",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": false,
+     "phrase": "hematocrito 21,5%",
+     "context": "hematocrito 21,5%",
+     "severity": "arguable",
+     "note": "Pathological hematocrit without interpretation (R6); it could also be a second occurrence of the anemia p010."
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:es:ES100924:native",
+   "document_sha256": "e5c7457bc7cb6db25708e26316a2ed92c3156b18ab7602ba50f259370a1cfff5",
+   "issues": [
+    {
+     "proposal_id": "p002",
+     "kind": "not_a_finding",
+     "severity": "arguable",
+     "correction": {},
+     "note": "The brownish tone is a colour change of the linear pigmented plaques of p001; a general term for the same finding (R1)."
+    }
+   ],
+   "missed": [
+    {
+     "hpo_id": "HP:0000992",
+     "hpo_label": "Cutaneous photosensitivity",
+     "assertion": "uncertain",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "phrase": "reacción fototóxica",
+     "context": "sospecha diagnóstica principal es de reacción fototóxica",
+     "severity": "arguable",
+     "note": "The suspected phototoxic reaction has no proposal; Cutaneous photosensitivity is the closest term."
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:es:ES100946:native",
+   "document_sha256": "9268394edf3ef69be8245b68305d4fc7885a205b83969b1ac16736727929a01c",
+   "issues": [
+    {
+     "proposal_id": "p001",
+     "kind": "wrong_span",
+     "severity": "arguable",
+     "correction": {
+      "phrase": "tumefacción mandibular",
+      "context": "tumefacción mandibular derecha"
+     },
+     "note": "The trailing laterality does not determine Jaw swelling; the shortest phrase is 'tumefacción mandibular' (R2)."
+    }
+   ],
+   "missed": []
+  },
+  {
+   "document_id": "e3c:v2.0.0:es:ES100962:native",
+   "document_sha256": "beb018cbf0aceb3c2763d056033c18223c743dca22510f76c42a4c05bdf1650e",
+   "issues": [
+    {
+     "proposal_id": "p001",
+     "kind": "missing_occurrence",
+     "severity": "arguable",
+     "correction": {
+      "phrase": "diente incluido",
+      "context": "al acercarse el diente incluido al agujero mentoniano"
+     },
+     "note": "'diente incluido' names the impacted tooth again; the sentence around it is conditional, the impaction is not."
+    },
+    {
+     "proposal_id": "p001",
+     "kind": "missing_occurrence",
+     "severity": "arguable",
+     "correction": {
+      "phrase": "diente incluido",
+      "context": "por parte del diente incluido"
+     },
+     "note": "'diente incluido' names the impacted tooth again; the sentence around it is conditional, the impaction is not."
+    },
+    {
+     "proposal_id": "p001",
+     "kind": "wrong_span",
+     "severity": "arguable",
+     "correction": {
+      "phrase": "inclusión del canino inferior izquierdo",
+      "context": "comprobamos la inclusión del canino inferior izquierdo"
+     },
+     "note": "The trailing 'en posición horizontal' does not determine Impacted tooth (R2)."
+    }
+   ],
+   "missed": [
+    {
+     "hpo_id": "HP:0000692",
+     "hpo_label": "Tooth malposition",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "phrase": "inadecuada posición del canino inferior izquierdo",
+     "context": "Ante la inadecuada posición del canino inferior izquierdo",
+     "severity": "arguable",
+     "note": "The text names the wrong position of the canine (horizontal, later transmigrated) apart from its impaction."
+    },
+    {
+     "hpo_id": "HP:0006335",
+     "hpo_label": "Persistence of primary teeth",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "phrase": "canino temporal",
+     "context": "el canino temporal fue utilizado",
+     "severity": "arguable",
+     "note": "A primary canine is still in place at age 20 and used as a permanent tooth; the text does not name the persistence itself."
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:es:ES100994:native",
+   "document_sha256": "4762bdae548bea84158d10952bfe85be50bb690e6c0054c12d79b4a97e3a34ae",
+   "issues": [
+    {
+     "proposal_id": "p005",
+     "kind": "not_a_finding",
+     "severity": "clear",
+     "correction": {},
+     "note": "The T-score is the measurement the text itself interprets as 'osteoporosis densitométrica lumbar' (R6); p003 covers it and the general density term only repeats it (R1)."
+    },
+    {
+     "proposal_id": "p006",
+     "kind": "wrong_term",
+     "severity": "arguable",
+     "correction": {
+      "hpo_id": "HP:0005625",
+      "hpo_label": "Osteoporosis of vertebrae"
+     },
+     "note": "A lumbar T-score of -3.5 is in the osteoporosis range and the text speaks of lumbar osteoporosis; the general density term is less specific (R1)."
+    },
+    {
+     "proposal_id": "p011",
+     "kind": "wrong_term",
+     "severity": "clear",
+     "correction": {
+      "hpo_id": "HP:0041162",
+      "hpo_label": "Metatarsal fracture",
+      "phrase": "fractura de estrés en el 2o MTT",
+      "context": "fractura de estrés en el 2o MTT"
+     },
+     "note": "The fracture is in the second metatarsal, so Bone fracture is not the most specific term (R1); the span then includes the site."
+    },
+    {
+     "proposal_id": "p012",
+     "kind": "wrong_term",
+     "severity": "clear",
+     "correction": {
+      "hpo_id": "HP:0041162",
+      "hpo_label": "Metatarsal fracture"
+     },
+     "note": "The same metatarsal fracture a year later ('callo de fractura antiguo en 2o MTT'); Bone fracture is not the most specific term (R1)."
+    },
+    {
+     "proposal_id": "p016",
+     "kind": "wrong_span",
+     "severity": "arguable",
+     "correction": {
+      "phrase": "incremento de niveles de PTH y vitamina D",
+      "context": "incremento de niveles de PTH y vitamina D"
+     },
+     "note": "If the raised vitamin D is annotated, both terms share 'incremento de niveles de' and take the whole construction (R4)."
+    }
+   ],
+   "missed": [
+    {
+     "hpo_id": "HP:0001513",
+     "hpo_label": "Obesity",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "phrase": "obesa",
+     "context": "la paciente no era obesa",
+     "severity": "clear",
+     "note": "Negated finding without a proposal."
+    },
+    {
+     "hpo_id": "HP:0031414",
+     "hpo_label": "Elevated circulating calcifediol concentration",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "phrase": "incremento de niveles de PTH y vitamina D",
+     "context": "incremento de niveles de PTH y vitamina D",
+     "severity": "arguable",
+     "note": "Raised vitamin D (272 ng/ml) is stated with the PTH; the text does not name the metabolite, calcifediol is the usual measurement."
+    },
+    {
+     "hpo_id": "HP:0020110",
+     "hpo_label": "Bone fracture",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "phrase": "fracturas de estrés",
+     "context": "nuevas fracturas de estrés",
+     "severity": "arguable",
+     "note": "The discussion names new stress fractures of the left foot for the second episode; the hedge 'quizá' concerns their cause."
+    }
+   ]
+  }
+ ]
+}

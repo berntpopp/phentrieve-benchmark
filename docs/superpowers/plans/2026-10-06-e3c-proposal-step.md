@@ -3846,5 +3846,8 @@ Changes after the pilots:
   `uncertain`; back-references are not occurrences; a normal finding is not
   a negated phenotype).
 - Task 10 Step 3 should use `git status --short --untracked-files=all`.
-- Task 11: the 27 piloted reports keep their pilot outputs as proposals; the
-  full run covers the remaining 158 reports with `--case`, not all 185.
+- Proposals count as results only after they were cross-read against the
+  text (decided 2026-10-07). `sample60-v3` covers 60 reports with proposals
+  by Sonnet subagents and a cross-read by Opus subagents
+  (`configs/prompts/hpo-span-crossread-v1.md`). Task 11 as written above
+  (one full run without cross-reading) is superseded by that procedure.

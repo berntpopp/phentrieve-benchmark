@@ -1,0 +1,537 @@
+{
+  "schema_version": "e3c-hpo-crossread/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "sample60-v3",
+  "batch_id": "batch-06",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100688:native",
+      "document_sha256": "486b582cfc19e8d70408499572db584d054aacff182796a25bc0eddf88a11020",
+      "issues": [
+        {
+          "proposal_id": "p010",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0100861",
+            "hpo_label": "Sclerotic vertebral body"
+          },
+          "note": "The osteocondensation is a finding of the spine radiograph, so the vertebral sclerosis term is more specific than the general one."
+        },
+        {
+          "proposal_id": "p006",
+          "kind": "missing_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "douleur modérée à la palpation des épines dorsolombaires",
+            "context": "douleur modérée à la palpation des épines dorsolombaires"
+          },
+          "note": "Pain on palpation of the dorsolumbar spinous processes names back pain again; HPO has no spinal tenderness term."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:6000925",
+          "hpo_label": "Positive tuberculin skin test",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "intradermoréaction à la tuberculine était positif",
+          "context": "l'intradermoréaction à la tuberculine était positif à 13 mm",
+          "severity": "clear",
+          "note": "The positive tuberculin skin test is an abnormal test result the text interprets, and it has no proposal."
+        },
+        {
+          "hpo_id": "HP:6000660",
+          "hpo_label": "Paravertebral mass",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "tuméfaction dorsolombaire gauche",
+          "context": "porteur d'une tuméfaction dorsolombaire gauche évoluant depuis 5 mois",
+          "severity": "arguable",
+          "note": "The presenting dorsolumbar swelling, shown on ultrasound as a paravertebral collection, has no proposal; it is named again in the physical examination."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100708:native",
+      "document_sha256": "c31b581af7ced9f94d88fae486e81f7fb9414b8bb58b28c8cb48504a2910c4a0",
+      "issues": [
+        {
+          "proposal_id": "p002",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "galactorrhée",
+            "context": "aménorrhée secondaire et galactorrhée bilatérale"
+          },
+          "note": "The trailing modifier 'bilatérale' does not determine the term and is excluded by R2."
+        },
+        {
+          "proposal_id": "p003",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "galactorrhée",
+            "context": "mobile par rapport aux deux plans, galactorrhée bilatérale"
+          },
+          "note": "The trailing modifier 'bilatérale' does not determine the term and is excluded by R2."
+        },
+        {
+          "proposal_id": "p010",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "masse occupant les quadrants externes du sein gauche",
+            "context": "volumineuse masse occupant les quadrants externes du sein gauche"
+          },
+          "note": "The span 'volumineuse masse' keeps a size modifier that does not determine the term and omits the breast site that does."
+        },
+        {
+          "proposal_id": "p010",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "masse de consistance molle, prenant tout le sein",
+            "context": "masse de consistance molle, prenant tout le sein"
+          },
+          "note": "The span 'masse' alone does not express a breast mass; the site follows in the same phrase."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0020224",
+          "hpo_label": "Mammary duct ectasia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "canaux galactophoriques qui sont dilatées",
+          "context": "semblant communiquer avec des canaux galactophoriques qui sont dilatées",
+          "severity": "clear",
+          "note": "The dilated lactiferous ducts on ultrasound have no proposal; the hedge 'semblant' concerns the communication, not the dilatation."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100766:native",
+      "document_sha256": "76d37baa43006827b1acd067e42c55126985be55c0c6a3ea020b796533b12372",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100845:native",
+      "document_sha256": "54ee7774ca6ca90e4ba13c8567151f5e83a8d6653b682191c55dcaf4651b075a",
+      "issues": [
+        {
+          "proposal_id": "p005",
+          "kind": "wrong_term",
+          "severity": "clear",
+          "correction": {
+            "hpo_id": "HP:0030932",
+            "hpo_label": "1-minute APGAR score of 5"
+          },
+          "note": "HPO has a term for the exact 1-minute score the text reports."
+        },
+        {
+          "proposal_id": "p004",
+          "kind": "wrong_term",
+          "severity": "clear",
+          "correction": {
+            "hpo_id": "HP:0032513",
+            "hpo_label": "Four-vessel umbilical cord"
+          },
+          "note": "Three arteries and one vein are a four-vessel cord, which is more specific than the general umbilical cord term."
+        },
+        {
+          "proposal_id": "p002",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0025328",
+            "hpo_label": "Antepartum hemorrhage"
+          },
+          "note": "In a woman at 37 weeks in early labour 'métrorragie' means bleeding during pregnancy rather than intermenstrual bleeding."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0001788",
+          "hpo_label": "Premature rupture of membranes",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "hydrorrhée",
+          "context": "pas de métrorragie ni d'hydrorrhée",
+          "severity": "arguable",
+          "note": "The negated leakage of amniotic fluid has no proposal; the membrane rupture term is the closest fit."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100849:native",
+      "document_sha256": "57232320065c61538b00e78c30e8960eeba342b94a3881a9923831cf29dcf52a",
+      "issues": [
+        {
+          "proposal_id": "p008",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0100592",
+            "hpo_label": "Peritoneal abscess"
+          },
+          "note": "The abscess lies at an epiploic appendage of the transverse colon walled off by the omentum, so a site-specific abscess term may apply."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100894:native",
+      "document_sha256": "94c5ad61ab06696b624130c9ac2e0bf984ba1a79600d22c8ff1057fb5ee448c3",
+      "issues": [
+        {
+          "proposal_id": "p005",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "Le chef médial du muscle gastrocnémien gauche était partiellement rompu",
+            "context": "Le chef médial du muscle gastrocnémien gauche était partiellement rompu"
+          },
+          "note": "The span 'partiellement rompu' does not express the term on its own; the ruptured structure is the subject of the same clause."
+        },
+        {
+          "proposal_id": "p005",
+          "kind": "missing_occurrence",
+          "severity": "clear",
+          "correction": {
+            "phrase": "désinsertion partielle du jumeau interne",
+            "context": "désinsertion partielle du jumeau interne"
+          },
+          "note": "The MRI names the same partial tear of the medial gastrocnemius before the operative finding."
+        },
+        {
+          "proposal_id": "p005",
+          "kind": "missing_occurrence",
+          "severity": "clear",
+          "correction": {
+            "phrase": "désinsertion du gastrocnémien médial",
+            "context": "désinsertion du gastrocnémien médial"
+          },
+          "note": "The retained diagnosis names the tear of the medial gastrocnemius again."
+        },
+        {
+          "proposal_id": "p001",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0031921",
+            "hpo_label": "Gastrocnemius myalgia",
+            "phrase": "douleur aiguë au milieu du mollet",
+            "context": "douleur aiguë au milieu du mollet"
+          },
+          "note": "The first mention is pain in the calf, for which HPO has a more specific term (synonym calf myalgia); the leg pain mention keeps the current term."
+        },
+        {
+          "proposal_id": "p001",
+          "kind": "missing_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "douleur intense constatée lors de tout mouvement de dorsiflexion",
+            "context": "douleur intense constatée lors de tout mouvement de dorsiflexion"
+          },
+          "note": "The examination names pain in the leg again, provoked by dorsiflexion."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:6001172",
+          "hpo_label": "Increased compartment pressure",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "syndrome de loges",
+          "context": "Le diagnostic retenu est celui de syndrome de loges",
+          "severity": "arguable",
+          "note": "The retained diagnosis of compartment syndrome has no proposal; increased compartment pressure is the only HPO term for it."
+        },
+        {
+          "hpo_id": "HP:0001288",
+          "hpo_label": "Gait disturbance",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "remarcher bien que difficilement",
+          "context": "le patient a pu remarcher bien que difficilement",
+          "severity": "arguable",
+          "note": "The difficulty walking after the injury has no proposal."
+        },
+        {
+          "hpo_id": "HP:0041081",
+          "hpo_label": "Fractured lower leg",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "fracture",
+          "context": "un syndrome de loges sur une fracture ou une rupture d'anévrysme",
+          "severity": "arguable",
+          "note": "The MRI is used to rule out a fracture of the leg as the cause, and a finding an examination rules out is absent."
+        },
+        {
+          "hpo_id": "HP:0002617",
+          "hpo_label": "Vascular dilatation",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "anévrysme",
+          "context": "un syndrome de loges sur une fracture ou une rupture d'anévrysme",
+          "severity": "arguable",
+          "note": "The MRI is used to rule out a ruptured aneurysm as the cause; the HPO term carries the synonym aneurysm."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100903:native",
+      "document_sha256": "38e6fdb85c325dbcfcf6c5d2cf3cbb774ca02d98b5910f2c78d2a9dbd3ac3a0b",
+      "issues": [
+        {
+          "proposal_id": "p001",
+          "kind": "wrong_term",
+          "severity": "clear",
+          "correction": {
+            "hpo_id": "HP:0025672",
+            "hpo_label": "Fetal skin edema"
+          },
+          "note": "The subcutaneous edema is a fetal ultrasound finding, for which HPO has a specific term."
+        },
+        {
+          "proposal_id": "p002",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "œdème",
+            "context": "massif faciale en raison d'un œdème intense"
+          },
+          "note": "The trailing modifier 'intense' does not determine the term; note that the facial site is not part of the span either."
+        },
+        {
+          "proposal_id": "p005",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "oligoamnios",
+            "context": "ascite importante avec un oligoamnios sévères"
+          },
+          "note": "The trailing severity modifier does not determine the term and is excluded by R2."
+        },
+        {
+          "proposal_id": "p005",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "oligoamnios",
+            "context": "un oligoamnios sévère et une ascite massive"
+          },
+          "note": "The trailing severity modifier does not determine the term and is excluded by R2."
+        },
+        {
+          "proposal_id": "p006",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "hydrops fœtal",
+            "context": "en rapport à un hydrops fœtal généralisé"
+          },
+          "note": "The trailing modifier 'généralisé' does not determine the term and is excluded by R2."
+        },
+        {
+          "proposal_id": "p006",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "hydrops foetal",
+            "context": "d'un hydrops foetal massif"
+          },
+          "note": "The trailing modifier 'massif' does not determine the term and is excluded by R2."
+        },
+        {
+          "proposal_id": "p006",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0001790",
+            "hpo_label": "Nonimmune hydrops fetalis"
+          },
+          "note": "The text rules out isoimmunisation with a negative indirect Coombs test, which supports the nonimmune term."
+        },
+        {
+          "proposal_id": "p010",
+          "kind": "wrong_status",
+          "severity": "arguable",
+          "correction": {
+            "assertion": "present"
+          },
+          "note": "The MRI lists the non-visualised thymic tissue among the malformations without any hedge, and uncertain is reserved for uncertainty the text expresses."
+        },
+        {
+          "proposal_id": "p012",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "rein gauche hypoplasique",
+            "context": "absence de rein droit et un rein gauche hypoplasique"
+          },
+          "note": "The span 'hypoplasique' does not express renal hypoplasia on its own; the kidney precedes it directly."
+        },
+        {
+          "proposal_id": "p012",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "Le rein gauche et le rein droit n'ont pas été visualisés, ils étaient petits et hypoplasiques",
+            "context": "Le rein gauche et le rein droit n'ont pas été visualisés, ils étaient petits et hypoplasiques"
+          },
+          "note": "The span 'petits et hypoplasiques' does not name the kidneys; the shared subject stands at the start of the sentence."
+        },
+        {
+          "proposal_id": "p014",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0100841",
+            "hpo_label": "Microgastria"
+          },
+          "note": "A small stomach has a specific HPO term, more specific than abnormal stomach morphology."
+        },
+        {
+          "proposal_id": "p015",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:6000340",
+            "hpo_label": "Prenatal flattened diaphragm"
+          },
+          "note": "HPO has a prenatal term for the flattened or inverted diaphragm of high airway obstruction, although the text says inverted rather than flattened."
+        },
+        {
+          "proposal_id": "p021",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0025665",
+            "hpo_label": "Extremely preterm birth"
+          },
+          "note": "The text dates the delivery to the 24th week of amenorrhoea, which supports the more specific term."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:6000252",
+          "hpo_label": "Fetal lung hyperechogenicity",
+          "assertion": "present",
+          "experiencer": "other",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "poumons hyperéchogènes et hypertrophiés",
+          "context": "des poumons hyperéchogènes et hypertrophiés, un cœur hypoplasique",
+          "severity": "clear",
+          "note": "The hyperechogenic lungs share the span of the enlarged lungs (R4) and occur again in 'Les deux poumons étaient allongés, hypertrophiés et hyperéchogènes'."
+        },
+        {
+          "hpo_id": "HP:0020304",
+          "hpo_label": "Increased fetal abdominal circumference",
+          "assertion": "present",
+          "experiencer": "other",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "circonférence abdominale (254 mm) correspondait à un fœtus de 29 semaines aménorrhée",
+          "context": "circonférence abdominale (254 mm) correspondait à un fœtus de 29 semaines aménorrhée",
+          "severity": "clear",
+          "note": "At 20 weeks the abdominal circumference is interpreted as that of a 29-week fetus, and it has no proposal."
+        },
+        {
+          "hpo_id": "HP:0034217",
+          "hpo_label": "Sonographic non-visualized fetal bladder",
+          "assertion": "present",
+          "experiencer": "other",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "vessie non identifiable",
+          "context": "une petite poche gastrique et une vessie non identifiable",
+          "severity": "arguable",
+          "note": "The bladder that cannot be identified has no proposal; the finding comes from MRI, so Aplasia/Hypoplasia of the bladder is the alternative term."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100919:native",
+      "document_sha256": "41b6de73b416d347a53946bd2263552425d28dd0e2f7170cbf458164394e0c17",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100944:native",
+      "document_sha256": "f34bb35452e044862f965e2f1906fb1a244d346a6d6d779fff6d495c076e2ab8",
+      "issues": [
+        {
+          "proposal_id": "p006",
+          "kind": "not_a_finding",
+          "severity": "arguable",
+          "correction": {},
+          "note": "The only mention of endocarditis stands in the generic closing statement about this rare complication, not in a statement about the patient."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0001633",
+          "hpo_label": "Abnormal mitral valve morphology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "anévrysme de la petite valve mitrale",
+          "context": "un large anévrysme de la petite valve mitrale",
+          "severity": "clear",
+          "note": "The aneurysm of the posterior mitral leaflet is the main echocardiographic finding and has no proposal; HPO offers only the general morphology term."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100960:native",
+      "document_sha256": "9e4278c08bd0fd4193c76041fbe6a792d95cadcfbe1eb6952ef246a52f94d76b",
+      "issues": [
+        {
+          "proposal_id": "p002",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "lésions intraparenchymateuses spléniques et hépatique",
+            "context": "lésions intraparenchymateuses spléniques et hépatique"
+          },
+          "note": "If the hepatic lesions are annotated, the spleen and liver terms share the wording and R4 asks for the whole construction as the span."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0410042",
+          "hpo_label": "Abnormal liver morphology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "lésions intraparenchymateuses spléniques et hépatique",
+          "context": "lésions intraparenchymateuses spléniques et hépatique",
+          "severity": "arguable",
+          "note": "The hepatic lesions have no proposal although the splenic lesions get the corresponding morphology term."
+        }
+      ]
+    }
+  ]
+}
