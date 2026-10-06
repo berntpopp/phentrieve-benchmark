@@ -60,3 +60,7 @@ mypy_path = ["src"]
 [[tool.mypy.overrides]]
 module = ["ontocurator.*"]
 ignore_missing_imports = true
+
+# Runs only in the Ontocurator overlay environment; not measured in CI.
+[tool.coverage.run]
+omit = ["scripts/build_editor_packages.py"]

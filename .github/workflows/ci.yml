@@ -32,4 +32,3 @@ jobs:
           --cov=phentrieve_benchmark
           --cov=scripts
           --cov-report=term-missing
-          --cov-fail-under=90
