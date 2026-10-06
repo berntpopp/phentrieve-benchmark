@@ -1,4 +1,3 @@
-# src/phentrieve_benchmark/models/hpo_proposal.py
 """Models for the LLM proposal step.
 
 Proposals are machine generated, not review data, and not gold. A run lists
@@ -173,6 +172,12 @@ class ResolvedMention(BaseModel):
     end: int = Field(gt=0)
     phrase: str = Field(min_length=1)
 
+    @model_validator(mode="after")
+    def has_nonempty_range(self) -> Self:
+        if self.end <= self.start:
+            raise ValueError("end must be greater than start")
+        return self
+
 
 class ValidatedProposal(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True, strict=True)
@@ -208,13 +213,13 @@ class BatchDigest(BaseModel):
 class ValidationSummary(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True, strict=True)
 
-    documents: int
-    proposals_received: int
-    proposals_rejected: int
-    validated_proposals: int
-    mentions_evaluated: int
-    mentions_rejected: int
-    validated_mentions: int
+    documents: int = Field(ge=0)
+    proposals_received: int = Field(ge=0)
+    proposals_rejected: int = Field(ge=0)
+    validated_proposals: int = Field(ge=0)
+    mentions_evaluated: int = Field(ge=0)
+    mentions_rejected: int = Field(ge=0)
+    validated_mentions: int = Field(ge=0)
     rejections_by_reason: dict[str, int]
 
 

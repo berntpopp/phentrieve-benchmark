@@ -1,8 +1,8 @@
-# tests/unit/models/test_hpo_proposal.py
 import json
 from datetime import date
 
 import pytest
+from pydantic import ValidationError
 
 from phentrieve_benchmark.models.hpo_proposal import (
     PROPOSAL_PROVENANCE,
@@ -11,6 +11,8 @@ from phentrieve_benchmark.models.hpo_proposal import (
     ProposalBatchOutput,
     ProposalRun,
     ProposedAnnotation,
+    ResolvedMention,
+    ValidationSummary,
 )
 
 
@@ -46,7 +48,7 @@ def test_run_round_trips_through_canonical_json() -> None:
 
 
 def test_run_rejects_a_document_in_two_batches() -> None:
-    with pytest.raises(ValueError, match="more than one batch"):
+    with pytest.raises(ValidationError, match="more than one batch"):
         _run(
             ProposalBatch(batch_id="batch-01", documents=(_document("d1"),)),
             ProposalBatch(batch_id="batch-02", documents=(_document("d1"),)),
@@ -54,7 +56,7 @@ def test_run_rejects_a_document_in_two_batches() -> None:
 
 
 def test_run_rejects_duplicate_batch_ids() -> None:
-    with pytest.raises(ValueError, match="duplicate batch"):
+    with pytest.raises(ValidationError, match="duplicate batch"):
         _run(
             ProposalBatch(batch_id="batch-01", documents=(_document("d1"),)),
             ProposalBatch(batch_id="batch-01", documents=(_document("d2"),)),
@@ -65,7 +67,7 @@ def test_run_id_must_be_a_safe_directory_name() -> None:
     run = _run(ProposalBatch(batch_id="batch-01", documents=(_document("d1"),)))
     payload = run.model_dump(mode="json")
     payload["run_id"] = "../x"
-    with pytest.raises(ValueError):
+    with pytest.raises(ValidationError):
         ProposalRun.model_validate_json(json.dumps(payload), strict=True)
 
 
@@ -77,10 +79,11 @@ def test_batch_output_requires_the_provenance_notice() -> None:
         "batch_id": "batch-01",
         "reports": [],
     }
-    with pytest.raises(ValueError):
+    with pytest.raises(ValidationError):
         ProposalBatchOutput.model_validate_json(json.dumps(payload), strict=True)
     payload["provenance"] = PROPOSAL_PROVENANCE
-    assert ProposalBatchOutput.model_validate_json(json.dumps(payload), strict=True)
+    output = ProposalBatchOutput.model_validate_json(json.dumps(payload), strict=True)
+    assert output.provenance == PROPOSAL_PROVENANCE
 
 
 @pytest.mark.parametrize(
@@ -99,7 +102,42 @@ def test_proposed_annotation_uses_guideline_r3_values(field: str, value: str) ->
         "mentions": [{"phrase": "Fieber", "context": "hohem Fieber"}],
         "note": None,
     }
-    assert ProposedAnnotation.model_validate_json(json.dumps(payload), strict=True)
+    annotation = ProposedAnnotation.model_validate_json(
+        json.dumps(payload), strict=True
+    )
+    assert annotation.hpo_id == "HP:0001945"
     payload[field] = value
-    with pytest.raises(ValueError):
+    with pytest.raises(ValidationError):
         ProposedAnnotation.model_validate_json(json.dumps(payload), strict=True)
+
+
+def test_resolved_mention_rejects_inverted_or_empty_span() -> None:
+    assert ResolvedMention(
+        source_proposal_id="p001", mention_index=0, start=3, end=10, phrase="Fieber"
+    )
+    for start, end in [(10, 3), (5, 5)]:
+        with pytest.raises(ValidationError, match="end must be greater"):
+            ResolvedMention(
+                source_proposal_id="p001",
+                mention_index=0,
+                start=start,
+                end=end,
+                phrase="Fieber",
+            )
+
+
+def test_validation_summary_rejects_negative_counts() -> None:
+    counts = {
+        "documents": 1,
+        "proposals_received": 1,
+        "proposals_rejected": 0,
+        "validated_proposals": 1,
+        "mentions_evaluated": 1,
+        "mentions_rejected": 0,
+        "validated_mentions": 1,
+        "rejections_by_reason": {},
+    }
+    assert ValidationSummary(**counts).documents == 1  # type: ignore[arg-type]
+    counts["mentions_rejected"] = -1
+    with pytest.raises(ValidationError):
+        ValidationSummary(**counts)  # type: ignore[arg-type]
