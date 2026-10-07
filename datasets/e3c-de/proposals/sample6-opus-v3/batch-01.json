@@ -1,0 +1,792 @@
+{
+  "schema_version": "e3c-hpo-proposal-batch/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "sample6-opus-v3",
+  "batch_id": "batch-01",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:en:EN100668:native",
+      "document_sha256": "b3b2e88616613d68cc82378c24e47cdfdc1c41d67f70e787631f2a4fc890c776",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0033400",
+          "hpo_label": "Acute abdomen",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "severe right sided abdominal pain with sudden onset",
+              "context": "The patient was having severe right sided abdominal pain with sudden onset"
+            }
+          ],
+          "note": "Severe abdominal pain of sudden onset; Abdominal pain (HP:0002027) is the fallback if Acute abdomen is too strong."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0034879",
+          "hpo_label": "Ovarian mass",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "adnexal mass",
+              "context": "edematous multicystic adnexal mass occupying the mid and upper right abdomen"
+            },
+            {
+              "phrase": "adnexal mass",
+              "context": "pain complaint and adnexal mass finding"
+            },
+            {
+              "phrase": "adnexal mass",
+              "context": "dark purple torsion of a right adnexal mass was observed"
+            }
+          ],
+          "note": "HPO has no adnexal mass term; the text suspects origin from the right ovary."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0034503",
+          "hpo_label": "Ovarian torsion",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "adnexal torsion",
+              "context": "suspected diagnosis of adnexal torsion"
+            }
+          ],
+          "note": "Suspected diagnosis before surgery; HPO has no adnexal torsion term."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0034503",
+          "hpo_label": "Ovarian torsion",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "torsion of a right adnexal mass",
+              "context": "necrotic and dark purple torsion of a right adnexal mass"
+            }
+          ],
+          "note": "Torsion confirmed at laparotomy."
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0012226",
+          "hpo_label": "Ovarian teratoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "teratoma",
+              "context": "(necrotic tissues, teratoma)"
+            }
+          ],
+          "note": "Frozen-section result; the final pathology reports a mucinous cystadenoma instead."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:6000672",
+          "hpo_label": "Ovarian cystadenoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "mucinous cystadenoma",
+              "context": "final pathology was mucinous cystadenoma"
+            }
+          ],
+          "note": "No term for the mucinous subtype; the specimen is the right adnexa."
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0009126",
+          "hpo_label": "Increased adipose tissue",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "thick subcutaneous fat tissue",
+              "context": "due to the thick subcutaneous fat tissue"
+            }
+          ],
+          "note": "Incidental operative remark; no term for increased subcutaneous fat."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN107465:native",
+      "document_sha256": "abc5aae568b2267e3ad13aa2f06c04877371c9dba1d0b7f8206941cb9cedc412",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0000845",
+          "hpo_label": "Elevated circulating growth hormone concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "serum growth hormone levels were high",
+              "context": "her serum growth hormone levels were high"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0030353",
+          "hpo_label": "Decreased circulating insulin-like growth factor 1 concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "baseline insulin-like growth factor 1 levels, 52 μg/L",
+              "context": "(baseline insulin-like growth factor 1 levels, 52 μg/L; reference range"
+            }
+          ],
+          "note": "Baseline value below the stated reference range, not interpreted in the text."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0011787",
+          "hpo_label": "Central hypothyroidism",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "central hypothyroidism",
+              "context": "unexplained central hypothyroidism occurred"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0000858",
+          "hpo_label": "Irregular menstruation",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "menstrual cycle occurred irregularly",
+              "context": "her menstrual cycle occurred irregularly"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0003510",
+          "hpo_label": "Severe short stature",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "height was 129.8 cm, which is 4.71 standard deviations below the median",
+              "context": "her height was 129.8 cm, which is 4.71 standard deviations below the median for normal girls"
+            }
+          ],
+          "note": "Height more than 4 SD below the median, which the text states itself."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100079:native",
+      "document_sha256": "c763f1a1d837a267f3b78252b794c3a4765cc47d0d30e1daff0a09bca7fdf277",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0009726",
+          "hpo_label": "Renal neoplasm",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "masa renal",
+              "context": "hallazgo incidental de masa renal de 5 cm"
+            },
+            {
+              "phrase": "neoformación renal",
+              "context": "diagnóstico de neoformación renal estadio T3bN0M0"
+            }
+          ],
+          "note": "Same lesion as the renal cell carcinoma proposal; these phrases alone express only the general term."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0005584",
+          "hpo_label": "Renal cell carcinoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "adenocarcinoma renal",
+              "context": "existencia de adenocarcinoma renal, grado III"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0030157",
+          "hpo_label": "Flank pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "crisis renoureteral",
+              "context": "cuadro de crisis renoureteral del mismo lado"
+            }
+          ],
+          "note": "Renal colic; HPO has no renal colic term, Flank pain is the closest."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0002149",
+          "hpo_label": "Hyperuricemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hiperuricemia",
+              "context": "el paciente padece hiperuricemia"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0000790",
+          "hpo_label": "Hematuria",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hematuria",
+              "context": "episodios de hematuria"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0034239",
+          "hpo_label": "Renal vein thrombosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "trombo tumoral que se extendía por la vena renal",
+              "context": "se evidenció trombo tumoral que se extendía por la vena renal hasta la vena cava retrohepática"
+            },
+            {
+              "phrase": "vena renal trombosada",
+              "context": "anclada por la vena renal trombosada"
+            }
+          ],
+          "note": "Tumor thrombus; its extension into the inferior vena cava has no specific thrombosis term."
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0002716",
+          "hpo_label": "Lymphadenopathy",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "adenopatías",
+              "context": "ausencia de infiltración vascular y de adenopatías"
+            }
+          ],
+          "note": "The text says apparent absence on imaging."
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0002797",
+          "hpo_label": "Osteolysis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "lesión lítica",
+              "context": "se evidencia lesión lítica en lámina posterior de la vértebra L2"
+            }
+          ],
+          "note": "No vertebra-specific osteolysis term."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100947:native",
+      "document_sha256": "e34e6830070459e1c4164c36d3b9f1718fa215d8e26335c3dd1a04b57d7ae8c3",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0034418",
+          "hpo_label": "Erythematous oral mucosa",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "enrojecimiento de la mucosa",
+              "context": "un leve enrojecimiento de la mucosa adyacente al implante"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0000225",
+          "hpo_label": "Gingival bleeding",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "sangramiento al sondaje",
+              "context": "con leve sangramiento al sondaje"
+            }
+          ],
+          "note": "Bleeding on probing of the peri-implant mucosa."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0410027",
+          "hpo_label": "Alveolar bone loss around teeth",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "área radiotransparente en el hueso marginal",
+              "context": "se observó un área radiotransparente en el hueso marginal a 3.6"
+            },
+            {
+              "phrase": "defecto óseo periimplantario",
+              "context": "ocupaba un defecto óseo periimplantario marginal a 3.6"
+            }
+          ],
+          "note": "Marginal bone loss around an implant, not a natural tooth; closest available term."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0100777",
+          "hpo_label": "Exostoses",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "torus mandibular lingual",
+              "context": "acceder a un torus mandibular lingual en zona de premolares"
+            }
+          ],
+          "note": "HPO has Torus palatinus but no mandibular torus term; Exostoses is the general term."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100371:native",
+      "document_sha256": "4465f12c3b890a70b239751004ef8855033d09df7e950082ba99772823fc7cd3",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0001945",
+          "hpo_label": "Fever",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "apyrétique",
+              "context": "la patiente était apyrétique"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0006089",
+          "hpo_label": "Palmar hyperhidrosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "mains chaudes et moites",
+              "context": "les mains chaudes et moites"
+            }
+          ],
+          "note": "Warm, moist hands read as sweating of the hands."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0000975",
+          "hpo_label": "Hyperhidrosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hypersudation",
+              "context": "elle présentait une hypersudation"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0004421",
+          "hpo_label": "Elevated systolic blood pressure",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "tension artérielle était de 160/80 mmHg",
+              "context": "La tension artérielle était de 160/80 mmHg"
+            }
+          ],
+          "note": "Single reading with systolic 160 and diastolic 80 mmHg."
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0001649",
+          "hpo_label": "Tachycardia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "pulsation à 102/minutes",
+              "context": "la pulsation à 102/minutes"
+            }
+          ],
+          "note": "Pulse above 100/min; the ECG finding is proposed separately as Sinus tachycardia."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0011703",
+          "hpo_label": "Sinus tachycardia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "tachycardie sinusale",
+              "context": "ne montrait qu'une tachycardie sinusale"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0002789",
+          "hpo_label": "Tachypnea",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "fréquence respiratoire 22/minutes",
+              "context": "la fréquence respiratoire 22/minutes"
+            }
+          ],
+          "note": "Mildly above the adult upper limit of 20/min."
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0012531",
+          "hpo_label": "Pain",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "indolore",
+              "context": "une tuméfaction pré-sternale indolore mais gênant"
+            },
+            {
+              "phrase": "indolore",
+              "context": "La masse était indolore"
+            }
+          ],
+          "note": "Lexical negation: the swelling is described as painless."
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0100749",
+          "hpo_label": "Chest pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "douleur sternale",
+              "context": "sa compression provoquait une douleur sternale"
+            }
+          ],
+          "note": "Sternal pain provoked by compressing the mass; no sternal pain term."
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0001880",
+          "hpo_label": "Increased total eosinophil count",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "taux de polynucléaire éosinophile à 44%",
+              "context": "un taux de polynucléaire éosinophile à 44%"
+            }
+          ],
+          "note": "44% eosinophils is far above normal, but the differential adds up to 140%, so the value may be a typo."
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0003074",
+          "hpo_label": "Hyperglycemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "glycémie à 1,30g/l",
+              "context": "une glycémie à 1,30g/l"
+            }
+          ],
+          "note": "Above the fasting reference range; the fasting state is not stated."
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0033822",
+          "hpo_label": "Mass on thoracic imaging",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "opacité homogène en projection sur l'ombre médiastinale",
+              "context": "une opacité homogène en projection sur l'ombre médiastinale, en rapport avec la masse"
+            }
+          ],
+          "note": "Chest radiograph opacity caused by the presternal mass; HPO has no chest wall mass term."
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:0000766",
+          "hpo_label": "Abnormal sternum morphology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "érosion de la face antérieure du sternum",
+              "context": "s'accompagnait d'une érosion de la face antérieure du sternum"
+            }
+          ],
+          "note": "No bone erosion term for the sternum; general sternum term used."
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:0012531",
+          "hpo_label": "Pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "douleur",
+              "context": "simple en dehors de la douleur"
+            }
+          ],
+          "note": "Postoperative pain, site not stated."
+        },
+        {
+          "proposal_id": "p015",
+          "hpo_id": "HP:0005987",
+          "hpo_label": "Multinodular goiter",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "goitre thyroïdien hétéronodulaire",
+              "context": "révélait un goitre thyroïdien hétéronodulaire"
+            }
+          ],
+          "note": "Histology of the presternal mass."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100510:native",
+      "document_sha256": "7718f8af3f33095896f8629f8a8ed168368ca1169edc9b6778e02aa5aaf2443f",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0006467",
+          "hpo_label": "Limited shoulder movement",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "limitation des mouvements de l'épaule droite",
+              "context": "et limitation des mouvements de l'épaule droite"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0001474",
+          "hpo_label": "Sclerotic scapulae",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "lésion osseuse sclérosée à la partie supérieure de la scapula",
+              "context": "a montrée une lésion osseuse sclérosée à la partie supérieure de la scapula"
+            }
+          ],
+          "note": "Focal sclerotic lesion of one scapula; the term describes scapular sclerosis in general."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0002756",
+          "hpo_label": "Pathologic fracture",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "fracture",
+              "context": "sans érosion corticale ni fracture associée"
+            }
+          ],
+          "note": "Fracture associated with the bone lesion is negated; Fractured scapula (HP:0041244) is the site-based alternative."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0010622",
+          "hpo_label": "Neoplasm of the skeletal system",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "tumeur osseuse",
+              "context": "a révélé une tumeur osseuse occupant la fosse sus épineuse"
+            }
+          ],
+          "note": "Same lesion as the bone cyst proposals; CT names it a bone tumor without hedging."
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0012062",
+          "hpo_label": "Bone cyst",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "kyste osseux",
+              "context": "kyste osseux bénin mais localement invasif"
+            }
+          ],
+          "note": "Radiological impression introduced by 'en faveur de'; same lesion as the aneurysmal bone cyst proposal."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0012063",
+          "hpo_label": "Aneurysmal bone cyst",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "kyste osseux anévrismal",
+              "context": "le résultat été en faveur d'un kyste osseux anévrismal"
+            },
+            {
+              "phrase": "kyste osseux anévrysmal",
+              "context": "histopathologiques été en faveur d'un kyste osseux anévrysmal"
+            }
+          ],
+          "note": "Biopsy and histology are both worded as 'en faveur de'."
+        }
+      ]
+    }
+  ]
+}

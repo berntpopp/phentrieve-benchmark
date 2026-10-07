@@ -1,0 +1,850 @@
+{
+  "schema_version": "e3c-hpo-crossread/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "sample60-v3",
+  "batch_id": "batch-01",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:en:EN100114:native",
+      "document_sha256": "7a9ffab405ec1f6aeb1e900b1a8beac1461d82b2b5dfd48ce40f87535d5dea5b",
+      "issues": [
+        {
+          "proposal_id": "p001",
+          "kind": "missing_occurrence",
+          "severity": "clear",
+          "correction": {
+            "phrase": "ascites",
+            "context": "related to the important ascites"
+          },
+          "note": "The examination sentence names the ascites again."
+        },
+        {
+          "proposal_id": "p005",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0011921",
+            "hpo_label": "Exudative pleural effusion"
+          },
+          "note": "Exudative pleuritis reads as an exudative effusion; if Pleuritis is kept, 'exudative' does not determine the term and the span is 'pleuritis'."
+        },
+        {
+          "proposal_id": "p010",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0010741",
+            "hpo_label": "Pedal edema"
+          },
+          "note": "The text negates edema of the lower extremities, which Pedal edema (synonym: Edema of the lower limbs) names; site and finding are split by the negation cue."
+        },
+        {
+          "proposal_id": "p014",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "low serum albumin level",
+            "context": "low serum albumin level = 29g/L"
+          },
+          "note": "The finding is verbalized, so the trailing value does not belong to the shortest phrase."
+        },
+        {
+          "proposal_id": "p019",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "pleural effusion",
+            "context": "disclosed bilateral pleural effusion"
+          },
+          "note": "'bilateral' does not determine the term and precedes the phrase."
+        },
+        {
+          "proposal_id": "p019",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "pleural effusion",
+            "context": "a mild bilateral pleural effusion"
+          },
+          "note": "'bilateral' does not determine the term and precedes the phrase."
+        },
+        {
+          "proposal_id": "p023",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "elevated anti-nuclear antibody (ANA) titer",
+            "context": "markedly elevated anti-nuclear antibody (ANA) titer of 1/1600"
+          },
+          "note": "The degree adverb and the trailing titer value do not determine the term."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0002960",
+          "hpo_label": "Autoimmunity",
+          "assertion": "absent",
+          "experiencer": "family_member",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "autoimmune disease",
+          "context": "did not include any autoimmune disease",
+          "severity": "clear",
+          "note": "Negated family finding without a proposal; the lookup gives Autoimmunity for 'autoimmune disease'."
+        },
+        {
+          "hpo_id": "HP:0012115",
+          "hpo_label": "Hepatitis",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "phrase": "hepatitis",
+          "context": "denied a history of hepatitis",
+          "severity": "clear",
+          "note": "Negated historical finding without a proposal."
+        },
+        {
+          "hpo_id": "HP:0000952",
+          "hpo_label": "Jaundice",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "phrase": "jaundice",
+          "context": "hepatitis, jaundice or alcohol use",
+          "severity": "clear",
+          "note": "Negated historical finding without a proposal."
+        },
+        {
+          "hpo_id": "HP:0002027",
+          "hpo_label": "Abdominal pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "painful ascites",
+          "context": "massive painful ascites",
+          "severity": "arguable",
+          "note": "The ascites is described as painful, which implies abdominal pain."
+        },
+        {
+          "hpo_id": "HP:0025154",
+          "hpo_label": "Portosystemic collateral veins",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "collateral venous circulation",
+          "context": "without collateral venous circulation",
+          "severity": "arguable",
+          "note": "Negated sign of portal hypertension; Dilated superficial abdominal veins (HP:0030168) is the alternative term."
+        },
+        {
+          "hpo_id": "HP:0000951",
+          "hpo_label": "Abnormality of the skin",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "skin lesions",
+          "context": "She had no skin lesions",
+          "severity": "arguable",
+          "note": "Negated finding named by the text; only the general skin term fits."
+        },
+        {
+          "hpo_id": "HP:0004421",
+          "hpo_label": "Elevated systolic blood pressure",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "phrase": "blood pressure was 150/70 mmHg",
+          "context": "blood pressure was 150/70 mmHg",
+          "severity": "arguable",
+          "note": "Systolic value of 150 mmHg is elevated and not interpreted in the text."
+        },
+        {
+          "hpo_id": "HP:0010702",
+          "hpo_label": "Increased circulating immunoglobulin concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "phrase": "47;-globulin = 19g/L",
+          "context": "47;-globulin = 19g/L",
+          "severity": "arguable",
+          "note": "Garbled gamma-globulin value of 19 g/L lies above the usual range and is not interpreted."
+        },
+        {
+          "hpo_id": "HP:0001392",
+          "hpo_label": "Abnormality of the liver",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "liver abnormality",
+          "context": "nor liver abnormality was present",
+          "severity": "arguable",
+          "note": "The text names and negates a liver abnormality on ultrasonography."
+        },
+        {
+          "hpo_id": "HP:0002586",
+          "hpo_label": "Peritonitis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "peritoneum showed non specific chronic inflammation",
+          "context": "peritoneum showed non specific chronic inflammation",
+          "severity": "arguable",
+          "note": "Histology reports chronic inflammation of the peritoneum."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100129:native",
+      "document_sha256": "4b79a76deb3d80ba36f0f0a6a739cf51062a5b778ea034b434a7f8713761e0b8",
+      "issues": [
+        {
+          "proposal_id": "p001",
+          "kind": "missing_occurrence",
+          "severity": "clear",
+          "correction": {
+            "phrase": "headache",
+            "context": "symptoms accompanying the headache"
+          },
+          "note": "The sentence names the headache again, like the marked 'Her headache'."
+        },
+        {
+          "proposal_id": "p011",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "extremities a mild asymmetry",
+            "context": "On her extremities a mild asymmetry was visible"
+          },
+          "note": "'mild asymmetry' does not express a limb term on its own; the site belongs to the span and 'mild' alone does not."
+        },
+        {
+          "proposal_id": "p012",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "extremities a mild asymmetry",
+            "context": "On her extremities a mild asymmetry was visible"
+          },
+          "note": "'mild asymmetry' does not express a limb term on its own; the site belongs to the span and 'mild' alone does not."
+        },
+        {
+          "proposal_id": "p016",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0100308",
+            "hpo_label": "Cerebral cortical hemiatrophy"
+          },
+          "note": "The atrophy is confined to the right hemisphere, which is a hemiatrophy rather than diffuse atrophy of the cerebrum."
+        },
+        {
+          "proposal_id": "p016",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "diffuse atrophy in the right hemisphere",
+            "context": "diffuse atrophy in the right hemisphere"
+          },
+          "note": "'diffuse atrophy' does not express a cerebral term on its own; the site belongs to the span."
+        },
+        {
+          "proposal_id": "p016",
+          "kind": "missing_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "right hemisphere is asymmetrically smaller than the left",
+            "context": "right hemisphere is asymmetrically smaller than the left"
+          },
+          "note": "The MRI sentence states the smaller right hemisphere again, which supports the hemiatrophy."
+        },
+        {
+          "proposal_id": "p017",
+          "kind": "wrong_term",
+          "severity": "clear",
+          "correction": {
+            "hpo_id": "HP:0002514",
+            "hpo_label": "Cerebral calcification"
+          },
+          "note": "Cortical calcifications of the occipital area are cerebral, so the more specific term applies."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0032807",
+          "hpo_label": "Neonatal seizure",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "phrase": "seizures occurring in the fifteenth day of life",
+          "context": "seizures occurring in the fifteenth day of life",
+          "severity": "arguable",
+          "note": "Seizures on day 15 of life are neonatal; otherwise 'seizures' here is an unmarked occurrence of Seizure (p005)."
+        },
+        {
+          "hpo_id": "HP:0007413",
+          "hpo_label": "Nevus flammeus of the forehead",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "facial nevus -occurred due to choroid angioma-on the right forehead, right eyelid",
+          "context": "facial nevus -occurred due to choroid angioma-on the right forehead, right eyelid",
+          "severity": "arguable",
+          "note": "The nevus is located on the forehead, for which a more specific term exists; span shared with the eyelid term."
+        },
+        {
+          "hpo_id": "HP:0010733",
+          "hpo_label": "Naevus flammeus of the eyelid",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "facial nevus -occurred due to choroid angioma-on the right forehead, right eyelid",
+          "context": "facial nevus -occurred due to choroid angioma-on the right forehead, right eyelid",
+          "severity": "arguable",
+          "note": "The nevus is located on the eyelid, for which a more specific term exists; span shared with the forehead term."
+        },
+        {
+          "hpo_id": "HP:0100556",
+          "hpo_label": "Hemiatrophy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "left arm and leg was slightly smaller",
+          "context": "left arm and leg was slightly smaller",
+          "severity": "arguable",
+          "note": "The smaller left arm and leg specify the limb asymmetry as a hemiatrophy; limb-specific child terms exist."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100247:native",
+      "document_sha256": "b2e1a55ab07b61a2b32837eb00b490f844669e9f4b47dea595e94ddd0853d153",
+      "issues": [
+        {
+          "proposal_id": "p002",
+          "kind": "extra_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "pain",
+            "context": "But pain didn't relieve"
+          },
+          "note": "'pain' alone refers back to the knee pain and does not express Knee pain on its own."
+        },
+        {
+          "proposal_id": "p005",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "mass at anterior knee region",
+            "context": "semi-mobile mass at anterior knee region"
+          },
+          "note": "'solid and semi-mobile' does not determine the term and precedes the phrase."
+        },
+        {
+          "proposal_id": "p007",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "knee X-rays showed degenerative changes",
+            "context": "knee X-rays showed degenerative changes"
+          },
+          "note": "'degenerative changes' does not express Knee osteoarthritis without the knee."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100310:native",
+      "document_sha256": "4a97383773d5c0292ab721c81187e226f45e2fccde548074a80ba624d93bd3a0",
+      "issues": [],
+      "missed": [
+        {
+          "hpo_id": "HP:6000176",
+          "hpo_label": "Anterior neck swelling",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "enlargement of the anterior neck",
+          "context": "enlargement of the anterior neck",
+          "severity": "arguable",
+          "note": "Presenting symptom without a proposal; it could also be read as the goiter itself."
+        },
+        {
+          "hpo_id": "HP:0011779",
+          "hpo_label": "Anaplastic thyroid carcinoma",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "undifferentiated carcinoma",
+          "context": "undifferentiated carcinoma",
+          "severity": "arguable",
+          "note": "Intraoperative diagnosis of the thyroid tumour that the final diagnosis of leiomyosarcoma replaces."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100345:native",
+      "document_sha256": "f33e462f2a83e113b58054769ae12c1dcaf0a48b7fdcc83278c4f08d28dbba50",
+      "issues": [],
+      "missed": [
+        {
+          "hpo_id": "HP:0007514",
+          "hpo_label": "Edema of the dorsum of hands",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "swelling and obvious distortion at the dorsum of the hand",
+          "context": "swelling and obvious distortion at the dorsum of the hand",
+          "severity": "arguable",
+          "note": "Swelling of the dorsum of the hand has no proposal; the term fits if traumatic swelling counts as edema."
+        },
+        {
+          "hpo_id": "HP:0003474",
+          "hpo_label": "Somatic sensory dysfunction",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "sensitive deficit in the median nerve area",
+          "context": "sensitive deficit in the median nerve area",
+          "severity": "clear",
+          "note": "Negated sensory deficit without a proposal; the lookup gives this term for 'sensory impairment'."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100432:native",
+      "document_sha256": "8f960a79971d3a45c00b679a463d6bba84dbdd586a9a1d2e8e888adb62e616f2",
+      "issues": [
+        {
+          "proposal_id": "p001",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "lump in her left breast",
+            "context": "palpable lump in her left breast"
+          },
+          "note": "'palpable lump' does not express Breast mass on its own; the site belongs to the span and 'palpable' does not."
+        },
+        {
+          "proposal_id": "p001",
+          "kind": "missing_occurrence",
+          "severity": "clear",
+          "correction": {
+            "phrase": "tumor located on the left breast",
+            "context": "a 3 cm tumor located on the left breast"
+          },
+          "note": "The examination names the breast mass again; Neoplasm of the breast (HP:0100013) is the alternative reading."
+        },
+        {
+          "proposal_id": "p001",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "mass with irregular and speculated margins in the subareolar area",
+            "context": "mass with irregular and speculated margins in the subareolar area"
+          },
+          "note": "'round hyperdense' does not determine the term, and the phrase needs the subareolar site to express Breast mass."
+        },
+        {
+          "proposal_id": "p002",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "carcinoma of the breast",
+            "context": "tubular carcinoma of the breast"
+          },
+          "note": "The histological subtype does not determine the term Breast carcinoma."
+        },
+        {
+          "proposal_id": "p002",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "carcinoma of the breast",
+            "context": "lymphoepithelioma-like carcinoma of the breast"
+          },
+          "note": "The histological subtype does not determine the term Breast carcinoma."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0003186",
+          "hpo_label": "Inverted nipples",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "retraction of the nipple",
+          "context": "retraction of the nipple",
+          "severity": "arguable",
+          "note": "Negated finding without a proposal; the term fits if acquired nipple retraction counts as inverted nipple."
+        },
+        {
+          "hpo_id": "HP:0034752",
+          "hpo_label": "Axillary lymphadenopathy",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "axillary lymph node involvement",
+          "context": "axillary lymph node involvement",
+          "severity": "arguable",
+          "note": "Clinical examination rules out axillary lymph node involvement."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100453:native",
+      "document_sha256": "614148ade649bebedc5e38d361ef1bd49c2e4c353be24230d3c60c512b03deb5",
+      "issues": [
+        {
+          "proposal_id": "p001",
+          "kind": "missing_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "exophthalmia",
+            "context": "regression of the exophthalmia"
+          },
+          "note": "The follow-up sentence names the exophthalmia again, although as regressing."
+        },
+        {
+          "proposal_id": "p002",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "blindness",
+            "context": "unilateral blindness"
+          },
+          "note": "'unilateral' does not determine the term Blindness and precedes the phrase."
+        },
+        {
+          "proposal_id": "p002",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "blindness",
+            "context": "monocular blindness"
+          },
+          "note": "'monocular' does not determine the term Blindness and precedes the phrase."
+        },
+        {
+          "proposal_id": "p009",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "hemianopia",
+            "context": "unilateral nasal hemianopia"
+          },
+          "note": "'unilateral nasal' does not determine the term Hemianopia; no term for a unilateral nasal defect exists."
+        },
+        {
+          "proposal_id": "p010",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0200026",
+            "hpo_label": "Ocular pain"
+          },
+          "note": "'painless' describes the exophthalmia, so the negated pain is that of the eye."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100490:native",
+      "document_sha256": "af9f36e31454f0d790b94b72ed0bb7b0f5a213ff2ffb6eaaeafbc7b99f889a57",
+      "issues": [
+        {
+          "proposal_id": "p002",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0000717",
+            "hpo_label": "Autism"
+          },
+          "note": "Same diagnosis as p001 under its ancestor term; R1 asks for one term, so both mentions belong to one annotation, Autism or Autistic behavior."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0033563",
+          "hpo_label": "Anti-tissue transglutaminase antibody positivity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "positive anti-tissue transglutaminase antibodies",
+          "context": "positive anti-tissue transglutaminase antibodies",
+          "severity": "clear",
+          "note": "Verbalized laboratory finding without a proposal."
+        },
+        {
+          "hpo_id": "HP:0033563",
+          "hpo_label": "Anti-tissue transglutaminase antibody positivity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "phrase": "Anti-tissue transglutaminase antibodies levels were 76 U (normal < 10)",
+          "context": "Anti-tissue transglutaminase antibodies levels were 76 U (normal < 10)",
+          "severity": "clear",
+          "note": "Pathological measurement of the same finding, stated before the text calls it positive."
+        },
+        {
+          "hpo_id": "HP:0002608",
+          "hpo_label": "Celiac disease",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "celiac disease",
+          "context": "to confirm a celiac disease diagnosis",
+          "severity": "arguable",
+          "note": "Before the biopsy the diagnosis is only suspected; p018 covers the later mention."
+        },
+        {
+          "hpo_id": "HP:0034434",
+          "hpo_label": "Abnormal communication",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "phrase": "communication disorder",
+          "context": "severe communication disorder",
+          "severity": "arguable",
+          "note": "Diagnosis at two years of age without a proposal, next to the social interaction difficulties of p004."
+        },
+        {
+          "hpo_id": "HP:5200316",
+          "hpo_label": "Diminishment of interpersonal communication",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "uncommunicative",
+          "context": "uncommunicative",
+          "severity": "arguable",
+          "note": "Examination finding without a proposal."
+        },
+        {
+          "hpo_id": "HP:0001999",
+          "hpo_label": "Abnormal facial shape",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "dysmorphic features",
+          "context": "dysmorphic features",
+          "severity": "arguable",
+          "note": "Negated finding named by the text; the lookup gives this term for 'dysmorphic facies'."
+        },
+        {
+          "hpo_id": "HP:0000741",
+          "hpo_label": "Apathy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "disinterested in what was taking place",
+          "context": "disinterested in what was taking place",
+          "severity": "arguable",
+          "note": "Observed lack of interest without a proposal."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100508:native",
+      "document_sha256": "07a0a35977f33f93a45c0faf3add065cf107ef59dc5cf3df2dc3684cc765ded2",
+      "issues": [
+        {
+          "proposal_id": "p001",
+          "kind": "missing_occurrence",
+          "severity": "clear",
+          "correction": {
+            "phrase": "scrotum was empty",
+            "context": "the ipsilateral scrotum was empty"
+          },
+          "note": "The examination states the empty scrotum again, like the marked 'empty scrotum'."
+        },
+        {
+          "proposal_id": "p001",
+          "kind": "missing_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "testis could be palpated with difficulty lying in a high inguinal position",
+            "context": "testis could be palpated with difficulty lying in a high inguinal position"
+          },
+          "note": "A testis in a high inguinal position is undescended; it could also be an occurrence of Ectopic testis (p002)."
+        },
+        {
+          "proposal_id": "p003",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "hernia sac",
+            "context": "a large hernia sac was identified"
+          },
+          "note": "'large' does not determine the term and precedes the phrase."
+        },
+        {
+          "proposal_id": "p005",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "hydrocele",
+            "context": "left hydrocele"
+          },
+          "note": "'left' does not determine the term and precedes the phrase."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0010866",
+          "hpo_label": "Abdominal wall defect",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "abdominal wall defect",
+          "context": "no abdominal wall defect could be palpated",
+          "severity": "clear",
+          "note": "The text names and negates the finding."
+        },
+        {
+          "hpo_id": "HP:0002933",
+          "hpo_label": "Ventral hernia",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "spigelian hernia",
+          "context": "looked like a spigelian hernia",
+          "severity": "arguable",
+          "note": "'looked like' hedges a spigelian hernia, a ventral hernia; Hernia of the abdominal wall (HP:0004299) is the broader alternative."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100543:native",
+      "document_sha256": "43b1949294aadc76b31cf620f2b3a8eced9a279f2f14cd5cc574dedcdbeadd6e",
+      "issues": [
+        {
+          "proposal_id": "p008",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:6001425",
+            "hpo_label": "Hyperleukocytosis"
+          },
+          "note": "A count of 545,000/mm3 supports Hyperleukocytosis; if the general term is kept, the trailing value does not belong to the first span."
+        },
+        {
+          "proposal_id": "p009",
+          "kind": "missing_occurrence",
+          "severity": "clear",
+          "correction": {
+            "phrase": "chronic myelogenous leukemia",
+            "context": "status of her chronic myelogenous leukemia"
+          },
+          "note": "The text names the diagnosis again in full."
+        },
+        {
+          "proposal_id": "p015",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "visual loss",
+            "context": "bilateral visual loss"
+          },
+          "note": "'bilateral' does not determine the term and precedes the phrase."
+        },
+        {
+          "proposal_id": "p018",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "pupil was sluggish to react to light",
+            "context": "pupil was sluggish to react to light"
+          },
+          "note": "Without its subject the phrase does not name the pupil; R4 keeps a shared subject in the span."
+        },
+        {
+          "proposal_id": "p024",
+          "kind": "wrong_term",
+          "severity": "clear",
+          "correction": {
+            "hpo_id": "HP:0031179",
+            "hpo_label": "Nuchal rigidity"
+          },
+          "note": "Neck rigidity found on neurological examination next to meningeal signs is nuchal rigidity."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0011897",
+          "hpo_label": "Increased total neutrophil count",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "phrase": "PNN: 49,050/mm³",
+          "context": "PNN: 49,050/mm³",
+          "severity": "clear",
+          "note": "Pathological neutrophil count (PNN) that the text does not interpret."
+        },
+        {
+          "hpo_id": "HP:0032372",
+          "hpo_label": "Increased peripheral blast count",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "phrase": "21% blasts",
+          "context": "21% blasts",
+          "severity": "clear",
+          "note": "Blasts in the peripheral blood smear without a proposal; given as a value without interpretation."
+        },
+        {
+          "hpo_id": "HP:0002181",
+          "hpo_label": "Cerebral edema",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "cerebral edema",
+          "context": "cerebral edema",
+          "severity": "clear",
+          "note": "The CT was done for suspected cerebral edema and found nothing."
+        },
+        {
+          "hpo_id": "HP:6000141",
+          "hpo_label": "Cerebral contusion",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "contusion in the right parietal and occipital lobes",
+          "context": "contusion in the right parietal and occipital lobes",
+          "severity": "arguable",
+          "note": "The CT sentence names a contusion of the parietal and occipital lobes."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1906 @@
+{
+ "schema_version": "e3c-hpo-proposal-batch/v1",
+ "provenance": "machine generated, not review data, not gold",
+ "run_id": "pilot-v3",
+ "batch_id": "batch-01",
+ "reports": [
+  {
+   "document_id": "e3c:v2.0.0:en:EN100383:native",
+   "document_sha256": "8582650872b4d60a83f7348f6e74af89bd0ac8ff88faf3fb74a7b53f75e25b10",
+   "annotations": [
+    {
+     "proposal_id": "p001",
+     "hpo_id": "HP:0000421",
+     "hpo_label": "Epistaxis",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "epistaxis",
+       "context": "occurrence of a right epistaxis"
+      },
+      {
+       "phrase": "epistaxis",
+       "context": "associated with right epistaxis and bloody"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p002",
+     "hpo_id": "HP:0001742",
+     "hpo_label": "Nasal congestion",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "nasal obstruction",
+       "context": "right nasal obstruction of progressive onset"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p003",
+     "hpo_id": "HP:0031417",
+     "hpo_label": "Rhinorrhea",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "bloody rhinorrhea",
+       "context": "right epistaxis and bloody rhinorrhea with"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p004",
+     "hpo_id": "HP:0009926",
+     "hpo_label": "Epiphora",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "chronic eye watering",
+       "context": "with right chronic eye watering"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p005",
+     "hpo_id": "HP:0005112",
+     "hpo_label": "Abdominal aortic aneurysm",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "historical",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "aneurysm of the abdominal aorta",
+       "context": "reported an aneurysm of the abdominal aorta surgically"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p006",
+     "hpo_id": "HP:0000707",
+     "hpo_label": "Abnormality of the nervous system",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "neurological signs",
+       "context": "didn't presents neurological signs nor cervical"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p007",
+     "hpo_id": "HP:0025289",
+     "hpo_label": "Cervical lymphadenopathy",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "cervical lymph nods",
+       "context": "neurological signs nor cervical lymph nods"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p008",
+     "hpo_id": "HP:6000997",
+     "hpo_label": "Intranasal mass",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "burgeoning mass",
+       "context": "pinnkish burgeoning mass bleeding on contact"
+      },
+      {
+       "phrase": "tissue mass",
+       "context": "increase in size of the tissue mass compared"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p009",
+     "hpo_id": "HP:0004411",
+     "hpo_label": "Deviated nasal septum",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "left deviation of the nasal septum",
+       "context": "with a left deviation of the nasal septum with nasal spur"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p010",
+     "hpo_id": "HP:0000433",
+     "hpo_label": "Abnormal nasal mucosa morphology",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "crenate appearance of the posterior nasal mucosa",
+       "context": "also a crenate appearance of the posterior nasal mucosa"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p011",
+     "hpo_id": "HP:3000040",
+     "hpo_label": "Abnormality of ethmoid sinus",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "ethmoidal sinus fluid retention",
+       "context": "This finding shows ethmoidal sinus fluid retention"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p012",
+     "hpo_id": "HP:0012720",
+     "hpo_label": "Neoplasm of the nose",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "tumor",
+       "context": "complete endoscopic removal of the tumor"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p013",
+     "hpo_id": "HP:0030731",
+     "hpo_label": "Carcinoma",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "neuroendocrine carcinoma",
+       "context": "and leads to neuroendocrine carcinoma"
+      },
+      {
+       "phrase": "large-cell neuroendocrine carcinoma",
+       "context": "it is a high-grade large-cell neuroendocrine carcinoma"
+      }
+     ],
+     "note": null
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:en:EN100593:native",
+   "document_sha256": "b55fc650700a43db34d423b4cc48efaf8b054ff7a529e7fa4250f31682fe2882",
+   "annotations": [
+    {
+     "proposal_id": "p001",
+     "hpo_id": "HP:0002027",
+     "hpo_label": "Abdominal pain",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "right upper abdominal pain",
+       "context": "history of right upper abdominal pain"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p002",
+     "hpo_id": "HP:0000989",
+     "hpo_label": "Pruritus",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "generalized itch",
+       "context": "associated with generalized itch"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p003",
+     "hpo_id": "HP:0040319",
+     "hpo_label": "Dark urine",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "tea colored urine",
+       "context": "itch, tea colored urine"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p004",
+     "hpo_id": "HP:0011985",
+     "hpo_label": "Acholic stools",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "mastic -colored stool",
+       "context": "urine, mastic -colored stool"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p005",
+     "hpo_id": "HP:0001824",
+     "hpo_label": "Weight loss",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "significant weight loss",
+       "context": "and significant weight loss"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p006",
+     "hpo_id": "HP:0002315",
+     "hpo_label": "Headache",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "headache",
+       "context": "No headache, blurred vision"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p007",
+     "hpo_id": "HP:0000622",
+     "hpo_label": "Blurred vision",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "blurred vision",
+       "context": "headache, blurred vision or"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p008",
+     "hpo_id": "HP:0001892",
+     "hpo_label": "Abnormal bleeding",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "spontaneous bleeding",
+       "context": "or spontaneous bleeding were mentioned"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p009",
+     "hpo_id": "HP:0000819",
+     "hpo_label": "Diabetes mellitus",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "diabetic",
+       "context": "not a known diabetic or hypertensive"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p010",
+     "hpo_id": "HP:0000822",
+     "hpo_label": "Hypertension",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "hypertensive",
+       "context": "a known diabetic or hypertensive and"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p011",
+     "hpo_id": "HP:0000980",
+     "hpo_label": "Pallor",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "pallor",
+       "context": "included mild pallor and"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p012",
+     "hpo_id": "HP:0000952",
+     "hpo_label": "Jaundice",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "cholestatic jaundice",
+       "context": "pallor and cholestatic jaundice"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p013",
+     "hpo_id": "HP:0003270",
+     "hpo_label": "Abdominal distention",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "grossly distended",
+       "context": "The abdomen was grossly distended"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p014",
+     "hpo_id": "HP:0025154",
+     "hpo_label": "Portosystemic collateral veins",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "visible collateral veins",
+       "context": "distended with visible collateral veins"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p015",
+     "hpo_id": "HP:0002240",
+     "hpo_label": "Hepatomegaly",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "Liver was enlarged",
+       "context": "Liver was enlarged, hard"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p016",
+     "hpo_id": "HP:0001744",
+     "hpo_label": "Splenomegaly",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "spleen was not palpable",
+       "context": "The spleen was not palpable"
+      }
+     ],
+     "note": "Negated organ enlargement inferred from a non-palpable spleen."
+    },
+    {
+     "proposal_id": "p017",
+     "hpo_id": "HP:0033045",
+     "hpo_label": "Bipedal edema",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "bipedal edema",
+       "context": "There was bipedal edema up to"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p018",
+     "hpo_id": "HP:0001974",
+     "hpo_label": "Increased total leukocyte count",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "leukocytosis",
+       "context": "showed leukocytosis, anemia"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p019",
+     "hpo_id": "HP:0001974",
+     "hpo_label": "Increased total leukocyte count",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": false,
+     "mentions": [
+      {
+       "phrase": "WBC 37500 cells/dL",
+       "context": "WBC 37500 cells/dL, Platelets"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p020",
+     "hpo_id": "HP:0001903",
+     "hpo_label": "Anemia",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "anemia",
+       "context": "leukocytosis, anemia and normal"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p021",
+     "hpo_id": "HP:0001903",
+     "hpo_label": "Anemia",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": false,
+     "mentions": [
+      {
+       "phrase": "HB-8.4g/dL",
+       "context": "revealed HB-8.4g/dL, WBC"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p022",
+     "hpo_id": "HP:0031956",
+     "hpo_label": "Elevated circulating aspartate aminotransferase concentration",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "Aspartate aminotransferase (AST) were raised",
+       "context": "Aspartate aminotransferase (AST) were raised (4times"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p023",
+     "hpo_id": "HP:0003075",
+     "hpo_label": "Hypoproteinemia",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "total protein and albumin were low",
+       "context": "total protein and albumin were low, 43g/L"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p024",
+     "hpo_id": "HP:0003073",
+     "hpo_label": "Hypoalbuminemia",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "total protein and albumin were low",
+       "context": "total protein and albumin were low, 43g/L"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p025",
+     "hpo_id": "HP:0006254",
+     "hpo_label": "Elevated circulating alpha-fetoprotein concentration",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "alphafeto-protein (AFP) was higher",
+       "context": "Her alphafeto-protein (AFP) was higher"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p026",
+     "hpo_id": "HP:0001402",
+     "hpo_label": "Hepatocellular carcinoma",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "hepatocellular carcinoma",
+       "context": "The diagnosis of hepatocellular carcinoma on"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p027",
+     "hpo_id": "HP:0001394",
+     "hpo_label": "Cirrhosis",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "decompensated cirrhosis",
+       "context": "on a decompensated cirrhosis was made"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p028",
+     "hpo_id": "HP:0031144",
+     "hpo_label": "Coarsened hepatic echotexture",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "heterogeneous coarse liver",
+       "context": "showed a heterogeneous coarse liver"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p029",
+     "hpo_id": "HP:0007185",
+     "hpo_label": "Loss of consciousness",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "loss of conscious",
+       "context": "progressive loss of conscious along"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p030",
+     "hpo_id": "HP:0000421",
+     "hpo_label": "Epistaxis",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "epistaxis",
+       "context": "conscious along with epistaxis and"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p031",
+     "hpo_id": "HP:0001988",
+     "hpo_label": "Recurrent hypoglycemia",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "recurrent hypoglycemia",
+       "context": "INR-2.57 and recurrent hypoglycemia"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p032",
+     "hpo_id": "HP:0008151",
+     "hpo_label": "Prolonged prothrombin time",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": false,
+     "mentions": [
+      {
+       "phrase": "INR-2.57",
+       "context": "Platelets 436000/ul, INR-2.57"
+      }
+     ],
+     "note": null
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:en:EN104179:native",
+   "document_sha256": "cac7cca31c9228ac744e6bef81ab77e1aec17a5a4d05244c0f8388806c5fce49",
+   "annotations": [
+    {
+     "proposal_id": "p001",
+     "hpo_id": "HP:0006765",
+     "hpo_label": "Chondrosarcoma",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "chondrosarcoma",
+       "context": "Biopsy releveled a chondrosarcoma"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p002",
+     "hpo_id": "HP:0045039",
+     "hpo_label": "Osteolysis involving bones of the upper limbs",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "complete destruction of the upper humerus",
+       "context": "showed complete destruction of the upper humerus"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p003",
+     "hpo_id": "HP:6000840",
+     "hpo_label": "Localized soft-tissue swelling on extremity",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "historical",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "arm swelling",
+       "context": "excision of the arm swelling"
+      }
+     ],
+     "note": null
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:es:ES100001:native",
+   "document_sha256": "eb5d877b0f20dde4b274de969d323e6703e8a9c90103530444e939ee23313233",
+   "annotations": [
+    {
+     "proposal_id": "p001",
+     "hpo_id": "HP:0025020",
+     "hpo_label": "Elevated circulating prostate-specific antigen concentration",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "elevación progresiva de las cifras de PSA",
+       "context": "presentaba una elevación progresiva de las cifras de PSA"
+      },
+      {
+       "phrase": "elevación del PSA",
+       "context": "ante la elevación del PSA"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p002",
+     "hpo_id": "HP:0008775",
+     "hpo_label": "Abnormal prostate morphology",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "lesión hipointensa que abarca zona central i periférica del ápex del lóbulo D prostático",
+       "context": "una lesión hipointensa que abarca zona central i periférica del ápex del lóbulo D prostático. El"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p003",
+     "hpo_id": "HP:0012125",
+     "hpo_label": "Prostate cancer",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "ADK próstata",
+       "context": "confirmó la presencia de un ADK próstata Gleason 6"
+      }
+     ],
+     "note": null
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:es:ES100526:native",
+   "document_sha256": "0107656a1f2bac05a28c36345e23d3c7d62b7b0fb523053677349eb1e8a6b46c",
+   "annotations": [
+    {
+     "proposal_id": "p001",
+     "hpo_id": "HP:0000036",
+     "hpo_label": "Abnormal penis morphology",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "deformidad peneana",
+       "context": "consulta por deformidad peneana secundaria"
+      },
+      {
+       "phrase": "irregularidades visibles",
+       "context": "con irregularidades visibles que se comprueban"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p002",
+     "hpo_id": "HP:0040411",
+     "hpo_label": "Pain in penis",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "dolor espontáneo",
+       "context": "comenzó a presentar dolor espontáneo que"
+      },
+      {
+       "phrase": "dolorosas",
+       "context": "además resultan dolorosas"
+      }
+     ],
+     "note": null
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:es:ES100978:native",
+   "document_sha256": "b64b7d389b22079376ae7f8728c1c1f8cea0c9cde6816301de533bc802707ea4",
+   "annotations": [
+    {
+     "proposal_id": "p001",
+     "hpo_id": "HP:0001288",
+     "hpo_label": "Gait disturbance",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "dificultad para caminar",
+       "context": "refiere dificultad para caminar desde"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p002",
+     "hpo_id": "HP:0007340",
+     "hpo_label": "Lower limb muscle weakness",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "debilidad y dolor en los miembros inferiores",
+       "context": "Presenta debilidad y dolor en los miembros inferiores"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p003",
+     "hpo_id": "HP:0012514",
+     "hpo_label": "Lower limb pain",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "debilidad y dolor en los miembros inferiores",
+       "context": "Presenta debilidad y dolor en los miembros inferiores"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p004",
+     "hpo_id": "HP:0003419",
+     "hpo_label": "Low back pain",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "lumbalgia",
+       "context": "en ocasiones de lumbalgia no irradiada"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p005",
+     "hpo_id": "HP:0001618",
+     "hpo_label": "Dysphonia",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "disfónica",
+       "context": "siendo ésta más disfónica"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p006",
+     "hpo_id": "HP:0030237",
+     "hpo_label": "Hand muscle weakness",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "debilidad en las manos",
+       "context": "no refiere debilidad en las manos o"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p007",
+     "hpo_id": "HP:0003484",
+     "hpo_label": "Upper limb muscle weakness",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "debilidad en miembros superiores",
+       "context": "No se objetiva debilidad en miembros superiores"
+      },
+      {
+       "phrase": "afectación en miembros superiores",
+       "context": "sin afectación en miembros superiores (MMSS)"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p008",
+     "hpo_id": "HP:0003474",
+     "hpo_label": "Somatic sensory dysfunction",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "déficit sensitivo",
+       "context": "No déficit sensitivo"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p009",
+     "hpo_id": "HP:0000712",
+     "hpo_label": "Emotional lability",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "labilidad emocional",
+       "context": "No se aprecia labilidad emocional"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p010",
+     "hpo_id": "HP:0003394",
+     "hpo_label": "Muscle spasm",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "calambres ocasionales en gemelos",
+       "context": "Refiere calambres ocasionales en gemelos"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p011",
+     "hpo_id": "HP:0000822",
+     "hpo_label": "Hypertension",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "hipertenso",
+       "context": "personales, es hipertenso y"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p012",
+     "hpo_id": "HP:0005978",
+     "hpo_label": "Type II diabetes mellitus",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "diabético tipo 2",
+       "context": "es hipertenso y diabético tipo 2"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p013",
+     "hpo_id": "HP:0007354",
+     "hpo_label": "Amyotrophic lateral sclerosis",
+     "assertion": "present",
+     "experiencer": "family_member",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "Esclerosis lateral amiotrófica (ELA)",
+       "context": "fallecido con el diagnóstico de Esclerosis lateral amiotrófica (ELA)"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p014",
+     "hpo_id": "HP:0007354",
+     "hpo_label": "Amyotrophic lateral sclerosis",
+     "assertion": "uncertain",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "ELA",
+       "context": "compatible con enfermedad de motoneurona, probable ELA"
+      },
+      {
+       "phrase": "ELA",
+       "context": "diagnóstico de probable ELA, según"
+      },
+      {
+       "phrase": "ELA",
+       "context": "enfermedad de motoneurona, probable ELA. Se continúa"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p015",
+     "hpo_id": "HP:0001621",
+     "hpo_label": "Weak voice",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "habla hipofónica",
+       "context": "presenta habla hipofónica, facial"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p016",
+     "hpo_id": "HP:0001308",
+     "hpo_label": "Tongue fasciculations",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "Fasciculaciones linguales",
+       "context": "Fasciculaciones linguales. No debilidad"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p017",
+     "hpo_id": "HP:0000467",
+     "hpo_label": "Neck muscle weakness",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "debilidad cervical",
+       "context": "No debilidad cervical"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p018",
+     "hpo_id": "HP:0002385",
+     "hpo_label": "Paraparesis",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "paraparesia de predominio proximal 4/5",
+       "context": "inferiores (MMII): paraparesia de predominio proximal 4/5"
+      },
+      {
+       "phrase": "paraparesia proximal",
+       "context": "evolución clínica del paciente con paraparesia proximal en MMII"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p019",
+     "hpo_id": "HP:0001347",
+     "hpo_label": "Hyperreflexia",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": false,
+     "mentions": [
+      {
+       "phrase": "Reflejo osteo-tendinoso (ROT) +++/+++",
+       "context": "Reflejo osteo-tendinoso (ROT) +++/+++ con"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p020",
+     "hpo_id": "HP:0002380",
+     "hpo_label": "Fasciculations",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "Fasciculaciones en deltoides, pectorales y de forma difusa en MMII",
+       "context": "Fasciculaciones en deltoides, pectorales y de forma difusa en MMII"
+      },
+      {
+       "phrase": "Fasciculaciones difusas por diferentes segmentos corporales",
+       "context": "Fasciculaciones difusas por diferentes segmentos corporales"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p021",
+     "hpo_id": "HP:0009050",
+     "hpo_label": "Quadriceps muscle atrophy",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "Atrofia muscular en ambos cuádriceps",
+       "context": "Atrofia muscular en ambos cuádriceps"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p022",
+     "hpo_id": "HP:0008956",
+     "hpo_label": "Proximal lower limb amyotrophy",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "atrofia muscular de ambos muslos",
+       "context": "importante atrofia muscular de ambos muslos"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p023",
+     "hpo_id": "HP:0009130",
+     "hpo_label": "Hand muscle atrophy",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "Atrofia incipiente a nivel del quinto espacio interóseo de la mano izquierda",
+       "context": "Atrofia incipiente a nivel del quinto espacio interóseo de la mano izquierda"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p024",
+     "hpo_id": "HP:0003236",
+     "hpo_label": "Elevated circulating creatine kinase activity",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": false,
+     "mentions": [
+      {
+       "phrase": "CK de 232",
+       "context": "donde destaca CK de 232"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p025",
+     "hpo_id": "HP:0030007",
+     "hpo_label": "EMG: positive sharp waves",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "ondas positivas",
+       "context": "(fibrilaciones y ondas positivas)"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p026",
+     "hpo_id": "HP:0003198",
+     "hpo_label": "Myopathy",
+     "assertion": "uncertain",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "miopatía",
+       "context": "en concreto una miopatía"
+      },
+      {
+       "phrase": "miopatía",
+       "context": "El EMG sugiere miopatía con afectación bulbar"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p027",
+     "hpo_id": "HP:0002015",
+     "hpo_label": "Dysphagia",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "disfagia para sólidos",
+       "context": "atrofia muscular de ambos muslos, disfagia para sólidos"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p028",
+     "hpo_id": "HP:0009027",
+     "hpo_label": "Foot dorsiflexor weakness",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "debilidad en la flexión dorsal del pie izquierdo",
+       "context": "evidenciándose debilidad en la flexión dorsal del pie izquierdo (4/5)"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p029",
+     "hpo_id": "HP:0001686",
+     "hpo_label": "Loss of voice",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "leve afonía",
+       "context": "así como leve afonía"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p030",
+     "hpo_id": "HP:0031273",
+     "hpo_label": "Shock",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "shock séptico",
+       "context": "presenta un shock séptico de origen urinario"
+      }
+     ],
+     "note": "Septic shock of urinary origin; general Shock term chosen."
+    },
+    {
+     "proposal_id": "p031",
+     "hpo_id": "HP:0004887",
+     "hpo_label": "Respiratory failure requiring assisted ventilation",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "ventilación mecánica invasiva",
+       "context": "precisando ventilación mecánica invasiva (traqueotomía)"
+      }
+     ],
+     "note": null
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:fr:FR100120:native",
+   "document_sha256": "c3dd666c1f8ba3e201a617e34c22292e9bd1ebf890a27e04b9cce6ae93791f5f",
+   "annotations": [
+    {
+     "proposal_id": "p001",
+     "hpo_id": "HP:0005978",
+     "hpo_label": "Type II diabetes mellitus",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "diabète non insulinodépendant",
+       "context": "il y a un diabète non insulinodépendant bien"
+      },
+      {
+       "phrase": "diabète type II",
+       "context": "terrain de débilité (diabète type II)"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p002",
+     "hpo_id": "HP:0001513",
+     "hpo_label": "Obesity",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "obésité",
+       "context": "une obésité (Indice de Masse"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p003",
+     "hpo_id": "HP:0003119",
+     "hpo_label": "Abnormal circulating lipid concentration",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "dyslipidémie",
+       "context": "associée à une dyslipidémie"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p004",
+     "hpo_id": "HP:0200034",
+     "hpo_label": "Papule",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "papules prurigineuses",
+       "context": "deux papules prurigineuses isolées"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p005",
+     "hpo_id": "HP:0000989",
+     "hpo_label": "Pruritus",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "papules prurigineuses",
+       "context": "deux papules prurigineuses isolées"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p006",
+     "hpo_id": "HP:0020083",
+     "hpo_label": "Furuncle",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "lésions furonculoïdes",
+       "context": "trouvé deux lésions furonculoïdes, de 5 mm"
+      }
+     ],
+     "note": "Furuncle-like lesions."
+    },
+    {
+     "proposal_id": "p007",
+     "hpo_id": "HP:0010783",
+     "hpo_label": "Erythema",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "liseré érythémateux",
+       "context": "entouré d'un liseré érythémateux légèrement"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p008",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "fièvre",
+       "context": "notamment pas de fièvre et"
+      }
+     ],
+     "note": null
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:fr:FR100519:native",
+   "document_sha256": "f095f4c7d07e874442e6460cc4be5275a3ec7f0ed8ec240bf2af7e7cdfeb557b",
+   "annotations": [
+    {
+     "proposal_id": "p001",
+     "hpo_id": "HP:0041143",
+     "hpo_label": "Fractured tibia",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "historical",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "fracture isolée des plateaux tibiaux droits",
+       "context": "pour fracture isolée des plateaux tibiaux droits"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p002",
+     "hpo_id": "HP:0009763",
+     "hpo_label": "Limb pain",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "douleur du membre",
+       "context": "survenue de douleur du membre associée"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p003",
+     "hpo_id": "HP:6000840",
+     "hpo_label": "Localized soft-tissue swelling on extremity",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "tuméfaction",
+       "context": "associée à une tuméfaction ayant motivé"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p004",
+     "hpo_id": "HP:0100749",
+     "hpo_label": "Chest pain",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "douleurs basithoraciques droites",
+       "context": "l'apparition de douleurs basithoraciques droites"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p005",
+     "hpo_id": "HP:0002094",
+     "hpo_label": "Dyspnea",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "dyspnée",
+       "context": "accompagnées de dyspnée et de fièvre"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p006",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "fièvre",
+       "context": "de dyspnée et de fièvre"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p007",
+     "hpo_id": "HP:0002204",
+     "hpo_label": "Pulmonary embolism",
+     "assertion": "uncertain",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "embolie pulmonaire",
+       "context": "pour suspicion d'embolie pulmonaire"
+      },
+      {
+       "phrase": "embolie pulmonaire",
+       "context": "suspecter une embolie pulmonaire devant"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p008",
+     "hpo_id": "HP:0002204",
+     "hpo_label": "Pulmonary embolism",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "embolie pulmonaire",
+       "context": "a confirmé l'embolie pulmonaire"
+      },
+      {
+       "phrase": "embolie pulmonaire",
+       "context": "Le diagnostic d'embolie pulmonaire compliquant"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p009",
+     "hpo_id": "HP:0033106",
+     "hpo_label": "Elevated circulating D-dimer concentration",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "élévation des D-Dimères",
+       "context": "une élévation des D-Dimères"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p010",
+     "hpo_id": "HP:0031457",
+     "hpo_label": "Pulmonary opacity",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "opacité dense homogène",
+       "context": "une opacité dense homogène sans"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p011",
+     "hpo_id": "HP:0003115",
+     "hpo_label": "Abnormal EKG",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "S1Q3T3",
+       "context": "aspect S1Q3T3 à l'ECG"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p012",
+     "hpo_id": "HP:0002625",
+     "hpo_label": "Deep venous thrombosis",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "thrombose veineuse profonde",
+       "context": "mis en évidence une thrombose veineuse profonde"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p013",
+     "hpo_id": "HP:0004418",
+     "hpo_label": "Thrombophlebitis",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "thrombophlébite",
+       "context": "compliquant une thrombophlébite du membre"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p014",
+     "hpo_id": "HP:0002027",
+     "hpo_label": "Abdominal pain",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "douleur à l'hypocondre droit",
+       "context": "apparu une douleur à l'hypocondre droit"
+      }
+     ],
+     "note": "Right hypochondrium pain mapped to general abdominal pain."
+    },
+    {
+     "proposal_id": "p015",
+     "hpo_id": "HP:0031273",
+     "hpo_label": "Shock",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "état de choc hémorragique",
+       "context": "présenté un état de choc hémorragique"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p016",
+     "hpo_id": "HP:0001903",
+     "hpo_label": "Anemia",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "déglobulisation",
+       "context": "retrouvait une déglobulisation"
+      },
+      {
+       "phrase": "anémie",
+       "context": "persistance de l'anémie malgré"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p017",
+     "hpo_id": "HP:0011854",
+     "hpo_label": "Hemoperitoneum",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "hémopéritoine",
+       "context": "un hémopéritoine de grande abondance"
+      },
+      {
+       "phrase": "hémopéritoine",
+       "context": "évidence un hémopéritoine de 2,5 L"
+      }
+     ],
+     "note": null
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:fr:FR101000:native",
+   "document_sha256": "53c964fd3bfa62083ce6dc4d900ddb306fab7ffb43b3eb74bead47af87e86a9e",
+   "annotations": [
+    {
+     "proposal_id": "p001",
+     "hpo_id": "HP:0033149",
+     "hpo_label": "Intrahepatic bile duct dilatation",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "dilatation des voies biliaires intra et extra hépatiques",
+       "context": "Un cas de dilatation des voies biliaires intra et extra hépatiques"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p002",
+     "hpo_id": "HP:0035013",
+     "hpo_label": "Abnormal extrahepatic bile duct morphology",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "dilatation des voies biliaires intra et extra hépatiques",
+       "context": "Un cas de dilatation des voies biliaires intra et extra hépatiques"
+      }
+     ],
+     "note": null
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,836 @@
+{
+  "schema_version": "e3c-hpo-crossread/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "sample60-v3",
+  "batch_id": "batch-03",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:es:ES100030:native",
+      "document_sha256": "c840b419b27e69dd174136384362096e917d0f649f7eefffb626d7d573d701e2",
+      "issues": [
+        {
+          "proposal_id": "p004",
+          "kind": "not_a_finding",
+          "severity": "arguable",
+          "correction": {},
+          "note": "HP:0011889 describes a bleeding tendency; lesions that bleed on contact are a local tumour property and the lookup gives no fitting term."
+        },
+        {
+          "proposal_id": "p005",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "linfedema",
+            "context": "linfedema hipogástrico"
+          },
+          "note": "The sites do not determine the generic term Lymphedema, so the shortest phrase is the head word (R2)."
+        },
+        {
+          "proposal_id": "p006",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0040275",
+            "hpo_label": "Adenocarcinoma of the large intestine"
+          },
+          "note": "The text names the histology and the rectum is part of the large intestine; Neoplasm of the rectum drops the adenocarcinoma."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0100850",
+          "hpo_label": "Neoplasm of the penis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "metástasis subcutáneas prepuciales",
+          "context": "metástasis subcutáneas prepuciales",
+          "severity": "arguable",
+          "note": "Histologically confirmed tumour deposits in the prepuce; arguable because the guideline treats metastasis as disease course."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100042:native",
+      "document_sha256": "dbddd892c0a59cc68d54b50c336b9439ceef409714613a9e980224056cf8ff81",
+      "issues": [
+        {
+          "proposal_id": "p004",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "disuria",
+            "context": "consistente en disuria"
+          },
+          "note": "Only the degree word 'intensas' is shared and it determines neither term; 'disuria' replaces 'disuria y polaquiuria intensas'."
+        },
+        {
+          "proposal_id": "p004",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "disuria",
+            "context": "basada en disuria"
+          },
+          "note": "A plain coordination shares no wording, so each term gets its own word (R2); 'disuria' replaces 'disuria y polaquiuria'."
+        },
+        {
+          "proposal_id": "p005",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "polaquiuria",
+            "context": "polaquiuria intensas"
+          },
+          "note": "Only the degree word 'intensas' is shared and it determines neither term; 'polaquiuria' replaces 'disuria y polaquiuria intensas'."
+        },
+        {
+          "proposal_id": "p005",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "polaquiuria",
+            "context": "basada en disuria y polaquiuria"
+          },
+          "note": "A plain coordination shares no wording, so each term gets its own word (R2); 'polaquiuria' replaces 'disuria y polaquiuria'."
+        },
+        {
+          "proposal_id": "p007",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0012786",
+            "hpo_label": "Recurrent cystitis"
+          },
+          "note": "The first occurrence names infections of the lower urinary tract, which Recurrent cystitis expresses more specifically."
+        },
+        {
+          "proposal_id": "p008",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "leucocituria",
+            "context": "intensa leucocituria"
+          },
+          "note": "The degree word 'intensa' does not determine the term and is left out (R2)."
+        },
+        {
+          "proposal_id": "p008",
+          "kind": "missing_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "abundantes leucocitos polimorfonucleares neutrófilos",
+            "context": "abundantes leucocitos polimorfonucleares neutrófilos"
+          },
+          "note": "The urine cytology reports abundant leukocytes, which states the pyuria again in other words."
+        },
+        {
+          "proposal_id": "p009",
+          "kind": "not_a_finding",
+          "severity": "arguable",
+          "correction": {},
+          "note": "Erythema is a skin term; redness of bladder lesions at cystoscopy has no fitting term in the lookup."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0100577",
+          "hpo_label": "Urinary bladder inflammation",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "infiltrado inflamatorio crónico",
+          "context": "importante infiltrado inflamatorio crónico",
+          "severity": "clear",
+          "note": "Histology of the resected bladder lesions shows a chronic inflammatory infiltrate; no proposal covers it."
+        },
+        {
+          "hpo_id": "HP:0010786",
+          "hpo_label": "Urinary tract neoplasm",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "tumor urotelial del tracto urinario superior",
+          "context": "tumor urotelial del tracto urinario superior",
+          "severity": "clear",
+          "note": "The urography was ordered to rule out this tumour and was normal; a finding an examination rules out is absent."
+        },
+        {
+          "hpo_id": "HP:0012461",
+          "hpo_label": "Bacteriuria",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "urocultivos positivos",
+          "context": "urocultivos positivos a E. coli",
+          "severity": "arguable",
+          "note": "Positive urine cultures are a laboratory finding even though the pathogen is not annotated; 'urocultivo que fue de nuevo positivo' repeats it."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100051:native",
+      "document_sha256": "4fa3a0cdfb3d75c6fea9d6a522a511aba45d26b59cc24b228525400699ea92c2",
+      "issues": [
+        {
+          "proposal_id": "p001",
+          "kind": "missing_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "volumen prostático de 101,7 c.c",
+            "context": "volumen prostático de 101,7 c.c"
+          },
+          "note": "Uninterpreted pathological prostate volume (R6); it would need the not-verbalized flag, which the verbalized proposal cannot carry."
+        },
+        {
+          "proposal_id": "p004",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "parénquima prostático con inflamación crónica",
+            "context": "parénquima prostático con inflamación crónica"
+          },
+          "note": "'inflamación crónica' alone does not express Prostatitis; the contiguous phrase with the site does (R2)."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0032252",
+          "hpo_label": "Granuloma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "reacción granulomatosa",
+          "context": "reacción granulomatosa de tipo cuerpo extraño",
+          "severity": "clear",
+          "note": "The biopsy reports a foreign-body granulomatous reaction; no proposal covers it."
+        },
+        {
+          "hpo_id": "HP:0034882",
+          "hpo_label": "Prostatic calculus",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "calcificaciones",
+          "context": "calcificaciones aisladas en lóbulo derecho",
+          "severity": "arguable",
+          "note": "Prostatic calcifications on transrectal ultrasound; Prostatic calculus is the nearest term the lookup gives."
+        },
+        {
+          "hpo_id": "HP:0012125",
+          "hpo_label": "Prostate cancer",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "malignidad",
+          "context": "No hay evidencia de malignidad",
+          "severity": "arguable",
+          "note": "The prostate biopsy rules out malignancy; arguable because the text does not name the tumour itself."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100178:native",
+      "document_sha256": "f61f4650ec1c5fa95a8e775fe5102209bce974968fba436999a0aa5fcb7bfd31",
+      "issues": [
+        {
+          "proposal_id": "p005",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "litiasis de 1 cm en cáliz inferior de riñón derecho",
+            "context": "litiasis de 1 cm en cáliz inferior de riñón derecho"
+          },
+          "note": "'litiasis' alone does not name the kidney; the contiguous phrase with the site expresses Kidney stone on its own."
+        },
+        {
+          "proposal_id": "p007",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "hematoma",
+            "context": "hematoma de 12 cm"
+          },
+          "note": "The size does not determine the term; 'hematoma' replaces 'hematoma de 12 cm' (R2)."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100278:native",
+      "document_sha256": "363c42ce946acb41864fdb5441bb389e67b7deb5b05bd5e35331ce25f6c90e7a",
+      "issues": [
+        {
+          "proposal_id": "p002",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0033045",
+            "hpo_label": "Bipedal edema"
+          },
+          "note": "'bimaleolares' states both sides, which Bipedal edema expresses more specifically than Pedal edema."
+        },
+        {
+          "proposal_id": "p006",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0012593",
+            "hpo_label": "Nephrotic range proteinuria"
+          },
+          "note": "6 g/24 h is listed as evidence of the nephrotic syndrome; the span already covers the value that supports the more specific term."
+        },
+        {
+          "proposal_id": "p007",
+          "kind": "extra_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "amiloidosis familiar",
+            "context": "este tipo de amiloidosis familiar"
+          },
+          "note": "'este tipo de amiloidosis familiar' refers back to the amyloidosis already established; 'concordantes con' hedges the results, not the finding."
+        },
+        {
+          "proposal_id": "p009",
+          "kind": "wrong_term",
+          "severity": "clear",
+          "correction": {
+            "hpo_id": "HP:0012622",
+            "hpo_label": "Chronic kidney disease"
+          },
+          "note": "Renal function declines progressively over two years up to renal replacement therapy; HPO lists progressive renal insufficiency under Chronic kidney disease (Stage 5 is arguable)."
+        },
+        {
+          "proposal_id": "p009",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "función renal se deteriora progresivamente",
+            "context": "la función renal se deteriora progresivamente"
+          },
+          "note": "The article 'la' is not part of the finding (R2)."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0011034",
+          "hpo_label": "Amyloid deposition",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "depósito de amiloide",
+          "context": "depósito de amiloide en bazo",
+          "severity": "clear",
+          "note": "Amyloid in the spleen is stated as fact, but the only amyloid proposal for the patient is uncertain; 'depósitos de sustancia amiloide' is a further occurrence."
+        },
+        {
+          "hpo_id": "HP:0001917",
+          "hpo_label": "Renal amyloidosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "depósitos de sustancia amiloide",
+          "context": "los depósitos de sustancia amiloide positivos",
+          "severity": "arguable",
+          "note": "The text asserts amyloid deposits in the patient's renal biopsy; arguable because the kidney is named only in the context."
+        },
+        {
+          "hpo_id": "HP:0012332",
+          "hpo_label": "Abnormal autonomic nervous system physiology",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "neuropatía autonómica",
+          "context": "ni neuropatía autonómica",
+          "severity": "clear",
+          "note": "The extension study rules out autonomic neuropathy; the lookup offers this term (synonym 'Autonomic dysfunction') as the closest fit."
+        },
+        {
+          "hpo_id": "HP:0030843",
+          "hpo_label": "Cardiac amyloidosis",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "afectación cardiaca",
+          "context": "sin evidencia de afectación cardiaca",
+          "severity": "arguable",
+          "note": "The extension study of the amyloidosis rules out cardiac involvement; the term is an interpretation of 'afectación cardiaca'."
+        },
+        {
+          "hpo_id": "HP:0012280",
+          "hpo_label": "Hepatic amyloidosis",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "afectación hepática",
+          "context": "sugerente de afectación hepática",
+          "severity": "arguable",
+          "note": "Rising transaminases are said to suggest hepatic involvement by the amyloidosis; hedged, so uncertain."
+        },
+        {
+          "hpo_id": "HP:4000041",
+          "hpo_label": "AA amyloidosis",
+          "assertion": "uncertain",
+          "experiencer": "family_member",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "amiloidosis AA",
+          "context": "parece descartar amiloidosis AA",
+          "severity": "arguable",
+          "note": "Hedged exclusion in the mother's biopsy ('parece descartar'); absent is also defensible."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100363:native",
+      "document_sha256": "e33bc3faf300fbbdf80e45c20d95262a9b499ebd8d2e82d95db7c43609b1bdc4",
+      "issues": [
+        {
+          "proposal_id": "p002",
+          "kind": "wrong_term",
+          "severity": "clear",
+          "correction": {
+            "hpo_id": "HP:0012398",
+            "hpo_label": "Peripheral edema"
+          },
+          "note": "Edema of hands and feet has a more specific term than generic Edema (R1); the dorsum-of-hands and dorsum-of-feet terms are an arguable alternative."
+        },
+        {
+          "proposal_id": "p004",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0001897",
+            "hpo_label": "Normocytic anemia",
+            "phrase": "Hb 10,3 g/dL, con VCM 94,5 fl",
+            "context": "Hb 10,3 g/dL, con VCM 94,5 fl"
+          },
+          "note": "The MCV reported with the haemoglobin is normal, which supports the more specific term if the span covers both values."
+        },
+        {
+          "proposal_id": "p005",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0032335",
+            "hpo_label": "Monoclonal elevation of circulating IgA"
+          },
+          "note": "The monoclonal band is typed as IgA, which this term names; Whole-immunoglobulin paraproteinemia drops the isotype."
+        },
+        {
+          "proposal_id": "p008",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "condensación",
+            "context": "condensación subsegmentaria"
+          },
+          "note": "'subsegmentaria' does not determine the term and is left out (R2)."
+        },
+        {
+          "proposal_id": "p009",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "bronquiectasias",
+            "context": "bronquiectasias cilíndricas"
+          },
+          "note": "The lookup has no cylindrical bronchiectasis term, so 'cilíndricas' does not determine the term (R2)."
+        },
+        {
+          "proposal_id": "p012",
+          "kind": "wrong_term",
+          "severity": "clear",
+          "correction": {
+            "hpo_id": "HP:0012619",
+            "hpo_label": "Multiple bladder diverticula"
+          },
+          "note": "The text says 'múltiples divertículos' and HPO has the more specific term (R1); the span stays."
+        },
+        {
+          "proposal_id": "p014",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "divertículos y placas antracosis en todo el árbol bronquial",
+            "context": "divertículos y placas antracosis en todo el árbol bronquial"
+          },
+          "note": "'divertículos' alone does not name the bronchi; the location is shared with the anthracosis, so the whole construction is the span (R4)."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0032174",
+          "hpo_label": "Tree-in-bud pattern",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "tree inbud",
+          "context": "(tree inbud)",
+          "severity": "clear",
+          "note": "The chest CT names the tree-in-bud pattern of the infiltrate; no proposal covers it."
+        },
+        {
+          "hpo_id": "HP:0033662",
+          "hpo_label": "Air bronchogram",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "broncograma aéreo",
+          "context": "broncograma aéreo",
+          "severity": "clear",
+          "note": "The chest CT reports an air bronchogram in the consolidation; no proposal covers it."
+        },
+        {
+          "hpo_id": "HP:0033375",
+          "hpo_label": "Anthracosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "antracosis",
+          "context": "placas antracosis",
+          "severity": "clear",
+          "note": "Bronchoscopy shows anthracosis plaques throughout the bronchial tree; no proposal covers it."
+        },
+        {
+          "hpo_id": "HP:0012387",
+          "hpo_label": "Bronchitis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "árbol bronquial izquierdo con signos inflamatorios crónicos",
+          "context": "árbol bronquial izquierdo con signos inflamatorios crónicos",
+          "severity": "arguable",
+          "note": "Bronchoscopy shows chronic inflammatory signs of trachea and left bronchial tree; Chronic bronchitis is a clinical diagnosis, so the general term."
+        },
+        {
+          "hpo_id": "HP:0033999",
+          "hpo_label": "Bronchial hemorrhage",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "sangrado",
+          "context": "biopsia bronquial por sangrado",
+          "severity": "arguable",
+          "note": "Bleeding at bronchoscopy prevented the bronchial biopsy; the site comes from the context."
+        },
+        {
+          "hpo_id": "HP:6001328",
+          "hpo_label": "Positive Mycobacterium tuberculosis sputum culture",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "positivo para Mycobacterium tuberculosis",
+          "context": "BAS fue positivo para Mycobacterium tuberculosis",
+          "severity": "arguable",
+          "note": "Positive culture of the bronchial aspirate is a finding although the pathogen is not annotated; the term names sputum, Pulmonary tuberculosis is the alternative."
+        },
+        {
+          "hpo_id": "HP:0002923",
+          "hpo_label": "Rheumatoid factor positive",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "factor reumatoide",
+          "context": "factor reumatoide",
+          "severity": "arguable",
+          "note": "Named serological finding reported negative, like the Bence Jones proteinuria the first pass marks absent; could also count as a normal result."
+        },
+        {
+          "hpo_id": "HP:0003493",
+          "hpo_label": "Antinuclear antibody positivity",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "anticuerpos antinucleares",
+          "context": "anticuerpos antinucleares",
+          "severity": "arguable",
+          "note": "Named serological finding reported negative, like the Bence Jones proteinuria the first pass marks absent; could also count as a normal result."
+        },
+        {
+          "hpo_id": "HP:0003453",
+          "hpo_label": "Antineutrophil antibody positivity",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "anticuerpos anticitoplasma neutrófilo",
+          "context": "anticuerpos anticitoplasma neutrófilo",
+          "severity": "arguable",
+          "note": "Named serological finding reported negative, like the Bence Jones proteinuria the first pass marks absent; could also count as a normal result."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100420:native",
+      "document_sha256": "c460060e3c4ed17c39a80a82ea13eb4409883efade011a17d42cb47b61861a9e",
+      "issues": [
+        {
+          "proposal_id": "p001",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "astenia",
+            "context": "ingresada por astenia"
+          },
+          "note": "A plain coordination shares no wording, so 'astenia' alone is the span (R2), not 'astenia y fatiga'."
+        },
+        {
+          "proposal_id": "p002",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "fatiga",
+            "context": "astenia y fatiga"
+          },
+          "note": "A plain coordination shares no wording, so 'fatiga' alone is the span (R2), not 'astenia y fatiga'."
+        },
+        {
+          "proposal_id": "p004",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "dolor, lagrimeo y dificultad para abrir los párpados del ojo derecho",
+            "context": "dolor, lagrimeo y dificultad para abrir los párpados del ojo derecho"
+          },
+          "note": "'dolor' alone does not express Ocular pain; the eye is the shared location of the enumeration, so the construction is the span (R4)."
+        },
+        {
+          "proposal_id": "p010",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "diplopia",
+            "context": "diplopia vertical"
+          },
+          "note": "The lookup has no vertical diplopia term, so 'vertical' does not determine the term (R2)."
+        },
+        {
+          "proposal_id": "p015",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "engrosamiento distal de los músculos recto inferior y recto lateral",
+            "context": "leve engrosamiento distal de los músculos recto inferior y recto lateral"
+          },
+          "note": "The degree word 'leve' does not determine the term and is left out of the second span (R2)."
+        },
+        {
+          "proposal_id": "p017",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "campo visual se observa una reducción concéntrica",
+            "context": "campo visual se observa una reducción concéntrica"
+          },
+          "note": "'reducción concéntrica' alone does not name the visual field; the contiguous phrase with it does."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0012089",
+          "hpo_label": "Arteritis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "arteritis de la temporal",
+          "context": "arteritis de la temporal",
+          "severity": "clear",
+          "note": "A flare of temporal arteritis is the setting of the admission and HPO models arteritis as a phenotype; no proposal covers it."
+        },
+        {
+          "hpo_id": "HP:0025721",
+          "hpo_label": "Limited vertical extraocular movement",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "restricciones en las supraducciones",
+          "context": "restricciones en las supraducciones",
+          "severity": "clear",
+          "note": "The examination finds restricted upgaze of the right eye; no proposal covers it."
+        },
+        {
+          "hpo_id": "HP:0007663",
+          "hpo_label": "Reduced visual acuity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "phrase": "AV era de 0,3 en el OD y 0,6 en el ojo izquierdo",
+          "context": "AV era de 0,3 en el OD y 0,6 en el ojo izquierdo",
+          "severity": "arguable",
+          "note": "Uninterpreted pathological acuity values (R6); the finding is otherwise proposed only as verbalized."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100445:native",
+      "document_sha256": "25bf544fd9aec1030d0e621c0f9148a614c23bf453eb5ab5f17e89868ffc6f92",
+      "issues": [
+        {
+          "proposal_id": "p004",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "hipsarritmia",
+            "context": "hipsarritmia asimétrica"
+          },
+          "note": "The lookup has no asymmetric hypsarrhythmia term, so 'asimétrica' does not determine the term (R2)."
+        },
+        {
+          "proposal_id": "p006",
+          "kind": "extra_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "lagunas coriorretinianas hipopigmentadas",
+            "context": "lagunas coriorretinianas hipopigmentadas"
+          },
+          "note": "The hypopigmented lacunae are one finding already coded as Chorioretinal lacunae; without this mention the lacunae span ends at 'coriorretinianas'."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0001103",
+          "hpo_label": "Abnormal macular morphology",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "afectación macular",
+          "context": "no hay afectación macular",
+          "severity": "arguable",
+          "note": "Fundoscopy rules out macular involvement, parallel to the renal and vertebral malformations the first pass marks absent."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100552:native",
+      "document_sha256": "e264ca9d413faea00e63bad18c6a6fd9f02295631f68701a7ff41cfa854f6032",
+      "issues": [
+        {
+          "proposal_id": "p007",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "dismetría",
+            "context": "dismetría derecha"
+          },
+          "note": "The side does not determine the term and follows the phrase, so it is left out (R2)."
+        },
+        {
+          "proposal_id": "p012",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "componente quístico",
+            "context": "un componente quístico"
+          },
+          "note": "The article 'un' is not part of the finding (R2)."
+        },
+        {
+          "proposal_id": "p012",
+          "kind": "missing_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "componente sólido y otro quístico",
+            "context": "con un componente sólido y otro quístico"
+          },
+          "note": "The MRI names the cystic component again; the elided noun makes the coordination the span."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:6001085",
+          "hpo_label": "Posterior fossa mass lesion",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "proceso expansivo que ocupaba hemifosa posterior",
+          "context": "proceso expansivo que ocupaba hemifosa posterior",
+          "severity": "arguable",
+          "note": "The CT names a space-occupying lesion of the posterior fossa before histology; arguable because the glioblastoma proposal covers the same lesion."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100594:native",
+      "document_sha256": "b926a6f515a50a9ad25ce91878c487ce3dc23f7aa554d3372c2d1424ce38fb55",
+      "issues": [
+        {
+          "proposal_id": "p001",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "disfagia",
+            "context": "estudio de disfagia"
+          },
+          "note": "'a sólidos y líquidos' does not determine the term and is left out (R2)."
+        },
+        {
+          "proposal_id": "p003",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "pérdida de peso",
+            "context": "pérdida de peso progresiva"
+          },
+          "note": "'progresiva' does not determine the term and is left out (R2)."
+        },
+        {
+          "proposal_id": "p005",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "masa",
+            "context": "masa mamelonada"
+          },
+          "note": "The trailing adjectives do not determine Esophageal mass; the shortest phrase is 'masa' (R2)."
+        },
+        {
+          "proposal_id": "p007",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "cáncer",
+            "context": "cáncer infiltrante"
+          },
+          "note": "'infiltrante' does not determine the term; 'cáncer' replaces 'cáncer infiltrante' (R2)."
+        },
+        {
+          "proposal_id": "p009",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "adenopatías",
+            "context": "2 adenopatías aisladas"
+          },
+          "note": "'aisladas' does not determine the term and is left out (R2)."
+        }
+      ],
+      "missed": []
+    }
+  ]
+}

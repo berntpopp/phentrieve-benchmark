@@ -1,0 +1,1016 @@
+{
+ "schema_version": "e3c-hpo-proposal-batch/v1",
+ "provenance": "machine generated, not review data, not gold",
+ "run_id": "sample60-v3",
+ "batch_id": "batch-02",
+ "reports": [
+  {
+   "document_id": "e3c:v2.0.0:en:EN100655:native",
+   "document_sha256": "772a08645287605062b431e8f003393fb5dbe4875dc50646c1fb56cec5da1ec6",
+   "annotations": [
+    {
+     "proposal_id": "p001",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "febrile peaks",
+       "context": "febrile peaks of up to 38.5"
+      },
+      {
+       "phrase": "fever",
+       "context": "ankle pain and fever"
+      },
+      {
+       "phrase": "febrile peaks",
+       "context": "febrile peaks persisted"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p002",
+     "hpo_id": "HP:0001945",
+     "hpo_label": "Fever",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": false,
+     "mentions": [
+      {
+       "phrase": "39°C",
+       "context": "His temperature was 39°C"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p003",
+     "hpo_id": "HP:0030840",
+     "hpo_label": "Ankle pain",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "ankle pain",
+       "context": "continued to experience ankle pain"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p004",
+     "hpo_id": "HP:0012531",
+     "hpo_label": "Pain",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "pain",
+       "context": "did not complain of any pain or limitation"
+      },
+      {
+       "phrase": "pain",
+       "context": "had no pain or limitation in walking"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p005",
+     "hpo_id": "HP:0001376",
+     "hpo_label": "Limitation of joint mobility",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "limitation of the range of motion",
+       "context": "any pain or limitation of the range of motion of the ankle"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p006",
+     "hpo_id": "HP:0000969",
+     "hpo_label": "Edema",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "edematous",
+       "context": "slightly edematous"
+      },
+      {
+       "phrase": "soft tissue swelling",
+       "context": "soft tissue swelling around the ankle joint"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p007",
+     "hpo_id": "HP:0001903",
+     "hpo_label": "Anemia",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": false,
+     "mentions": [
+      {
+       "phrase": "hemoglobin was 9.5 g/dl",
+       "context": "the hemoglobin was 9.5 g/dl"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p008",
+     "hpo_id": "HP:0001974",
+     "hpo_label": "Increased total leukocyte count",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": false,
+     "mentions": [
+      {
+       "phrase": "white blood cell count was 18800/mm 3",
+       "context": "the white blood cell count was 18800/mm 3"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p009",
+     "hpo_id": "HP:0011227",
+     "hpo_label": "Elevated circulating C-reactive protein concentration",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": false,
+     "mentions": [
+      {
+       "phrase": "C-reactive protein (CRP) was 75 mm/h",
+       "context": "the C-reactive protein (CRP) was 75 mm/h"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p010",
+     "hpo_id": "HP:0041164",
+     "hpo_label": "Fractured talus",
+     "assertion": "uncertain",
+     "experiencer": "patient",
+     "temporality": "historical",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "talus fracture",
+       "context": "initially suspected a talus fracture"
+      }
+     ],
+     "note": "Suspected by the primary care physician before the emergency visit."
+    },
+    {
+     "proposal_id": "p011",
+     "hpo_id": "HP:0041164",
+     "hpo_label": "Fractured talus",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "talus fracture",
+       "context": "findings revealed a talus fracture"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p012",
+     "hpo_id": "HP:0002754",
+     "hpo_label": "Osteomyelitis",
+     "assertion": "uncertain",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "talar osteomyelitis",
+       "context": "a talar osteomyelitis with septic arthritis"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p013",
+     "hpo_id": "HP:0003095",
+     "hpo_label": "Septic arthritis",
+     "assertion": "uncertain",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "septic arthritis of the ankle",
+       "context": "septic arthritis of the ankle was suspected"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p014",
+     "hpo_id": "HP:0003095",
+     "hpo_label": "Septic arthritis",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "septic arthritis",
+       "context": "scintigraphy demonstrated a septic arthritis"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p015",
+     "hpo_id": "HP:6000917",
+     "hpo_label": "Bone marrow edema",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "bone marrow edema",
+       "context": "presence of bone marrow edema in the talus"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p016",
+     "hpo_id": "HP:0025615",
+     "hpo_label": "Abscess",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "abscess",
+       "context": "histological features of an abscess"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p017",
+     "hpo_id": "HP:0005186",
+     "hpo_label": "Synovial lining hyperplasia",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "hyperplastic synovial cells",
+       "context": "and hyperplastic synovial cells"
+      }
+     ],
+     "note": null
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:en:EN101318:native",
+   "document_sha256": "9beb750b345365a13cf32d2f29d14c31086e910036ea50cee39567f86a706286",
+   "annotations": [
+    {
+     "proposal_id": "p001",
+     "hpo_id": "HP:0004936",
+     "hpo_label": "Venous thrombosis",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "historical",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "venous thrombosis",
+       "context": "episode of venous thrombosis at the age of 18"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p002",
+     "hpo_id": "HP:0001977",
+     "hpo_label": "Abnormal thrombosis",
+     "assertion": "present",
+     "experiencer": "family_member",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "thrombosis",
+       "context": "family history of thrombosis"
+      }
+     ],
+     "note": "Family history; affected father."
+    },
+    {
+     "proposal_id": "p003",
+     "hpo_id": "HP:0001976",
+     "hpo_label": "Reduced antithrombin III activity",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "antithrombin level in our patient was low",
+       "context": "The antithrombin level in our patient was low"
+      },
+      {
+       "phrase": "AT deficiency type I",
+       "context": "(AT deficiency type I)"
+      }
+     ],
+     "note": null
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:en:EN102305:native",
+   "document_sha256": "65a17cec78ee34e7d1c160378fa826d7e4fe53712f9caef479a7621b2ce93a51",
+   "annotations": [
+    {
+     "proposal_id": "p001",
+     "hpo_id": "HP:0005864",
+     "hpo_label": "Pseudoarthrosis",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "pseudarthrosis",
+       "context": "a painful pseudarthrosis after femoral"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p002",
+     "hpo_id": "HP:0012531",
+     "hpo_label": "Pain",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "painful",
+       "context": "with a painful pseudarthrosis"
+      }
+     ],
+     "note": "Pain of the pseudarthrosis."
+    },
+    {
+     "proposal_id": "p003",
+     "hpo_id": "HP:0002823",
+     "hpo_label": "Abnormal femur morphology",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "dysplastic femur",
+       "context": "due to a dysplastic femur with a small"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p004",
+     "hpo_id": "HP:0032458",
+     "hpo_label": "Narrowing of medullary canal",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "small medullary space",
+       "context": "with a small medullary space"
+      }
+     ],
+     "note": null
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:en:EN103266:native",
+   "document_sha256": "9cc56aa4a7ac18475034ce1f2845165107dc6927aa4b45186861904354b0f284",
+   "annotations": [
+    {
+     "proposal_id": "p001",
+     "hpo_id": "HP:0002315",
+     "hpo_label": "Headache",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "headache",
+       "context": "left-sided headache, diplopia"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p002",
+     "hpo_id": "HP:0000651",
+     "hpo_label": "Diplopia",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "diplopia",
+       "context": "diplopia associated with vertigo"
+      },
+      {
+       "phrase": "diplopia",
+       "context": "ear discharge, vertigo, and diplopia"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p003",
+     "hpo_id": "HP:0002321",
+     "hpo_label": "Vertigo",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "vertigo",
+       "context": "associated with vertigo, tinnitus"
+      },
+      {
+       "phrase": "vertigo",
+       "context": "discharge, vertigo, and diplopia"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p004",
+     "hpo_id": "HP:0000360",
+     "hpo_label": "Tinnitus",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "tinnitus",
+       "context": "vertigo, tinnitus, and hearing"
+      },
+      {
+       "phrase": "tinnitus",
+       "context": "hearing loss and tinnitus"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p005",
+     "hpo_id": "HP:0000365",
+     "hpo_label": "Hearing impairment",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "hearing impairment",
+       "context": "tinnitus, and hearing impairment"
+      },
+      {
+       "phrase": "hearing loss",
+       "context": "regarding hearing loss"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p006",
+     "hpo_id": "HP:0000389",
+     "hpo_label": "Chronic otitis media",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "chronic tympanomastoiditis",
+       "context": "context of chronic tympanomastoiditis"
+      }
+     ],
+     "note": "Tympanomastoiditis covers middle ear and mastoid."
+    },
+    {
+     "proposal_id": "p007",
+     "hpo_id": "HP:0000265",
+     "hpo_label": "Mastoiditis",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "chronic tympanomastoiditis",
+       "context": "context of chronic tympanomastoiditis"
+      }
+     ],
+     "note": "Tympanomastoiditis covers middle ear and mastoid."
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:en:EN104184:native",
+   "document_sha256": "4b7eb14715159b7d25e356d04b05a31e3978b4e48af162f36a4eb4721b723686",
+   "annotations": [
+    {
+     "proposal_id": "p001",
+     "hpo_id": "HP:0025481",
+     "hpo_label": "Cervical hemivertebrae",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "hemivertebra",
+       "context": "associated hemivertebra at the C4 level"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p002",
+     "hpo_id": "HP:0004616",
+     "hpo_label": "Cleft vertebral arch",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "schisis of the posterior arch",
+       "context": "associated schisis of the posterior arch"
+      },
+      {
+       "phrase": "unfused spinous process",
+       "context": "as well as unfused spinous process"
+      }
+     ],
+     "note": null
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:en:EN104263:native",
+   "document_sha256": "0a7b200c399a9b10c78a8658d4542236a618e994f9cf55aede1eb38b1cc180a2",
+   "annotations": [
+    {
+     "proposal_id": "p001",
+     "hpo_id": "HP:0002827",
+     "hpo_label": "Hip dislocation",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "hip dislocation",
+       "context": "revealed a posterior hip dislocation"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p002",
+     "hpo_id": "HP:0041221",
+     "hpo_label": "Fractured head of femur",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "femoral head and mid-shaft fractures",
+       "context": "ipsilateral femoral head and mid-shaft fractures"
+      },
+      {
+       "phrase": "femoral head fracture",
+       "context": "type of femoral head fracture"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p003",
+     "hpo_id": "HP:0031846",
+     "hpo_label": "Femur fracture",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "femoral head and mid-shaft fractures",
+       "context": "ipsilateral femoral head and mid-shaft fractures"
+      }
+     ],
+     "note": "Mid-shaft fracture of the femur; shared construction."
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:en:EN105223:native",
+   "document_sha256": "4e5fa38ada4c4d7a68679c8db3534d39bc3bccd0f14c80cec3a8b6b32629c838",
+   "annotations": [
+    {
+     "proposal_id": "p001",
+     "hpo_id": "HP:0034263",
+     "hpo_label": "Abnormal vaginal bleeding",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "vaginal bleeding",
+       "context": "presented with vaginal bleeding"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p002",
+     "hpo_id": "HP:0002664",
+     "hpo_label": "Neoplasm",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "poorly differentiated neoplasm",
+       "context": "revealed a poorly differentiated neoplasm"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p003",
+     "hpo_id": "HP:0012254",
+     "hpo_label": "Ewing sarcoma",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "Ewing's sarcoma",
+       "context": "gene rearrangement, confirming Ewing's sarcoma"
+      },
+      {
+       "phrase": "Ewing's sarcoma",
+       "context": "confirmed stage IIB Ewing's sarcoma"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p004",
+     "hpo_id": "HP:0012254",
+     "hpo_label": "Ewing sarcoma",
+     "assertion": "uncertain",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "Ewing's sarcoma",
+       "context": "strongly suggestive of Ewing's sarcoma"
+      }
+     ],
+     "note": null
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:en:EN105832:native",
+   "document_sha256": "6190efdf31fd74dda4ade83935c138b845cd4f4cf42447c840be1f0452ab30e3",
+   "annotations": [
+    {
+     "proposal_id": "p001",
+     "hpo_id": "HP:0000825",
+     "hpo_label": "Hyperinsulinemic hypoglycemia",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "late familial hyperinsulinemic hypoglycemia",
+       "context": "known to suffer from late familial hyperinsulinemic hypoglycemia"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p002",
+     "hpo_id": "HP:0001511",
+     "hpo_label": "Intrauterine growth retardation",
+     "assertion": "present",
+     "experiencer": "other",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "intrauterine growth retardation",
+       "context": "fatal intrauterine growth retardation"
+      }
+     ],
+     "note": "Fetus of the first pregnancy."
+    },
+    {
+     "proposal_id": "p003",
+     "hpo_id": "HP:0001518",
+     "hpo_label": "Small for gestational age",
+     "assertion": "present",
+     "experiencer": "other",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "small for gestational age",
+       "context": "girl was small for gestational age"
+      },
+      {
+       "phrase": "small for gestational age",
+       "context": "carried the mutation and was small for gestational age at birth"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p004",
+     "hpo_id": "HP:0001998",
+     "hpo_label": "Neonatal hypoglycemia",
+     "assertion": "present",
+     "experiencer": "other",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "low blood glucose",
+       "context": "due to low blood glucose"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p005",
+     "hpo_id": "HP:0033165",
+     "hpo_label": "Necrotizing enterocolitis",
+     "assertion": "uncertain",
+     "experiencer": "other",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "necrotizing enterocolitis",
+       "context": "indicating necrotizing enterocolitis"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p006",
+     "hpo_id": "HP:0033165",
+     "hpo_label": "Necrotizing enterocolitis",
+     "assertion": "present",
+     "experiencer": "other",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "necrotizing enterocolitis",
+       "context": "both confirming necrotizing enterocolitis"
+      }
+     ],
+     "note": null
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:en:EN108055:native",
+   "document_sha256": "1199784e5861a6c6ac292923f06c887ed23fa1403c45d2d41933d20869c8a3c8",
+   "annotations": [
+    {
+     "proposal_id": "p001",
+     "hpo_id": "HP:0000822",
+     "hpo_label": "Hypertension",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "hypertension",
+       "context": "with hypertension and Parkinson"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p002",
+     "hpo_id": "HP:0001300",
+     "hpo_label": "Parkinsonism",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "Parkinson's disease",
+       "context": "hypertension and Parkinson's disease presented"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p003",
+     "hpo_id": "HP:0100749",
+     "hpo_label": "Chest pain",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "chest pain",
+       "context": "sudden onset severe chest pain"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p004",
+     "hpo_id": "HP:0012251",
+     "hpo_label": "ST segment elevation",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "ST-segment elevation",
+       "context": "ischemic ST-segment elevation in inferior"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p005",
+     "hpo_id": "HP:0006702",
+     "hpo_label": "Coronary artery dissection",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "focal dissections in four small caliber coronary arteries",
+       "context": "revealed focal dissections in four small caliber coronary arteries"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p006",
+     "hpo_id": "HP:0001677",
+     "hpo_label": "Coronary artery atherosclerosis",
+     "assertion": "absent",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "atherosclerotic coronary artery disease",
+       "context": "no significant atherosclerotic coronary artery disease"
+      }
+     ],
+     "note": null
+    }
+   ]
+  },
+  {
+   "document_id": "e3c:v2.0.0:en:EN108254:native",
+   "document_sha256": "60d02964037934fa941f2a7362ac80971a2b98ce08a72fadf5e72d0000a71414",
+   "annotations": [
+    {
+     "proposal_id": "p001",
+     "hpo_id": "HP:0002445",
+     "hpo_label": "Tetraplegia",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "tetraplegia",
+       "context": "complete tetraplegia at C-5 level"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p002",
+     "hpo_id": "HP:0002019",
+     "hpo_label": "Constipation",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "constipation",
+       "context": "were severe constipation and loss"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p003",
+     "hpo_id": "HP:0100639",
+     "hpo_label": "Erectile dysfunction",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "loss of reflex penile erection",
+       "context": "and loss of reflex penile erection and bladder"
+      }
+     ],
+     "note": null
+    },
+    {
+     "proposal_id": "p004",
+     "hpo_id": "HP:0002607",
+     "hpo_label": "Bowel incontinence",
+     "assertion": "present",
+     "experiencer": "patient",
+     "temporality": "current",
+     "verbalized": true,
+     "mentions": [
+      {
+       "phrase": "Faecal incontinence",
+       "context": "Faecal incontinence limited his mobility"
+      }
+     ],
+     "note": null
+    }
+   ]
+  }
+ ]
+}

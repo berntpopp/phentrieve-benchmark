@@ -1,2 +1,3 @@
 /datasets/e3c-de/translations/e3c-de-full-246-google-tllm-v1/** text eol=lf
 /datasets/e3c-de/annotation-feasibility/** text eol=lf
+/datasets/e3c-de/proposals/*/** -text

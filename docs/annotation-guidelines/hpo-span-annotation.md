@@ -58,7 +58,11 @@ Not annotated:
   occurred;
 - generic medical statements ("SLE kann zu Nierenbeteiligung führen"): no
   finding of a person;
-- normal findings without a phenotype reference ("Analtonus normal").
+- normal findings without a phenotype reference ("Analtonus normal"). A
+  normal examination finding is not a negated phenotype (decided
+  2026-10-06): "Milz nicht tastbar" gives no annotation, in particular not
+  *Splenomegaly* with assertion `absent`. A finding the text itself names
+  and negates ("keine Splenomegalie") is annotated as `absent`.
 
 ### R1 Term choice
 
@@ -94,6 +98,12 @@ Three attributes are recorded on the annotation (values decided 2026-10-06):
 "nicht mit Erbrechen" gives the span "Erbrechen" on an annotation with
 assertion `absent`. `uncertain` means the text expresses uncertainty; it never
 means the annotator is unsure.
+
+A finding or diagnosis the text only suggests is `uncertain` (decided
+2026-10-06): "vereinbar mit", "spricht für", "Aspekt wie bei", and "Verdacht
+auf" hedge the finding they introduce ("Histologie spricht für ein
+Ganglioneurom"). A hedge on the cause or pathogen of a finding leaves the
+finding itself `present` ("Pneumonie, vermutlich durch Pneumocystis").
 
 - Experiencer `patient` is the index person of the report. `family_member`
   covers relatives ("Mutter mit Epilepsie"). Everyone else is `other`; in
@@ -135,6 +145,9 @@ clearest one.
 - An occurrence with a different status forms a separate annotation. Example:
   "febril 39,5 °C" at admission and "fieberfrei" later give *Fever*/`present`
   and *Fever*/`absent`.
+- A back-reference is not an occurrence (decided 2026-10-06). "der Tumor",
+  "diese Schmerzen", or "die Läsionen" after the finding has been named are
+  not marked; only a phrase that names the finding again is.
 - How temporally sequenced findings count in the document-level gold is open
   in issue #2 and does not affect where spans are placed.
 

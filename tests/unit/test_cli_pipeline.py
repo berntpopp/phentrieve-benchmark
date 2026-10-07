@@ -84,6 +84,7 @@ def test_pipeline_command_groups_are_exposed() -> None:
         "build-corpus",
         "attribution",
         "map-hpo",
+        "proposals",
         "smoke",
     ):
         assert command in help_text
