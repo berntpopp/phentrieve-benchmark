@@ -1,0 +1,218 @@
+{
+  "schema_version": "e3c-hpo-crossread/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "rest92-opus-v3",
+  "batch_id": "batch-07",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:es:ES100832:native",
+      "document_sha256": "afc6facc805df8816fba5a122829d118b0d08eed9d04939f710f0c0c820f0a4b",
+      "issues": [
+        {
+          "proposal_id": "p022",
+          "kind": "wrong_status",
+          "severity": "arguable",
+          "correction": {
+            "assertion": "uncertain"
+          },
+          "note": "'de aspecto esteatósico' is only the gross appearance and histology does not confirm steatosis; the same run reads 'de aspecto tumoral' as a hedge."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0031864",
+          "hpo_label": "Bacteremia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "presencia de N. meningitidis serogrupo C en sangre periférica",
+          "context": "presencia de N. meningitidis serogrupo C en sangre periférica",
+          "severity": "arguable",
+          "note": "Culture and PCR find the bacterium in peripheral blood; a laboratory finding beyond the pathogen name, though the sepsis proposal may be judged to cover it."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100840:native",
+      "document_sha256": "34b778a7f608871085f108bbaa34a6754677760e005c27d0c0bb7294cc71f829",
+      "issues": [
+        {
+          "proposal_id": "p021",
+          "kind": "wrong_term",
+          "severity": "clear",
+          "correction": {
+            "hpo_id": "HP:0025043",
+            "hpo_label": "Enlarged mesenteric lymph node"
+          },
+          "note": "A specific term for mesenteric adenopathy exists, so the general Lymphadenopathy term violates R1."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0005214",
+          "hpo_label": "Intestinal obstruction",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "dilatación de asas del intestino delgado",
+          "context": "dilatación de asas del intestino delgado (ID), con niveles hidroaéreos",
+          "severity": "arguable",
+          "note": "Dilated small-bowel loops with air-fluid levels and a calibre change are reported on X-ray, CT and at surgery without any proposal; obstruction is not named, so the term is an inference."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100003:native",
+      "document_sha256": "b7809e009ad1d240ef4c253d7cabf553ecced9514095a620060e2cc86076ab67",
+      "issues": [
+        {
+          "proposal_id": "p009",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:5210231",
+            "hpo_label": "Bacterial cellulitis"
+          },
+          "note": "The pus shows abundant bacteria and the culture grows Streptococcus anginosus, so the more specific bacterial term is supported."
+        },
+        {
+          "proposal_id": "p009",
+          "kind": "extra_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "cellulite au stade collecté",
+            "context": "Une cellulite au stade collecté justifie d'une prise en charge chirurgicale."
+          },
+          "note": "The sentence reads as a generic medical statement (indefinite article, present tense) rather than a finding of the patient."
+        },
+        {
+          "proposal_id": "p010",
+          "kind": "extra_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "cellulite au stade collecté",
+            "context": "Une cellulite au stade collecté justifie d'une prise en charge chirurgicale."
+          },
+          "note": "The sentence reads as a generic medical statement (indefinite article, present tense) rather than a finding of the patient."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100078:native",
+      "document_sha256": "b718a60c0432a01a174d59d57787d672d8e8426da88ed41f8effbc0fddefda05",
+      "issues": [
+        {
+          "proposal_id": "p006",
+          "kind": "missing_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "ulcère",
+            "context": "colonisation bactérienne d'ulcère"
+          },
+          "note": "The ulcer is named again here; only the colonisation is ruled out, but the wording is generic, so marking it is optional."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100092:native",
+      "document_sha256": "1e392e8962a62b82fd2da4c0a780cc4c8a1c809dcca0ff81aab419ab1190d30a",
+      "issues": [],
+      "missed": [
+        {
+          "hpo_id": "HP:0011027",
+          "hpo_label": "Abnormal fallopian tube morphology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "trompe droite boudinée, et perforée",
+          "context": "trompe droite boudinée, et perforée",
+          "severity": "arguable",
+          "note": "Swollen, perforated tube seen at surgery has no proposal; only the general tube term fits, as there is no term for ectopic pregnancy or tubal rupture."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100130:native",
+      "document_sha256": "ecb61fb69b34c156c8c21a48ffbdc64567073254017d2f67ac3d3abccbedcea0",
+      "issues": [
+        {
+          "proposal_id": "p016",
+          "kind": "wrong_status",
+          "severity": "arguable",
+          "correction": {
+            "assertion": "absent"
+          },
+          "note": "Type 1 diabetes was suspected but the fasting glucose was normal; a finding an examination rules out is absent, as the first pass decided for the neoplasm."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100168:native",
+      "document_sha256": "4c2519221313901a902c70413bdda15d2debd04e016958cd26aeb1f87879400b",
+      "issues": [],
+      "missed": [
+        {
+          "hpo_id": "HP:0003125",
+          "hpo_label": "Reduced factor VIII activity",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "hémophilie",
+          "context": "recherche de maladie de Willebrand, d'hémophilie et de déficit en facteur XI",
+          "severity": "arguable",
+          "note": "Haemophilia was tested for and excluded like von Willebrand disease and factor XI deficiency but has no proposal; no haemophilia term exists, factor VIII deficiency is haemophilia A."
+        },
+        {
+          "hpo_id": "HP:0011858",
+          "hpo_label": "Reduced factor IX activity",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "hémophilie",
+          "context": "recherche de maladie de Willebrand, d'hémophilie et de déficit en facteur XI",
+          "severity": "arguable",
+          "note": "Haemophilia was tested for and excluded but has no proposal; no haemophilia term exists, factor IX deficiency is haemophilia B."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100275:native",
+      "document_sha256": "bd871f909c965a43fcc4be35c24ea501f067106b7273f3094e186b5a7487989b",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100276:native",
+      "document_sha256": "5bdb5663e7848d7291d6a113757c49f3933f0e5609162fc7a517652d15a79b29",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100282:native",
+      "document_sha256": "b163ee3e3186fc87fa6e0d96439171603a2aa9cc8e75f4bfa8cb06ca6605b276",
+      "issues": [],
+      "missed": [
+        {
+          "hpo_id": "HP:0003781",
+          "hpo_label": "Excessive salivation",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "émission d'écume",
+          "context": "émission d'écume",
+          "severity": "arguable",
+          "note": "Foaming at the mouth during the seizures has no proposal; ictal hypersalivation is the closest term, Drooling HP:0002307 is the alternative."
+        }
+      ]
+    }
+  ]
+}

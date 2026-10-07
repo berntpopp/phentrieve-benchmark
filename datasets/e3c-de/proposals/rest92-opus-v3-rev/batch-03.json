@@ -1,0 +1,1420 @@
+{
+  "schema_version": "e3c-hpo-proposal-batch/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "rest92-opus-v3-rev",
+  "batch_id": "batch-03",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:en:EN101114:native",
+      "document_sha256": "ed798f8c6b75c4f78b303c1c0d430a3ae4135a488919b1822df78efb942035a1",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0001955",
+          "hpo_label": "Unexplained fevers",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "unidentified fever",
+              "context": "admitted to our hospital with an unidentified fever"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0012539",
+          "hpo_label": "Non-Hodgkin lymphoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "malignant lymphoma",
+              "context": "diagnosed with malignant lymphoma"
+            },
+            {
+              "phrase": "extra-nodal NK/T cell lymphoma nasal type",
+              "context": "(extra-nodal NK/T cell lymphoma nasal type)"
+            }
+          ],
+          "note": "NK/T cell lymphoma has no own term; T-cell lymphoma (HP:0012190) is the narrower alternative."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0033608",
+          "hpo_label": "Pulmonary nodule",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "nodular lung shadows",
+              "context": "After chemotherapy, nodular lung shadows along with"
+            }
+          ],
+          "note": "Nodular shadows read as pulmonary nodules; Pulmonary opacity (HP:0031457) is the alternative."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0030049",
+          "hpo_label": "Brain abscess",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "brain, cervical, and myocardial abscesses",
+              "context": "new brain, cervical, and myocardial abscesses appeared"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0025615",
+          "hpo_label": "Abscess",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "brain, cervical, and myocardial abscesses",
+              "context": "new brain, cervical, and myocardial abscesses appeared"
+            },
+            {
+              "phrase": "cervical abscess",
+              "context": "Gene analysis of the cervical abscess biopsy"
+            }
+          ],
+          "note": "Covers the cervical and myocardial abscesses; no term for a myocardial abscess, Deep neck abscess (HP:6000288) not stated."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:6000847",
+          "hpo_label": "Cardiac mass",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "mural vegetation in the left ventricle",
+              "context": "showed a mobile mural vegetation in the left ventricle"
+            },
+            {
+              "phrase": "mural vegetation",
+              "context": "surgical resection of this mural vegetation"
+            }
+          ],
+          "note": "Only Cardiac valve vegetations exists for vegetations; this one is mural, so the general mass term is used."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN101783:native",
+      "document_sha256": "ee7b4085f07f2d15f2bd3c5fec064dfad2bb7915be874a5544b6cf0d46d023fd",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0000822",
+          "hpo_label": "Hypertension",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hypertension",
+              "context": "man with hypertension and dyslipidemia"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0003119",
+          "hpo_label": "Abnormal circulating lipid concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "dyslipidemia",
+              "context": "man with hypertension and dyslipidemia"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0000819",
+          "hpo_label": "Diabetes mellitus",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "diabetes mellitus",
+              "context": "new-onset diabetes mellitus unveiled"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0002900",
+          "hpo_label": "Hypokalemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hypokalemia",
+              "context": "emergency department for hypokalemia"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0003118",
+          "hpo_label": "Increased circulating cortisol level",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "ECS",
+              "context": "biochemical tests performed indicated ECS"
+            },
+            {
+              "phrase": "hypercortisolism",
+              "context": "hypercortisolism was managed with metyrapone"
+            }
+          ],
+          "note": "ECS read as ectopic Cushing syndrome; 'indicated' taken as a test result, not a hedge, since hypercortisolism is then treated as given."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0100684",
+          "hpo_label": "Salivary gland neoplasm",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "parotid malignancy",
+              "context": "likely primary right parotid malignancy"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0100684",
+          "hpo_label": "Salivary gland neoplasm",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "ACC",
+              "context": "histopathologic examination confirmed ACC"
+            }
+          ],
+          "note": "ACC is the histologically confirmed parotid carcinoma; the abbreviation is not expanded in the text."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN103007:native",
+      "document_sha256": "7cff231d5a253f3d43f537ecec1cdd1080ad7841497259e11229e81032ad51f3",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0004396",
+          "hpo_label": "Poor appetite",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "decreased appetite",
+              "context": "2 mo history of decreased appetite"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0002018",
+          "hpo_label": "Nausea",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "nausea",
+              "context": "decreased appetite, nausea, vomiting"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0002013",
+          "hpo_label": "Vomiting",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "vomiting",
+              "context": "decreased appetite, nausea, vomiting"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0001824",
+          "hpo_label": "Weight loss",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "weight loss",
+              "context": "vomiting, and weight loss"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0011968",
+          "hpo_label": "Feeding difficulties",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "difficulty in feeding",
+              "context": "progressed to difficulty in feeding"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0001973",
+          "hpo_label": "Autoimmune thrombocytopenia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "ITP",
+              "context": "diagnosed with refractory ITP"
+            },
+            {
+              "phrase": "ITP",
+              "context": "severe and medically refractory ITP"
+            }
+          ],
+          "note": "Diagnosed 10 years ago but still active, so current. The platelet count in brackets is the same finding and gets no ancestor term (R1)."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN104655:native",
+      "document_sha256": "1eb9d4144280e72be2261bde698614755ddd63ce1b03a4addc5e476f43bd1be8",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0007131",
+          "hpo_label": "Acute demyelinating polyneuropathy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "acute inflammatory demyelinating polyneuropathy",
+              "context": "following an acute inflammatory demyelinating polyneuropathy"
+            },
+            {
+              "phrase": "AIDP",
+              "context": "polyneuropathy (AIDP) variant of"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0007131",
+          "hpo_label": "Acute demyelinating polyneuropathy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "AIDP",
+              "context": "Nerve conduction study revealed AIDP variant"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0002273",
+          "hpo_label": "Tetraparesis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "flaccid quadriparasis extending to bulbar muscles, bilateral VII cranial nerves",
+              "context": "symmetrical flaccid quadriparasis extending to bulbar muscles, bilateral VII cranial nerves and respiratory"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0010547",
+          "hpo_label": "Muscle flaccidity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "flaccid quadriparasis extending to bulbar muscles, bilateral VII cranial nerves",
+              "context": "symmetrical flaccid quadriparasis extending to bulbar muscles, bilateral VII cranial nerves and respiratory"
+            }
+          ],
+          "note": "No term for flaccid tetraparesis; 'flaccid' is proposed separately."
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0001283",
+          "hpo_label": "Bulbar palsy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "flaccid quadriparasis extending to bulbar muscles, bilateral VII cranial nerves",
+              "context": "symmetrical flaccid quadriparasis extending to bulbar muscles, bilateral VII cranial nerves and respiratory"
+            }
+          ],
+          "note": "Weakness extending to the bulbar muscles; shares the wording with the tetraparesis (R4)."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0430025",
+          "hpo_label": "Bilateral facial palsy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "flaccid quadriparasis extending to bulbar muscles, bilateral VII cranial nerves",
+              "context": "symmetrical flaccid quadriparasis extending to bulbar muscles, bilateral VII cranial nerves and respiratory"
+            }
+          ],
+          "note": "Weakness extending to both VII cranial nerves; shares the wording with the tetraparesis (R4)."
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0004887",
+          "hpo_label": "Respiratory failure requiring assisted ventilation",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "respiratory compromise needing mechanical ventilation",
+              "context": "and respiratory compromise needing mechanical ventilation"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0002922",
+          "hpo_label": "Increased CSF protein concentration",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "albuminocytologic dissociation",
+              "context": "without albuminocytologic dissociation"
+            }
+          ],
+          "note": "No term for albuminocytologic dissociation; its defining part is raised CSF protein. Negated for the current episode."
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0002922",
+          "hpo_label": "Increased CSF protein concentration",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "albuminocytologic dissociation",
+              "context": "without albuminocytologic dissociation"
+            }
+          ],
+          "note": "The text negates it for both episodes; this proposal is the episode 12 years back."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN104891:native",
+      "document_sha256": "9637c9925f729f27d0fb1315447206689e015e7fe171185787605a2c7e382368",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0012724",
+          "hpo_label": "Upper eyelid edema",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "swelling in the right upper eyelid",
+              "context": "showed mild swelling in the right upper eyelid"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0001482",
+          "hpo_label": "Subcutaneous nodule",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "firm lump",
+              "context": "we felt a firm lump inferior to the right brow"
+            }
+          ],
+          "note": "Palpable firm lump below the brow; Cyst of the eyelid (HP:0010604, synonym Eyelid mass) is the alternative."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0009903",
+          "hpo_label": "Conjunctival nodule",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "subconjunctival mass",
+              "context": "revealed a firm subconjunctival mass superior"
+            }
+          ],
+          "note": "Closest term for a subconjunctival mass; it proved to be the lost contact lens."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0000508",
+          "hpo_label": "Ptosis",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "ptosis",
+              "context": "any complications, including ptosis"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN105094:native",
+      "document_sha256": "0c698f5909f76bce399373778f3f68f64e61f871c2c7bf576548b9762154ca4a",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0000952",
+          "hpo_label": "Jaundice",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "obstructive jaundice",
+              "context": "Caucasian woman with obstructive jaundice"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0005230",
+          "hpo_label": "Biliary tract obstruction",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "obstructive jaundice",
+              "context": "Caucasian woman with obstructive jaundice"
+            },
+            {
+              "phrase": "mass obstructing the common bile duct",
+              "context": "cm mass obstructing the common bile duct"
+            }
+          ],
+          "note": "'Obstructive jaundice' has no own term; it is split into Jaundice and Biliary tract obstruction on the same span (R4)."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0002904",
+          "hpo_label": "Hyperbilirubinemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "elevated bilirubin and liver enzyme levels",
+              "context": "she had elevated bilirubin and liver enzyme levels"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0002910",
+          "hpo_label": "Elevated circulating hepatic transaminase concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "elevated bilirubin and liver enzyme levels",
+              "context": "she had elevated bilirubin and liver enzyme levels"
+            }
+          ],
+          "note": "'Elevated liver enzymes' is a synonym of this term."
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0100574",
+          "hpo_label": "Biliary tract neoplasm",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "mass obstructing the common bile duct",
+              "context": "cm mass obstructing the common bile duct"
+            },
+            {
+              "phrase": "bile duct tumor",
+              "context": "surgical resection of the bile duct tumor"
+            },
+            {
+              "phrase": "villous adenoma",
+              "context": "examination confirmed a villous adenoma"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0100574",
+          "hpo_label": "Biliary tract neoplasm",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "bile duct villous papilloma",
+              "context": "consistent with a bile duct villous papilloma"
+            }
+          ],
+          "note": "Cytology only 'consistent with' a villous papilloma; the tumour itself is present in the other proposal."
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0030153",
+          "hpo_label": "Cholangiocarcinoma",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "extrahepatic bile duct malignant tumor",
+              "context": "preliminary diagnosis of extrahepatic bile duct malignant tumor"
+            }
+          ],
+          "note": "Preliminary radiological diagnosis of a malignant bile duct tumour, not confirmed by histology."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN105114:native",
+      "document_sha256": "977ce11ff1cac43072fa7d126012a698a45cf40003ddd42ec702f649b2f4a9bc",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0000155",
+          "hpo_label": "Oral ulcer",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "wound in the mouth",
+              "context": "complaining about a \"wound in the mouth\" for 6 months"
+            },
+            {
+              "phrase": "ulcerative lesion around the upper left first and second molars",
+              "context": "destructive ulcerative lesion around the upper left first and second molars"
+            },
+            {
+              "phrase": "ulcerative lesion",
+              "context": "Biopsy of the ulcerative lesion was performed"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0012531",
+          "hpo_label": "Pain",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "pain",
+              "context": "without any pain or spontaneous bleeding"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0030140",
+          "hpo_label": "Oral cavity bleeding",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "spontaneous bleeding",
+              "context": "without any pain or spontaneous bleeding"
+            }
+          ],
+          "note": "Bleeding of the mouth wound is meant; Bleeding with minor or no trauma (HP:0011889) is the alternative."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0002860",
+          "hpo_label": "Squamous cell carcinoma",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "oral squamous cell carcinoma",
+              "context": "resembled an oral squamous cell carcinoma"
+            }
+          ],
+          "note": "The lesion only resembled a carcinoma; no term for oral squamous cell carcinoma."
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0000704",
+          "hpo_label": "Periodontitis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "periodontal disease",
+              "context": "final diagnosis was periodontal disease associated"
+            }
+          ],
+          "note": "Stated as the diagnosis after the first biopsy; later revised to LCH."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0100727",
+          "hpo_label": "Histiocytosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "LCH",
+              "context": "final diagnosis of LCH"
+            }
+          ],
+          "note": "LCH read as Langerhans cell histiocytosis; only the pulmonary form has its own term."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN105551:native",
+      "document_sha256": "81f6aaa294e4fb5a0a49854d729f9226538b2b1ab200f0a63f6ae4d9f9a521ac",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0031348",
+          "hpo_label": "Dextrotransposition of the great arteries",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "dextro-transposition of the great arteries",
+              "context": "boy from Kosovo with dextro-transposition of the great arteries"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0001635",
+          "hpo_label": "Congestive heart failure",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "heart failure",
+              "context": "developed progressive heart failure"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0100598",
+          "hpo_label": "Pulmonary edema",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "pulmonary edema",
+              "context": "persistent pulmonary edema after completion"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0005946",
+          "hpo_label": "Ventilator dependence with inability to wean",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "could not be weaned off mechanical ventilation",
+              "context": "the patient could not be weaned off mechanical ventilation"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0012382",
+          "hpo_label": "Left-to-right shunt",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "systemic pulmonary shunt",
+              "context": "indicating an anomalous systemic pulmonary shunt"
+            }
+          ],
+          "note": "Inferred from the accelerated flow on echocardiography ('indicating'); a systemic-to-pulmonary shunt is a left-to-right shunt."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0033388",
+          "hpo_label": "Abnormal bronchial artery morphology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "abnormal bronchial artery originating from the left subclavian artery",
+              "context": "revealed an abnormal bronchial artery originating from the left subclavian artery"
+            }
+          ],
+          "note": "Covers the anomalous origin; the ectasia is proposed separately as Bronchial artery dilatation."
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0033390",
+          "hpo_label": "Bronchial artery dilatation",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "ectatic bronchial artery",
+              "context": "anomalous ectatic bronchial artery was successfully"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN106233:native",
+      "document_sha256": "227b50f2289856c8a51f5fdcfbfbf185e14013ffaa980674139e83a691f4c55d",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0005086",
+          "hpo_label": "Knee osteoarthritis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Osteoarthritis",
+              "context": "diagnosed with severe bilateral Osteoarthritis"
+            },
+            {
+              "phrase": "OA Knee with Varus Malalignment",
+              "context": "Tricompartment OA Knee with Varus Malalignment"
+            }
+          ],
+          "note": "The first mention does not name the joint; the report is about the knees throughout."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0002970",
+          "hpo_label": "Genu varum",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "OA Knee with Varus Malalignment",
+              "context": "Tricompartment OA Knee with Varus Malalignment"
+            }
+          ],
+          "note": "Varus malalignment of the knee; the knee is named only in the shared wording (R4)."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0012062",
+          "hpo_label": "Bone cyst",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Osteochondral Cyst in the Anterior Femur",
+              "context": "spotted a small Osteochondral Cyst in the Anterior Femur"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN107021:native",
+      "document_sha256": "b5981fe746e991857f944886fc7405f9be07478dee7d02ef9201fccff1604f61",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0001945",
+          "hpo_label": "Fever",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "fever",
+              "context": "presented with fever, myalgias"
+            },
+            {
+              "phrase": "fever",
+              "context": "accompanied by fever, tremors"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0003326",
+          "hpo_label": "Myalgia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "myalgias",
+              "context": "fever, myalgias, arthralgias"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0002829",
+          "hpo_label": "Arthralgia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "arthralgias",
+              "context": "fever, myalgias, arthralgias"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0200026",
+          "hpo_label": "Ocular pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "retro-orbital pain",
+              "context": "arthralgias, retro-orbital pain, vomiting"
+            }
+          ],
+          "note": "No term for retro-orbital pain; Ocular pain (synonym Eye pain) is the closest."
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0002013",
+          "hpo_label": "Vomiting",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "vomiting",
+              "context": "arthralgias, retro-orbital pain, vomiting"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0000225",
+          "hpo_label": "Gingival bleeding",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "gum bleeding",
+              "context": "vomiting and gum bleeding"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0001945",
+          "hpo_label": "Fever",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "afebrile",
+              "context": "patient became afebrile"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0002315",
+          "hpo_label": "Headache",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "headaches",
+              "context": "developed severe headaches"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0001259",
+          "hpo_label": "Coma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "unconsciousness",
+              "context": "unconsciousness followed by altered behavior"
+            }
+          ],
+          "note": "'Unconsciousness' is an exact synonym of Coma; Loss of consciousness (HP:0007185) fits if a brief episode is meant."
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0000708",
+          "hpo_label": "Atypical behavior",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "altered behavior",
+              "context": "unconsciousness followed by altered behavior"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0030833",
+          "hpo_label": "Neck pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "painful neck swelling",
+              "context": "developed painful neck swelling"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:6000176",
+          "hpo_label": "Anterior neck swelling",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "painful neck swelling",
+              "context": "developed painful neck swelling"
+            }
+          ],
+          "note": "Only neck swelling term; the anterior site follows from the swollen thyroid gland found on examination."
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:0001337",
+          "hpo_label": "Tremor",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "tremors",
+              "context": "fever, tremors, palpitations"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:0001962",
+          "hpo_label": "Palpitations",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "palpitations",
+              "context": "fever, tremors, palpitations"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p015",
+          "hpo_id": "HP:0001609",
+          "hpo_label": "Hoarse voice",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hoarseness of voice",
+              "context": "hoarseness of voice and odynophagia"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p016",
+          "hpo_id": "HP:0032043",
+          "hpo_label": "Odynophagia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "odynophagia",
+              "context": "hoarseness of voice and odynophagia"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p017",
+          "hpo_id": "HP:0000853",
+          "hpo_label": "Goiter",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "swollen, tender thyroid gland",
+              "context": "acutely swollen, tender thyroid gland"
+            }
+          ],
+          "note": "Swollen thyroid gland read as thyroid enlargement; no term for thyroid tenderness."
+        },
+        {
+          "proposal_id": "p018",
+          "hpo_id": "HP:0000836",
+          "hpo_label": "Hyperthyroidism",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hyperthyroidism",
+              "context": "features of hyperthyroidism"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p019",
+          "hpo_id": "HP:0001873",
+          "hpo_label": "Thrombocytopenia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "thrombocytopenia",
+              "context": "stable hematocrit, thrombocytopenia and leukopenia"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p020",
+          "hpo_id": "HP:0001882",
+          "hpo_label": "Decreased total leukocyte count",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "leukopenia",
+              "context": "stable hematocrit, thrombocytopenia and leukopenia"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p021",
+          "hpo_id": "HP:0001342",
+          "hpo_label": "Cerebral hemorrhage",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "frontal lobe hematoma",
+              "context": "showed right frontal lobe hematoma"
+            },
+            {
+              "phrase": "hematoma",
+              "context": "showed resolving hematoma"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p022",
+          "hpo_id": "HP:0011788",
+          "hpo_label": "Increased circulating free T3",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "increased free T3 and T4",
+              "context": "Thyroid profile showed increased free T3 and T4"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p023",
+          "hpo_id": "HP:0033077",
+          "hpo_label": "Increased circulating free T4 concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "increased free T3 and T4",
+              "context": "Thyroid profile showed increased free T3 and T4"
+            }
+          ],
+          "note": "'free' read as applying to both T3 and T4."
+        },
+        {
+          "proposal_id": "p024",
+          "hpo_id": "HP:0031098",
+          "hpo_label": "Decreased thyroid-stimulating hormone level",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "low TSH",
+              "context": "T4 and low TSH"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p025",
+          "hpo_id": "HP:0100646",
+          "hpo_label": "Thyroiditis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "subacute thyroiditis",
+              "context": "diagnosed as having subacute thyroiditis"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p026",
+          "hpo_id": "HP:0430082",
+          "hpo_label": "Anti-Dengue virus antibody positivity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "seroconverted for anti-dengue IgM antibodies",
+              "context": "Patient had seroconverted for anti-dengue IgM antibodies"
+            }
+          ],
+          "note": "Abnormal laboratory finding with an exactly fitting term and no proposal; the antibody result is a finding, not the pathogen itself (R0)."
+        }
+      ]
+    }
+  ]
+}

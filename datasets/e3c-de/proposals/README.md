@@ -15,7 +15,7 @@ Earlier versions: [v1](../../../configs/prompts/hpo-span-proposal-v1.md)
 
 [`current-proposals.json`](current-proposals.json) lists the 185 reports that
 have proposals to work with, all reports of the original-language groups
-(63 EN, 61 ES, 61 FR): 2,239 proposals with 2,715 mentions, all validated.
+(63 EN, 61 ES, 61 FR): 2,242 proposals with 2,718 mentions, all validated.
 Per report it names the run whose `validation.json` holds the current
 proposals and the steps that produced them, each with model, prompt, run
 date, and guideline commit. The 61 German reports are not included; see
@@ -26,11 +26,12 @@ date, and guideline commit. The 61 German reports are not included; see
 | 60 | `sample60-v3-rev` | Sonnet 5.5 proposes, Opus 5.5 cross-reads, Opus 5.5 revises |
 | 27 | `pilot-v2-rev`, `pilot-v2-extra-rev`, `pilot-v3-rev` | Sonnet 5.5 proposes, Opus 5.5 revises |
 | 6 | `sample6-opus-v3` | Opus 5.5 proposes |
-| 92 | `rest92-opus-v3` | Opus 5.5 proposes |
+| 92 | `rest92-opus-v3-rev` | Opus 5.5 proposes, Opus 5.5 cross-reads, clear points applied by script |
 
 The runs they are based on (`sample60-v3`, `pilot-v2`, `pilot-v2-extra`,
-`pilot-v3`) stay unchanged as the record of the first step. Whether a single
-proposal was kept, changed, or added by the revision follows from comparing
+`pilot-v3`, `rest92-opus-v3`) stay unchanged as the record of the first
+step. Whether a single proposal was kept, changed, or added by the revision
+follows from comparing
 the `proposal_id`s of the two runs: a revised proposal keeps its number, an
 added one gets a new number.
 
@@ -147,7 +148,8 @@ all German reports again, including those of the earlier run.
 | `pilot-v2-extra-rev` | `claude-opus-5-5` | 9 | 0 | `d3df6c9af416cda441407a3f94d8318477b92045c1fa79d91f65a2b7b002b9b6` | revision of `pilot-v2-extra`; current |
 | `pilot-v3-rev` | `claude-opus-5-5` | 9 | 0 | `12c08e2f34bc3fe6d849365f1feaec3aa3a0ac48cffa1281ec80896bb023055c` | revision of `pilot-v3`; current |
 | `sample6-opus-v3` | `claude-opus-5-5` | 6 | 0 | `c8e1765f0cdb38c12f440973739903fa4e90d3a4f80abdf1748471b3d45f8519` | 6 further reports, prompt v3; current |
-| `rest92-opus-v3` | `claude-opus-5-5` | 92 | 0 | `aa0b27048919329d4b363c5953f181c7f77949a2f864b186bd9f231faf88ebff` | the remaining 92 reports of the original-language groups, prompt v3; current |
+| `rest92-opus-v3` | `claude-opus-5-5` | 92 | 0 | `aa0b27048919329d4b363c5953f181c7f77949a2f864b186bd9f231faf88ebff` | the remaining 92 reports of the original-language groups, prompt v3, cross-read by `claude-opus-5-5`; see below |
+| `rest92-opus-v3-rev` | script, no model | 92 | 0 | `bed603f129a946c913e9bad63744a35b5585c43f48ccc1adfccba1473723a172` | `rest92-opus-v3` with the eight clear points of its cross-read applied; current |
 
 The three earlier pilots were validated again on 2026-10-06 after the
 validator began to reject terms outside *Phenotypic abnormality*; the table
@@ -721,9 +723,10 @@ arguable, none is clearly wrong.
 
 Run date 2026-10-07, same corpus. `claude-opus-5-5` proposes with prompt v3
 for the 92 reports of the original-language groups that had no proposals
-yet (32 EN, 30 ES, 30 FR), selected with `--case`, in ten batches. No
-cross-read. With this run every report of the original-language groups has
-current proposals.
+yet (32 EN, 30 ES, 30 FR), selected with `--case`, in ten batches. A
+cross-read and a scripted revision followed on the same day (below). With
+this run every report of the original-language groups has current
+proposals.
 
 ### Dispatch
 
@@ -782,3 +785,116 @@ against the texts.
 - Hedges: "indicated" is read as present in EN101783 and as uncertain in
   EN105551 (batch-03).
 - Closest-term choices carry a note in the batch file.
+
+### Cross-read
+
+Requested on 2026-10-07 as a check of this run, although Opus proposals
+count without one. One `claude-opus-5-5` subagent per batch with the prompt
+[`configs/prompts/hpo-span-crossread-v1.md`](../../../configs/prompts/hpo-span-crossread-v1.md),
+at most five at a time; inputs and prompts were written by the local
+`crossread_prepare.py`. The outputs are stored unchanged in
+[`../proposal-crossreads/rest92-opus-v3/`](../proposal-crossreads/rest92-opus-v3/).
+`rest92-opus-v3` itself is unchanged.
+
+| | EN | ES | FR | Total |
+|---|---:|---:|---:|---:|
+| Proposals | 453 | 377 | 383 | 1,213 |
+| Issues, clear | 3 | 1 | 1 | 5 |
+| Issues, arguable | 26 | 14 | 21 | 61 |
+| Missed findings, clear | 2 | 0 | 1 | 3 |
+| Missed findings, arguable | 13 | 13 | 7 | 33 |
+
+Issues by kind (clear / arguable): wrong term 1 / 19; extra occurrence
+0 / 16; wrong span 4 / 10; not a finding 0 / 11; wrong status 0 / 3;
+missing occurrence 0 / 2; wrong verbalized 0 / 0. 85 of the 92 reports have
+neither a clear issue nor a clear miss.
+
+The eight clear points: span edges in EN100075 (p002), EN100606 (p005,
+p006), and FR100930 (p002); *Enlarged mesenteric lymph node* instead of
+*Lymphadenopathy* in ES100840 (p021); missed *Loose body in joint*
+(EN100156), *Anti-Dengue virus antibody positivity* (EN107021), and absent
+*Civatte bodies* (FR100515).
+
+Checks of the cross-read outputs: every one of the 36 missed findings has
+an active term under *Phenotypic abnormality* and a phrase and context the
+locator finds; every issue refers to an existing proposal; every corrected
+term is valid; no string is longer than 207 characters. The main session
+did not read reports against their cross-read.
+
+Subagent tokens: 1,209,904 (13,151 per report); per batch 154,862, 146,944,
+100,793, 110,417, 134,446, 120,932, 133,472, 159,428, 90,742, and 57,868.
+
+Limits of this check:
+
+- The same model proposed and cross-read. The prompt tells the cross-reader
+  to leave defensible choices alone, and the subagents of batch-01 and
+  batch-07 say they did not report choices they found defensible or that
+  the first pass had already flagged in a note.
+- General next to specific terms are reported only in part. A model-free
+  comparison against the HPO hierarchy (local `check_ancestors.py`) finds 64
+  pairs of an ancestor and a descendant term with the same status within one
+  report of this run; the cross-read raises R1 for five proposals (EN100372,
+  FR100717, FR100925). Many of the 64 are separate findings or judgement
+  calls.
+- Tuberculosis, positive pathogen tests, and metastases are again reported
+  as arguable in both directions (propose or drop); the guideline does not
+  decide them.
+
+### Revision rest92-opus-v3-rev
+
+The eight clear points were applied by script, without a model (local
+`apply_clear_points.py`): a clear `wrong_span` replaces the mention it
+overlaps, a clear `wrong_term` sets the corrected term, a clear missed
+finding is appended as a new proposal with the next number and the
+cross-read's note. The 94 arguable points were not applied. The run has the
+batches of `rest92-opus-v3`. Its `prompt.md` is the cross-read prompt and
+its `batch-NN.prompt.md` are the prompts given to the cross-read subagents,
+because their outputs are what the script applied; nothing was dispatched
+for the revision itself. `run.json` keeps `claude-opus-5-5` as model, since every
+annotation in it was written by that model; `current-proposals.json` records
+the step as scripted.
+
+Validation passed: 1,216 proposals with 1,493 mentions, none rejected, no
+label warning. Compared with `rest92-opus-v3` proposal by proposal, exactly
+the eight points differ: five changed proposals (EN100075 p002, EN100606
+p005 and p006, ES100840 p021, FR100930 p002) and three added ones (EN100156
+p010, EN107021 p026, FR100515 p025).
+
+[`ancestor-pairs.json`](ancestor-pairs.json) lists, for all current runs,
+the 103 pairs of proposals in one report whose terms are ancestor and
+descendant in the pinned release and that have the same status or
+overlapping spans (64 of them in this run, 56 reports in total). It is
+written by the local `check_ancestors.py` from the validated proposals and
+is a hint for the review of R1, not a list of errors.
+
+### Findings
+
+- Opus as proposer needs no cross-read. The cross-read cost 1.21 million
+  subagent tokens, about as much as the proposals themselves (1.36 million),
+  and found eight clear points in 1,213 proposals. The Opus cross-read of
+  the Sonnet proposals in `sample60-v3` found 80 clear issues and 48 clear
+  misses in 530 proposals. The two are not a controlled comparison:
+  different reports, and here the same model proposed and checked.
+- Clear cross-read points are structured (term, status, phrase with
+  context) and can be applied by script and validated like a batch output.
+  A model-written revision is not needed for them; the one of
+  `sample60-v3` cost 894,526 tokens.
+- A model-free check against the HPO hierarchy finds candidates for R1 that
+  the cross-read mostly did not raise. It costs nothing and covers every
+  run.
+- Span edges stay the most frequent clear point (four of five clear issues:
+  a side or site word at the edge of the span, R2).
+- What neither the cross-read nor a script can settle is what the guideline
+  leaves open: conditions from the past history as `historical` or
+  `current`, resolved findings, infections such as tuberculosis and positive
+  pathogen tests, and metastases. The subagents of both steps decided these
+  differently from batch to batch.
+- Dispatch: proposal prompts were pasted into the dispatch, because the
+  prompt forbids opening files under `datasets/`; the cross-read subagents
+  were pointed to their prompt file in the git-ignored input directory.
+  Both worked without a re-dispatch.
+
+Decision of 2026-10-07: no model-written revision of this run and no
+further cross-read of Opus proposals. The arguable points stay in the
+cross-read files and, with `ancestor-pairs.json`, are hints for the
+physician review.

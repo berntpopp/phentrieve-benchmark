@@ -1,0 +1,3288 @@
+{
+  "schema_version": "e3c-hpo-proposal-batch/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "rest92-opus-v3-rev",
+  "batch_id": "batch-01",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:en:EN100017:native",
+      "document_sha256": "d56d319068dd6bd37f9010a06fc8cadcc54f09b7129ac82dd2b534e48dbcd4bb",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0000282",
+          "hpo_label": "Facial edema",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "facial puffiness",
+              "context": "4 day history of facial puffiness, peripheral pitting oedema"
+            },
+            {
+              "phrase": "periorbital and facial oedema",
+              "context": "He had significant periorbital and facial oedema"
+            },
+            {
+              "phrase": "facial oedema",
+              "context": "as the facial oedema, ascites, and BP had reduced"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0100539",
+          "hpo_label": "Periorbital edema",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "periorbital and facial oedema",
+              "context": "He had significant periorbital and facial oedema"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0010741",
+          "hpo_label": "Pedal edema",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "peripheral pitting oedema",
+              "context": "facial puffiness, peripheral pitting oedema, abdominal pains"
+            },
+            {
+              "phrase": "pitting oedema from the feet to the knees",
+              "context": "pitting oedema from the feet to the knees, a distended abdomen"
+            }
+          ],
+          "note": "Oedema of the lower limbs; 'Edema of the lower limbs' is a synonym of Pedal edema."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0002027",
+          "hpo_label": "Abdominal pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "abdominal pains",
+              "context": "peripheral pitting oedema, abdominal pains, and reduced urine output"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0011037",
+          "hpo_label": "Decreased urine output",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "reduced urine output",
+              "context": "abdominal pains, and reduced urine output"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0001945",
+          "hpo_label": "Fever",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "afebrile",
+              "context": "On examination he was afebrile"
+            },
+            {
+              "phrase": "fever",
+              "context": "but had no fever, meningism, or focal neurological signs"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0000822",
+          "hpo_label": "Hypertension",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "BP150/110",
+              "context": "he was afebrile, BP150/110, heart rate 70"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0003270",
+          "hpo_label": "Abdominal distention",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "distended abdomen",
+              "context": "a distended abdomen, ascites, and tender hepatomegaly"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0001541",
+          "hpo_label": "Ascites",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "ascites",
+              "context": "a distended abdomen, ascites, and tender hepatomegaly"
+            },
+            {
+              "phrase": "ascites",
+              "context": "as the facial oedema, ascites, and BP had reduced"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0002240",
+          "hpo_label": "Hepatomegaly",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hepatomegaly",
+              "context": "ascites, and tender hepatomegaly"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0001903",
+          "hpo_label": "Anemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "haemoglobin 10.9 g/dl",
+              "context": "Lab results showed haemoglobin 10.9 g/dl"
+            }
+          ],
+          "note": "Haemoglobin below the reference range for a 14-year-old boy."
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:6000553",
+          "hpo_label": "Bloodstream Malaria parasite",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "positive malaria parasites",
+              "context": "packed cell volume 35%, and positive malaria parasites"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:0012593",
+          "hpo_label": "Nephrotic range proteinuria",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "three pluses of proteinurea, which equates to ≥3g urinary protein per day",
+              "context": "revealed three pluses of proteinurea, which equates to ≥3g urinary protein per day"
+            }
+          ],
+          "note": "The text quantifies this occurrence at 3 g/day or more and bases the nephrotic syndrome diagnosis on it."
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:0000093",
+          "hpo_label": "Proteinuria",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "proteinurea",
+              "context": "Urinalysis showed two pluses of proteinurea"
+            },
+            {
+              "phrase": "proteinurea",
+              "context": "his urinalysis showed a trace proteinurea"
+            }
+          ],
+          "note": "Later, lower-grade occurrences of the proteinuria."
+        },
+        {
+          "proposal_id": "p015",
+          "hpo_id": "HP:0000100",
+          "hpo_label": "Nephrotic syndrome",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "nephrotic syndrome",
+              "context": "The diagnosis of nephrotic syndrome was made"
+            },
+            {
+              "phrase": "nephrotic status",
+              "context": "In the context of the child's nephrotic status"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p016",
+          "hpo_id": "HP:0002315",
+          "hpo_label": "Headache",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "headache",
+              "context": "complained of a moderate headache"
+            },
+            {
+              "phrase": "headache",
+              "context": "his headache became severe"
+            },
+            {
+              "phrase": "headache",
+              "context": "On day 6 of admission his headache had improved"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p017",
+          "hpo_id": "HP:0031179",
+          "hpo_label": "Nuchal rigidity",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "meningism",
+              "context": "but had no fever, meningism, or focal neurological signs"
+            }
+          ],
+          "note": "'Meningism' is a synonym of Nuchal rigidity."
+        },
+        {
+          "proposal_id": "p018",
+          "hpo_id": "HP:0200026",
+          "hpo_label": "Ocular pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "pain behind both eyes",
+              "context": "he had pain behind both eyes"
+            }
+          ],
+          "note": "No retro-orbital pain term; Ocular pain (synonym 'Eye pain') is the closest."
+        },
+        {
+          "proposal_id": "p019",
+          "hpo_id": "HP:0002013",
+          "hpo_label": "Vomiting",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "vomiting",
+              "context": "and he was vomiting"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p020",
+          "hpo_id": "HP:0006897",
+          "hpo_label": "Abducens palsy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "VI nerve palsy",
+              "context": "Examination showed a right VI nerve palsy"
+            },
+            {
+              "phrase": "VI nerve palsy",
+              "context": "He still had a partial right VI nerve palsy"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p021",
+          "hpo_id": "HP:0000651",
+          "hpo_label": "Diplopia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "diplopia",
+              "context": "nerve palsy, diplopia, and tinnitus"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p022",
+          "hpo_id": "HP:0000360",
+          "hpo_label": "Tinnitus",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "tinnitus",
+              "context": "diplopia, and tinnitus in the right ear"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p023",
+          "hpo_id": "HP:0000365",
+          "hpo_label": "Hearing impairment",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hearing loss",
+              "context": "with some hearing loss"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p024",
+          "hpo_id": "HP:0002329",
+          "hpo_label": "Drowsiness",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "drowsy",
+              "context": "He later became drowsy"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p025",
+          "hpo_id": "HP:0002197",
+          "hpo_label": "Generalized-onset seizure",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "generalised seizure",
+              "context": "had a generalised seizure"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p026",
+          "hpo_id": "HP:0005305",
+          "hpo_label": "Cerebral venous thrombosis",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "cerebral venous thrombosis",
+              "context": "high suspicion of cerebral venous thrombosis"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p027",
+          "hpo_id": "HP:0002516",
+          "hpo_label": "Increased intracranial pressure",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "raised intracranial pressure",
+              "context": "features of raised intracranial pressure"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p028",
+          "hpo_id": "HP:0020045",
+          "hpo_label": "Esodeviation",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "convergent squint",
+              "context": "and a convergent squint"
+            }
+          ],
+          "note": "'Convergent squint' is a synonym of Esodeviation."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100029:native",
+      "document_sha256": "6057fe87ad18ee1694fe2441803a0394da465e69637100c201d7422a39d6672a",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0002099",
+          "hpo_label": "Asthma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "asthma",
+              "context": "history of moderate persistent allergic asthma"
+            }
+          ],
+          "note": "Introduced as 'a history of'; the asthma is a chronic condition that may also count as current."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0002027",
+          "hpo_label": "Abdominal pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "abdominal pain",
+              "context": "she complained of abdominal pain, vomiting and diarrhea"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0002013",
+          "hpo_label": "Vomiting",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "vomiting",
+              "context": "she complained of abdominal pain, vomiting and diarrhea"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0002014",
+          "hpo_label": "Diarrhea",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "diarrhea",
+              "context": "she complained of abdominal pain, vomiting and diarrhea"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0001945",
+          "hpo_label": "Fever",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "fever",
+              "context": "vomiting and diarrhea without fever"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0002878",
+          "hpo_label": "Respiratory failure",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "respiratory failure",
+              "context": "she developed an acute respiratory failure"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0002910",
+          "hpo_label": "Elevated circulating hepatic transaminase concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "liver enzymes, 5000U/L",
+              "context": "multiorgan failure: liver enzymes, 5000U/L"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0003236",
+          "hpo_label": "Elevated circulating creatine kinase activity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "creatine phosphokinase, 59000U/L",
+              "context": "creatine phosphokinase, 59000U/L (normal level, 10-200U/L)"
+            }
+          ],
+          "note": "About 300 times the upper limit; a graded term (Highly or Extremely elevated creatine kinase) may fit better."
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0410174",
+          "hpo_label": "Increased circulating troponin T concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "cardiac troponin T, 21ng/ml",
+              "context": "cardiac troponin T, 21ng/ml (normal level"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0001882",
+          "hpo_label": "Decreased total leukocyte count",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "leucopenia",
+              "context": "leucopenia, 2600/mm 3"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0001873",
+          "hpo_label": "Thrombocytopenia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "thrombocytopenia",
+              "context": "thrombocytopenia, 13000/ mm 3"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0008151",
+          "hpo_label": "Prolonged prothrombin time",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "prothrombin time, 38%",
+              "context": "prothrombin time, 38% (normal level, 70-100%)"
+            }
+          ],
+          "note": "Prothrombin time given as percent activity; 38% is below normal, which means prolonged clotting."
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:0006530",
+          "hpo_label": "Abnormal pulmonary interstitial morphology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "interstitial markings",
+              "context": "Chest X-ray demonstrated bilateral interstitial markings"
+            }
+          ],
+          "note": "No term for increased interstitial markings on chest X-ray; general interstitial term used."
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:0012282",
+          "hpo_label": "Morbilliform rash",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "morbilliform rash",
+              "context": "A skin morbilliform rash and facial edema appeared later"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p015",
+          "hpo_id": "HP:0000282",
+          "hpo_label": "Facial edema",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "facial edema",
+              "context": "A skin morbilliform rash and facial edema appeared later"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p016",
+          "hpo_id": "HP:0001259",
+          "hpo_label": "Coma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "coma",
+              "context": "A hypoxic coma occurred on day 4"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p017",
+          "hpo_id": "HP:0012418",
+          "hpo_label": "Hypoxemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hypoxic",
+              "context": "A hypoxic coma occurred on day 4"
+            }
+          ],
+          "note": "Hypoxia is named only as the attribute of the coma; 'Hypoxia' is a synonym of Hypoxemia."
+        },
+        {
+          "proposal_id": "p018",
+          "hpo_id": "HP:0031273",
+          "hpo_label": "Shock",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "shock",
+              "context": "she experienced intractable shock"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p019",
+          "hpo_id": "HP:0001919",
+          "hpo_label": "Acute kidney injury",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "acute renal impairment",
+              "context": "intractable shock and acute renal impairment"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100046:native",
+      "document_sha256": "bea5519fd5a8e80b3a636d4ed68c62e83cbc937fe274416855a5bdc887776afb",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0002248",
+          "hpo_label": "Hematemesis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hemetemesis",
+              "context": "presented with hemetemesis 15 days ago"
+            },
+            {
+              "phrase": "gi bleed",
+              "context": "with NSAID induced gi bleed was considered"
+            }
+          ],
+          "note": "'gi bleed' names the haematemesis again; the hedge concerns its cause (NSAID), not the bleed."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0011134",
+          "hpo_label": "Low-grade fever",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "low grade fever",
+              "context": "preceeded by low grade fever, bone pain"
+            },
+            {
+              "phrase": "fever",
+              "context": "background history of fever, backache, skin rash"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0002653",
+          "hpo_label": "Bone pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "bone pain",
+              "context": "low grade fever, bone pain, generalised bodyache"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0033047",
+          "hpo_label": "Body ache",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "bodyache",
+              "context": "bone pain, generalised bodyache, low back ache"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0003419",
+          "hpo_label": "Low back pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "low back ache",
+              "context": "generalised bodyache, low back ache and generalised macular"
+            },
+            {
+              "phrase": "backache",
+              "context": "intake of analgesics for backache"
+            },
+            {
+              "phrase": "backache",
+              "context": "history of fever, backache, skin rash"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0012733",
+          "hpo_label": "Macule",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "macular skin rashes",
+              "context": "low back ache and generalised macular skin rashes"
+            },
+            {
+              "phrase": "macular rashes",
+              "context": "pale with non pruritic macular rashes"
+            },
+            {
+              "phrase": "skin rash",
+              "context": "fever, backache, skin rash, splenomegaly"
+            }
+          ],
+          "note": "No 'macular rash' term; Macule is the closest lesion term (alternative: Skin rash)."
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0002027",
+          "hpo_label": "Abdominal pain",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "abdominal pain",
+              "context": "There was no history of abdominal pain, jaundice"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0000952",
+          "hpo_label": "Jaundice",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "jaundice",
+              "context": "There was no history of abdominal pain, jaundice"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0001903",
+          "hpo_label": "Anemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "haemoglobin of 8g/dl",
+              "context": "showed a haemoglobin of 8g/dl"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0001903",
+          "hpo_label": "Anemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "decreased red cells and platelets",
+              "context": "Bone marrow aspirate showed decreased red cells and platelets"
+            }
+          ],
+          "note": "Marrow aspirate wording is ambiguous; it could instead mean reduced erythroid precursors and megakaryocytes."
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0001873",
+          "hpo_label": "Thrombocytopenia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "platelet count 24000/mm3",
+              "context": "total count 6700/mm3 platelet count 24000/mm3"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0001873",
+          "hpo_label": "Thrombocytopenia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "low platelet count",
+              "context": "splenomegaly and a low platelet count"
+            },
+            {
+              "phrase": "decreased red cells and platelets",
+              "context": "Bone marrow aspirate showed decreased red cells and platelets"
+            }
+          ],
+          "note": "The marrow aspirate mention is ambiguous; it could instead mean reduced megakaryocytes."
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:0003565",
+          "hpo_label": "Elevated erythrocyte sedimentation rate",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "ESR 55mm/hr",
+              "context": "platelet count 24000/mm3 and ESR 55mm/hr"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:0000980",
+          "hpo_label": "Pallor",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "pale",
+              "context": "On examination patient was pale"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p015",
+          "hpo_id": "HP:0000989",
+          "hpo_label": "Pruritus",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "pruritic",
+              "context": "pale with non pruritic macular rashes"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p016",
+          "hpo_id": "HP:0001744",
+          "hpo_label": "Splenomegaly",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "splenomegaly",
+              "context": "macular rashes and mild splenomegaly"
+            },
+            {
+              "phrase": "splenomegaly",
+              "context": "skin rash, splenomegaly and a low platelet count"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p017",
+          "hpo_id": "HP:0002592",
+          "hpo_label": "Gastric ulcer",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "ulcerative lesions in the antrum of stomach",
+              "context": "showed a nodular ulcerative lesions in the antrum of stomach"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p018",
+          "hpo_id": "HP:0033770",
+          "hpo_label": "Gastric adenocarcinoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "adenocarcinoma of stomach",
+              "context": "histopathologic examination confirmed adenocarcinoma of stomach"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p019",
+          "hpo_id": "HP:0003155",
+          "hpo_label": "Elevated circulating alkaline phosphatase concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "high ALP",
+              "context": "Liver function tests showed a high ALP (1536 U/l)"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p020",
+          "hpo_id": "HP:0008151",
+          "hpo_label": "Prolonged prothrombin time",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "elevated INR",
+              "context": "elevated INR (2.15)"
+            }
+          ],
+          "note": "'Increased INR' is a synonym of Prolonged prothrombin time."
+        },
+        {
+          "proposal_id": "p021",
+          "hpo_id": "HP:0033149",
+          "hpo_label": "Intrahepatic bile duct dilatation",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "IHBRD",
+              "context": "normal portal vein and no IHBRD"
+            }
+          ],
+          "note": "IHBRD read as intrahepatic biliary radicle dilatation."
+        },
+        {
+          "proposal_id": "p022",
+          "hpo_id": "HP:0002716",
+          "hpo_label": "Lymphadenopathy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "lymphadenopathy",
+              "context": "pylorus thickening with regional lymphadenopathy"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p023",
+          "hpo_id": "HP:0100861",
+          "hpo_label": "Sclerotic vertebral body",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "sclerotic foci involving vertebrae",
+              "context": "skeletal metastasis with sclerotic foci involving vertebrae and pelvic bones"
+            }
+          ],
+          "note": "The pelvic sclerotic foci have no site-specific term."
+        },
+        {
+          "proposal_id": "p024",
+          "hpo_id": "HP:0002797",
+          "hpo_label": "Osteolysis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "lytic areas in bilateral iliac blades",
+              "context": "lytic areas in bilateral iliac blades with no liver metastasis"
+            },
+            {
+              "phrase": "lytic lesions in the iliac and femoral bones",
+              "context": "skeletal survey was done which showed lytic lesions in the iliac and femoral bones"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p025",
+          "hpo_id": "HP:0001541",
+          "hpo_label": "Ascites",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "ascites",
+              "context": "with no liver metastasis or ascites"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p026",
+          "hpo_id": "HP:0005521",
+          "hpo_label": "Disseminated intravascular coagulation",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "DIC",
+              "context": "Coagulation profile done was suggestive of DIC"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p027",
+          "hpo_id": "HP:0033106",
+          "hpo_label": "Elevated circulating D-dimer concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "raised levels of FDP",
+              "context": "due to the raised levels of FDP (5,170 ng/dl)"
+            }
+          ],
+          "note": "No term for fibrin degradation products in general; this term has the synonym 'Elevated fibrin degradation fragment concentration'."
+        },
+        {
+          "proposal_id": "p028",
+          "hpo_id": "HP:0011900",
+          "hpo_label": "Hypofibrinogenemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "low fibrinogen",
+              "context": "and a low fibrinogen"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100067:native",
+      "document_sha256": "bb206ae50c8ed2cc5c879467a7ecc90d124f08776aa9a282b94a480360a5f236",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0000822",
+          "hpo_label": "Hypertension",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hypertensive",
+              "context": "A 50-years-old woman, hypertensive"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0005987",
+          "hpo_label": "Multinodular goiter",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "goiter",
+              "context": "The goiter measured 18 x 11 cm"
+            },
+            {
+              "phrase": "goiter",
+              "context": "The trachea was surrounded by the goiter"
+            },
+            {
+              "phrase": "MNG",
+              "context": "underwent a surgery for her enormous MNG"
+            },
+            {
+              "phrase": "multinodular, hypervascularized goiter",
+              "context": "There was a multinodular, hypervascularized goiter"
+            },
+            {
+              "phrase": "goiter",
+              "context": "The retrosternal part of the goiter was released"
+            },
+            {
+              "phrase": "multinodular colloid goiter",
+              "context": "Histological study concluded in multinodular colloid goiter"
+            }
+          ],
+          "note": "Bare 'goiter' mentions name the same multinodular goiter; 'cervical mass' and 'the mass' are not marked."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0005987",
+          "hpo_label": "Multinodular goiter",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "MNG",
+              "context": "then evocate a large MNG"
+            }
+          ],
+          "note": "The CT only suggests the diagnosis here ('evocate'); surgery and histology confirm it later."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0005987",
+          "hpo_label": "Multinodular goiter",
+          "assertion": "present",
+          "experiencer": "family_member",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "MNG",
+              "context": "cousins underwent a surgery for MNG"
+            }
+          ],
+          "note": "Mother, sisters and cousins; placed in the family history as past surgery."
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0002926",
+          "hpo_label": "Abnormality of thyroid physiology",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "thyroid dysfunction",
+              "context": "She never suffered from thyroid dysfunction"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0001015",
+          "hpo_label": "Prominent superficial veins",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "veins of the collateral circulation limited to the neck",
+              "context": "There were some veins of the collateral circulation limited to the neck"
+            }
+          ],
+          "note": "Visible collateral veins over the neck; no neck-specific term found."
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0002716",
+          "hpo_label": "Lymphadenopathy",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Lymphadenopathy",
+              "context": "Lymphadenopathy research was difficult"
+            }
+          ],
+          "note": "The search for lymphadenopathy found no palpable lymph nodes."
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0002777",
+          "hpo_label": "Tracheal stenosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "trachea was surrounded by the goiter, slightly narrowed",
+              "context": "The trachea was surrounded by the goiter, slightly narrowed and right deviated"
+            }
+          ],
+          "note": "Slight narrowing by external compression; tracheal deviation has no term."
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0031273",
+          "hpo_label": "Shock",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hemodynamic collapse",
+              "context": "the patient developed hemodynamic collapse"
+            }
+          ],
+          "note": "Postoperative collapse requiring dobutamine; Hypotension would be the weaker alternative."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100075:native",
+      "document_sha256": "c2dffd605e534d7f65c9ad3de434550cff15d7e506d20702856de39d951b22e8",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0030157",
+          "hpo_label": "Flank pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "swelling and pain in the right lumbar region",
+              "context": "history of progressive swelling and pain in the right lumbar region"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:6000363",
+          "hpo_label": "Flank mass",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "swelling and pain in the right lumbar region",
+              "context": "history of progressive swelling and pain in the right lumbar region"
+            },
+            {
+              "phrase": "lumbar region mass",
+              "context": "There was a right lumbar region mass"
+            }
+          ],
+          "note": "The swelling is described as a mass on examination."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0001945",
+          "hpo_label": "Fever",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "fever",
+              "context": "associated with a high grade fever which was constant"
+            },
+            {
+              "phrase": "febrile",
+              "context": "he was dehydrated, febrile and moderately wasted"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0002013",
+          "hpo_label": "Vomiting",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "vomiting",
+              "context": "not associated with vomiting, constipation, yellow eyes"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0002019",
+          "hpo_label": "Constipation",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "constipation",
+              "context": "not associated with vomiting, constipation, yellow eyes"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0032106",
+          "hpo_label": "Conjunctival icterus",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "yellow eyes",
+              "context": "not associated with vomiting, constipation, yellow eyes"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0004396",
+          "hpo_label": "Poor appetite",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "loss of appetite",
+              "context": "yellow eyes, loss of appetite or weight loss"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0001824",
+          "hpo_label": "Weight loss",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "weight loss",
+              "context": "yellow eyes, loss of appetite or weight loss"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0001250",
+          "hpo_label": "Seizure",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "seizures",
+              "context": "the child continued to have seizures and nodding"
+            },
+            {
+              "phrase": "seizures",
+              "context": "seizures and nodding stopped completely"
+            }
+          ],
+          "note": "The second mention reports that the seizures stopped; resolution is not a separate status."
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0001250",
+          "hpo_label": "Seizure",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "seizures",
+              "context": "the child had no seizures nor nodding"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0001944",
+          "hpo_label": "Dehydration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "dehydrated",
+              "context": "he was dehydrated, febrile"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0004395",
+          "hpo_label": "Malnutrition",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "wasted",
+              "context": "febrile and moderately wasted"
+            }
+          ],
+          "note": "'Wasted' read as nutritional wasting (food rehabilitation followed); Cachexia would be the alternative."
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:6000106",
+          "hpo_label": "Costovertebral angle tenderness",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "renal or supra-pubic tenderness",
+              "context": "There was no renal or supra-pubic tenderness"
+            }
+          ],
+          "note": "Renal tenderness mapped to costovertebral angle tenderness; suprapubic tenderness has no term."
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:0002573",
+          "hpo_label": "Hematochezia",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "blood on examining fingure",
+              "context": "there was no blood on examining fingure"
+            }
+          ],
+          "note": "No blood on rectal examination; 'Rectal bleeding' is a synonym of Hematochezia."
+        },
+        {
+          "proposal_id": "p015",
+          "hpo_id": "HP:0011897",
+          "hpo_label": "Increased total neutrophil count",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "neutrophilia",
+              "context": "showed neutrophilia, lympocytosis"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p016",
+          "hpo_id": "HP:0100827",
+          "hpo_label": "Increased total lymphocyte count",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "lympocytosis",
+              "context": "showed neutrophilia, lympocytosis"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p017",
+          "hpo_id": "HP:0012311",
+          "hpo_label": "Increased total monocyte count",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "monocytosis",
+              "context": "lympocytosis, monocytosis, and eosinophilia"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p018",
+          "hpo_id": "HP:0001880",
+          "hpo_label": "Increased total eosinophil count",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "eosinophilia",
+              "context": "lympocytosis, monocytosis, and eosinophilia"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p019",
+          "hpo_id": "HP:0032239",
+          "hpo_label": "Increased circulating band cell count",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "immature granulocytes",
+              "context": "There were immature granulocytes and atypical lymphocytes"
+            }
+          ],
+          "note": "Immature granulocytes on the blood film read as left shift (synonym of this term)."
+        },
+        {
+          "proposal_id": "p020",
+          "hpo_id": "HP:0004332",
+          "hpo_label": "Abnormal lymphocyte morphology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "atypical lymphocytes",
+              "context": "There were immature granulocytes and atypical lymphocytes"
+            }
+          ],
+          "note": "No specific term for atypical lymphocytes."
+        },
+        {
+          "proposal_id": "p021",
+          "hpo_id": "HP:0031964",
+          "hpo_label": "Elevated circulating alanine aminotransferase concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "liver function tests (ALT, AST) were elevated",
+              "context": "Other laboratory results including liver function tests (ALT, AST) were elevated"
+            },
+            {
+              "phrase": "liver enzymes level were elevated",
+              "context": "except the liver enzymes level were elevated and were still high"
+            }
+          ],
+          "note": "The follow-up mention names the same elevation as 'liver enzymes'."
+        },
+        {
+          "proposal_id": "p022",
+          "hpo_id": "HP:0031956",
+          "hpo_label": "Elevated circulating aspartate aminotransferase concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "liver function tests (ALT, AST) were elevated",
+              "context": "Other laboratory results including liver function tests (ALT, AST) were elevated"
+            },
+            {
+              "phrase": "liver enzymes level were elevated",
+              "context": "except the liver enzymes level were elevated and were still high"
+            }
+          ],
+          "note": "The follow-up mention names the same elevation as 'liver enzymes'."
+        },
+        {
+          "proposal_id": "p023",
+          "hpo_id": "HP:0003075",
+          "hpo_label": "Hypoproteinemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "serum protein levels were low",
+              "context": "while serum protein levels were low"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p024",
+          "hpo_id": "HP:0100614",
+          "hpo_label": "Myositis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "inflamed internal and external oblique muscles",
+              "context": "Abdominal Ultrasound showed inflamed internal and external oblique muscles"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100090:native",
+      "document_sha256": "5abd85942863efce44d86b7b3ece17677b1dae1889ac6fc22038eade90315ace",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0000656",
+          "hpo_label": "Ectropion",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "eversion of the upper eyelids",
+              "context": "on account of bilateral eversion of the upper eyelids since birth"
+            },
+            {
+              "phrase": "eversion of the upper eyelids",
+              "context": "bilateral complete eversion of the upper eyelids"
+            }
+          ],
+          "note": "No term for eversion of the upper eyelids; general Ectropion used (the specific terms concern the lower lids)."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0012375",
+          "hpo_label": "Chemosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "chemosis",
+              "context": "There were marked chemosis bilaterally"
+            },
+            {
+              "phrase": "chemosis",
+              "context": "unsuccessful because of the marked chemosis"
+            },
+            {
+              "phrase": "chemosed palpebral conjunctivae",
+              "context": "placed over the prolapsed chemosed palpebral conjunctivae"
+            },
+            {
+              "phrase": "chemosis",
+              "context": "the chemosis on the right had resolved significantly"
+            },
+            {
+              "phrase": "chemosis",
+              "context": "both chemosis had resolved totally"
+            }
+          ],
+          "note": "The last two mentions report resolution; resolution is not a separate status."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100156:native",
+      "document_sha256": "0b19fca1121f6b521fa023a09710eac0d1f63514f04b9729cb2688b369494959",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0030839",
+          "hpo_label": "Knee pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "knees pain with associated swelling",
+              "context": "progressively worsening bilateral knees pain with associated swelling"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0001386",
+          "hpo_label": "Joint swelling",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "knees pain with associated swelling",
+              "context": "progressively worsening bilateral knees pain with associated swelling"
+            },
+            {
+              "phrase": "knees had become increasingly swollen",
+              "context": "His knees had become increasingly swollen"
+            }
+          ],
+          "note": "No knee-specific swelling term."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0020127",
+          "hpo_label": "Periarticular soft-tissue mass",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "swollen popliteal fossa",
+              "context": "seen to have visibly swollen popliteal fossa"
+            },
+            {
+              "phrase": "calcified masses",
+              "context": "Multiple calcified masses were found"
+            }
+          ],
+          "note": "The popliteal swelling is described as hard, mobile masses and found as masses at surgery."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0009050",
+          "hpo_label": "Quadriceps muscle atrophy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "quadriceps wasting",
+              "context": "marked quadriceps wasting of his right lower limb"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0006389",
+          "hpo_label": "Limited knee flexion",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "flexion was restricted",
+              "context": "but flexion was restricted to only 110 degrees"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0001382",
+          "hpo_label": "Joint hypermobility",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "ligamentous instability",
+              "context": "proved equivocal and no ligamentous instability"
+            }
+          ],
+          "note": "Knee ligament instability; 'Joint instability' is a synonym of Joint hypermobility."
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0025477",
+          "hpo_label": "Periarticular calcification",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "calcific densities within the soft tissues surrounding it",
+              "context": "revealed multiple calcific densities within the soft tissues surrounding it"
+            },
+            {
+              "phrase": "calcified bursal extensions",
+              "context": "and large calcified bursal extensions"
+            },
+            {
+              "phrase": "calcified masses",
+              "context": "Multiple calcified masses were found"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0005186",
+          "hpo_label": "Synovial lining hyperplasia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "thickening of the patient’s synovium",
+              "context": "It showed an extensive thickening of the patient’s synovium"
+            }
+          ],
+          "note": "Synovial thickening on MRI; 'Synovial hypertrophy' is a synonym of this term."
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0005086",
+          "hpo_label": "Knee osteoarthritis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "osteoarthritis alongside florid synovial chondromatosis in the lateral compartment of the right knee",
+              "context": "Grade IV osteoarthritis alongside florid synovial chondromatosis in the lateral compartment of the right knee"
+            }
+          ],
+          "note": "The span runs to 'right knee' because the site determines the term."
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:6000591",
+          "hpo_label": "Loose body in joint",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "intraarticular calcific and ossific loose bodies",
+              "context": "multiple intraarticular calcific and ossific loose bodies"
+            }
+          ],
+          "note": "MRI finding without a proposal; a second occurrence is 'loose bodies' in 'multiple loose bodies within this compartment'."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100339:native",
+      "document_sha256": "c8c3897bfb45c6f3e9786992180c3c0c1e979753a1901ee28033e41d17fe4564",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0006280",
+          "hpo_label": "Chronic pancreatitis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "chronic pancreatitis",
+              "context": "incidental findings of severe chronic pancreatitis on cross-sectional imaging"
+            },
+            {
+              "phrase": "pancreatitis",
+              "context": "Due to the severity of pancreatitis noted on imaging"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0006280",
+          "hpo_label": "Chronic pancreatitis",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "chronic pancreatitis",
+              "context": "calcifications consistent with severe chronic pancreatitis"
+            }
+          ],
+          "note": "This mention is hedged ('consistent with'); the other mentions state the finding outright."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0002027",
+          "hpo_label": "Abdominal pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "abdominal pain",
+              "context": "emergency department for abdominal pain consistent"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0000787",
+          "hpo_label": "Kidney stone",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "renal calculi",
+              "context": "confirmed the presence of renal calculi"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:6000156",
+          "hpo_label": "Pancreatic atrophy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "pancreatic atrophy with multiple sub-centimeter calcifications",
+              "context": "showed marked pancreatic atrophy with multiple sub-centimeter calcifications"
+            },
+            {
+              "phrase": "parenchymal atrophy",
+              "context": "showed severe parenchymal atrophy"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0005213",
+          "hpo_label": "Pancreatic calcification",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "pancreatic atrophy with multiple sub-centimeter calcifications",
+              "context": "showed marked pancreatic atrophy with multiple sub-centimeter calcifications"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0030992",
+          "hpo_label": "Abnormal pancreatic duct morphology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "pancreatic ductal stones with ductal dilation",
+              "context": "pancreatic ductal stones with ductal dilation to 9mm"
+            }
+          ],
+          "note": "No specific term for pancreatic duct stones or duct dilatation."
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0410019",
+          "hpo_label": "Epigastric pain",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "epigastric pain",
+              "context": "including epigastric pain, vomiting, steatorrhea and weight loss"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0002013",
+          "hpo_label": "Vomiting",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "vomiting",
+              "context": "including epigastric pain, vomiting, steatorrhea and weight loss"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0002570",
+          "hpo_label": "Steatorrhea",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "steatorrhea",
+              "context": "including epigastric pain, vomiting, steatorrhea and weight loss"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0001824",
+          "hpo_label": "Weight loss",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "weight loss",
+              "context": "including epigastric pain, vomiting, steatorrhea and weight loss"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0001735",
+          "hpo_label": "Acute pancreatitis",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "acute pancreatitis",
+              "context": "any prior episodes of acute pancreatitis"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:0001733",
+          "hpo_label": "Pancreatitis",
+          "assertion": "present",
+          "experiencer": "family_member",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "pancreatitis",
+              "context": "his father had an isolated episode of pancreatitis"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100372:native",
+      "document_sha256": "e02897fa491ec55556b601a3549b96a4a9ab0efe804c365dde60178905701653",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0003270",
+          "hpo_label": "Abdominal distention",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "abdominal distension",
+              "context": "a progressive abdominal distension since birth"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0000980",
+          "hpo_label": "Pallor",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "pallor",
+              "context": "progressive pallor and recurrent"
+            },
+            {
+              "phrase": "pale",
+              "context": "he was very pale with silvery gray scalp hair"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0001954",
+          "hpo_label": "Recurrent fever",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "recurrent episodes of fever",
+              "context": "progressive pallor and recurrent episodes of fever since 1 year of age"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0000952",
+          "hpo_label": "Jaundice",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "jaundice",
+              "context": "there was no history of jaundice, vomiting, urinary"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0002013",
+          "hpo_label": "Vomiting",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "vomiting",
+              "context": "there was no history of jaundice, vomiting, urinary"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0001892",
+          "hpo_label": "Abnormal bleeding",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "bleeding from any site",
+              "context": "bowel complaints, bleeding from any site or neurological"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0002218",
+          "hpo_label": "Silver-gray hair",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "silvery gray scalp hair",
+              "context": "very pale with silvery gray scalp hair, white eyelashes"
+            },
+            {
+              "phrase": "silvery-gray color of the hair and eyebrows",
+              "context": "the presence of silvery-gray color of the hair and eyebrows"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0002227",
+          "hpo_label": "White eyelashes",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "white eyelashes",
+              "context": "silvery gray scalp hair, white eyelashes"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0002226",
+          "hpo_label": "White eyebrow",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "silvery-gray color of the hair and eyebrows",
+              "context": "the presence of silvery-gray color of the hair and eyebrows"
+            }
+          ],
+          "note": "'Grey eyebrow' is a synonym of White eyebrow."
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0001252",
+          "hpo_label": "Hypotonia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hypotonic",
+              "context": "he was hypotonic, tachycardic"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0001649",
+          "hpo_label": "Tachycardia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "tachycardic",
+              "context": "he was hypotonic, tachycardic"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0001945",
+          "hpo_label": "Fever",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "fever",
+              "context": "tachycardic, fever of 40°C"
+            }
+          ],
+          "note": "Fever measured at admission; the recurrent episodes in the history are a separate proposal."
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:0002716",
+          "hpo_label": "Lymphadenopathy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "lymphoadenopathy",
+              "context": "fever of 40°C, lymphoadenopathy and hepato-splenomegaly"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:0001433",
+          "hpo_label": "Hepatosplenomegaly",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hepato-splenomegaly",
+              "context": "lymphoadenopathy and hepato-splenomegaly"
+            },
+            {
+              "phrase": "hepatomegaly and a splenomegaly",
+              "context": "abdominal ultrasound showed a hepatomegaly and a splenomegaly"
+            },
+            {
+              "phrase": "hepato-splenomegaly",
+              "context": "Because of hepato-splenomegaly, pancytopenia"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p015",
+          "hpo_id": "HP:0001876",
+          "hpo_label": "Pancytopenia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "pancytopenia",
+              "context": "The blood count showed pancytopenia"
+            },
+            {
+              "phrase": "pancytopenia",
+              "context": "hepato-splenomegaly, pancytopenia, hyperferritinemia"
+            },
+            {
+              "phrase": "involvement of the 3 cell lines in the blood count",
+              "context": "persisting with involvement of the 3 cell lines in the blood count"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p016",
+          "hpo_id": "HP:0001882",
+          "hpo_label": "Decreased total leukocyte count",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "1980 white blood cells/µL",
+              "context": "pancytopenia; 1980 white blood cells/µL"
+            }
+          ],
+          "note": "Single value listed under the verbalized pancytopenia."
+        },
+        {
+          "proposal_id": "p017",
+          "hpo_id": "HP:0001875",
+          "hpo_label": "Decreased total neutrophil count",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "neutrophils 820/µL",
+              "context": "neutrophils 820/µL, 910 cells/µL"
+            }
+          ],
+          "note": "Single value listed under the verbalized pancytopenia."
+        },
+        {
+          "proposal_id": "p018",
+          "hpo_id": "HP:0001903",
+          "hpo_label": "Anemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "hemoglobin (Hb) 6.3 g/dL",
+              "context": "910 cells/µL, hemoglobin (Hb) 6.3 g/dL"
+            }
+          ],
+          "note": "Single value listed under the verbalized pancytopenia."
+        },
+        {
+          "proposal_id": "p019",
+          "hpo_id": "HP:0001873",
+          "hpo_label": "Thrombocytopenia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "platelets 44 000/µL",
+              "context": "platelets 44 000/µL (VN 150 000-400 000/µL)"
+            }
+          ],
+          "note": "Single value listed under the verbalized pancytopenia."
+        },
+        {
+          "proposal_id": "p020",
+          "hpo_id": "HP:0032499",
+          "hpo_label": "Giant neutrophil granules",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "giant cytoplasmic granules in leucocytes",
+              "context": "There were no giant cytoplasmic granules in leucocytes"
+            }
+          ],
+          "note": "The text says leucocytes, the term neutrophils."
+        },
+        {
+          "proposal_id": "p021",
+          "hpo_id": "HP:0003073",
+          "hpo_label": "Hypoalbuminemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "low albumin",
+              "context": "normal expect low albumin (2.1 mg/dL)"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p022",
+          "hpo_id": "HP:0003155",
+          "hpo_label": "Elevated circulating alkaline phosphatase concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "increased alkaline phosphatase",
+              "context": "increased alkaline phosphatase (1196 mg/dL)"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p023",
+          "hpo_id": "HP:0011900",
+          "hpo_label": "Hypofibrinogenemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "low fibrinogen",
+              "context": "with low fibrinogen (1.7g/l)"
+            },
+            {
+              "phrase": "hypofibrinogenemia",
+              "context": "hyperferritinemia and hypofibrinogenemia"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p024",
+          "hpo_id": "HP:0002155",
+          "hpo_label": "Hypertriglyceridemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Serum triglycerides, ferrintin and lactic dehydrogenase were very high",
+              "context": "Serum triglycerides, ferrintin and lactic dehydrogenase were very high"
+            },
+            {
+              "phrase": "elevated ferritin and triglycerides",
+              "context": "in the blood count, elevated ferritin and triglycerides"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p025",
+          "hpo_id": "HP:0003281",
+          "hpo_label": "Increased circulating ferritin concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Serum triglycerides, ferrintin and lactic dehydrogenase were very high",
+              "context": "Serum triglycerides, ferrintin and lactic dehydrogenase were very high"
+            },
+            {
+              "phrase": "hyperferritinemia",
+              "context": "pancytopenia, hyperferritinemia and"
+            },
+            {
+              "phrase": "elevated ferritin and triglycerides",
+              "context": "in the blood count, elevated ferritin and triglycerides"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p026",
+          "hpo_id": "HP:0025435",
+          "hpo_label": "Increased circulating lactate dehydrogenase concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Serum triglycerides, ferrintin and lactic dehydrogenase were very high",
+              "context": "Serum triglycerides, ferrintin and lactic dehydrogenase were very high"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p027",
+          "hpo_id": "HP:0011227",
+          "hpo_label": "Elevated circulating C-reactive protein concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "C reactive protein (CRP) was elevated",
+              "context": "the C reactive protein (CRP) was elevated at 83mg/l"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p028",
+          "hpo_id": "HP:0001541",
+          "hpo_label": "Ascites",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "ascites",
+              "context": "free biliary ducts without ascites"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p029",
+          "hpo_id": "HP:6000980",
+          "hpo_label": "Bone marrow hemophagocytosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "macrophages with haemophagocytic activity",
+              "context": "numerous morphologically benign macrophages with haemophagocytic activity"
+            },
+            {
+              "phrase": "macrophages with low haemophagocytic activity",
+              "context": "decreased numerous of macrophages with low haemophagocytic activity"
+            }
+          ],
+          "note": "Both mentions are bone marrow findings; the site is named earlier in the sentence."
+        },
+        {
+          "proposal_id": "p030",
+          "hpo_id": "HP:0002719",
+          "hpo_label": "Recurrent infections",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "recurrent infection",
+              "context": "notion of recurrent infection"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p031",
+          "hpo_id": "HP:0004527",
+          "hpo_label": "Large clumps of pigment irregularly distributed along hair shaft",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "large, irregular clumps of pigments",
+              "context": "microscopy examination of the hair that showed a large, irregular clumps of pigments"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100376:native",
+      "document_sha256": "acb5f8e284777e9a340ce03dbd53bc3a1bf288943f34ea7aa6536d006b05df25",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0025664",
+          "hpo_label": "Moderate to late preterm birth",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "near-term neonate with gestational age of 35 weeks",
+              "context": "a male near-term neonate with gestational age of 35 weeks"
+            }
+          ],
+          "note": "Gestational age of 35 weeks falls in the moderate-to-late preterm range."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0012420",
+          "hpo_label": "Meconium stained amniotic fluid",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Meconium-stained amniotic fluid",
+              "context": "Meconium-stained amniotic fluid was noted"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0002643",
+          "hpo_label": "Neonatal respiratory distress",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "respiratory distress",
+              "context": "aside transitory respiratory distress"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0001824",
+          "hpo_label": "Weight loss",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "loss of 630g",
+              "context": "which signify the loss of 630g"
+            },
+            {
+              "phrase": "lost 930g",
+              "context": "He lost 930g relative to the birth's weight"
+            }
+          ],
+          "note": "Postnatal loss of about 21% and then 31% of the birth weight."
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0002014",
+          "hpo_label": "Diarrhea",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "yellowish-watery stools",
+              "context": "he presented multiple yellowish-watery stools"
+            },
+            {
+              "phrase": "diarrhea",
+              "context": "He presented a profuse diarrhea during each attempt"
+            }
+          ],
+          "note": "No 'watery diarrhea' term."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0033343",
+          "hpo_label": "Mucoid diarrhea",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "slimy diarrhea",
+              "context": "he had developed a slimy diarrhea"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0011968",
+          "hpo_label": "Feeding difficulties",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "refuse feeding",
+              "context": "and refuse feeding with apyrexia context"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0001945",
+          "hpo_label": "Fever",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "apyrexia",
+              "context": "and refuse feeding with apyrexia context"
+            },
+            {
+              "phrase": "fever",
+              "context": "severe dehydration without fever or vomiting"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0002013",
+          "hpo_label": "Vomiting",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "vomiting",
+              "context": "severe dehydration without fever or vomiting"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0001944",
+          "hpo_label": "Dehydration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "dehydration",
+              "context": "He had clinical signs of severe dehydration"
+            },
+            {
+              "phrase": "dehydration",
+              "context": "the dehydration resolved"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0003270",
+          "hpo_label": "Abdominal distention",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "distended",
+              "context": "The abdomen appeared neither tender nor distended"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0003228",
+          "hpo_label": "Hypernatremia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hypernatremia",
+              "context": "revealed hypernatremia of 152mEq/L"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:0002153",
+          "hpo_label": "Hyperkalemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hyperkalemia",
+              "context": "hyperkalemia of 7,8mEq/L"
+            },
+            {
+              "phrase": "hyperkalemia",
+              "context": "complicated by acidosis and hyperkalemia appeared"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:0001942",
+          "hpo_label": "Metabolic acidosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "metabolic acidosis",
+              "context": "severe metabolic acidosis: blood PH"
+            },
+            {
+              "phrase": "acidosis",
+              "context": "renal failure complicated by acidosis and hyperkalemia"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p015",
+          "hpo_id": "HP:0001974",
+          "hpo_label": "Increased total leukocyte count",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "leukocytosis",
+              "context": "There was no leukocytosis"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p016",
+          "hpo_id": "HP:0001919",
+          "hpo_label": "Acute kidney injury",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "acute renal failure",
+              "context": "a functional acute renal failure complicated"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p017",
+          "hpo_id": "HP:0033132",
+          "hpo_label": "Renal cortical hyperechogenicity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hyperechoic kidneys cortex",
+              "context": "showed discretely hyperechoic kidneys cortex"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p018",
+          "hpo_id": "HP:0012210",
+          "hpo_label": "Abnormal renal morphology",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "renal malformations",
+              "context": "the absence of renal malformations"
+            }
+          ],
+          "note": "'Renal malformation' is a synonym of Abnormal renal morphology."
+        },
+        {
+          "proposal_id": "p019",
+          "hpo_id": "HP:0001396",
+          "hpo_label": "Cholestasis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "cholestasis",
+              "context": "The evolution was burdened by cholestasis"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p020",
+          "hpo_id": "HP:0011473",
+          "hpo_label": "Villous atrophy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "villous atrophy",
+              "context": "duodenal biopsy showed partial villous atrophy"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p021",
+          "hpo_id": "HP:0033996",
+          "hpo_label": "Microvillar PAS-positive secretory granules",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "intra-cytoplasmic PAS + band in the apical pole of enterocytes",
+              "context": "with the presence of intra-cytoplasmic PAS + band in the apical pole of enterocytes"
+            }
+          ],
+          "note": "Apical intracytoplasmic PAS-positive band; the term match should be checked by the reviewer."
+        },
+        {
+          "proposal_id": "p022",
+          "hpo_id": "HP:0100806",
+          "hpo_label": "Sepsis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "septic shock",
+              "context": "after 97 days of life, of septic shock"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p023",
+          "hpo_id": "HP:0031273",
+          "hpo_label": "Shock",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "septic shock",
+              "context": "after 97 days of life, of septic shock"
+            }
+          ],
+          "note": "Distributive shock would be the more specific but inferred alternative."
+        }
+      ]
+    }
+  ]
+}

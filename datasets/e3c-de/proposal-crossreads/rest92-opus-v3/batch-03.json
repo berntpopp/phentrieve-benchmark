@@ -1,0 +1,197 @@
+{
+  "schema_version": "e3c-hpo-crossread/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "rest92-opus-v3",
+  "batch_id": "batch-03",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:en:EN101114:native",
+      "document_sha256": "ed798f8c6b75c4f78b303c1c0d430a3ae4135a488919b1822df78efb942035a1",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN101783:native",
+      "document_sha256": "ee7b4085f07f2d15f2bd3c5fec064dfad2bb7915be874a5544b6cf0d46d023fd",
+      "issues": [
+        {
+          "proposal_id": "p005",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0011744",
+            "hpo_label": "Secondary hypercortisolism",
+            "phrase": "ECS",
+            "context": "dynamic biochemical tests performed indicated ECS"
+          },
+          "note": "Concerns the mention ECS only: ectopic Cushing syndrome is ACTH-dependent, so Secondary hypercortisolism is more specific there; 'hypercortisolism' keeps the proposed term."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0002896",
+          "hpo_label": "Neoplasm of the liver",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "liver metastasis",
+          "context": "mild expression in liver metastasis",
+          "severity": "arguable",
+          "note": "Liver metastases are named twice (also 'with liver metastases') without a proposal; the stated site allows Neoplasm of the liver, although R0 treats metastasis as disease course."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN103007:native",
+      "document_sha256": "7cff231d5a253f3d43f537ecec1cdd1080ad7841497259e11229e81032ad51f3",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN104655:native",
+      "document_sha256": "1eb9d4144280e72be2261bde698614755ddd63ce1b03a4addc5e476f43bd1be8",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN104891:native",
+      "document_sha256": "9637c9925f729f27d0fb1315447206689e015e7fe171185787605a2c7e382368",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN105094:native",
+      "document_sha256": "0c698f5909f76bce399373778f3f68f64e61f871c2c7bf576548b9762154ca4a",
+      "issues": [
+        {
+          "proposal_id": "p006",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0012740",
+            "hpo_label": "Papilloma"
+          },
+          "note": "The hedge concerns the tumour type while the tumour itself is present in p005; Papilloma would carry the hedged part instead of a second, uncertain Biliary tract neoplasm."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN105114:native",
+      "document_sha256": "977ce11ff1cac43072fa7d126012a698a45cf40003ddd42ec702f649b2f4a9bc",
+      "issues": [
+        {
+          "proposal_id": "p001",
+          "kind": "extra_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "ulcerative lesion",
+            "context": "Biopsy of the ulcerative lesion was performed"
+          },
+          "note": "'the ulcerative lesion' refers back to the lesion just described and does not name the oral site on its own (R5)."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0100649",
+          "hpo_label": "Neoplasm of the oral cavity",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "oral squamous cell carcinoma",
+          "context": "resembled an oral squamous cell carcinoma",
+          "severity": "arguable",
+          "note": "Squamous cell carcinoma (p004) drops the oral site; Neoplasm of the oral cavity on the same span would keep it, as no single term covers both."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN105551:native",
+      "document_sha256": "81f6aaa294e4fb5a0a49854d729f9226538b2b1ab200f0a63f6ae4d9f9a521ac",
+      "issues": [
+        {
+          "proposal_id": "p006",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "abnormal bronchial artery",
+            "context": "revealed an abnormal bronchial artery originating"
+          },
+          "note": "'abnormal bronchial artery' already expresses the term on its own; the origin clause does not determine it (R2)."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN106233:native",
+      "document_sha256": "227b50f2289856c8a51f5fdcfbfbf185e14013ffaa980674139e83a691f4c55d",
+      "issues": [
+        {
+          "proposal_id": "p001",
+          "kind": "extra_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "Osteoarthritis",
+            "context": "severe bilateral Osteoarthritis"
+          },
+          "note": "This mention does not name the knee, so the phrase does not express Knee osteoarthritis on its own (R2); the knee follows only from the later sentence."
+        },
+        {
+          "proposal_id": "p003",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "Osteochondral Cyst",
+            "context": "a small Osteochondral Cyst in the Anterior Femur"
+          },
+          "note": "'Osteochondral Cyst' expresses Bone cyst on its own; the femoral site does not determine the term (R2)."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN107021:native",
+      "document_sha256": "b5981fe746e991857f944886fc7405f9be07478dee7d02ef9201fccff1604f61",
+      "issues": [
+        {
+          "proposal_id": "p021",
+          "kind": "extra_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "hematoma",
+            "context": "Follow up CT brain showed resolving hematoma"
+          },
+          "note": "'hematoma' alone does not express Cerebral hemorrhage and reads as a reference back to the frontal lobe hematoma; it is, however, a new follow-up finding."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0430082",
+          "hpo_label": "Anti-Dengue virus antibody positivity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "seroconverted for anti-dengue IgM antibodies",
+          "context": "Patient had seroconverted for anti-dengue IgM antibodies",
+          "severity": "clear",
+          "note": "Abnormal laboratory finding with an exactly fitting term and no proposal; the antibody result is a finding, not the pathogen itself (R0)."
+        },
+        {
+          "hpo_id": "HP:0031219",
+          "hpo_label": "Reduced radioactive iodine uptake",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "reduced tracer uptake",
+          "context": "Technetium thyroid scan showed reduced tracer uptake",
+          "severity": "arguable",
+          "note": "Abnormal thyroid scan finding without a proposal; the term names radioiodine while the text uses technetium, so the fit is only approximate."
+        }
+      ]
+    }
+  ]
+}

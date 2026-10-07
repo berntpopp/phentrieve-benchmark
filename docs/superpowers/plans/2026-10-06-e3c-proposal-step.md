@@ -3851,3 +3851,20 @@ Changes after the pilots:
   by Sonnet subagents and a cross-read by Opus subagents
   (`configs/prompts/hpo-span-crossread-v1.md`). Task 11 as written above
   (one full run without cross-reading) is superseded by that procedure.
+- Narrowed on 2026-10-07: the cross-read is a check of Sonnet proposals;
+  runs need not follow the same steps. The Sonnet runs were revised by Opus
+  subagents (`configs/prompts/hpo-span-revision-v1.md`), and the 98 reports
+  without proposals were proposed by Opus (`sample6-opus-v3`,
+  `rest92-opus-v3`). All 185 reports of the original-language groups have
+  current proposals; `datasets/e3c-de/proposals/current-proposals.json`
+  names the run and the steps per report.
+- A cross-read of `rest92-opus-v3` by Opus found 8 clear points in 1,213
+  proposals for 1.21 million tokens. They were applied by script
+  (`rest92-opus-v3-rev`). Decided 2026-10-07: Opus proposals get no further
+  cross-read and no model-written revision; arguable cross-read points and
+  `ancestor-pairs.json` (ancestor and descendant terms in one report, found
+  without a model) are hints for the physician review.
+- Not settled by any of these steps, because the guideline leaves them
+  open: past-history conditions as `historical` or `current`, resolved
+  findings, infections and positive pathogen tests, metastases, and long
+  clause spans.

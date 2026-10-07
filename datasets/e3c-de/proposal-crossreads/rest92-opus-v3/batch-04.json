@@ -1,0 +1,105 @@
+{
+  "schema_version": "e3c-hpo-crossread/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "rest92-opus-v3",
+  "batch_id": "batch-04",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:en:EN107424:native",
+      "document_sha256": "f09d5589884a40beb01e2e0a41240c5bea3990efa3c5450cab15c2be7350dcc5",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN107559:native",
+      "document_sha256": "031c4fbc35366ccd717be1dd8c9d4b69023ace88895e4ed12f771c676559642e",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100050:native",
+      "document_sha256": "3b2e6d10fc3b1579bc597a0b090d6c9132c7360e793029c58bf94af3db4a8784",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100091:native",
+      "document_sha256": "d6aa6913556acdc4ef79a912c8d6bf24b2174eeb2a9fac4f26a4c4b5bbc91af5",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100098:native",
+      "document_sha256": "18f7983e8facea511198238ae12d0f25f53d12f4453e2e97d4680a0d1777ab08",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100112:native",
+      "document_sha256": "a95ae1923b45ceaa42a9a7837a1b70c191c61f5ce7dd9bd60f5ac47e80899aff",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100143:native",
+      "document_sha256": "5d6173041c8aca636f363b2c7c478a33c2888ff8d391a61c2e8d0583eb780e56",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100163:native",
+      "document_sha256": "b84e8c0e49c554556c4e795f14fc63893f8863c2fccc524c990543decc657c22",
+      "issues": [],
+      "missed": [
+        {
+          "hpo_id": "HP:0007420",
+          "hpo_label": "Spontaneous hematomas",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "hematoma perineal",
+          "context": "con orientación diagnóstica hacia hematoma perineal",
+          "severity": "arguable",
+          "note": "Ultrasound only points towards a hematoma and trauma is denied; nearest term, Internal hemorrhage (HP:0011029) is the general alternative."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100177:native",
+      "document_sha256": "9a0d7c834624d264691efe091f62b5717b5e27ef32541b6d7b7df299007060db",
+      "issues": [
+        {
+          "proposal_id": "p009",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0001017",
+            "hpo_label": "Anemic pallor"
+          },
+          "note": "The pallor is reported together with Hb 7,6 after the bleed, so the more specific Anemic pallor is supported."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100273:native",
+      "document_sha256": "aca3ff065065e3d5bd0ec05aaac794a8bc2e71ec02f25c723d2ed6150d3de120",
+      "issues": [],
+      "missed": [
+        {
+          "hpo_id": "HP:0002719",
+          "hpo_label": "Recurrent infections",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "phrase": "infecciones de puerta de entrada del catéter",
+          "context": "por infecciones de puerta de entrada del catéter [PEC]",
+          "severity": "arguable",
+          "note": "Repeated catheter exit-site infections before admission have no proposal; no site-specific term, so the general recurrent term."
+        }
+      ]
+    }
+  ]
+}

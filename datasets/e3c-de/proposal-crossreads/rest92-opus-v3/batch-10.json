@@ -1,0 +1,38 @@
+{
+  "schema_version": "e3c-hpo-crossread/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "rest92-opus-v3",
+  "batch_id": "batch-10",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100994:native",
+      "document_sha256": "5e226a4965c72360ab5dcbbe3d2c8d59a5d972584c9c5b79499486bfd0433d08",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100996:native",
+      "document_sha256": "78e87c43303e84a57bed4cfe1fd0a82b83f59fb7c502dbc094c591c66814161d",
+      "issues": [
+        {
+          "proposal_id": "p002",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {"hpo_id": "HP:0010676", "hpo_label": "Mechanical ileus"},
+          "note": "The obstruction is caused by a strangulated hernia with two transition zones at the neck, so the text supports a mechanical obstruction; the word 'occlusion' alone does not state the mechanism."
+        },
+        {
+          "proposal_id": "p007",
+          "kind": "extra_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "paroi de l'anse incarcérée ne se rehaussait pas",
+            "context": "paroi de l'anse incarcérée ne se rehaussait pas"
+          },
+          "note": "Missing wall enhancement is the CT sign that the next sentence interprets as ischemia; the phrase does not express intestinal ischemia on its own (R2)."
+        }
+      ],
+      "missed": []
+    }
+  ]
+}

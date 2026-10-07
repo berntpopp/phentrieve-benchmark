@@ -1,0 +1,242 @@
+{
+  "schema_version": "e3c-hpo-crossread/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "rest92-opus-v3",
+  "batch_id": "batch-02",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:en:EN100399:native",
+      "document_sha256": "265eaa0616c02aeee09f936f1d2baa0b6f2db0dc560c8133dc7a9e477de128f0",
+      "issues": [
+        {
+          "proposal_id": "p009",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {"hpo_id": "HP:5210163", "hpo_label": "Bacterial liver abscess"},
+          "note": "The aspirate grew a Gram-negative bacterium (A. aphrophilus), so the text supports the more specific term (R1)."
+        },
+        {
+          "proposal_id": "p009",
+          "kind": "extra_occurrence",
+          "severity": "arguable",
+          "correction": {"phrase": "abscesses", "context": "CT guided catheter drainage of both abscesses"},
+          "note": "\"both abscesses\" refers back to the named liver abscesses and does not express Liver abscess on its own (R5)."
+        },
+        {
+          "proposal_id": "p009",
+          "kind": "extra_occurrence",
+          "severity": "arguable",
+          "correction": {"phrase": "abscesses", "context": "Percutaneous drainage of both abscesses"},
+          "note": "\"both abscesses\" refers back to the named liver abscesses and does not express Liver abscess on its own (R5)."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0002586",
+          "hpo_label": "Peritonitis",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "peritoneal irritation",
+          "context": "no signs of peritoneal irritation",
+          "severity": "arguable",
+          "note": "Negated sign named in the text; Peritonitis is the closest term the lookup gives for peritoneal irritation."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100437:native",
+      "document_sha256": "2a69642c2b65da14568f1ce2511f77649d672f313bf3113599ed0ac37e2f0dd9",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100497:native",
+      "document_sha256": "64353460823072d7ebd537c845780bb0993ee7f6879826aa1f7f53a20d980087",
+      "issues": [
+        {
+          "proposal_id": "p001",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {"hpo_id": "HP:0004406", "hpo_label": "Spontaneous, recurrent epistaxis"},
+          "note": "The text reports repeated episodes over two weeks, up to 3-4 per day, and further recurrences in hospital, which supports the more specific term (R1)."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0011888",
+          "hpo_label": "Bleeding requiring red cell transfusion",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "needed 4 red cell packs",
+          "context": "she needed 4 red cell packs",
+          "severity": "arguable",
+          "note": "The epistaxis required red cell transfusion; the phrase names the treatment, so a careful annotator could leave it out (R0)."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100506:native",
+      "document_sha256": "72815a53e4de97283fce91d518b48b09c54a63cf3e83d16157aae4c140a4a2c1",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100600:native",
+      "document_sha256": "c9498839723deccda1ca1ccfe28818015044cf80fac67ae19ec2b212d5876367",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100605:native",
+      "document_sha256": "30822241830e6102036a3b1c583df193f8695e8d5119949fda3c5abfa5244ef2",
+      "issues": [
+        {
+          "proposal_id": "p009",
+          "kind": "not_a_finding",
+          "severity": "arguable",
+          "correction": {},
+          "note": "90/60 mmHg lies on the usual lower limit and the text does not call it hypotension, so the value is not clearly pathological (R6)."
+        },
+        {
+          "proposal_id": "p030",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {"hpo_id": "HP:0004844", "hpo_label": "Coombs-positive hemolytic anemia"},
+          "note": "The text reports a positive Coombs test for this hemolytic anemia, which supports the more specific term (R1)."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:5210111",
+          "hpo_label": "Tuberculosis infection",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "tuberculosis",
+          "context": "malignancy and tuberculosis were ruled out",
+          "severity": "arguable",
+          "note": "Ruled out like the malignancy in p024; the pinned release has this term, although R0 lists tuberculosis as a diagnosis without a phenotype term."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100606:native",
+      "document_sha256": "0a32c5fe8da521f1ef8090520bee59cbfbca1deb6034705c82d5f47e982729c1",
+      "issues": [
+        {
+          "proposal_id": "p005",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {"phrase": "fever", "context": "fever with chills"},
+          "note": "Fever and chills share no wording, so R4 does not apply; the shortest phrase for Fever is \"fever\" (R2)."
+        },
+        {
+          "proposal_id": "p006",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {"phrase": "chills", "context": "fever with chills"},
+          "note": "Fever and chills share no wording, so R4 does not apply; the shortest phrase for Chills is \"chills\" (R2)."
+        },
+        {
+          "proposal_id": "p017",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {"hpo_id": "HP:0012418", "hpo_label": "Hypoxemia"},
+          "note": "The text says \"after waking\", not walking; without assuming a typo it supports only Hypoxemia, not desaturation on exertion."
+        },
+        {
+          "proposal_id": "p021",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "increased levels of C-reactive protein (CRP) (57 mg/L), lactate dehydrogenase",
+            "context": "increased levels of C-reactive protein (CRP) (57 mg/L), lactate dehydrogenase"
+          },
+          "note": "CRP, LDH and ESR share \"increased levels of\" (R4) and should carry one span up to \"erythrocyte sedimentation rate\"; that span exceeds the 120-character context, so it is given here only up to LDH as in p022."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:6000837",
+          "hpo_label": "Positive respiratory tract SARS-CoV-2 coronavirus nucleic acid test",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "PCR were positive for RNA specific to SARS-CoV-2",
+          "context": "The results of the PCR were positive for RNA specific to SARS-CoV-2",
+          "severity": "arguable",
+          "note": "Abnormal laboratory finding on the oropharyngeal swab with an exact term; arguable because R0 excludes pathogens themselves."
+        },
+        {
+          "hpo_id": "HP:6001328",
+          "hpo_label": "Positive Mycobacterium tuberculosis sputum culture",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "growth of Mycobacterium tuberculosis",
+          "context": "growth of Mycobacterium tuberculosis",
+          "severity": "arguable",
+          "note": "Positive culture result with a fitting term; the sentence does not name the sample, the context implies sputum, and R0 excludes pathogens themselves."
+        },
+        {
+          "hpo_id": "HP:5210111",
+          "hpo_label": "Tuberculosis infection",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "TB",
+          "context": "probable case of TB",
+          "severity": "arguable",
+          "note": "The only place that names the diagnosis is hedged, tests confirm it later; the pinned release has this term (and Pulmonary tuberculosis, HP:0032262), although R0 lists tuberculosis as having none."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100658:native",
+      "document_sha256": "7456f82518e9fbc5b545c66b94265338c86c512f23616fa65b1ffd54b162cead",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100700:native",
+      "document_sha256": "8f4f98c5eeeb43af3cf287c64c47244c85bf978eea6e0e78033e17f8b83e90c0",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100705:native",
+      "document_sha256": "98ef222b75442b72981dbbb8be97b7663a7fedc1159a0538899d5001b209a31b",
+      "issues": [
+        {
+          "proposal_id": "p003",
+          "kind": "not_a_finding",
+          "severity": "arguable",
+          "correction": {},
+          "note": "\"occasional alcoholic\" describes occasional drinking that has stopped, which does not support addictive alcohol use."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:6000837",
+          "hpo_label": "Positive respiratory tract SARS-CoV-2 coronavirus nucleic acid test",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "positive to SARS-CoV-2",
+          "context": "the first was positive to SARS-CoV-2",
+          "severity": "arguable",
+          "note": "RT-PCR of the distal bronchial sample was positive, an abnormal laboratory finding with an exact term; arguable because R0 excludes pathogens themselves."
+        }
+      ]
+    }
+  ]
+}

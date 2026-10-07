@@ -1,0 +1,202 @@
+{
+  "schema_version": "e3c-hpo-crossread/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "rest92-opus-v3",
+  "batch_id": "batch-05",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:es:ES100284:native",
+      "document_sha256": "574bc57051fae98e0d3c6efc9871e2d07ea0b83c762a30e7c1a0d91d5d75ca43",
+      "issues": [
+        {
+          "proposal_id": "p001",
+          "kind": "missing_occurrence",
+          "severity": "arguable",
+          "correction": {"phrase": "CU", "context": "Colitis Ulcerosa (CU)"},
+          "note": "The abbreviation in parentheses names the finding again (R5), although it is a poor single-term input."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100310:native",
+      "document_sha256": "ff6256fa05c048f58e24298c0829bbce71c04efaa672e975cd7f83f860cbc888",
+      "issues": [
+        {
+          "proposal_id": "p004",
+          "kind": "not_a_finding",
+          "severity": "arguable",
+          "correction": {},
+          "note": "Tube feeding is a treatment, which R0 excludes; the exception for terms HPO models as phenotypes is stated only for diagnoses."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100410:native",
+      "document_sha256": "937b13afc92e3ea9d5eff6b31937be91c262546213abc369ffa92fcff0ce8f11",
+      "issues": [
+        {
+          "proposal_id": "p012",
+          "kind": "extra_occurrence",
+          "severity": "arguable",
+          "correction": {"phrase": "manchas purpúreas en zona lateral del pie", "context": "manchas purpúreas en zona lateral del pie"},
+          "note": "The descriptive phrase does not express livedo reticularis on its own (R2); only the parenthetical names the term."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100417:native",
+      "document_sha256": "6b45f918cd5a613cce1b7243591bd266827008b5db83a7cc810d3b064ad09728",
+      "issues": [],
+      "missed": [
+        {
+          "hpo_id": "HP:0430086",
+          "hpo_label": "Anti-rubella antibody positivity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "Rubéola, ambos positivos",
+          "context": "Rubéola, ambos positivos",
+          "severity": "arguable",
+          "note": "Rubella serology is stated positive for the child like the other serology lines that were proposed; it is vaccine-induced, so it may count as a normal finding."
+        },
+        {
+          "hpo_id": "HP:0430086",
+          "hpo_label": "Anti-rubella antibody positivity",
+          "assertion": "present",
+          "experiencer": "family_member",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "Rubéola, ambos positivos",
+          "context": "Rubéola, ambos positivos",
+          "severity": "arguable",
+          "note": "Rubella serology is stated positive for the mother as well; same shared serology line as for the child, attributed to vaccination."
+        },
+        {
+          "hpo_id": "HP:0430084",
+          "hpo_label": "Anti-lymphocytic choriomeningitis antibody positivity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "Virus de la coriomeningitis linfocitaria, los dos positivos",
+          "context": "Virus de la coriomeningitis linfocitaria, los dos positivos",
+          "severity": "arguable",
+          "note": "The text calls the child positive but the low titre not significant, so present or no annotation are both defensible."
+        },
+        {
+          "hpo_id": "HP:0430084",
+          "hpo_label": "Anti-lymphocytic choriomeningitis antibody positivity",
+          "assertion": "present",
+          "experiencer": "family_member",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "Virus de la coriomeningitis linfocitaria, los dos positivos",
+          "context": "Virus de la coriomeningitis linfocitaria, los dos positivos",
+          "severity": "arguable",
+          "note": "The mother is called positive with a low titre, as in the CMV and herpes lines that were proposed as present for her."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100423:native",
+      "document_sha256": "72e55a60201cfeef9c40d8ec0988c97d297c6177c74f75d309830c06b6dfd903",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100519:native",
+      "document_sha256": "ddf1dc262f69fbd9c1d48870bb8eee8bf4ac75dc92e211194d6dd77aedd945a5",
+      "issues": [
+        {
+          "proposal_id": "p008",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {"hpo_id": "HP:0033045", "hpo_label": "Bipedal edema"},
+          "note": "The edema is stated for both legs, and the lookup offers the bilateral term next to Pedal edema (R1)."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0005244",
+          "hpo_label": "Gastrointestinal infarctions",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "placa de necrosis en el colon sigmoide",
+          "context": "placa de necrosis en el colon sigmoide",
+          "severity": "arguable",
+          "note": "Necrosis of the sigmoid wall found at surgery has no proposal; the term fits only if the necrosis is read as ischaemic, which the text does not state."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100521:native",
+      "document_sha256": "00d466a3fd6eced2f7bbfc59da85e918185665c54e1572b50b9b65a45ab1e55d",
+      "issues": [],
+      "missed": [
+        {
+          "hpo_id": "HP:0020013",
+          "hpo_label": "Slough",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "esfacelos",
+          "context": "reducir la mayor parte de los esfacelos y escaras",
+          "severity": "arguable",
+          "note": "Wound slough is named three times (also 'persistencia de esfacelos' and 'esfacelos residuales') without a proposal; the term definition could not be checked beyond its label."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100578:native",
+      "document_sha256": "3cf1e06ade256f9b4f5cc44e7e60821dca89ca1a4e980f01428c8fd42b117e5e",
+      "issues": [
+        {
+          "proposal_id": "p020",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {"phrase": "cortocircuito cardiaco", "context": "cortocircuito cardiaco"},
+          "note": "The span contains the hedging cue 'sugiriendo' (R2); the hedged finding is 'cortocircuito cardiaco', which alone expresses only Cardiac shunt (HP:0001693)."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100605:native",
+      "document_sha256": "bfc522aa4e3aa1eb326825ddc1a6ca61e4451601fd3c2b574e4c917dab1fa744",
+      "issues": [
+        {
+          "proposal_id": "p008",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "una lesión inflamatoria de carácter necrotizante, evidenciándose cambios citopáticos propios de infección herpética",
+            "context": "una lesión inflamatoria de carácter necrotizante, evidenciándose cambios citopáticos propios de infección herpética"
+          },
+          "note": "The marked span does not carry the herpetic aetiology that HSV hepatitis needs (R2); it is stated only in the following clause."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100634:native",
+      "document_sha256": "0ea5376e8e29f020e39d34b59e33239b930cf95cdc2e59ecda4be70edfb435a7",
+      "issues": [
+        {
+          "proposal_id": "p004",
+          "kind": "not_a_finding",
+          "severity": "arguable",
+          "correction": {},
+          "note": "R0 names metastasis as disease course without a matching phenotype term; Neoplasm of the liver is a substitute for it."
+        }
+      ],
+      "missed": []
+    }
+  ]
+}

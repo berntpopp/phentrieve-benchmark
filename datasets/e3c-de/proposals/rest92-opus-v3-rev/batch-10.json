@@ -1,0 +1,208 @@
+{
+  "schema_version": "e3c-hpo-proposal-batch/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "rest92-opus-v3-rev",
+  "batch_id": "batch-10",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100994:native",
+      "document_sha256": "5e226a4965c72360ab5dcbbe3d2c8d59a5d972584c9c5b79499486bfd0433d08",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0100743",
+          "hpo_label": "Neoplasm of the rectum",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "cancer du rectum",
+              "context": "cancer du rectum métastatique"
+            },
+            {
+              "phrase": "cancer du rectum",
+              "context": "cancer du rectum initialement opéré"
+            },
+            {
+              "phrase": "cancer colo-rectal",
+              "context": "d'un cancer colo-rectal multi-métastatique"
+            }
+          ],
+          "note": "HPO has no rectal or colorectal carcinoma term; 'cancer colo-rectal' names the same rectal cancer again, and the metastatic stage has no term."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0010622",
+          "hpo_label": "Neoplasm of the skeletal system",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "métastase osseuse",
+              "context": "avec une métastase osseuse temporale"
+            },
+            {
+              "phrase": "processus tumoral temporal",
+              "context": "révélant un processus tumoral temporal"
+            },
+            {
+              "phrase": "métastase osseuse",
+              "context": "d'une métastase osseuse crânio-faciale"
+            }
+          ],
+          "note": "HPO has no metastasis or skull tumour term; the temporal bone lesion is coded as a bone neoplasm, and only its metastatic nature is hedged in the text."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0000520",
+          "hpo_label": "Proptosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "exophtalmie",
+              "context": "le patient présentait une exophtalmie gauche"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100996:native",
+      "document_sha256": "78e87c43303e84a57bed4cfe1fd0a82b83f59fb7c502dbc094c591c66814161d",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0002933",
+          "hpo_label": "Ventral hernia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hernie de Spiegel",
+              "context": "un cas de hernie de Spiegel compliquée d'occlusion"
+            },
+            {
+              "phrase": "sac herniaire",
+              "context": "un sac herniaire avec un collet mesuré à 13 mm"
+            },
+            {
+              "phrase": "hernie de spiegel",
+              "context": "Le diagnostic de hernie de spiegel étranglée"
+            }
+          ],
+          "note": "HPO has no Spigelian hernia term; a Spigelian hernia is a lateral ventral hernia, the parent would be Hernia of the abdominal wall (HP:0004299)."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0005214",
+          "hpo_label": "Intestinal obstruction",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "occlusion",
+              "context": "compliquée d'occlusion chez une femme de 86 ans"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0002027",
+          "hpo_label": "Abdominal pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "douleurs de la fosse iliaque droite",
+              "context": "pour des douleurs de la fosse iliaque droite d'apparitions brutales"
+            }
+          ],
+          "note": "No term for right lower quadrant pain; Acute abdomen (HP:0033400) was considered for the sudden onset but the text does not state severity."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0002013",
+          "hpo_label": "Vomiting",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "vomissements",
+              "context": "associées à des vomissements"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0001945",
+          "hpo_label": "Fever",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "fébrile",
+              "context": "une patiente fébrile (38,2°)"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0031500",
+          "hpo_label": "Abdominal mass",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "masse localisée à la fosse iliaque droite",
+              "context": "une masse localisée à la fosse iliaque droite ferme"
+            }
+          ],
+          "note": "The text does not place the mass in the abdominal wall, so Abdominal wall mass (HP:6000171) was not chosen."
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0033404",
+          "hpo_label": "Intestinal ischemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "paroi de l'anse incarcérée ne se rehaussait pas",
+              "context": "La paroi de l'anse incarcérée ne se rehaussait pas après injection"
+            },
+            {
+              "phrase": "ischémie artérielle de la paroi digestive",
+              "context": "avec signe d'ischémie artérielle de la paroi digestive"
+            }
+          ],
+          "note": "The diagnosis is stated as retained, so present; the missing wall enhancement on CT is marked as the imaging wording of the same finding."
+        }
+      ]
+    }
+  ]
+}

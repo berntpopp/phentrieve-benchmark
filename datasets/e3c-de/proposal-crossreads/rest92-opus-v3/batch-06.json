@@ -1,0 +1,160 @@
+{
+  "schema_version": "e3c-hpo-crossread/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "rest92-opus-v3",
+  "batch_id": "batch-06",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:es:ES100642:native",
+      "document_sha256": "128ff83daaf515de3b9c41ce35db34bbe69faf241da96eea053d121ee5613d83",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100650:native",
+      "document_sha256": "d512f67a3e122574ab95b366e56aef75d4fb6d86c5df5c31b04892b700a2e18d",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100659:native",
+      "document_sha256": "88e1eb82a2eb553f74f056868cbab975605903bd72a6d6469e3c0ae3a5785bde",
+      "issues": [
+        {
+          "proposal_id": "p003",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0033400",
+            "hpo_label": "Acute abdomen"
+          },
+          "note": "Acute abdomen carries the synonym 'Acute abdominal pain', which matches 'dolor agudo en hemiabdomen'; Abdominal pain stays defensible because peritoneal irritation is excluded."
+        },
+        {
+          "proposal_id": "p010",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "pseudoquiste pancreático hemorrágico",
+            "context": "pseudoquiste pancreático hemorrágico"
+          },
+          "note": "R4: the pseudocyst wording is shared with the hemorrhage term (p011), so both terms would carry the whole construction."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0002586",
+          "hpo_label": "Peritonitis",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "irritación peritoneal",
+          "context": "sin irritación peritoneal",
+          "severity": "arguable",
+          "note": "Negated examination finding named in the text; there is no term for peritoneal signs, so Peritonitis is the closest fit."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100705:native",
+      "document_sha256": "5d83ad3623b0da37201dfd6ea9b16b68cb576606c981bb979f6240437681ea54",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100713:native",
+      "document_sha256": "c86b06e0d22584d8ed5df298ddc0fe7e314370e7d453a47920fc6e4d0376f156",
+      "issues": [
+        {
+          "proposal_id": "p004",
+          "kind": "wrong_status",
+          "severity": "arguable",
+          "correction": {
+            "assertion": "absent"
+          },
+          "note": "The authors reject the hemangioma conclusion (GLUT-1 negative) and name venous malformation as the correct diagnosis, which reads as refuted rather than suspected."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0012289",
+          "hpo_label": "Facial neoplasm",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "tumoración malar",
+          "context": "consultó por una tumoración malar izquierda progresiva",
+          "severity": "arguable",
+          "note": "The presenting malar lump has no proposal; 'Face tumor' is a synonym of this term, but the fit is loose since the lump proved to be a venous malformation."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100715:native",
+      "document_sha256": "fdac7bd0b675ee69c50b428c2cc9574b6210cbe7c52a8caf70e09fc1a34b03b1",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100737:native",
+      "document_sha256": "6932692fce378fc2319212ea5ec6fce7ceeb8a6fb55817bfd4224530e33f9fbd",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100760:native",
+      "document_sha256": "4017cbd1d7e1775f5ed9b698c5956d176712e49503b52d66a8067d9708302810",
+      "issues": [
+        {
+          "proposal_id": "p004",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0012534",
+            "hpo_label": "Dysesthesia"
+          },
+          "note": "'Quemazón' is a burning, unpleasant sensation, which fits Dysesthesia better than Paresthesia (tingling or numbness)."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100797:native",
+      "document_sha256": "e68070a53ea076f9e460988602659d04b8568627a1ed9fc42c417274e0d75376",
+      "issues": [
+        {
+          "proposal_id": "p012",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "neuropatía axonal de dicho nervio",
+            "context": "compatible con una neuropatía axonal de dicho nervio"
+          },
+          "note": "R4: 'neuropatía axonal' is shared with the Mononeuropathy term (p013), so both terms would carry the whole construction."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0100699",
+          "hpo_label": "Scarring",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "cicatriz",
+          "context": "disestesias en la zona de la cicatriz",
+          "severity": "arguable",
+          "note": "The surgical scar is named as the site of the dysesthesia and treated as 'cicatriz disestésica'; whether a postoperative scar counts as a finding under R0 is open."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100819:native",
+      "document_sha256": "8a46558501f6b09191b346d68fcfd247dd35e0fa241c623c09cb9fdd4342c777",
+      "issues": [],
+      "missed": []
+    }
+  ]
+}

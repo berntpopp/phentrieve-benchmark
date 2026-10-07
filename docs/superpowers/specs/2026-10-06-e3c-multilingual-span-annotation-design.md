@@ -260,11 +260,16 @@ is exercised end to end only with synthetic data until then. The pilot shows
 the rejection rate and proposal quality; the prompt is revised if needed. The full run starts only
 after explicit confirmation. Pilot outputs are kept as their own run.
 
-Status 2026-10-07: four pilots with 27 reports are tracked; prompt, lookup,
-and validator were revised between them. Proposals count as results only
-after they were cross-read against the text: a run of 60 further reports
-was proposed by Sonnet subagents and cross-read by Opus subagents. Results,
-measurements, and decisions are recorded in
+Status 2026-10-07: all 185 reports of the original-language groups have
+validated proposals (2,242 proposals); the German group waits for its
+translation review. Four pilots with 27 reports and a run of 60 further
+reports were proposed by Sonnet subagents and revised by Opus subagents, the
+60 after an Opus cross-read; the other 98 reports were proposed by Opus.
+The cross-read is a check of Sonnet proposals: a cross-read of 92 Opus
+reports found 8 clear points in 1,213 proposals, which were applied by
+script, and Opus proposals get no further cross-read. Per report,
+`datasets/e3c-de/proposals/current-proposals.json` names the run and the
+steps. Results, measurements, and decisions are recorded in
 `datasets/e3c-de/proposals/README.md`.
 
 ## 7. Phase 3: Editor Packages

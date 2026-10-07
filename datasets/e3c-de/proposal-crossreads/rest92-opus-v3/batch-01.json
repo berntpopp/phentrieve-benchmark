@@ -1,0 +1,227 @@
+{
+  "schema_version": "e3c-hpo-crossread/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "rest92-opus-v3",
+  "batch_id": "batch-01",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:en:EN100017:native",
+      "document_sha256": "d56d319068dd6bd37f9010a06fc8cadcc54f09b7129ac82dd2b534e48dbcd4bb",
+      "issues": [
+        {
+          "proposal_id": "p003",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "oedema from the feet to the knees",
+            "context": "pitting oedema from the feet to the knees"
+          },
+          "note": "R2: the leading modifier 'pitting' does not determine Pedal edema; the shorter phrase expresses the term."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100029:native",
+      "document_sha256": "6057fe87ad18ee1694fe2441803a0394da465e69637100c201d7422a39d6672a",
+      "issues": [
+        {
+          "proposal_id": "p008",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0030235",
+            "hpo_label": "Extremely elevated creatine kinase"
+          },
+          "note": "R1: 59000 U/L is about 300 times the stated upper limit of 200 U/L, which supports the graded term."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100046:native",
+      "document_sha256": "bea5519fd5a8e80b3a636d4ed68c62e83cbc937fe274416855a5bdc887776afb",
+      "issues": [
+        {
+          "proposal_id": "p010",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0012133",
+            "hpo_label": "Erythroid hypoplasia"
+          },
+          "note": "The phrase is a bone marrow aspirate finding, not a blood count; anaemia is already covered by p009."
+        },
+        {
+          "proposal_id": "p012",
+          "kind": "extra_occurrence",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "decreased red cells and platelets",
+            "context": "Bone marrow aspirate showed decreased red cells and platelets"
+          },
+          "note": "Marrow aspirate finding rather than an occurrence of the blood thrombocytopenia; see the missed entry."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:0005548",
+          "hpo_label": "Megakaryocytopenia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "decreased red cells and platelets",
+          "context": "Bone marrow aspirate showed decreased red cells and platelets",
+          "severity": "arguable",
+          "note": "Read as a marrow finding, the decreased platelets in the aspirate point to reduced megakaryocytes (R4 shared span)."
+        },
+        {
+          "hpo_id": "HP:0004400",
+          "hpo_label": "Abnormality of the pylorus",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "pylorus thickening",
+          "context": "gross pylorus thickening with regional lymphadenopathy",
+          "severity": "arguable",
+          "note": "Abnormal CT finding without a proposal; only the general pylorus term is available."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100067:native",
+      "document_sha256": "bb206ae50c8ed2cc5c879467a7ecc90d124f08776aa9a282b94a480360a5f236",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100075:native",
+      "document_sha256": "c2dffd605e534d7f65c9ad3de434550cff15d7e506d20702856de39d951b22e8",
+      "issues": [
+        {
+          "proposal_id": "p002",
+          "kind": "wrong_span",
+          "severity": "clear",
+          "correction": {
+            "phrase": "lumbar region mass",
+            "context": "There was a right lumbar region mass"
+          },
+          "note": "R2: laterality at the edge of the span does not determine Flank mass; replace 'right lumbar region mass'."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100090:native",
+      "document_sha256": "5abd85942863efce44d86b7b3ece17677b1dae1889ac6fc22038eade90315ace",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100156:native",
+      "document_sha256": "0b19fca1121f6b521fa023a09710eac0d1f63514f04b9729cb2688b369494959",
+      "issues": [
+        {
+          "proposal_id": "p005",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "knee, but flexion was restricted",
+            "context": "He could fully extend his knee, but flexion was restricted to only 110 degrees"
+          },
+          "note": "R2: 'flexion was restricted' does not express the knee term on its own; the joint is named just before."
+        },
+        {
+          "proposal_id": "p006",
+          "kind": "wrong_term",
+          "severity": "arguable",
+          "correction": {
+            "hpo_id": "HP:0045086",
+            "hpo_label": "Knee joint hypermobility"
+          },
+          "note": "R1: the instability is tested on the knee, so the knee-specific child of Joint hypermobility is supported."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:6000591",
+          "hpo_label": "Loose body in joint",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "phrase": "intraarticular calcific and ossific loose bodies",
+          "context": "multiple intraarticular calcific and ossific loose bodies",
+          "severity": "clear",
+          "note": "MRI finding without a proposal; a second occurrence is 'loose bodies' in 'multiple loose bodies within this compartment'."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100339:native",
+      "document_sha256": "c8c3897bfb45c6f3e9786992180c3c0c1e979753a1901ee28033e41d17fe4564",
+      "issues": [],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100372:native",
+      "document_sha256": "e02897fa491ec55556b601a3549b96a4a9ab0efe804c365dde60178905701653",
+      "issues": [
+        {
+          "proposal_id": "p016",
+          "kind": "not_a_finding",
+          "severity": "arguable",
+          "correction": {},
+          "note": "R1: single value listed under the verbalized pancytopenia; a component term next to Pancytopenia doubles the same finding."
+        },
+        {
+          "proposal_id": "p018",
+          "kind": "not_a_finding",
+          "severity": "arguable",
+          "correction": {},
+          "note": "R1: single value listed under the verbalized pancytopenia; a component term next to Pancytopenia doubles the same finding."
+        },
+        {
+          "proposal_id": "p019",
+          "kind": "not_a_finding",
+          "severity": "arguable",
+          "correction": {},
+          "note": "R1: single value listed under the verbalized pancytopenia; a component term next to Pancytopenia doubles the same finding."
+        }
+      ],
+      "missed": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN100376:native",
+      "document_sha256": "acb5f8e284777e9a340ce03dbd53bc3a1bf288943f34ea7aa6536d006b05df25",
+      "issues": [
+        {
+          "proposal_id": "p011",
+          "kind": "wrong_span",
+          "severity": "arguable",
+          "correction": {
+            "phrase": "abdomen appeared neither tender nor distended",
+            "context": "The abdomen appeared neither tender nor distended"
+          },
+          "note": "R2/R4: 'distended' alone does not express Abdominal distention; the subject is part of the construction."
+        }
+      ],
+      "missed": [
+        {
+          "hpo_id": "HP:6000820",
+          "hpo_label": "Elevated osmolality gap",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "phrase": "osmotic gap was 45",
+          "context": "The osmotic gap was 45.",
+          "severity": "arguable",
+          "note": "Uninterpreted value among the blood results; pathological if a serum osmolal gap is meant, but the text does not say which gap."
+        }
+      ]
+    }
+  ]
+}
