@@ -11,6 +11,27 @@ Earlier versions: [v1](../../../configs/prompts/hpo-span-proposal-v1.md)
 (`pilot-v1`), [v2](../../../configs/prompts/hpo-span-proposal-v2.md)
 (`pilot-v2`, `pilot-v2-extra`). Each run keeps its own copy as `prompt.md`.
 
+## Current proposals
+
+[`current-proposals.json`](current-proposals.json) lists the 93 reports that
+have proposals to work with (31 per original language, half of the 185
+reports of the original-language groups): 1,026 proposals with 1,225
+mentions, all validated. Per report it names the run whose `validation.json`
+holds the current proposals and the steps that produced them, each with
+model, prompt, run date, and guideline commit.
+
+| Reports | Current run | Steps |
+|---:|---|---|
+| 60 | `sample60-v3-rev` | Sonnet 5.5 proposes, Opus 5.5 cross-reads, Opus 5.5 revises |
+| 27 | `pilot-v2-rev`, `pilot-v2-extra-rev`, `pilot-v3-rev` | Sonnet 5.5 proposes, Opus 5.5 revises |
+| 6 | `sample6-opus-v3` | Opus 5.5 proposes |
+
+The runs they are based on (`sample60-v3`, `pilot-v2`, `pilot-v2-extra`,
+`pilot-v3`) stay unchanged as the record of the first step. Whether a single
+proposal was kept, changed, or added by the revision follows from comparing
+the `proposal_id`s of the two runs: a revised proposal keeps its number, an
+added one gets a new number.
+
 ## Run layout
 
 Each run lives in `<run_id>/`:
@@ -119,6 +140,11 @@ all German reports again, including those of the earlier run.
 | `pilot-v2-extra` | `claude-sonnet-5-5` | 9 | 0 | `b9e654c7fafc573136fe84077657c9b2baa0192d64c9cd1e6efc20d61c33a8cf` | pilot, prompt v2, nine further reports; see below |
 | `pilot-v3` | `claude-sonnet-5-5` | 9 | 0 | `ae24e1d706c1c12cf3ad1ae32a8eda8350cd10c57915169bb58fe43d635f4dd0` | pilot, prompt v3 and restricted lookup, nine further reports; see below |
 | `sample60-v3` | `claude-sonnet-5-5` | 60 | 0 | `b8cace6c5c2f2e0a8c0b953b732b757384a14eed5b6fe1498e8f8c7a6cdf0228` | 60 further reports, prompt v3, cross-read by `claude-opus-5-5`; see below |
+| `sample60-v3-rev` | `claude-opus-5-5` | 60 | 0 | `f66065a0716938906ca9a8cefa517cbb6668bc34be7e36e4aca7c9ca14fd0fc8` | revision of `sample60-v3` with its cross-read; current |
+| `pilot-v2-rev` | `claude-opus-5-5` | 9 | 0 | `6db68be2f8a282cb34edc9bb207bfc839dc0f6da586b5d28d0963daedfb82a69` | revision of `pilot-v2`; current |
+| `pilot-v2-extra-rev` | `claude-opus-5-5` | 9 | 0 | `d3df6c9af416cda441407a3f94d8318477b92045c1fa79d91f65a2b7b002b9b6` | revision of `pilot-v2-extra`; current |
+| `pilot-v3-rev` | `claude-opus-5-5` | 9 | 0 | `12c08e2f34bc3fe6d849365f1feaec3aa3a0ac48cffa1281ec80896bb023055c` | revision of `pilot-v3`; current |
+| `sample6-opus-v3` | `claude-opus-5-5` | 6 | 0 | `c8e1765f0cdb38c12f440973739903fa4e90d3a4f80abdf1748471b3d45f8519` | 6 further reports, prompt v3; current |
 
 The three earlier pilots were validated again on 2026-10-06 after the
 validator began to reject terms outside *Phenotypic abnormality*; the table
@@ -488,6 +514,13 @@ The 18 pilot reports that were only validated do not count as results until
 they are cross-read. All pilots also predate the guideline clarifications
 above.
 
+Narrowed on 2026-10-07: the cross-reading was meant as a check of the Sonnet
+proposals. Proposals written by Opus count without a further cross-read, and
+the runs need not all follow the same steps, as long as each report records
+how its proposals came about. The table above is superseded by the section
+"Revision runs and sample6-opus-v3" at the end and by
+[`current-proposals.json`](current-proposals.json).
+
 ## Sample run sample60-v3 with agentic cross-reading
 
 Run date 2026-10-06 (UTC). Sixty reports that were in no pilot: 20 per
@@ -605,3 +638,78 @@ Observations for the guideline and the lookup:
 Open: whether and how the cross-read corrections are applied to the
 proposals. They are structured (term, status, phrase with context), so the
 clear ones could be applied mechanically and validated like a batch output.
+
+## Revision runs and sample6-opus-v3
+
+Run date 2026-10-07, same corpus. Purpose: proposals to work with for half
+of the original-language reports, not a comparison of procedures.
+
+### Procedure
+
+- Revision runs (`sample60-v3-rev`, `pilot-v2-rev`, `pilot-v2-extra-rev`,
+  `pilot-v3-rev`): one `claude-opus-5-5` subagent per batch with the prompt
+  [`configs/prompts/hpo-span-revision-v1.md`](../../../configs/prompts/hpo-span-revision-v1.md).
+  Its input per report is the text, the first-pass annotations of the source
+  run with the validator's rejections, and, for `sample60-v3`, the
+  cross-read points of that report. Its output is a batch file in the
+  proposal format, validated like any run. A revision run has the batches of
+  its source run; `run.json` records the revision prompt, the model, and the
+  guideline version at the time of the revision. The source run is recorded
+  in `current-proposals.json`.
+- `pilot-v2-rev` covers the nine reports of `pilot-v1` and `pilot-v2`.
+- `sample6-opus-v3`: `claude-opus-5-5` proposes with prompt v3 for six
+  further reports, per language the next long and the next medium report in
+  the pilot's seeded order (EN100668, EN107465, ES100079, ES100947,
+  FR100371, FR100510). No cross-read.
+- The revision runs and the index were prepared with local scripts in the
+  git-ignored `.artifacts/proposals/_tools/` (`revise_prepare.py`,
+  `revise_report.py`, `write_index.py`).
+
+### Validation
+
+Every run validated on the first attempt; no batch was dispatched again, no
+proposal or mention was rejected, and there is no label warning.
+
+| Run | Proposals before | Proposals | Mentions | Subagent tokens |
+|---|---:|---:|---:|---:|
+| `sample60-v3-rev` | 530 | 646 | 784 | 894,526 |
+| `pilot-v2-rev` | 103 | 125 | 138 | 157,384 |
+| `pilot-v2-extra-rev` | 57 | 77 | 90 | 114,895 |
+| `pilot-v3-rev` | 111 | 133 | 161 | 161,047 |
+| `sample6-opus-v3` | - | 45 | 52 | 102,725 |
+| Total | | 1,026 | 1,225 | 1,430,577 |
+
+### sample60-v3-rev against sample60-v3 and its cross-read
+
+Of the 530 first-pass proposals, 394 are unchanged, 130 changed (111 in
+their spans, 30 in the term, 3 in the status), and 6 dropped; 122 were
+added. Of the cross-read's clear points, 76 of 80 issues and 48 of 48 missed
+findings are found in the revision as corrected; the other 4 issues were
+applied in a modified form (for example a more specific term than the
+correction named). Of the arguable points, 62 of 100 issues and 66 of 92
+missed findings were taken over.
+
+The main session read 14 randomly chosen changes against the text (not a
+physician review): 9 fit the guideline without doubt, 5 are defensible but
+arguable, none is clearly wrong.
+
+### Known unevenness, left to the physician review
+
+- Span length: edge words are trimmed, but some spans grew to a whole clause
+  so that they express the term on their own (56 mentions of
+  `sample60-v3-rev` are longer than 50 characters, 27 before; the longest
+  has 90). The guideline does not say what applies when site and finding
+  stand far apart.
+- Positive cultures and pathogen tests: *Bacteremia* for a positive blood
+  culture is verbalized in EN100655 and not verbalized in FR100603;
+  `pilot-v2-rev` adds test results where HPO has a term for exactly that
+  test.
+- Tuberculosis as a diagnosis: in FR100611 `sample60-v3-rev` follows the R0
+  example and does not take over *Tuberculosis infection* and *Disseminated
+  tuberculosis infection* from the cross-read; in ES100561
+  `pilot-v2-extra-rev` proposes *Extrapulmonary tuberculosis*. Findings
+  such as a tuberculoma or a positive tuberculin test are proposed in both.
+- `sample6-opus-v3` proposes a general and a specific term for the same
+  lesion where the text names it at two levels (for example *Renal neoplasm*
+  and *Renal cell carcinoma* in ES100079), each with a note; R1 excludes
+  ancestor terms for the same finding.

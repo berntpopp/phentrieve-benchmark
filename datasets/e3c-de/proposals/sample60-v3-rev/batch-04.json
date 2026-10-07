@@ -1,0 +1,1487 @@
+{
+  "schema_version": "e3c-hpo-proposal-batch/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "sample60-v3-rev",
+  "batch_id": "batch-04",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:es:ES100663:native",
+      "document_sha256": "3416e473ae7cbc7efc6205d88f65c448e9d428ebdfae598cb748999f00ad0ac1",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0001513",
+          "hpo_label": "Obesity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "obesidad",
+              "context": "antecedentes personales de obesidad, HTA"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0000822",
+          "hpo_label": "Hypertension",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "HTA",
+              "context": "obesidad, HTA, fibromialgia"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0011868",
+          "hpo_label": "Sciatica",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "lumbociática",
+              "context": "consistente en lumbociática rebelde"
+            },
+            {
+              "phrase": "lumbociática",
+              "context": "Diagnosticada de lumbociática por"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0002015",
+          "hpo_label": "Dysphagia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "disfagia",
+              "context": "disfagia progresiva y pérdida de peso"
+            },
+            {
+              "phrase": "disfagia",
+              "context": "y disfagia a líquidos"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0001824",
+          "hpo_label": "Weight loss",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "pérdida de peso",
+              "context": "disfagia progresiva y pérdida de peso"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0003419",
+          "hpo_label": "Low back pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "lumbalgia",
+              "context": "presenta lumbalgia que imposibilita"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0001945",
+          "hpo_label": "Fever",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "afebril",
+              "context": "hemodinámicamente estable y afebril"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0002240",
+          "hpo_label": "Hepatomegaly",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hepatomegalia",
+              "context": "se palpa hepatomegalia de 3 cm"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0003418",
+          "hpo_label": "Back pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "dolor muy importante a la palpación de la columna dorsal",
+              "context": "y dolor muy importante a la palpación de la columna dorsal"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0002716",
+          "hpo_label": "Lymphadenopathy",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "adenopatías periféricas",
+              "context": "No se aprecian adenopatías periféricas"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0100751",
+          "hpo_label": "Esophageal neoplasm",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "efecto masa en tercio superior esofágico",
+              "context": "observando efecto masa en tercio superior esofágico"
+            },
+            {
+              "phrase": "masa de color marrón-negro en tercio superior esofágico",
+              "context": "aprecia una masa de color marrón-negro en tercio superior esofágico"
+            },
+            {
+              "phrase": "masa esofágica",
+              "context": "origen osteoporótico en columna dorsal y masa esofágica"
+            },
+            {
+              "phrase": "masa tumoral en tercio superior esofágico",
+              "context": "captación en forma de masa tumoral en tercio superior esofágico"
+            }
+          ],
+          "note": "The text calls it a tumour mass and histology shows melanoma; Esophageal mass (HP:6000247) is the literal alternative."
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0002861",
+          "hpo_label": "Melanoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "melanoma maligno",
+              "context": "Anatomía patológica: melanoma maligno"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:0041084",
+          "hpo_label": "Compression-fractured thoracic vertebra",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "aplastamientos vertebrales osteoporóticos",
+              "context": "compatibles con aplastamientos vertebrales osteoporóticos"
+            }
+          ],
+          "note": "The lesions lie at D7 and D9-D12; the span does not carry the level."
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:0008441",
+          "hpo_label": "Herniation of intervertebral nuclei",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hernia discal",
+              "context": "fibromialgia y hernia discal D3-D4"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p015",
+          "hpo_id": "HP:0000939",
+          "hpo_label": "Osteoporosis",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "aplastamientos vertebrales osteoporóticos",
+              "context": "compatibles con aplastamientos vertebrales osteoporóticos"
+            }
+          ],
+          "note": "Span shared with the compression fracture (R4); the later diagnosis repeats it as 'de origen osteoporótico'."
+        },
+        {
+          "proposal_id": "p016",
+          "hpo_id": "HP:0002540",
+          "hpo_label": "Inability to walk",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "imposibilita la deambulación",
+              "context": "lumbalgia que imposibilita la deambulación"
+            }
+          ],
+          "note": "Walking is made impossible by the pain."
+        },
+        {
+          "proposal_id": "p017",
+          "hpo_id": "HP:0004791",
+          "hpo_label": "Esophageal ulceration",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "ulcerada",
+              "context": "submucosa, no ulcerada"
+            }
+          ],
+          "note": "Endoscopy names ulceration of the esophageal mass and negates it."
+        },
+        {
+          "proposal_id": "p018",
+          "hpo_id": "HP:0002896",
+          "hpo_label": "Neoplasm of the liver",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "metástasis hepáticas",
+              "context": "existencia de metástasis hepáticas en segmento IV"
+            },
+            {
+              "phrase": "metástasis hepáticas múltiples y óseas",
+              "context": "implantes mesentéricos, metástasis hepáticas múltiples y óseas"
+            }
+          ],
+          "note": "Liver metastases; HPO has no metastasis term, the organ neoplasm term is the closest."
+        },
+        {
+          "proposal_id": "p019",
+          "hpo_id": "HP:0010622",
+          "hpo_label": "Neoplasm of the skeletal system",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "metástasis hepáticas múltiples y óseas",
+              "context": "implantes mesentéricos, metástasis hepáticas múltiples y óseas"
+            }
+          ],
+          "note": "Bone metastases; HPO has no metastasis term, the span is shared with the liver metastases (R4)."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100686:native",
+      "document_sha256": "2b14858085667c4649b7c44034efdf419b8bb9f065300a6c3566799847d14670",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0000486",
+          "hpo_label": "Strabismus",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "estrabismo",
+              "context": "y presentaba estrabismo"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0000329",
+          "hpo_label": "Facial hemangioma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hemangioma",
+              "context": "exéresis del hemangioma fibrosado"
+            }
+          ],
+          "note": "The lesion lies in the nasoorbital groove and on the nasal dorsum; the span does not carry the site."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0012733",
+          "hpo_label": "Macule",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "mancha azulada",
+              "context": "presentó mancha azulada en la región nasoorbitaria derecha"
+            }
+          ],
+          "note": "Bluish patch at birth, before the lesion grew into the hemangioma; Macule is the closest term."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100736:native",
+      "document_sha256": "3e05e83e7e818ceb40c5278c7b5532e07db75f134ddae964d8c374bbe8e7f772",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0004812",
+          "hpo_label": "B Acute Lymphoblastic Leukemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "leucemia linfoblástica aguda pre-B",
+              "context": "de una leucemia linfoblástica aguda pre-B"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0001873",
+          "hpo_label": "Thrombocytopenia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "trombocitopenia",
+              "context": "portener el paciente una trombocitopenia de 26.000/mm3"
+            },
+            {
+              "phrase": "trombocitopenia",
+              "context": "progresiva tendencia a la trombocitopenia"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0001873",
+          "hpo_label": "Thrombocytopenia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "34.000",
+              "context": "punciones fueron 34.000, 118.000"
+            },
+            {
+              "phrase": "118.000",
+              "context": "34.000, 118.000, 338.000"
+            }
+          ],
+          "note": "Platelet counts below normal before earlier punctures, not interpreted by the text."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0011868",
+          "hpo_label": "Sciatica",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "ciatalgia",
+              "context": "por ciatalgia derecha aislada"
+            },
+            {
+              "phrase": "dolor radicular",
+              "context": "al dolor radicular se asoció"
+            }
+          ],
+          "note": "'dolor radicular' names the sciatica again; HPO has no separate radicular pain term."
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0002385",
+          "hpo_label": "Paraparesis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "pérdida de fuerza en ambos MMII",
+              "context": "pérdida de fuerza en ambos MMII, que evolucionó"
+            },
+            {
+              "phrase": "paraparesia",
+              "context": "evolucionó rápidamente a una paraparesia bilateral"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0033748",
+          "hpo_label": "Hypoesthesia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "acorchamiento",
+              "context": "leve acorchamiento residual en miembros inferiores"
+            }
+          ],
+          "note": "Numbness after surgery."
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0002176",
+          "hpo_label": "Spinal cord compression",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "comprimía cono medular",
+              "context": "extraparenquimatoso que comprimía cono medular y cola de caballo"
+            },
+            {
+              "phrase": "comprimía dorsalmente el cono medular",
+              "context": "subaracnoideo comprimía dorsalmente el cono medular"
+            }
+          ],
+          "note": "Compression of the conus medullaris on MRI and at surgery; the MRI hedge concerns the hematoma."
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0003474",
+          "hpo_label": "Somatic sensory dysfunction",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "alteraciones de la sensibilidad ni de los esfínteres",
+              "context": "No se observaron alteraciones de la sensibilidad ni de los esfínteres"
+            }
+          ],
+          "note": "Span shared with the sphincter term (R4)."
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0002839",
+          "hpo_label": "Urinary bladder sphincter dysfunction",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "alteraciones de la sensibilidad ni de los esfínteres",
+              "context": "No se observaron alteraciones de la sensibilidad ni de los esfínteres"
+            },
+            {
+              "phrase": "alteraciones esfinterianas",
+              "context": "sin alteraciones esfinterianas"
+            }
+          ],
+          "note": "The text means the sphincters in general; the term has the synonym 'Sphincter disturbance' but covers the bladder sphincter."
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0011868",
+          "hpo_label": "Sciatica",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "dolor radicular",
+              "context": "esfinterianas ni dolor radicular"
+            }
+          ],
+          "note": "Radicular pain is negated after surgery."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100778:native",
+      "document_sha256": "c517fa3d294f9f1924d053653ff732924d28325f55edb1807e81c0df990af750",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0005978",
+          "hpo_label": "Type II diabetes mellitus",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "DM tipo II",
+              "context": "antecedentes de DM tipo II"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0001271",
+          "hpo_label": "Polyneuropathy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "polineuropatía",
+              "context": "complicaciones crónicas como polineuropatía"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0000822",
+          "hpo_label": "Hypertension",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "HTA",
+              "context": "polineuropatía, HTA en tratamiento"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0001513",
+          "hpo_label": "Obesity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "obesa",
+              "context": "en tratamiento y obesa"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0002791",
+          "hpo_label": "Hypoventilation",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "depresión respiratoria",
+              "context": "sin datos de depresión respiratoria"
+            }
+          ],
+          "note": "Respiratory depression maps to Hypoventilation."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0000707",
+          "hpo_label": "Abnormality of the nervous system",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "alteraciones neurológicas",
+              "context": "depresión respiratoria, alteraciones neurológicas"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100803:native",
+      "document_sha256": "1bc8974b6c2751656c62ec33a476c2e61597fe6414231ba409b5c1281634e915",
+      "annotations": []
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100848:native",
+      "document_sha256": "6e893b32e84e806bd74978a51cd9c7f9be65cd36dbb2376f672d5999579989f9",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0032043",
+          "hpo_label": "Odynophagia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "odinofagia",
+              "context": "por odinofagia y sangrado oral"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0040184",
+          "hpo_label": "Oral bleeding",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "sangrado oral",
+              "context": "odinofagia y sangrado oral"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0012182",
+          "hpo_label": "Oropharyngeal squamous cell carcinoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "carcinoma epidermoide localmente avanzado de orofaringe",
+              "context": "diagnóstico de carcinoma epidermoide localmente avanzado de orofaringe"
+            },
+            {
+              "phrase": "carcinoma epidermoide",
+              "context": "que se biopsió, con resultado de carcinoma epidermoide"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0025289",
+          "hpo_label": "Cervical lymphadenopathy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "adenopatías laterocervicales ipsilaterales tanto submaxilares como yugulodigástricas",
+              "context": "TAC se observaron adenopatías laterocervicales ipsilaterales tanto submaxilares como yugulodigástricas"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0033176",
+          "hpo_label": "Submandibular lymph node enlargement",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "adenopatías laterocervicales ipsilaterales tanto submaxilares como yugulodigástricas",
+              "context": "TAC se observaron adenopatías laterocervicales ipsilaterales tanto submaxilares como yugulodigástricas"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0025406",
+          "hpo_label": "Asthenia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "astenia",
+              "context": "cuadro de astenia, inestabilidad"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0002317",
+          "hpo_label": "Unsteady gait",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "inestabilidad",
+              "context": "astenia, inestabilidad y dolor abdominal"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0002027",
+          "hpo_label": "Abdominal pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "dolor abdominal",
+              "context": "inestabilidad y dolor abdominal"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0002248",
+          "hpo_label": "Hematemesis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hematemesis",
+              "context": "seguido de hematemesis masiva"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0001903",
+          "hpo_label": "Anemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "Hb 7,1g",
+              "context": "hematológica (Hb 7,1g"
+            }
+          ],
+          "note": "Low hemoglobin value, not interpreted by the text."
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0100751",
+          "hpo_label": "Esophageal neoplasm",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "tumoración ulcerada en el esófago distal",
+              "context": "mostraba una tumoración ulcerada en el esófago distal"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0004791",
+          "hpo_label": "Esophageal ulceration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "tumoración ulcerada en el esófago distal",
+              "context": "mostraba una tumoración ulcerada en el esófago distal"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:0002860",
+          "hpo_label": "Squamous cell carcinoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "carcinoma epidermoide",
+              "context": "fue de carcinoma epidermoide compatible con metástasis"
+            }
+          ],
+          "note": "Histology of the esophageal and gastric tumor."
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:0012118",
+          "hpo_label": "Laryngeal carcinoma",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "carcinoma de laringe",
+              "context": "metástasis de carcinoma de laringe"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p015",
+          "hpo_id": "HP:0000155",
+          "hpo_label": "Oral ulcer",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "úlcera de aspecto necrótico de 4-5 cm de diámetro en pilar amigdalino y amígdala",
+              "context": "se objetivó una úlcera de aspecto necrótico de 4-5 cm de diámetro en pilar amigdalino y amígdala izquierda"
+            }
+          ],
+          "note": "Ulcer of the tonsillar pillar and tonsil; HPO has no oropharyngeal ulcer term, Oral ulcer is the closest."
+        },
+        {
+          "proposal_id": "p016",
+          "hpo_id": "HP:0031851",
+          "hpo_label": "Reduced hematocrit",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "hematocrito 21,5%",
+              "context": "(Hb 7,1g, hematocrito 21,5%)"
+            }
+          ],
+          "note": "Low hematocrit value, not interpreted by the text."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100924:native",
+      "document_sha256": "e5c7457bc7cb6db25708e26316a2ed92c3156b18ab7602ba50f259370a1cfff5",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0007546",
+          "hpo_label": "Linear hyperpigmentation",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "placas lineales pigmentadas",
+              "context": "Inicialmente se objetivan placas lineales pigmentadas"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0000989",
+          "hpo_label": "Pruritus",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "prurito",
+              "context": "presenta prurito, dolor ni malestar"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0012531",
+          "hpo_label": "Pain",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "dolor",
+              "context": "prurito, dolor ni malestar general"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0033834",
+          "hpo_label": "Malaise",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "malestar general",
+              "context": "dolor ni malestar general"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:6001253",
+          "hpo_label": "Skin burn",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "quemadura",
+              "context": "sospecha clínica de una quemadura"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0000992",
+          "hpo_label": "Cutaneous photosensitivity",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "reacción fototóxica",
+              "context": "sospecha diagnóstica principal es de reacción fototóxica"
+            }
+          ],
+          "note": "Suspected phototoxic reaction; Cutaneous photosensitivity is the closest term."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100946:native",
+      "document_sha256": "9268394edf3ef69be8245b68305d4fc7885a205b83969b1ac16736727929a01c",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0030793",
+          "hpo_label": "Jaw swelling",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "tumefacción mandibular",
+              "context": "Varón de 64 años de edad con tumefacción mandibular derecha"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0034046",
+          "hpo_label": "Mandibular osteolysis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "osteolítica, multiloculada, localizada en rama horizontal mandibular",
+              "context": "lesión expansiva bien delimitada, osteolítica, multiloculada, localizada en rama horizontal mandibular"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0034515",
+          "hpo_label": "Ameloblastoma",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "ameloblastoma",
+              "context": "diagnóstico provisional de probable ameloblastoma"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:6000307",
+          "hpo_label": "Jaw mass",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "tumoración carnosa de consistencia densa",
+              "context": "destruída por una tumoración carnosa de consistencia densa"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100962:native",
+      "document_sha256": "beb018cbf0aceb3c2763d056033c18223c743dca22510f76c42a4c05bdf1650e",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0011079",
+          "hpo_label": "Impacted tooth",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "canino inferior izquierdo (incluido",
+              "context": "posición del canino inferior izquierdo (incluido en posición horizontal)"
+            },
+            {
+              "phrase": "inclusión dentaria",
+              "context": "existencia de la inclusión dentaria"
+            },
+            {
+              "phrase": "inclusión del canino inferior",
+              "context": "comprobamos la inclusión del canino inferior izquierdo en posición horizontal"
+            },
+            {
+              "phrase": "diente incluido",
+              "context": "al acercarse el diente incluido al agujero mentoniano"
+            },
+            {
+              "phrase": "diente incluido",
+              "context": "por parte del diente incluido"
+            }
+          ],
+          "note": "The first mention starts at the tooth so that the span names the finding; the last two stand in a conditional sentence, the impaction itself is real."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0000692",
+          "hpo_label": "Tooth malposition",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "inadecuada posición del canino inferior",
+              "context": "Ante la inadecuada posición del canino inferior izquierdo"
+            },
+            {
+              "phrase": "transmigración del canino",
+              "context": "evidencia de la transmigración del canino"
+            }
+          ],
+          "note": "Wrong position and transmigration of the canine, named apart from its impaction."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100994:native",
+      "document_sha256": "4762bdae548bea84158d10952bfe85be50bb690e6c0054c12d79b4a97e3a34ae",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0100608",
+          "hpo_label": "Metrorrhagia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "metrorragias",
+              "context": "por metrorragias secundarias a miomas"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0000131",
+          "hpo_label": "Uterine leiomyoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "miomas",
+              "context": "metrorragias secundarias a miomas"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0005625",
+          "hpo_label": "Osteoporosis of vertebrae",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "osteoporosis densitométrica lumbar",
+              "context": "valorada en Ginecología por osteoporosis densitométrica lumbar"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0005625",
+          "hpo_label": "Osteoporosis of vertebrae",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "osteoporosis a nivel lumbar",
+              "context": "predominio de osteoporosis a nivel lumbar"
+            },
+            {
+              "phrase": "osteoporosis",
+              "context": "nos planteamos la osteoporosis como factor"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0005625",
+          "hpo_label": "Osteoporosis of vertebrae",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "T-score en columna lumbar de -3,5",
+              "context": "que mostró una T-score en columna lumbar de -3,5"
+            }
+          ],
+          "note": "Lumbar T-score in the osteoporosis range, not interpreted by the text."
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0020110",
+          "hpo_label": "Bone fracture",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "fractura",
+              "context": "ni antecedentes personales ni familiares de fractura"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0020110",
+          "hpo_label": "Bone fracture",
+          "assertion": "absent",
+          "experiencer": "family_member",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "fractura",
+              "context": "ni antecedentes personales ni familiares de fractura"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0025238",
+          "hpo_label": "Foot pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "dolor mecánico en el pie",
+              "context": "Consultó por dolor mecánico en el pie izquierdo"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:6001376",
+          "hpo_label": "Forefoot pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "dolor a la movilización del antepié",
+              "context": "salvo dolor a la movilización del antepié izquierdo"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0041162",
+          "hpo_label": "Metatarsal fracture",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "fractura de estrés en el 2o MTT",
+              "context": "que reveló una fractura de estrés en el 2o MTT"
+            }
+          ],
+          "note": "Stress fracture of the second metatarsal; HPO has no stress fracture term."
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0041162",
+          "hpo_label": "Metatarsal fracture",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "fractura de estrés",
+              "context": "por fractura de estrés previa"
+            }
+          ],
+          "note": "Earlier stress fracture of the second metatarsal seen as old callus; the span does not carry the site."
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:0000969",
+          "hpo_label": "Edema",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "edema de tejidos blandos",
+              "context": "con callo perióstico y edema de tejidos blandos"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:6000917",
+          "hpo_label": "Bone marrow edema",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "edema de 1er y 3er MTT, de huesos cuneiforme, escafoides y astrágalo",
+              "context": "mostró edema de 1er y 3er MTT, de huesos cuneiforme, escafoides y astrágalo"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p015",
+          "hpo_id": "HP:6001438",
+          "hpo_label": "Tenosynovitis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "tenosinovitis del tibial posterior",
+              "context": "y tenosinovitis del tibial posterior"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p016",
+          "hpo_id": "HP:0003165",
+          "hpo_label": "Elevated circulating parathyroid hormone level",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "incremento de niveles de PTH y vitamina D",
+              "context": "destacando incremento de niveles de PTH y vitamina D"
+            }
+          ],
+          "note": "Span shared with the raised vitamin D (R4)."
+        },
+        {
+          "proposal_id": "p017",
+          "hpo_id": "HP:0001513",
+          "hpo_label": "Obesity",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "obesa",
+              "context": "la paciente no era obesa"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p018",
+          "hpo_id": "HP:0031414",
+          "hpo_label": "Elevated circulating calcifediol concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "incremento de niveles de PTH y vitamina D",
+              "context": "destacando incremento de niveles de PTH y vitamina D"
+            }
+          ],
+          "note": "The text does not name the metabolite; a value in ng/ml points to calcifediol. Span shared with the PTH (R4)."
+        },
+        {
+          "proposal_id": "p019",
+          "hpo_id": "HP:0020110",
+          "hpo_label": "Bone fracture",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "fracturas de estrés",
+              "context": "nuevas fracturas de estrés"
+            }
+          ],
+          "note": "New stress fractures of the left foot in the second episode; the hedge 'quizá' concerns their cause."
+        }
+      ]
+    }
+  ]
+}
