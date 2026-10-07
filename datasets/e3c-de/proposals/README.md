@@ -13,18 +13,20 @@ Earlier versions: [v1](../../../configs/prompts/hpo-span-proposal-v1.md)
 
 ## Current proposals
 
-[`current-proposals.json`](current-proposals.json) lists the 93 reports that
-have proposals to work with (31 per original language, half of the 185
-reports of the original-language groups): 1,026 proposals with 1,225
-mentions, all validated. Per report it names the run whose `validation.json`
-holds the current proposals and the steps that produced them, each with
-model, prompt, run date, and guideline commit.
+[`current-proposals.json`](current-proposals.json) lists the 185 reports that
+have proposals to work with, all reports of the original-language groups
+(63 EN, 61 ES, 61 FR): 2,239 proposals with 2,715 mentions, all validated.
+Per report it names the run whose `validation.json` holds the current
+proposals and the steps that produced them, each with model, prompt, run
+date, and guideline commit. The 61 German reports are not included; see
+"German group".
 
 | Reports | Current run | Steps |
 |---:|---|---|
 | 60 | `sample60-v3-rev` | Sonnet 5.5 proposes, Opus 5.5 cross-reads, Opus 5.5 revises |
 | 27 | `pilot-v2-rev`, `pilot-v2-extra-rev`, `pilot-v3-rev` | Sonnet 5.5 proposes, Opus 5.5 revises |
 | 6 | `sample6-opus-v3` | Opus 5.5 proposes |
+| 92 | `rest92-opus-v3` | Opus 5.5 proposes |
 
 The runs they are based on (`sample60-v3`, `pilot-v2`, `pilot-v2-extra`,
 `pilot-v3`) stay unchanged as the record of the first step. Whether a single
@@ -145,6 +147,7 @@ all German reports again, including those of the earlier run.
 | `pilot-v2-extra-rev` | `claude-opus-5-5` | 9 | 0 | `d3df6c9af416cda441407a3f94d8318477b92045c1fa79d91f65a2b7b002b9b6` | revision of `pilot-v2-extra`; current |
 | `pilot-v3-rev` | `claude-opus-5-5` | 9 | 0 | `12c08e2f34bc3fe6d849365f1feaec3aa3a0ac48cffa1281ec80896bb023055c` | revision of `pilot-v3`; current |
 | `sample6-opus-v3` | `claude-opus-5-5` | 6 | 0 | `c8e1765f0cdb38c12f440973739903fa4e90d3a4f80abdf1748471b3d45f8519` | 6 further reports, prompt v3; current |
+| `rest92-opus-v3` | `claude-opus-5-5` | 92 | 0 | `aa0b27048919329d4b363c5953f181c7f77949a2f864b186bd9f231faf88ebff` | the remaining 92 reports of the original-language groups, prompt v3; current |
 
 The three earlier pilots were validated again on 2026-10-06 after the
 validator began to reject terms outside *Phenotypic abnormality*; the table
@@ -713,3 +716,69 @@ arguable, none is clearly wrong.
   lesion where the text names it at two levels (for example *Renal neoplasm*
   and *Renal cell carcinoma* in ES100079), each with a note; R1 excludes
   ancestor terms for the same finding.
+
+## Run rest92-opus-v3
+
+Run date 2026-10-07, same corpus. `claude-opus-5-5` proposes with prompt v3
+for the 92 reports of the original-language groups that had no proposals
+yet (32 EN, 30 ES, 30 FR), selected with `--case`, in ten batches. No
+cross-read. With this run every report of the original-language groups has
+current proposals.
+
+### Dispatch
+
+- One dispatch per batch, at most five at a time, no re-dispatch. Validation
+  passed on the first attempt.
+- Files reported as read: the guideline and the batch's own text files.
+  Several subagents listed the file names of the run directory; none opened
+  a file under `datasets/` other than its own output.
+- Deviations from the prompt: the subagent of batch-04 wrote two temporary
+  files outside the repository (`/tmp/mine.txt`, `/tmp/theirs.txt`) and
+  deleted them. All other helper files are in the git-ignored text
+  directories.
+
+### Validation
+
+1,213 proposals with 1,490 mentions, none rejected, no label warning.
+Per language: EN 453 proposals, ES 377, FR 383. Assertion: 982 present, 177
+absent, 54 uncertain. 73 proposals are not verbalized (R6). 122 mentions
+are longer than 50 characters; the longest has 111.
+
+| Batch | Reports | Proposals | Subagent tokens | Agent time |
+|---|---:|---:|---:|---:|
+| batch-01 | 10 | 186 | 171,875 | 16.4 min |
+| batch-02 | 10 | 177 | 162,930 | 13.3 min |
+| batch-03 | 10 | 80 | 115,454 | 8.8 min |
+| batch-04 | 10 | 96 | 122,156 | 9.8 min |
+| batch-05 | 10 | 148 | 152,188 | 13.0 min |
+| batch-06 | 10 | 88 | 126,975 | 10.4 min |
+| batch-07 | 10 | 163 | 155,556 | 13.5 min |
+| batch-08 | 10 | 201 | 196,174 | 16.5 min |
+| batch-09 | 10 | 64 | 102,732 | 7.6 min |
+| batch-10 | 2 | 10 | 57,185 | 2.8 min |
+| Total | 92 | 1,213 | 1,363,225 | |
+
+### Known unevenness, left to the physician review
+
+As reported by the subagents; the main session did not read the proposals
+against the texts.
+
+- Conditions listed under the past history: chronic conditions named there
+  (for example hypertension, diabetes, COPD) are mostly recorded as
+  `historical`; batch-05 records ulcerative colitis as `current`.
+- Resolved findings: "X disappeared" is a further mention of the present
+  proposal in batch-01 and batch-02, and a separate `absent` proposal in
+  batch-08 and batch-09.
+- Infection and serology terms: batch-08 proposes terms such as *Bacterial
+  meningitis*, *Pulmonary tuberculosis*, and *Positive tuberculin skin
+  test*; other batches leave infections named as diagnoses out (R0).
+  Metastases are left out in most batches and proposed as a neoplasm of the
+  site in batch-05 and batch-10.
+- General next to specific terms: batch-09 keeps a general term for the
+  word itself next to specific terms on the values that follow
+  ("dyslipidémie", "hyper-transaminasémie"), and batch-07 proposes
+  *Increased total leukocyte count* and *Increased total granulocyte count*
+  on one span; R1 excludes ancestor terms for the same finding.
+- Hedges: "indicated" is read as present in EN101783 and as uncertain in
+  EN105551 (batch-03).
+- Closest-term choices carry a note in the batch file.

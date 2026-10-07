@@ -1,0 +1,1164 @@
+{
+  "schema_version": "e3c-hpo-proposal-batch/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "rest92-opus-v3",
+  "batch_id": "batch-09",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100717:native",
+      "document_sha256": "7bc865e7da96ce7392e65ba9198e0a5a8ff0480baf82e15864fa41114df4bd18",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0003419",
+          "hpo_label": "Low back pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "lombalgies",
+              "context": "consulté pour des lombalgies évoluant depuis 1 an"
+            },
+            {
+              "phrase": "lombosciatique",
+              "context": "l'installation d'une lombosciatique S1 bilatérale"
+            },
+            {
+              "phrase": "lombosciatique",
+              "context": "une régression de la lombosciatique S1 bilatérale"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0011868",
+          "hpo_label": "Sciatica",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "douleur radiculaire de type S1 gauche",
+              "context": "associées à une douleur radiculaire de type S1 gauche et de paresthésies"
+            },
+            {
+              "phrase": "lombosciatique",
+              "context": "l'installation d'une lombosciatique S1 bilatérale"
+            },
+            {
+              "phrase": "lombosciatique",
+              "context": "une régression de la lombosciatique S1 bilatérale"
+            }
+          ],
+          "note": "S1 radicular pain is taken as sciatica; HPO has no radicular pain term."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0003401",
+          "hpo_label": "Paresthesia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "paresthésies",
+              "context": "S1 gauche et de paresthésies dans le même territoire"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0033345",
+          "hpo_label": "Neuralgia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "radiculalgie",
+              "context": "associée à une radiculalgie L4 gauche intermittente"
+            }
+          ],
+          "note": "L4 radicular pain is not sciatica; Neuralgia is the closest term, Lower limb pain (HP:0012514) is an alternative."
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0003119",
+          "hpo_label": "Abnormal circulating lipid concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "dyslipidémie",
+              "context": "ont montré une dyslipidémie modérée"
+            }
+          ],
+          "note": "General term for the word itself; the three measurements that follow carry the specific terms, so the reviewer may drop this ancestor."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0003124",
+          "hpo_label": "Hypercholesterolemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "Cholestérol total = 3.37 (N = 1.5-2.4)",
+              "context": "modérée: Cholestérol total = 3.37 (N = 1.5-2.4), LDL"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0003141",
+          "hpo_label": "Elevated circulating LDL-C concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "LDL = 2.26 (N = 1-1.6)",
+              "context": "(N = 1.5-2.4), LDL = 2.26 (N = 1-1.6), HDL"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0012184",
+          "hpo_label": "Elevated circulating HDL-C concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "HDL = 0.92 (N = 0.3-0.6)",
+              "context": "(N = 1-1.6), HDL = 0.92 (N = 0.3-0.6), Triglycérides"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0008441",
+          "hpo_label": "Herniation of intervertebral nuclei",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "protusions discales",
+              "context": "avait trouvé des protusions discales en L3-L4 et en L4-L5"
+            },
+            {
+              "phrase": "débord discal",
+              "context": "avec un débord discal en L3-L4 et L4-L5"
+            }
+          ],
+          "note": "Disc protrusion and disc bulge on CT and MRI; HPO has only the herniation term."
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0008441",
+          "hpo_label": "Herniation of intervertebral nuclei",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "protusion ou de hernie discale",
+              "context": "nous n'avons pas trouvé de protusion ou de hernie discale significative"
+            }
+          ],
+          "note": "Not found at surgery, although imaging had shown protrusions."
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0004610",
+          "hpo_label": "Lumbar spinal canal stenosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "canal étroit",
+              "context": "en L3-L4 et en L4-L5 avec un canal étroit"
+            },
+            {
+              "phrase": "canal lombaire étroit",
+              "context": "avait montré un canal lombaire étroit de L3 à L5"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0009126",
+          "hpo_label": "Increased adipose tissue",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "épaississement compressif de la graisse épidurale",
+              "context": "montré un épaississement compressif de la graisse épidurale qui apparait"
+            },
+            {
+              "phrase": "quantité anormalement importante de graisse épidurale",
+              "context": "constaté quantité anormalement importante de graisse épidurale d'aspect jaunâtre"
+            },
+            {
+              "phrase": "masse graisseuse épidurale",
+              "context": "La masse graisseuse épidurale a été complètement enlevée"
+            }
+          ],
+          "note": "Spinal epidural lipomatosis has no HPO term; general term used. Intraspinal extradural lipoma (HP:6000996) is an alternative."
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:0003419",
+          "hpo_label": "Low back pain",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "lombo-radiculalgie",
+              "context": "une disparition complète de la lombo-radiculalgie et la reprise"
+            }
+          ],
+          "note": "Complete disappearance at 6 months after surgery."
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:0011868",
+          "hpo_label": "Sciatica",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "lombo-radiculalgie",
+              "context": "une disparition complète de la lombo-radiculalgie et la reprise"
+            }
+          ],
+          "note": "Complete disappearance at 6 months after surgery; the radicular pain is the S1 sciatica named before."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100826:native",
+      "document_sha256": "963d9fa15812fe1c10df4999f8a28a9c23e07394b969160eda9c17aa9fac1b6d",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0025576",
+          "hpo_label": "Abnormal inferior vena cava morphology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "VCI gauche",
+              "context": "a objectivé une VCI gauche dans sa portion sous rénale"
+            },
+            {
+              "phrase": "VCI gauche",
+              "context": "a trouvé une VCI gauche sous rénale sans autres anomalies"
+            }
+          ],
+          "note": "Left-sided inferior vena cava; HPO has no more specific term."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100870:native",
+      "document_sha256": "15595e7c8ed2cc1e47cbf4a425f43c9912559f71de10fc1812c4fb97d7450a8b",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0100726",
+          "hpo_label": "Kaposi's sarcoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "maladie de kaposi",
+              "context": "suivi en dermatologie pour la maladie de kaposi"
+            },
+            {
+              "phrase": "kaposi",
+              "context": "Le diagnostic de kaposi a été retenu"
+            },
+            {
+              "phrase": "kaposi",
+              "context": "au niveau des lésions anciennes de kaposi"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0030350",
+          "hpo_label": "Erythematous papule",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "lésions papulonodulaires violacées",
+              "context": "apparition des lésions papulonodulaires violacées au niveau des membres inférieurs"
+            }
+          ],
+          "note": "Violaceous papules at diagnosis seven years earlier; HPO lists red-blue papule under this term. Papule (HP:0200034) is the alternative."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0200036",
+          "hpo_label": "Skin nodule",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "lésions papulonodulaires violacées",
+              "context": "apparition des lésions papulonodulaires violacées au niveau des membres inférieurs"
+            }
+          ],
+          "note": "Papulonodular lesions at diagnosis seven years earlier."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0010741",
+          "hpo_label": "Pedal edema",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "œdème",
+              "context": "pour un œdème au niveau des lésions anciennes"
+            }
+          ],
+          "note": "Site inferred: the old lesions are on the lower limbs and the foot is imaged. Edema (HP:0000969) is the alternative."
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0025273",
+          "hpo_label": "Achilles tendonitis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "anomalie de signale intéressant la graisse préachiléenne étendue au tendon d'achille",
+              "context": "une anomalie de signale intéressant la graisse préachiléenne étendue au tendon d'achille sans"
+            }
+          ],
+          "note": "MRI signal change reaching the Achilles tendon that the text relates to an inflammatory process; Abnormal Achilles tendon morphology (HP:0005109) is the alternative."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0001895",
+          "hpo_label": "Normochromic anemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "anémie normochrome normocytaire (Hb = 11,9g/dl), arégénérative",
+              "context": "a montré une anémie normochrome normocytaire (Hb = 11,9g/dl), arégénérative."
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0001897",
+          "hpo_label": "Normocytic anemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "anémie normochrome normocytaire (Hb = 11,9g/dl), arégénérative",
+              "context": "a montré une anémie normochrome normocytaire (Hb = 11,9g/dl), arégénérative."
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0010972",
+          "hpo_label": "Anemia of inadequate production",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "anémie normochrome normocytaire (Hb = 11,9g/dl), arégénérative",
+              "context": "a montré une anémie normochrome normocytaire (Hb = 11,9g/dl), arégénérative."
+            }
+          ],
+          "note": "For 'arégénérative'; Reticulocytopenia (HP:0001896) is an alternative."
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0032295",
+          "hpo_label": "Monoclonal elevation of IgG lambda chain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "pic étroit d'aspect monoclonal",
+              "context": "découverte fortuite d'un pic étroit d'aspect monoclonal chiffré à 15,76g/l"
+            },
+            {
+              "phrase": "immunoglobuline monoclonale (IgG lambda)",
+              "context": "a permis de typer l'immunoglobuline monoclonale (IgG lambda)"
+            }
+          ],
+          "note": "The monoclonal peak is typed as IgG lambda in the next sentence; on its own the first phrase would be Paraproteinemia (HP:0031047)."
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0032303",
+          "hpo_label": "Lambda Bence Jones proteinuria",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "chaînes légères libres monoclonales d'isotypie lambda",
+              "context": "présence de chaînes légères libres monoclonales d'isotypie lambda en concentration"
+            }
+          ],
+          "note": "Monoclonal free lambda light chains on urine immunofixation."
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0025346",
+          "hpo_label": "Elevated circulating beta-2-microglobulin concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "B2‚ microglobuline est élevée",
+              "context": "La B2‚ microglobuline est élevée à 2,96mg/l"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0030150",
+          "hpo_label": "Plasmacytosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "taux de plasmocytes à 07%",
+              "context": "avec un taux de plasmocytes à 07% fait d'éléments"
+            }
+          ],
+          "note": "Bone marrow plasma cells of 7% are above the usual upper limit of about 5%."
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:0003237",
+          "hpo_label": "Increased circulating IgG concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "IgG=22,7g/l",
+              "context": "Le dosage pondéral des Ig a été: (IgG=22,7g/l"
+            }
+          ],
+          "note": "Above the usual adult range of about 7-16 g/l; IgA and IgM are within range."
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:0031048",
+          "hpo_label": "Light-chain paraproteinemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "chaines légères libres lambda de 43,83mg/l",
+              "context": "celui des chaines légères libres lambda de 43,83mg/l"
+            },
+            {
+              "phrase": "rapport kappa libres et lambda libres de 0,16",
+              "context": "Le rapport kappa libres et lambda libres de 0,16"
+            }
+          ],
+          "note": "Raised serum free lambda light chains with a low kappa/lambda ratio; HPO has no term for the free light chain level itself."
+        },
+        {
+          "proposal_id": "p015",
+          "hpo_id": "HP:0006775",
+          "hpo_label": "Multiple myeloma",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "myélome",
+              "context": "compatibles avec un myélome de pronostic défavorable"
+            }
+          ],
+          "note": "Hedged by 'compatibles avec'; stated as the diagnosis in the next sentence."
+        },
+        {
+          "proposal_id": "p016",
+          "hpo_id": "HP:0006775",
+          "hpo_label": "Multiple myeloma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "myélome multiple",
+              "context": "d'un myélome multiple à IgG lambda stade I"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100921:native",
+      "document_sha256": "41f77c9c2777572675dc2ffb86e62344cd5663e1762a5ea4ce85dc22735dc201",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0034805",
+          "hpo_label": "Buttock pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "douleur de la fesse droite",
+              "context": "présentant une douleur de la fesse droite depuis 1 an"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0009593",
+          "hpo_label": "Peripheral schwannoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "schwannome",
+              "context": "a conclu à un schwannome plexiforme"
+            }
+          ],
+          "note": "Schwannoma at the sciatic nerve, hence the peripheral term; the mass on MRI is the same lesion and is not marked separately."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100925:native",
+      "document_sha256": "1480e9e3f34959c53c994fb95b87be29fd2ef94af74fc3dbb6cd457ec256c996",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0003002",
+          "hpo_label": "Breast carcinoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "carcinome mammaire",
+              "context": "suivie pour un carcinome mammaire prévu pour"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0200119",
+          "hpo_label": "Acute hepatitis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hépatite aiguë",
+              "context": "hospitalisée au service pour une hépatite aiguë grave"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0000952",
+          "hpo_label": "Jaundice",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "ictère fébrile",
+              "context": "(ictère fébrile, hyper-transaminasémie"
+            },
+            {
+              "phrase": "ictère fébrile",
+              "context": "était suspectée devant l'ictère fébrile et le bilan"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0001945",
+          "hpo_label": "Fever",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "ictère fébrile",
+              "context": "(ictère fébrile, hyper-transaminasémie"
+            },
+            {
+              "phrase": "ictère fébrile",
+              "context": "était suspectée devant l'ictère fébrile et le bilan"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0002910",
+          "hpo_label": "Elevated circulating hepatic transaminase concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hyper-transaminasémie",
+              "context": "(ictère fébrile, hyper-transaminasémie avec ASAT"
+            }
+          ],
+          "note": "General term for the word itself; AST and ALT follow as specific terms, so the reviewer may drop this ancestor."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0031956",
+          "hpo_label": "Elevated circulating aspartate aminotransferase concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "ASAT à 47 la normale",
+              "context": "avec ASAT à 47 la normale et ALAT"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0031964",
+          "hpo_label": "Elevated circulating alanine aminotransferase concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "ALAT à 23 la normale",
+              "context": "et ALAT à 23 la normale et un taux"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0008151",
+          "hpo_label": "Prolonged prothrombin time",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "taux de prothrombine à 25%",
+              "context": "et un taux de prothrombine à 25%)"
+            }
+          ],
+          "note": "Prothrombin ratio of 25%; the term lists reduced prothrombin activity as a synonym."
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0006562",
+          "hpo_label": "Viral hepatitis",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hépatites virales",
+              "context": "Les hépatites virales A, B, C et E étaient négatives"
+            }
+          ],
+          "note": "The text negates hepatitis A, B, C, and E only."
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0006562",
+          "hpo_label": "Viral hepatitis",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hépatite non alphabétique",
+              "context": "Une hépatite non alphabétique était suspectée"
+            }
+          ],
+          "note": "Suspected viral hepatitis other than A to E."
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0430064",
+          "hpo_label": "Anti-Epstein-Barr virus-specific antibody positivity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Ac anti-VCA type IgM/G et Ac anti-EBNA type IgG positifs",
+              "context": "retenue devant des Ac anti-VCA type IgM/G et Ac anti-EBNA type IgG positifs"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0001541",
+          "hpo_label": "Ascites",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "ascite",
+              "context": "marquée par l'apparition d'une ascite et le diagnostic"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:5210421",
+          "hpo_label": "Autoimmune hepatitis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hépatite auto-immune",
+              "context": "le diagnostic d'une hépatite auto-immune type était retenue"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:0010702",
+          "hpo_label": "Increased circulating immunoglobulin concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "pic gamma",
+              "context": "(un pic gamma à l'électrophorèse des protéines sériques"
+            }
+          ],
+          "note": "Gamma peak on serum protein electrophoresis, taken as hypergammaglobulinemia."
+        },
+        {
+          "proposal_id": "p015",
+          "hpo_id": "HP:0003493",
+          "hpo_label": "Antinuclear antibody positivity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "anticorps anti-nucléaires positifs",
+              "context": "et des anticorps anti-nucléaires positifs)"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100930:native",
+      "document_sha256": "bc81643bb6edf79a17510a7e11b9805dfc3017b645ba6baa664c4abbe56d7db9",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:6000959",
+          "hpo_label": "Scalp edema",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "tuméfaction",
+              "context": "évoluant par l'apparition d'une tuméfaction évoquant"
+            }
+          ],
+          "note": "Swelling at the bitten scalp site; the site is named earlier in the sentence."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0100658",
+          "hpo_label": "Cellulitis",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "cellulite fronto-temporo pariétale",
+              "context": "évoquant une cellulite fronto-temporo pariétale compliquée"
+            }
+          ],
+          "note": "Hedged by 'évoquant'; 'diagnostiquée' later in the sentence may also cover it."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0005305",
+          "hpo_label": "Cerebral venous thrombosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "thrombophlébite cérébrale",
+              "context": "compliquée d'une thrombophlébite cérébrale, diagnostiquée"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0004372",
+          "hpo_label": "Reduced consciousness",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "trouble de conscience",
+              "context": "dans un tableau de trouble de conscience"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100932:native",
+      "document_sha256": "1626d81e4a1da826dad134297db70064a64b6d379761cb899c1091f4737f1e8d",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:5210114",
+          "hpo_label": "Tuberculous osteomyelitis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "pott",
+              "context": "le diagnostic d'un pott multifocal L2-L3 et L4-L5"
+            }
+          ],
+          "note": "The term lists Pott's disease as a synonym."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0002176",
+          "hpo_label": "Spinal cord compression",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "compression médullaire",
+              "context": "l'installation d'un tableau de compression médullaire deux mois"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:5210227",
+          "hpo_label": "Unusual spinal cord infection",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "abcès intra médullaire",
+              "context": "une image d'abcès intra médullaire à hauteur de T4"
+            },
+            {
+              "phrase": "abcès intra médullaire",
+              "context": "du drainage de l'abcès intra médullaire et de la stabilisation"
+            }
+          ],
+          "note": "The term lists spinal cord abscess as a synonym; Abscess (HP:0025615) is the alternative."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100959:native",
+      "document_sha256": "a61523621dcb150df950c2cb2dd06ac7900b58924fce0b7e88ef4283a01f9602",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0002575",
+          "hpo_label": "Tracheoesophageal fistula",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "fistule œsotrachéale",
+              "context": "un cas clinique de fistule œsotrachéale suite à l'ingestion"
+            },
+            {
+              "phrase": "orifice fistulaire",
+              "context": "a objectivé l'orifice fistulaire siégeant au niveau de C7"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0002015",
+          "hpo_label": "Dysphagia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "dysphagie",
+              "context": "admis pour dysphagie évoluant depuis deux mois"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0002575",
+          "hpo_label": "Tracheoesophageal fistula",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "orifice fistulaire",
+              "context": "L'absence de l'orifice fistulaire a été notée"
+            }
+          ],
+          "note": "Fistula no longer seen on the control study at day 30."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100979:native",
+      "document_sha256": "cdfa1c0ea141110112f1edc31540855306a865a2c432592172f905b984e33d7b",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0001342",
+          "hpo_label": "Cerebral hemorrhage",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "accident vasculaire cérébral hémorragique",
+              "context": "le cas d'un accident vasculaire cérébral hémorragique du tronc cérébral chez"
+            },
+            {
+              "phrase": "accident vasculaire cérébral hémorragique",
+              "context": "puis d'un accident vasculaire cérébral hémorragique du tronc cérébral à j2"
+            }
+          ],
+          "note": "HPO has no brainstem hemorrhage term."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0011419",
+          "hpo_label": "Placental abruption",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hématome rétro-placentaire",
+              "context": "pour suspiçion d'hématome rétro-placentaire dès son admission"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:fr:FR100986:native",
+      "document_sha256": "f6de40ecb21e2bc959a86eb1e59e6ad267e819a328f4953821145a8830a31821",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0045047",
+          "hpo_label": "HbS hemoglobin",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "drépanocytose hétérozygote composite SC",
+              "context": "découverte fortuite d'une drépanocytose hétérozygote composite SC dans"
+            }
+          ],
+          "note": "Sickle cell disease has no HPO term; the SC genotype implies hemoglobin S. The reviewer may drop this as a diagnosis."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0032146",
+          "hpo_label": "HbC hemoglobin",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "drépanocytose hétérozygote composite SC",
+              "context": "découverte fortuite d'une drépanocytose hétérozygote composite SC dans"
+            }
+          ],
+          "note": "Sickle cell disease has no HPO term; the SC genotype implies hemoglobin C. The reviewer may drop this as a diagnosis."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0000541",
+          "hpo_label": "Retinal detachment",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "décollement rétinien",
+              "context": "dans un contexte de décollement rétinien"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0007663",
+          "hpo_label": "Reduced visual acuity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "baisse de l'acuité visuelle",
+              "context": "pour une baisse de l'acuité visuelle détectée depuis 06 mois"
+            }
+          ],
+          "note": null
+        }
+      ]
+    }
+  ]
+}

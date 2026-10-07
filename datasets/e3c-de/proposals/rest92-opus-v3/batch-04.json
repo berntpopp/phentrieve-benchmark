@@ -1,0 +1,1680 @@
+{
+  "schema_version": "e3c-hpo-proposal-batch/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "rest92-opus-v3",
+  "batch_id": "batch-04",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:en:EN107424:native",
+      "document_sha256": "f09d5589884a40beb01e2e0a41240c5bea3990efa3c5450cab15c2be7350dcc5",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0002664",
+          "hpo_label": "Neoplasm",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "neoplastic, autoimmune or infectious diseases",
+              "context": "without associated neoplastic, autoimmune or infectious diseases"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0002960",
+          "hpo_label": "Autoimmunity",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "neoplastic, autoimmune or infectious diseases",
+              "context": "without associated neoplastic, autoimmune or infectious diseases"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0002729",
+          "hpo_label": "Follicular hyperplasia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "lymphoid tissue with numerous germinal centers",
+              "context": "The tumor comprised lymphoid tissue with numerous germinal centers"
+            }
+          ],
+          "note": "Histology of the Castleman lesion; no HPO term for Castleman disease itself."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0030150",
+          "hpo_label": "Plasmacytosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "numerous CD138-positive plasma cells",
+              "context": "numerous CD138-positive plasma cells in interfollicular areas"
+            }
+          ],
+          "note": "Plasma cell increase within the resected lesion, not in blood or marrow."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:en:EN107559:native",
+      "document_sha256": "031c4fbc35366ccd717be1dd8c9d4b69023ace88895e4ed12f771c676559642e",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0001945",
+          "hpo_label": "Fever",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "fever",
+              "context": "one-week history of fever, dyspnea, cough, and abdominal pain"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0002094",
+          "hpo_label": "Dyspnea",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "dyspnea",
+              "context": "one-week history of fever, dyspnea, cough, and abdominal pain"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0012735",
+          "hpo_label": "Cough",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "cough",
+              "context": "one-week history of fever, dyspnea, cough, and abdominal pain"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0002027",
+          "hpo_label": "Abdominal pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "abdominal pain",
+              "context": "one-week history of fever, dyspnea, cough, and abdominal pain"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0002090",
+          "hpo_label": "Pneumonia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "pneumonia",
+              "context": "revealed bilateral lower lobe pneumonia"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0012418",
+          "hpo_label": "Hypoxemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hypoxemic",
+              "context": "became increasing hypoxemic in the intensive care unit"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100050:native",
+      "document_sha256": "3b2e6d10fc3b1579bc597a0b090d6c9132c7360e793029c58bf94af3db4a8784",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0032404",
+          "hpo_label": "Testicular mass",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "tumoración ligeramente dolorosa en el testículo",
+              "context": "consulta por tumoración ligeramente dolorosa en el testículo derecho"
+            },
+            {
+              "phrase": "aumento testicular con zonas nodulares",
+              "context": "un aumento testicular con zonas nodulares"
+            }
+          ],
+          "note": "Unilateral nodular enlargement read as the mass, not as Macroorchidism (HP:0000053)."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0033839",
+          "hpo_label": "Testicular pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "tumoración ligeramente dolorosa en el testículo",
+              "context": "consulta por tumoración ligeramente dolorosa en el testículo derecho"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0006254",
+          "hpo_label": "Elevated circulating alpha-fetoprotein concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "Alfa-Feto-Proteina: 38,2",
+              "context": "Alfa-Feto-Proteina: 38,2 y Beta-HGC de 1,48"
+            }
+          ],
+          "note": "No unit given; 38.2 is above the usual upper limit of about 10 ng/ml."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0010788",
+          "hpo_label": "Testicular neoplasm",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "nódulos tumorales",
+              "context": "se observan tres nódulos tumorales independientes"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0100616",
+          "hpo_label": "Testicular teratoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "teratocarcinomas",
+              "context": "correspondían a teratocarcinomas"
+            },
+            {
+              "phrase": "teratoma maduro",
+              "context": "(teratoma maduro y carcinoma embrionario predominante)"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0100728",
+          "hpo_label": "Germ cell neoplasia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "carcinoma embrionario",
+              "context": "carcinoma embrionario predominante"
+            }
+          ],
+          "note": "No HPO term for embryonal carcinoma; nearest germ cell tumour term."
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0100617",
+          "hpo_label": "Testicular seminoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "seminoma",
+              "context": "diagnosticado como seminoma clásico"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100091:native",
+      "document_sha256": "d6aa6913556acdc4ef79a912c8d6bf24b2174eeb2a9fac4f26a4c4b5bbc91af5",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0000975",
+          "hpo_label": "Hyperhidrosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "sudoración",
+              "context": "acude a Urgencias por sudoración y fiebre"
+            },
+            {
+              "phrase": "sudoración",
+              "context": "febrícula ocasional, sudoración, pesadez"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0001945",
+          "hpo_label": "Fever",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "fiebre",
+              "context": "por sudoración y fiebre con dolor lumbar izquierdo"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0030157",
+          "hpo_label": "Flank pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "dolor lumbar",
+              "context": "fiebre con dolor lumbar izquierdo"
+            },
+            {
+              "phrase": "dolor lumbar",
+              "context": "con dolor lumbar del mismo lado"
+            }
+          ],
+          "note": "Unilateral 'dolor lumbar' with a renal mass read as loin pain; alternative Low back pain (HP:0003419)."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0100518",
+          "hpo_label": "Dysuria",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "disuria",
+              "context": "disuria de unos 15 días"
+            },
+            {
+              "phrase": "disuria",
+              "context": "chorro aceptable, disuria, no entrecortado"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0000819",
+          "hpo_label": "Diabetes mellitus",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "DM",
+              "context": "No DM. No HTA. No alergias conocidas."
+            }
+          ],
+          "note": "Negated in the past history section."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0000822",
+          "hpo_label": "Hypertension",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "HTA",
+              "context": "No DM. No HTA. No alergias conocidas."
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0012393",
+          "hpo_label": "Allergy",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "alergias",
+              "context": "No DM. No HTA. No alergias conocidas."
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0000790",
+          "hpo_label": "Hematuria",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hematuria",
+              "context": "No hematuria. No cólicos. No ITUs."
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0011848",
+          "hpo_label": "Abdominal colic",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "cólicos",
+              "context": "No hematuria. No cólicos. No ITUs."
+            }
+          ],
+          "note": "Renal colic is meant; HPO has no renal colic term."
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0000010",
+          "hpo_label": "Recurrent urinary tract infections",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "ITUs",
+              "context": "No hematuria. No cólicos. No ITUs."
+            }
+          ],
+          "note": "Term has the synonym 'Urinary tract infections'; no term for a single infection."
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0011134",
+          "hpo_label": "Low-grade fever",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "febrícula",
+              "context": "presenta febrícula ocasional"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0000012",
+          "hpo_label": "Urinary urgency",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "urgencia",
+              "context": "no goteo, no urgencia con frecuencia miccional"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:6000363",
+          "hpo_label": "Flank mass",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "masa en flanco",
+              "context": "a nivel abdominal, efecto masa en flanco izquierdo"
+            },
+            {
+              "phrase": "masa en flanco",
+              "context": "presentaba efecto masa en flanco izquierdo que borraba"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:0001880",
+          "hpo_label": "Increased total eosinophil count",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Eosinofilia",
+              "context": "Hemograma normal con signos de Eosinofilia"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p015",
+          "hpo_id": "HP:0005562",
+          "hpo_label": "Multiple renal cysts",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "múltiples quistes en riñón",
+              "context": "Ecografía renal: múltiples quistes en riñón izquierdo"
+            },
+            {
+              "phrase": "lesiones quísticas",
+              "context": "con lesiones quísticas con vesículas hijas"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p016",
+          "hpo_id": "HP:5210199",
+          "hpo_label": "Parasitic kidney abscess",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "enfermedad hidatídica renal",
+              "context": "compatible con enfermedad hidatídica renal"
+            }
+          ],
+          "note": "Term has the synonym 'Renal hydatid cyst'."
+        },
+        {
+          "proposal_id": "p017",
+          "hpo_id": "HP:5210199",
+          "hpo_label": "Parasitic kidney abscess",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "quíste hidatídico",
+              "context": "comunicación del quíste hidatídico con la vía"
+            }
+          ],
+          "note": "Here only the communication with the urinary tract is hedged, not the cyst."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100098:native",
+      "document_sha256": "18f7983e8facea511198238ae12d0f25f53d12f4453e2e97d4680a0d1777ab08",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0006510",
+          "hpo_label": "Chronic pulmonary obstruction",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "EPOC",
+              "context": "con antecedentes de EPOC moderado"
+            }
+          ],
+          "note": "Listed under past history, therefore historical."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0000016",
+          "hpo_label": "Urinary retention",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "imposibilidad para la micción",
+              "context": "debuta con uretrorragia e imposibilidad para la micción"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0010955",
+          "hpo_label": "Dilatation of the bladder",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "globo vesical",
+              "context": "se observó un gran globo vesical"
+            }
+          ],
+          "note": "Distended bladder on ultrasound; could also be a second mention of Urinary retention."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0008691",
+          "hpo_label": "Solitary bladder diverticulum",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "divertículo único",
+              "context": "con aparente divertículo único de tamaño similar a vejiga"
+            }
+          ],
+          "note": "'aparente' on ultrasound; the diverticulum is later resected, so recorded as present."
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0031261",
+          "hpo_label": "Bladder polyp",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "imágenes polipoideas parietales",
+              "context": "con varias imágenes polipoideas parietales menores de 2-3 cm"
+            }
+          ],
+          "note": "Polypoid wall lesions on ultrasound; alternative Urinary bladder mass (HP:0034968)."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0009725",
+          "hpo_label": "Bladder neoplasm",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "neoplasia vesical",
+              "context": "hallazgos sugestivos de neoplasia vesical"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0008661",
+          "hpo_label": "Urethral stenosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "estenosis uretral",
+              "context": "Ante los hallazgos ecográficos y la estenosis uretral"
+            }
+          ],
+          "note": "Cause not stated, so not Urethral stricture (HP:0012227)."
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0009725",
+          "hpo_label": "Bladder neoplasm",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "tumor",
+              "context": "se observó un tumor sólido de prácticamente 7 cm"
+            }
+          ],
+          "note": "Tumour seen at cystoscopy."
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0100243",
+          "hpo_label": "Leiomyosarcoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "leiomiosarcoma",
+              "context": "resultado anatomopatológico: leiomiosarcoma de bajo grado"
+            },
+            {
+              "phrase": "leiomiosarcoma",
+              "context": "Con el resultado obtenido de leiomiosarcoma de bajo grado"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100112:native",
+      "document_sha256": "a95ae1923b45ceaa42a9a7837a1b70c191c61f5ce7dd9bd60f5ac47e80899aff",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0025142",
+          "hpo_label": "Constitutional symptom",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "síndrome constitucional",
+              "context": "por síndrome constitucional, anemia y masa en flanco derecho"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0001903",
+          "hpo_label": "Anemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "anemia",
+              "context": "por síndrome constitucional, anemia y masa en flanco derecho"
+            },
+            {
+              "phrase": "anemia",
+              "context": "presenta mareo, distensión abdominal y anemia"
+            },
+            {
+              "phrase": "pérdida de 5 gr/dl de hemoglobina",
+              "context": "apreciándose la pérdida de 5 gr/dl de hemoglobina respecto al alta"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:6000363",
+          "hpo_label": "Flank mass",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "masa en flanco",
+              "context": "por síndrome constitucional, anemia y masa en flanco derecho"
+            },
+            {
+              "phrase": "hemiabdomen derecho, masa dolorosa",
+              "context": "se palpa en hemiabdomen derecho, masa dolorosa"
+            }
+          ],
+          "note": "The mass palpated in the right hemiabdomen is taken as the same flank mass."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0033762",
+          "hpo_label": "Middle cerebral artery stroke",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "accidente cerebro vascular en territorio de la cerebral media",
+              "context": "accidente cerebro vascular en territorio de la cerebral media, secundaria"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0005110",
+          "hpo_label": "Atrial fibrillation",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "fibrilación auricular",
+              "context": "secundaria a fibrilación auricular a los 64 años"
+            }
+          ],
+          "note": "Listed under past history, therefore historical."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0006510",
+          "hpo_label": "Chronic pulmonary obstruction",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "enfermedad pulmonar obstructiva crónica",
+              "context": "a los 64 años; enfermedad pulmonar obstructiva crónica"
+            }
+          ],
+          "note": "Listed under past history, therefore historical."
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0002039",
+          "hpo_label": "Anorexia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "anorexia",
+              "context": "presenta anorexia, astenia, y pérdida de 12 kilogramos de peso"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0025406",
+          "hpo_label": "Asthenia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "astenia",
+              "context": "presenta anorexia, astenia, y pérdida de 12 kilogramos de peso"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0001824",
+          "hpo_label": "Weight loss",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "pérdida de 12 kilogramos de peso",
+              "context": "presenta anorexia, astenia, y pérdida de 12 kilogramos de peso"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0030157",
+          "hpo_label": "Flank pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "dolor súbito en flanco",
+              "context": "se inicia un dolor súbito en flanco y fosa renal derecha"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0002027",
+          "hpo_label": "Abdominal pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hemiabdomen derecho, masa dolorosa",
+              "context": "se palpa en hemiabdomen derecho, masa dolorosa"
+            }
+          ],
+          "note": "Tender mass on palpation; HPO has no abdominal tenderness term."
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0001897",
+          "hpo_label": "Normocytic anemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "anemia normocítica y normocrómica",
+              "context": "destaca anemia normocítica y normocrómica (hemoglobina 10, 6)"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:0001895",
+          "hpo_label": "Normochromic anemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "anemia normocítica y normocrómica",
+              "context": "destaca anemia normocítica y normocrómica (hemoglobina 10, 6)"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:0003565",
+          "hpo_label": "Elevated erythrocyte sedimentation rate",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "prolongación de la VSG",
+              "context": "y prolongación de la VSG"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p015",
+          "hpo_id": "HP:0009726",
+          "hpo_label": "Renal neoplasm",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "masa renal",
+              "context": "objetiva, masa renal derecha con patrón ultrasonográfico mixto"
+            },
+            {
+              "phrase": "masa mixta de predominio sólido en polo superior de riñón",
+              "context": "evidenció masa mixta de predominio sólido en polo superior de riñón derecho"
+            },
+            {
+              "phrase": "masa tumoral dependiente del riñón",
+              "context": "apreciándose gran masa tumoral dependiente del riñón derecho"
+            },
+            {
+              "phrase": "masa tumoral",
+              "context": "se objetiva masa tumoral de 10 centímetros de diámetro"
+            },
+            {
+              "phrase": "tumor maligno fusocelular renal",
+              "context": "es un tumor maligno fusocelular renal muy indiferenciado"
+            }
+          ],
+          "note": "No HPO term for renal mass; Renal neoplasm used for the mass and the tumour."
+        },
+        {
+          "proposal_id": "p016",
+          "hpo_id": "HP:0030171",
+          "hpo_label": "Perirenal hematoma",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hematoma",
+              "context": "área extraparenquimatosa compatible con hematoma"
+            }
+          ],
+          "note": "Extraparenchymal area next to the renal mass."
+        },
+        {
+          "proposal_id": "p017",
+          "hpo_id": "HP:0002716",
+          "hpo_label": "Lymphadenopathy",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "adenopatías",
+              "context": "no se objetivó adenopatías, ni trombosis vascular"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p018",
+          "hpo_id": "HP:0001977",
+          "hpo_label": "Abnormal thrombosis",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "trombosis vascular",
+              "context": "no se objetivó adenopatías, ni trombosis vascular"
+            }
+          ],
+          "note": "Vessel type not stated, so neither venous nor arterial thrombosis."
+        },
+        {
+          "proposal_id": "p019",
+          "hpo_id": "HP:0005584",
+          "hpo_label": "Renal cell carcinoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "carcinoma renal",
+              "context": "metástasis de carcinoma renal"
+            }
+          ],
+          "note": "Named as the origin of the metastasis; the primary is described as sarcomatoid, Fuhrman grade 4."
+        },
+        {
+          "proposal_id": "p020",
+          "hpo_id": "HP:6000285",
+          "hpo_label": "Retroperitoneal mass",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "masas quísticas heterogéneas en espacio retroperitoneal",
+              "context": "dos masas quísticas heterogéneas en espacio retroperitoneal"
+            },
+            {
+              "phrase": "masa retroperitoneal",
+              "context": "evidenció gran masa retroperitoneal"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p021",
+          "hpo_id": "HP:0002321",
+          "hpo_label": "Vertigo",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "mareo",
+              "context": "presenta mareo, distensión abdominal y anemia"
+            }
+          ],
+          "note": "'mareo' is dizziness; HPO lists Dizziness as a synonym of Vertigo."
+        },
+        {
+          "proposal_id": "p022",
+          "hpo_id": "HP:0003270",
+          "hpo_label": "Abdominal distention",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "distensión abdominal",
+              "context": "presenta mareo, distensión abdominal y anemia"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p023",
+          "hpo_id": "HP:0011029",
+          "hpo_label": "Internal hemorrhage",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hematoma retroperitoneal",
+              "context": "evacuando hematoma retroperitoneal"
+            },
+            {
+              "phrase": "hematoma retroperitoneal",
+              "context": "presenta nuevo hematoma retroperitoneal"
+            }
+          ],
+          "note": "No HPO term for retroperitoneal hematoma; nearest general term."
+        },
+        {
+          "proposal_id": "p024",
+          "hpo_id": "HP:0009726",
+          "hpo_label": "Renal neoplasm",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "tumor renal",
+              "context": "compatible con recidiva de tumor renal"
+            }
+          ],
+          "note": "The recurrence is hedged with 'compatible con'."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100143:native",
+      "document_sha256": "5d6173041c8aca636f363b2c7c478a33c2888ff8d391a61c2e8d0583eb780e56",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:6000105",
+          "hpo_label": "Vaginal mass",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "tumoración de 1 cm de diámetro en el introito",
+              "context": "se apreció una tumoración de 1 cm de diámetro en el introito"
+            }
+          ],
+          "note": "Mass at the vaginal introitus; no HPO term for introital mass or paraurethral (Skene) cyst."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0100627",
+          "hpo_label": "Displacement of the urethral meatus",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "meato uretral, desplazando este",
+              "context": "a la derecha del meato uretral, desplazando este"
+            }
+          ],
+          "note": "Meatus displaced by the mass, not a congenital malposition."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0000070",
+          "hpo_label": "Ureterocele",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Ureterocele",
+              "context": "diagnóstico de sospecha de Ureterocele"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0000081",
+          "hpo_label": "Duplicated collecting system",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "duplicidad ni dilatación urinaria",
+              "context": "no hallando ni duplicidad ni dilatación urinaria"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0000126",
+          "hpo_label": "Hydronephrosis",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "duplicidad ni dilatación urinaria",
+              "context": "no hallando ni duplicidad ni dilatación urinaria"
+            }
+          ],
+          "note": "Unspecified urinary tract dilatation; Hydroureter (HP:0000072) fits equally."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100163:native",
+      "document_sha256": "b84e8c0e49c554556c4e795f14fc63893f8863c2fccc524c990543decc657c22",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0100639",
+          "hpo_label": "Erectile dysfunction",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "repercusión sobre la capacidad eréctil",
+              "context": "sin repercusión sobre la capacidad eréctil ni la micción"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0012531",
+          "hpo_label": "Pain",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "dolorosa",
+              "context": "no fluctuante, no dolorosa, de consistencia fibroelástica"
+            }
+          ],
+          "note": "Non-tender perineal mass; no site-specific term for perineal pain."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100177:native",
+      "document_sha256": "9a0d7c834624d264691efe091f62b5717b5e27ef32541b6d7b7df299007060db",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0000822",
+          "hpo_label": "Hypertension",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "HTA",
+              "context": "HTA esencial previa"
+            }
+          ],
+          "note": "Listed under past history, therefore historical."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0003124",
+          "hpo_label": "Hypercholesterolemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Hipercolesterolemia",
+              "context": "(En tratamiento con Enalapril), Hipercolesterolemia"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0004724",
+          "hpo_label": "Calcium nephrolithiasis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Litiasis cálcica de 1 cm en infundíbulo de cáliz superior",
+              "context": "Litiasis cálcica de 1 cm en infundíbulo de cáliz superior"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0030171",
+          "hpo_label": "Perirenal hematoma",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hematoma",
+              "context": "no hematoma detectable"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0030157",
+          "hpo_label": "Flank pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "dolor lumbar",
+              "context": "dolor lumbar intenso y nauseas"
+            }
+          ],
+          "note": "'dolor lumbar' after renal lithotripsy read as loin pain; alternative Low back pain (HP:0003419)."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0002018",
+          "hpo_label": "Nausea",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "nauseas",
+              "context": "dolor lumbar intenso y nauseas"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0001933",
+          "hpo_label": "Subcutaneous hemorrhage",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hematoma cutáneo",
+              "context": "abombamiento lumbar y hematoma cutáneo"
+            }
+          ],
+          "note": "Alternative Ecchymosis (HP:0031364)."
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0030171",
+          "hpo_label": "Perirenal hematoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hematoma subcapsular",
+              "context": "Tac de hematoma subcapsular con rotura capsular"
+            }
+          ],
+          "note": "Subcapsular renal hematoma with capsular rupture; no separate subcapsular term."
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0000980",
+          "hpo_label": "Pallor",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Palidez",
+              "context": "Palidez cutaneomucosa intensa"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0001903",
+          "hpo_label": "Anemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "Hb de 7,6",
+              "context": "con Hb de 7,6 y Hto 22"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0031851",
+          "hpo_label": "Reduced hematocrit",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": false,
+          "mentions": [
+            {
+              "phrase": "Hto 22",
+              "context": "con Hb de 7,6 y Hto 22"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:es:ES100273:native",
+      "document_sha256": "aca3ff065065e3d5bd0ec05aaac794a8bc2e71ec02f25c723d2ed6150d3de120",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0000822",
+          "hpo_label": "Hypertension",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hipertensa",
+              "context": "natural de Bulgaria, hipertensa, diabética, obesa, dislipémica"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0000819",
+          "hpo_label": "Diabetes mellitus",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "diabética",
+              "context": "natural de Bulgaria, hipertensa, diabética, obesa, dislipémica"
+            },
+            {
+              "phrase": "diabetes",
+              "context": "posiblemente secundaria a diabetes y/o nefroangiosclerosis"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0001513",
+          "hpo_label": "Obesity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "obesa",
+              "context": "natural de Bulgaria, hipertensa, diabética, obesa, dislipémica"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0003119",
+          "hpo_label": "Abnormal circulating lipid concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "dislipémica",
+              "context": "natural de Bulgaria, hipertensa, diabética, obesa, dislipémica"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0012622",
+          "hpo_label": "Chronic kidney disease",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "enfermedad renal crónica",
+              "context": "con enfermedad renal crónica (ERC)"
+            },
+            {
+              "phrase": "ERC",
+              "context": "con enfermedad renal crónica (ERC)"
+            }
+          ],
+          "note": "Hemodialysis since 2008 implies Stage 5 chronic kidney disease (HP:0003774), but no stage is named."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0009741",
+          "hpo_label": "Nephrosclerosis",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "nefroangiosclerosis",
+              "context": "posiblemente secundaria a diabetes y/o nefroangiosclerosis"
+            }
+          ],
+          "note": "Named only as a possible cause of the kidney disease."
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0025479",
+          "hpo_label": "Self-neglect",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "mala higiene personal",
+              "context": "convivencia con animales y mala higiene personal"
+            }
+          ],
+          "note": "Poor personal hygiene as a social circumstance; no closer term found."
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0001945",
+          "hpo_label": "Fever",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "fiebre",
+              "context": "Ingresa por cuadro de fiebre y escalofríos tras diálisis"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0025143",
+          "hpo_label": "Chills",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "escalofríos",
+              "context": "Ingresa por cuadro de fiebre y escalofríos tras diálisis"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0031864",
+          "hpo_label": "Bacteremia",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "bacteriemia",
+              "context": "compatible con bacteriemia"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0031864",
+          "hpo_label": "Bacteremia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hemocultivos positivos",
+              "context": "con hemocultivos positivos a Staphylococcus (St.) aureus"
+            }
+          ],
+          "note": "Positive blood cultures stated as fact, while the word 'bacteriemia' is hedged."
+        }
+      ]
+    }
+  ]
+}
