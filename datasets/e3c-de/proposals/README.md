@@ -5,11 +5,22 @@
 > reviews each proposal in the annotation editor before anything enters gold.
 
 Design: [`docs/superpowers/specs/2026-10-06-e3c-multilingual-span-annotation-design.md`](../../../docs/superpowers/specs/2026-10-06-e3c-multilingual-span-annotation-design.md) §6.
-Rules applied by the subagents: [`docs/annotation-guidelines/hpo-span-annotation.md`](../../../docs/annotation-guidelines/hpo-span-annotation.md) (R0-R6).
-Prompt template: [`configs/prompts/hpo-span-proposal-v3.md`](../../../configs/prompts/hpo-span-proposal-v3.md).
+Guideline path: [`docs/annotation-guidelines/hpo-span-annotation.md`](../../../docs/annotation-guidelines/hpo-span-annotation.md)
+(R0-R6); each run records the exact guideline commit and blob hash applied.
+Existing prompt template: [`configs/prompts/hpo-span-proposal-v3.md`](../../../configs/prompts/hpo-span-proposal-v3.md).
 Earlier versions: [v1](../../../configs/prompts/hpo-span-proposal-v1.md)
 (`pilot-v1`), [v2](../../../configs/prompts/hpo-span-proposal-v2.md)
 (`pilot-v2`, `pilot-v2-extra`). Each run keeps its own copy as `prompt.md`.
+
+Guideline revision of 2026-10-09: the rules now require phrase-local term
+support and explicit interpretation of measurement findings; raw numeric
+values are not annotated. They also clarify general/specific mentions,
+complementary terms, explicit resolution, and historical time reference.
+Existing runs remain unchanged as evidence under their recorded guideline
+versions. Their deterministic validation does not establish compliance with
+the revised rules. Targeted review of affected proposals and adaptation of
+the proposal/revision/cross-read templates are pending before further runs.
+See the [decision log](../../../docs/annotation-guidelines/hpo-span-annotation-decisions.md).
 
 ## Current proposals
 

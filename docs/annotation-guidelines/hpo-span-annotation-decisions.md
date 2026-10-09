@@ -1,17 +1,21 @@
 # HPO span annotation guideline: decisions and open questions
 
-Status: working document of 2026-10-07 for revising
-[`hpo-span-annotation.md`](hpo-span-annotation.md). It decides nothing. The
-guideline stays the only binding text; a question answered here takes effect
-when the guideline is edited.
+Status: discussion recorded on 2026-10-07; updated on 2026-10-09 with the
+user decisions from the guided repository review and their operational
+consequences. These changes have been incorporated into
+[`hpo-span-annotation.md`](hpo-span-annotation.md), which remains the binding
+text. This log records the history rather than defining a second guideline.
 
-- Part A lists what is already decided, by rule, with date and source.
-- Part B lists ten questions the guideline leaves open. They come from the
+- Part A lists the decision history, by rule, with date and source. Rows
+  marked superseded describe earlier decisions, not current requirements.
+- Part B preserves ten questions raised under the earlier guideline and
+  records their resolution. They come from the
   proposal runs on the 185 original-language E3C reports: the reports of the
   proposal and cross-read subagents and the 94 arguable points of the
   cross-read of `rest92-opus-v3`
   ([`datasets/e3c-de/proposal-crossreads/rest92-opus-v3/`](../../datasets/e3c-de/proposal-crossreads/rest92-opus-v3/)).
-  Each question has a `Decision:` line to fill in.
+  Each question now has a dated decision or derived clarification. The
+  descriptions headed "Earlier guideline" preserve the original problem.
 
 The grouping of the 94 points into questions and the counts per question
 were made by the main session and are approximate. The examples are machine
@@ -41,7 +45,7 @@ separate decision note in the guideline.
 | # | Decision | Date | Recorded in |
 |---|---|---|---|
 | A6 | Annotated are phenotypic findings: signs, symptoms, and abnormal examination, laboratory, or imaging findings. | draft | R0 |
-| A7 | A diagnosis is annotated only where HPO models it as a phenotypic abnormality (*Hypertension*, *Diabetes mellitus*, *Systemic lupus erythematosus*). Other diagnoses, procedures, treatments, and pathogens are not annotated themselves; the findings reported for them are. Examples given: "Tuberkulose" and "Metastasierung" have no matching phenotype term. | draft | R0 |
+| A7 | A diagnosis is annotated only where HPO models it as a phenotypic abnormality (*Hypertension*, *Diabetes mellitus*, *Systemic lupus erythematosus*). Other diagnoses, procedures, treatments, and pathogens are not annotated themselves; the findings reported for them are. Earlier examples claimed "Tuberkulose" and "Metastasierung" had no matching phenotype term; those blanket exclusions are superseded by A45. | draft | R0 |
 | A8 | A suspected diagnosis follows the same rule with assertion `uncertain`. | draft | R0 |
 | A9 | Completeness: every phenotypic finding is annotated, whoever it concerns and whatever its status (negated, suspected, historical, family, other persons). | 2026-10-06 | R0 |
 | A10 | Not annotated: hypothetical or conditional statements, generic medical statements, and normal findings without a phenotype reference. | draft | R0 |
@@ -52,7 +56,7 @@ separate decision note in the guideline.
 | # | Decision | Date | Recorded in |
 |---|---|---|---|
 | A12 | The most specific active term the text supports is chosen. | draft | R1 |
-| A13 | No ancestor terms are added for the same finding ("Fieberkrämpfe" is *Febrile seizure*, not *Fever* plus *Seizure*). | draft | R1 |
+| A13 | Earlier rule: no ancestor terms for the same finding ("Fieberkrämpfe" is *Febrile seizure*, not *Fever* plus *Seizure*). The blanket same-finding restriction is superseded by A39: it applies to one occurrence, not separate explicit general and specific phrases. | draft | R1 |
 
 ### R2 Span extent
 
@@ -72,7 +76,7 @@ separate decision note in the guideline.
 | A20 | A finding or diagnosis the text only suggests is `uncertain` ("vereinbar mit", "spricht für", "Aspekt wie bei", "Verdacht auf"). A hedge on the cause or pathogen leaves the finding `present`. | 2026-10-06 | R3 |
 | A21 | `patient` is the index person; relatives are `family_member`; everyone else is `other`, including the fetus or newborn in obstetric reports. There is no `unknown`: a finding without a named person concerns the patient. | draft | R3 |
 | A22 | `current` is the reported episode, including findings without an explicit time; `historical` is a finding the text places before it. There is no `future` and no `not_stated`. | draft | R3 |
-| A23 | Whether a finding has resolved is not recorded. | draft | R3 |
+| A23 | Superseded by A41: whether a finding has resolved was not recorded. | draft | earlier R3 |
 
 ### R4 Shared components
 
@@ -86,15 +90,15 @@ separate decision note in the guideline.
 | # | Decision | Date | Recorded in |
 |---|---|---|---|
 | A26 | Every occurrence that supports an annotation is marked. Occurrences with the same status belong to one annotation; an occurrence with a different status forms a separate annotation ("febril 39,5 °C" and later "fieberfrei" give *Fever* `present` and *Fever* `absent`). | draft | R5 |
-| A27 | A back-reference is not an occurrence: "der Tumor", "diese Schmerzen", "die Läsionen" are not marked; only a phrase that names the finding again is. | 2026-10-06 | R5 |
+| A27 | Earlier examples excluded "der Tumor", "diese Schmerzen", and "die Läsionen" as back-references. Clarified by A37/A39/A45: a renewed phrase counts when it independently names a finding; articles and demonstratives alone do not exclude it. | 2026-10-06 | earlier R5; revised R5 |
 
-### R6 Findings that are not verbalized
+### Earlier R6: Findings that are not verbalized (superseded)
 
 | # | Decision | Date | Recorded in |
 |---|---|---|---|
-| A28 | A pathological measurement without interpretation is annotated, marked as not verbalized; the span covers the measurement. Normal values give no annotation unless the text states them as a finding ("afebril"). | draft | R6 |
+| A28 | Superseded by A43: a pathological measurement without interpretation was annotated, marked as not verbalized; the span covered the measurement. Normal values gave no annotation unless stated as a finding ("afebril"). | draft | earlier R6 |
 | A29 | A measurement the text interprets is an ordinary, verbalized annotation ("erniedrigtes Serumalbumin (29 g/l)"). | draft | R6 |
-| A30 | A finding stated in words and its later measurement stay two annotations (verbalized and not verbalized); no rule was added for this. | 2026-10-06 | proposals README, Guideline clarifications |
+| A30 | Superseded by A43: a finding stated in words and its later measurement stayed two annotations (verbalized and not verbalized). | 2026-10-06 | proposals README, earlier Guideline clarifications |
 
 ### R7 and single-term derivation
 
@@ -112,7 +116,32 @@ separate decision note in the guideline.
 | A35 | A span-level evaluation for the full-text task is not defined. | 2026-10-06 | Open questions |
 | A36 | How temporally sequenced findings count in the document-level gold is open in issue #2 and does not affect span placement. | 2026-10-06 | R5 |
 
-## Part B: Open questions
+### Revision of 2026-10-09
+
+Source for A37–A44: the user choices in the guided discussion of this
+repository on 2026-10-09, now incorporated into the guideline. A45 records
+operational consequences derived from those choices and the existing rules;
+it is not a separately answered user question.
+
+| # | Decision | Supersedes or clarifies | Recorded in |
+|---|---|---|---|
+| A37 | The marked phrase itself must support the HPO term. Context outside the span may determine axes, but cannot supply term specificity. | A12, A14 | R1, R2 |
+| A38 | A fitting general term is allowed when a qualification has no suitable specific term. Synonyms and equivalent wording are allowed; individual disease components, consequences, and clinical inferences are not substitutes for a missing matching term. | A12 | R1 |
+| A39 | Explicit general and specific occurrences of the same finding are both annotated with the term each phrase supports. Do not generate an extra ancestor for one occurrence. | A13, A26 | R1, R5 |
+| A40 | Complementary terms may share a span when no single term covers all its explicitly named characteristics and neither term is a redundant ancestor of the other. Such spans are not single-term cases. | A24, A25 | R4 |
+| A41 | Explicit disappearance gives a separate `absent` occurrence alongside earlier `present`. Explicit suspicion and later exclusion similarly give `uncertain` and `absent`; normal tests alone do not establish exclusion. | A23 (superseded), A26 | R3, R5 |
+| A42 | `historical` requires an unambiguous time before the reported episode. Past tense or an anamnesis heading alone is insufficient; without a clear earlier reference use `current`, without assuming chronic persistence or resolution. | A22 | R3 |
+| A43 | Only measurement findings explicitly classified as pathologically altered in the text are annotated. Numbers and reference intervals are not interpreted. Non-verbalized measurement annotations are excluded from E3C gold. | A28 and A30 (superseded), A29, A33 | R0, R6, Single-term derivation |
+| A44 | Treatments and procedures themselves remain excluded even if HPO has a term. Explicit pathological findings or consequences are annotated without inferring them from treatment. | A7 | R0 |
+| A45 | Apply the same text-bound scope to infection diagnoses, tests, and metastatic lesions. Renewed mentions must support their own term; span completeness takes priority over tooling excerpt limits. | A7 examples (superseded), A16, A17, A27 | R0, R2, R5; derived clarification |
+
+A4 and A33 still describe the intended single-term task, with eligibility
+made explicit by A37 and A40. A6 now requires explicitly described findings
+under A43. A18–A21, A31–A32, and the open scoring questions A34–A36 remain.
+Historical proposals may contain non-verbalized findings under A28/A30;
+they are not retrospectively declared compliant with A43.
+
+## Part B: Earlier questions and their resolutions
 
 Overview. "Points" are arguable cross-read points of `rest92-opus-v3`.
 
@@ -134,7 +163,7 @@ Q8 has no cross-read point; it shows in the first-pass proposals.
 
 ### Q1 Infections, pathogen tests, serology
 
-Guideline now: R0 excludes pathogens and gives "Tuberkulose" as a diagnosis
+Earlier guideline: R0 excludes pathogens and gives "Tuberkulose" as a diagnosis
 without a matching phenotype term (A7). The pinned release has
 *Tuberculosis infection* (HP:5210111), *Pulmonary tuberculosis*
 (HP:0032262), and terms for single test results, so the example contradicts
@@ -167,11 +196,21 @@ Sub-questions:
 - d. Is a positivity the text explains as vaccine-induced or as not
   significant annotated?
 
-Decision:
+Decision / derived clarification (2026-10-09; A37, A38, A43, A45):
+
+An explicitly named infection diagnosis is annotated if a permitted HPO term
+describes it. Remove the blanket tuberculosis exclusion. A test result is
+annotated only when explicitly described as pathologically altered and a
+matching permitted term exists. Do not derive infection from a positive
+test, absent disease from a negative test, or pathology from vaccine-induced
+or explicitly insignificant positivity. An explicitly named and negated
+phenotype is still `absent`. This applies the general scope decisions; the
+user did not separately vote on each serology example. Individual term
+matches remain physician review cases.
 
 ### Q2 Metastases
 
-Guideline now: "Metastasierung" is disease course without a matching
+Earlier guideline: "Metastasierung" is disease course without a matching
 phenotype term (A7).
 
 Where proposals diverge: metastases are left out in most batches. A
@@ -187,11 +226,19 @@ Options:
 - c. As b, but only where the text describes the lesion itself (imaging,
   histology), not for the bare word "metastatic".
 
-Decision:
+Decision / derived clarification (2026-10-09; A37, A38, A45):
+
+There is no blanket exclusion or automatic organ-neoplasm substitution for
+metastases. Apply R1: a permitted term must describe the explicitly named
+lesion, possibly at a general level, without implying a primary tumour or
+another unstated property. "Metastatic" alone does not establish a site.
+If no fitting term exists, leave the finding unannotated and note the gap.
+The user decided the general mapping policy, not the validity of each
+example's proposed HPO term; those mappings remain physician review cases.
 
 ### Q3 Substitute and inferred terms
 
-Guideline now: R1 asks for the most specific term the text supports (A12);
+Earlier guideline: R1 asks for the most specific term the text supports (A12);
 the prompt says "if no term fits, do not annotate the finding". Neither says
 how far a term may be from the wording.
 
@@ -224,11 +271,20 @@ Options:
 To consider: such spans are single-term inputs (A4). Under b and c the
 phrase "dermatomyosite" becomes a single-term case for *Myositis*.
 
-Decision:
+Decision (2026-10-09; A38):
+
+The user chose strict text-bound matching, with an explicit qualification:
+if no suitable term represents a qualification, use the fitting general
+term rather than dropping the finding. This allows translation, synonyms,
+and generalization of the stated finding, but not substituting unmentioned
+disease components or inferred consequences. "Starke Bauchschmerzen" may
+map to *Abdominal pain*; "dermatomyosite" alone is not a substitute
+*Myositis* case. This is option a amended by the user's general-term rule,
+not option b's component inference.
 
 ### Q4 Specificity taken from context
 
-Guideline now: R1 asks for the most specific term "the text supports"
+Earlier guideline: R1 asks for the most specific term "the text supports"
 (A12); R2 asks that the span express the term on its own (A14). The two
 pull apart when the specificity stands elsewhere in the text.
 
@@ -260,11 +316,17 @@ Sub-questions:
 To consider: under a "context counts" rule, a span such as "pallor" becomes
 a single-term case for *Anemic pallor*.
 
-Decision:
+Decision (2026-10-09; A37, A39):
+
+The user chose phrase-local specificity (option a: the span alone carries
+the term). No specificity may be borrowed from another sentence or a
+separate numeric value. A later general mention is annotated with its own
+general term, not attached to the earlier specific term and not omitted.
+The same rule applies to full-text annotation and single-term candidates.
 
 ### Q5 One finding at two levels
 
-Guideline now: no ancestor terms for the same finding (A13). R4 allows one
+Earlier guideline: no ancestor terms for the same finding (A13). R4 allows one
 span for several terms that share wording (A24).
 
 Where proposals diverge:
@@ -295,11 +357,20 @@ Sub-questions:
 - c. May two terms from different branches share one span to cover site and
   kind?
 
-Decision:
+Decision (2026-10-09; A39, A40, A43):
+
+Both explicitly worded general and specific findings are annotated, with
+the term supported by each occurrence. A named collective finding is
+annotated; raw component measurements do not add annotations. Explicitly
+worded pathological components are annotated in their own right. When no
+single term covers explicitly named site and type, complementary terms may
+share a span if neither is a redundant ancestor of the other. Such a span
+is excluded from single-term derivation. No extra ancestor is generated for
+the same occurrence.
 
 ### Q6 Back-reference or renewed mention
 
-Guideline now: "der Tumor", "diese Schmerzen", "die Läsionen" are not
+Earlier guideline: "der Tumor", "diese Schmerzen", "die Läsionen" are not
 marked; "only a phrase that names the finding again is" (A27).
 
 Where proposals diverge: a bare noun that repeats the finding's head word:
@@ -320,11 +391,19 @@ Options:
 Separate point: is an abbreviation an occurrence? It is a poor single-term
 input.
 
-Decision:
+Derived clarification (2026-10-09; A37, A39, A45):
+
+Mark a renewed phrase when it identifies a finding on its own, using its
+own supported term. Articles and demonstratives do not decide eligibility:
+"diese Schmerzen" can support *Pain*, but cannot inherit an earlier
+anatomical qualification. Pure references such as "diese Befunde" do not
+count. An abbreviation counts only when it independently identifies the
+finding; an ambiguous "CU" does not inherit the preceding expansion.
+This follows the user's phrase-local and all-explicit-mentions decisions.
 
 ### Q7 Span edges, subjects, and long constructions
 
-Guideline now: shortest contiguous phrase that expresses the term on its
+Earlier guideline: shortest contiguous phrase that expresses the term on its
 own (A14); words inside the phrase stay (A17); cues are excluded (A16); a
 shared construction is one span (A24).
 
@@ -356,11 +435,21 @@ Sub-questions:
 - c. Is there an upper bound for a span, and what applies to a shared
   construction (R4) that exceeds it?
 
-Decision:
+Derived clarification (2026-10-09; A37, A45):
+
+Use the shortest contiguous phrase that carries the selected term. Drop
+non-determining words at its edges; retain unavoidable internal words under
+the existing contiguity rule. A site-specific term requires the site inside
+the span, even if that requires a subject and intervening words or cues;
+axes are recorded separately. Do not use an isolated predicate with site
+borrowed from context. There is no guideline character limit. Proposal
+excerpt limits are tooling constraints that must be addressed in the
+proposal workflow, not by truncating complete spans. These are operational
+consequences, not a separately chosen user option.
 
 ### Q8 Past-history conditions: `historical` or `current`
 
-Guideline now: `historical` is "a finding the text places before" the
+Earlier guideline: `historical` is "a finding the text places before" the
 reported episode (A22).
 
 Where proposals diverge: chronic conditions listed under the past history
@@ -381,11 +470,19 @@ Options:
 To consider: temporality is not a criterion of the single-term derivation
 (A33); it matters for a temporality-aware evaluation and for issue #2.
 
-Decision:
+Decision (2026-10-09; A42):
+
+The user chose explicit time reference and corrected the initial
+section-based option: `historical` only when the finding is unambiguously
+placed before the reported episode. Past tense and an anamnesis heading
+alone are insufficient. "Bei Aufnahme bestand Fieber" is `current`.
+Without an explicit earlier reference use `current`; do not assume either
+persistence or resolution of chronic conditions. This is not the original
+option a (classifying everything in the past-history section as historical).
 
 ### Q9 Resolved, excluded, and refuted findings; hedge words
 
-Guideline now: whether a finding has resolved is not recorded (A23). The R5
+Earlier guideline: whether a finding has resolved is not recorded (A23). The R5
 example nevertheless turns "fieberfrei" into *Fever* `absent` (A26). A
 finding the text only suggests is `uncertain` (A20).
 
@@ -413,11 +510,20 @@ Sub-questions:
 - c. Which further wordings count as hedges ("indicate", "appearance of",
   "apparent")?
 
-Decision:
+Decision (2026-10-09; A41):
+
+The user chose separate states: an explicitly resolved finding gives
+`absent`, alongside its earlier `present` occurrence. "X disappeared" and
+"fieberfrei" follow the same rule. An explicit suspicion and later explicit
+exclusion similarly remain separate `uncertain` and `absent` annotations;
+normal test values alone do not establish exclusion. Hedge wording is
+judged by the meaning of the statement, not a mechanical word list, and
+uncertainty about a cause does not hedge an established finding. Scoring
+temporally sequenced annotations remains open.
 
 ### Q10 Treatments with a term; borderline values
 
-Guideline now: procedures and treatments are not annotated; the exception
+Earlier guideline: procedures and treatments are not annotated; the exception
 for terms HPO models as phenotypes is stated only for diagnoses (A7). R6
 covers "pathological" measurements without saying where pathological
 begins (A28).
@@ -440,4 +546,14 @@ Sub-questions:
 - b. Which reference decides whether an uninterpreted value is
   pathological, and is a borderline value annotated?
 
-Decision:
+Decision (2026-10-09; A43, A44):
+
+The user excludes procedures and treatments even where HPO offers a term;
+explicit pathological findings or consequences are annotated instead.
+Treatment alone does not establish a phenotype. The user also chose a
+stricter rule than the proposed report-reference option: only findings the
+text itself explicitly classifies as pathologically altered may and must
+be annotated. No numeric values are interpreted, including values with
+reference intervals printed in the report. Therefore no external range or
+borderline-value rule is needed, and the former non-verbalized measurement
+category is superseded.

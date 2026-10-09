@@ -4,6 +4,16 @@
 
 **Date:** 2026-10-06
 
+**Guideline revision:** 2026-10-09. The user decisions are recorded in
+[`hpo-span-annotation-decisions.md`](../../annotation-guidelines/hpo-span-annotation-decisions.md)
+and incorporated into the binding guideline. Term choice is phrase-local;
+explicit general/specific occurrences and complementary terms are allowed;
+resolution is recorded as absence; historical status requires an earlier
+time reference; uninterpreted measurements and procedures are excluded.
+The existing proposal prompts, proposal outputs, and editor profiles predate
+this revision. Their adaptation or targeted review is pending; the historical
+records are preserved.
+
 ## 1. Summary
 
 The E3C Layer 1 corpus (246 reports: 84 English, 81 French, 81 Spanish) is
@@ -131,8 +141,9 @@ A new stage materializes one `documents` artifact with exactly one
 - original group: the existing native document, unchanged;
 - German group: a `Document` with `translation_status = translated`,
   `language = de`, `case_group_id` equal to the source case, and the fixed
-  German text. Today no stage produces translated documents; this stage
-  closes that gap.
+  German text. This path is implemented in `pipeline/annotation_corpus.py`
+  and tested with synthetic accepted reviews; real German documents still
+  await accepted translation reviews.
 
 The German text is the reviewed text from an accepted translation review
 record (`unverändert akzeptiert` or `korrigiert akzeptiert`). An unreviewed
@@ -286,9 +297,12 @@ annotation group:
 - one evidence mention per occurrence; the current builder's
   several-spans-as-segments behaviour is removed;
 - profile: assertion, experiencer, and temporality required
-  (`allow_empty=False`) with the values of guideline R3; new required axis `verbalization` with
-  `verbalized`/`not_verbalized`; `evidence_policy` requiring evidence on
-  completion;
+  (`allow_empty=False`) with the values of guideline R3; `evidence_policy`
+  requiring evidence on completion. The implemented packages still carry
+  the required `verbalization` axis with `verbalized`/`not_verbalized` from
+  the earlier R6 rule. The revision of 2026-10-09 excludes non-verbalized
+  measurements; adapting the profile and import handling is pending. The
+  revised guideline does not require a non-verbalized category;
 - proposal axis values come from the proposal step;
 - an option builds a package without any proposals, for blinded annotation
   (see the double-annotation note in §2);
@@ -316,7 +330,6 @@ v1 is not reinterpreted. v2 adds:
 - the attribute values of guideline R3: experiencer `patient`,
   `family_member`, `other`; temporality `current`, `historical` (no
   `future`);
-- `verbalized: bool` on each annotation (guideline R6);
 - a derivation source kind `llm_proposal` referencing the proposal run's
   validation report hash and the proposal ID, and a derivation method for
   reviewed machine proposals. Validation checks that the referenced proposal
@@ -325,6 +338,13 @@ v1 is not reinterpreted. v2 adds:
 Contiguous `EvidenceSpan`s and assertion values stay as in v1. The axis
 values were settled on 2026-10-06 (guideline R3) and replace the open
 proposals of issue #2 for this dataset; the issue is updated accordingly.
+
+Revision of 2026-10-09: the earlier planned `verbalized: bool` field is no
+longer an E3C requirement. R6 now admits only findings explicitly interpreted
+in the text; bare measurements are not gold. Existing proposal schemas and
+packages retain their recorded fields. Whether a compatibility field is
+retained in v2 and how old package axes are handled must be settled during
+implementation; no existing schema is reinterpreted.
 
 v2 is not a drop-in change: `curation/validation.py`,
 `models/review_decision.py`, `review/merge.py`, and
@@ -342,6 +362,13 @@ v2 `CuratedAnnotationSet` per document:
 - confirmed or changed annotations with the same HPO ID and status are merged
   into one annotation with several spans (R5); manual additions without a
   decision are imported as additions;
+- general and specific terms attached to separate explicit phrases remain
+  separate annotations (R1, revised 2026-10-09); complementary terms may
+  share a span (R4). Do not automatically remove hierarchy pairs;
+- non-verbalized measurement proposals from older packages do not enter
+  gold unchanged under the revised R6. The review must reject them or replace
+  them with an explicitly worded finding supported by the text. The import
+  must enforce the chosen profile/schema representation of this policy;
 - the editor outcome `uncertain` maps to `changes_requested` and does not
   enter gold;
 - `text_snippet` is computed from the corpus text; editor offsets are Unicode
@@ -389,7 +416,9 @@ Two additions are needed:
 
 - a selector that builds the selection from the accepted gold of one
   annotation group by the guideline criteria (assertion `present`,
-  experiencer `patient`, span owned by one annotation, verbalized);
+  experiencer `patient`, span owned by one annotation, and a phrase that
+  supports its term without specificity borrowed from context). All accepted
+  findings are verbalized under the R6 revision of 2026-10-09;
 - merging candidates with identical phrase text and HPO ID across documents
   of one language. The current record ties a case to a single span, so the
   merged case keeps one representative span and lists the others as
@@ -416,6 +445,12 @@ planned.
   status, no mutation of input.
 - v2 model and import: discontinuous rejection, merge, `uncertain` mapping,
   hash mismatch, review statistics counts.
+- Revised guideline: preserve general and specific explicit mentions,
+  exclude shared complementary spans from single-term cases, keep explicit
+  presence/resolution and suspicion/exclusion separate, require an earlier
+  time reference for `historical`, and exclude uninterpreted measurements.
+  These checks are planned; revising the documentation does not implement
+  them.
 
 ## 10. Open Questions
 

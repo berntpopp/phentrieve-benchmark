@@ -177,6 +177,27 @@ Vergleichsdaten erhalten.
       später und nur für die Single-Term-Teilmenge. Revidiert am 2026-10-06:
       spannenbasierte Annotation von Anfang an (siehe oben).
 - [x] Markierungsregeln als Richtlinie festhalten (2026-10-06, Entwurf).
+- [x] Richtlinie und Entscheidungsprotokoll nach den Beschlüssen vom
+      2026-10-09 aktualisieren: Begriff durch die Phrase selbst getragen,
+      passende allgemeinere Begriffe bei fehlender Qualifikation, getrennte
+      ausdrückliche allgemeine und spezifische Erwähnungen, ergänzende Terme
+      auf gemeinsamem Span, explizite Statuswechsel, eindeutiger historischer
+      Zeitbezug, keine Interpretation roher Messwerte, keine Maßnahmen.
+- [ ] Vor weiteren Vorschlagsläufen Prompt-Vorlagen und Workflow an die
+      Richtlinienrevision vom 2026-10-09 anpassen; archivierte Runs erhalten.
+- [ ] Betroffene bestehende Vorschläge gezielt auf die revidierten Regeln
+      prüfen und zur Korrektur oder zum ärztlichen Review markieren;
+      technische Validierung allein belegt keine Richtlinienkonformität.
+- [x] Zwei gezielte Stichproben an 14 Originalberichten prüfen und für die
+      fachliche Besprechung vorbereiten (2026-10-09): lokales Workbook mit
+      62 Prüfhinweisen, 14 priorisierte Besprechungspunkte, Originaltexte
+      und Issue-Entwürfe unter
+      `.artifacts/reviews/review-meeting-2026-10-09/`, zusätzlich als ZIP.
+      Maschinelle Einschätzungen sind noch keine fachlichen
+      Reviewentscheidungen; alle Bewertungsfelder bleiben offen.
+- [ ] Fachliche Rückmeldungen zur Stichprobe in der Besprechung erfassen,
+      Regelklärungen dokumentieren und bestätigte Fallkorrekturen danach
+      validiert mit Herkunft umsetzen.
 - [x] Phase-0-Probe zur Annotier-Machbarkeit: Gold-Kern aus 176 positiven
       Konsenstermen plus ~100 maschinell vorgeschlagenen Lückenkandidaten
       (81 gegen die gepinnte HPO aufgelöst); Engpass ist die
@@ -203,7 +224,7 @@ Vergleichsdaten erhalten.
     im Editor-Paket verweist auf Batch und Eintrag.
 - [ ] Editor-Pakete je Annotationsgruppe bauen: je Vorkommen eine eigene
       Belegstelle; Achsen als Pflicht; Spannen beim Abschluss erzwingen;
-      Pflichtachse `verbalized`/`not_verbalized`, vorbelegt mit `verbalized`.
+      Profile und Inhalte an die Richtlinienrevision vom 2026-10-09 anpassen.
   - [x] Builder `scripts/build_editor_packages.py e3c` und Pakete für
         Englisch, Französisch und Spanisch (2026-10-08), je Paket ein
         Build-Protokoll in `datasets/e3c-de/editor-packages/`.
@@ -211,26 +232,30 @@ Vergleichsdaten erhalten.
         Reviewer, drei Sprachen, bis zum Export; Folgerungen für den Import
         im Umsetzungsentwurf, Abschnitt 8.2.
   - [ ] Paket der deutschen Gruppe, sobald ihre Korpusdokumente vorliegen.
-  - [ ] Vorbelegung mit `verbalized` klären: Vorschläge bringen den Wert
-        mit, neu angelegte Annotationen starten leer, weil das
-        Aufgabenprofil des Editors keinen Standardwert kennt; der Editor
-        lehnt leere Achsen beim Abschluss ab.
+  - [ ] Umgang mit der bisherigen Achse `verbalization` festlegen und
+        implementieren: Nicht verbalisierte Messbefunde sind seit
+        2026-10-09 ausgeschlossen. Bestehende Pakete enthalten die Achse
+        weiterhin; neue Profile und Importregeln müssen dazu passen.
 - [x] `make_annotation_review.py` löschen und
       `annotation-feasibility/README.md` anpassen; das Skript wird für den
       einheitlichen Vorschlagsschritt nicht mehr gebraucht, und seine 31
       ruff-Fehler halten CI auf `main` derzeit rot.
-- [ ] Festgeschriebene deutsche Texte als benchmark-`Document`s
-      (`translated`) erzeugen; bisher erzeugt keine Stufe übersetzte
-      Dokumente, ein deutsches Annotationsset hat also kein Bezugsdokument.
-- [ ] `curated-annotation-set/v2` einführen: Merkmal „nicht verbalisiert“
-      (Richtlinie R6) und eine Herkunftsart für LLM-Vorschläge; v1 kennt
-      keine passende Herleitungsquelle.
+- [x] Korpus-Stufe für festgeschriebene deutsche Texte als
+      benchmark-`Document`s (`translated`) implementieren und mit
+      synthetischen akzeptierten Übersetzungsreviews testen.
+- [ ] Reale deutsche Korpusdokumente nach akzeptiertem Übersetzungsreview
+      erzeugen.
+- [ ] `curated-annotation-set/v2` einführen: Achsenwerte nach R3 und eine
+      Herkunftsart für LLM-Vorschläge; v1 kennt keine passende
+      Herleitungsquelle. Ein Merkmal für nicht verbalisierte Messbefunde ist
+      seit 2026-10-09 keine E3C-Anforderung mehr.
 - [ ] Pilot des menschlichen Ablaufs: 2–3 Texte je Originalsprache Ende zu
       Ende durch Editor, Export, Import und Gold v1, bevor die volle
       Annotation beginnt; die deutsche Gruppe folgt nach ihren ersten
       geprüften Texten.
 - [ ] Vorschläge im Editor ärztlich prüfen und Spannen nach der Richtlinie
-      setzen; nicht verbalisierte Befunde strukturiert kennzeichnen.
+      setzen; ausschließlich aus Zahlen abgeleitete Vorschläge verwerfen,
+      ausdrücklich interpretierte Befunde nach R6 erfassen.
 - Optional, nicht geplant: Doppelannotation einer Teilmenge mit Paketen ohne
   Vorschläge, Schlichtung und Übereinstimmungsmaß. Bis dahin beruht das Gold
   auf einer ärztlichen Prüfung je Text; diese Einschränkung wird berichtet.

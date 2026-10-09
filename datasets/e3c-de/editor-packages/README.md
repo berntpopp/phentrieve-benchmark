@@ -28,4 +28,12 @@ replace an imported package under the same ID.
 The guideline version a reviewer works under is not part of a package. It
 belongs to the review round and is supplied when the export is imported.
 
+The recorded packages predate the guideline revision of 2026-10-09. Their
+profiles still include the `verbalization` axis, and their proposals may
+include non-verbalized measurement findings. Such findings do not enter gold
+unchanged under the revised guideline: only findings explicitly interpreted
+in the text are annotated. Adapting the profile/import handling and reviewing
+affected proposals are pending. Existing package IDs and build records remain
+historical evidence; changed package content requires a new package version.
+
 Test packages built with `--limit` get no record.
