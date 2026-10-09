@@ -204,6 +204,17 @@ Vergleichsdaten erhalten.
 - [ ] Editor-Pakete je Annotationsgruppe bauen: je Vorkommen eine eigene
       Belegstelle; Achsen als Pflicht; Spannen beim Abschluss erzwingen;
       Pflichtachse `verbalized`/`not_verbalized`, vorbelegt mit `verbalized`.
+  - [x] Builder `scripts/build_editor_packages.py e3c` und Pakete für
+        Englisch, Französisch und Spanisch (2026-10-08), je Paket ein
+        Build-Protokoll in `datasets/e3c-de/editor-packages/`.
+  - [x] Ablauf im Editor mit Testpaketen geprüft (2026-10-08): zwei
+        Reviewer, drei Sprachen, bis zum Export; Folgerungen für den Import
+        im Umsetzungsentwurf, Abschnitt 8.2.
+  - [ ] Paket der deutschen Gruppe, sobald ihre Korpusdokumente vorliegen.
+  - [ ] Vorbelegung mit `verbalized` klären: Vorschläge bringen den Wert
+        mit, neu angelegte Annotationen starten leer, weil das
+        Aufgabenprofil des Editors keinen Standardwert kennt; der Editor
+        lehnt leere Achsen beim Abschluss ab.
 - [x] `make_annotation_review.py` löschen und
       `annotation-feasibility/README.md` anpassen; das Skript wird für den
       einheitlichen Vorschlagsschritt nicht mehr gebraucht, und seine 31

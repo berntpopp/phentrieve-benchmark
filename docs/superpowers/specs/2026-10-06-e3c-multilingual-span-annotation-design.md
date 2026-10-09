@@ -280,7 +280,9 @@ annotation group:
 - documents: the corpus documents of that group with their corpus IDs and
   text;
 - proposals: the validated proposals of the latest confirmed run, as tool
-  annotations with `source_refs` pointing to run, batch, and proposal ID;
+  annotations with `source_refs` pointing to run, batch, case, and proposal
+  ID (`run/batch/case/proposal`; raw proposal IDs restart in every report,
+  decided 2026-10-08);
 - one evidence mention per occurrence; the current builder's
   several-spans-as-segments behaviour is removed;
 - profile: assertion, experiencer, and temporality required
@@ -289,7 +291,15 @@ annotation group:
   completion;
 - proposal axis values come from the proposal step;
 - an option builds a package without any proposals, for blinded annotation
-  (see the double-annotation note in §2).
+  (see the double-annotation note in §2);
+- every package gets a text-free build record in
+  `datasets/e3c-de/editor-packages/` (decided 2026-10-08): manifest hash,
+  hash of `current-proposals.json`, runs, corpus manifests, guideline
+  commits, profile hash, and ontology hash. An editor export names the
+  manifest hash of its origin package, which ties it to the record. The
+  build is deterministic, and the builder refuses a package whose content
+  differs from its committed record; changed content gets a new package
+  version in the package ID.
 
 The builder stays a script in the Ontocurator overlay environment. Coverage
 statistics are not a design driver; the script is excluded from the CI
@@ -338,6 +348,30 @@ v2 `CuratedAnnotationSet` per document:
   code points and match Python string indices;
 - reviewer ID in `namespace:id` form, stage ID, scopes, and second-precision
   UTC timestamps come from an import configuration.
+
+An end-to-end check of the editor on 2026-10-08 (two reviewers, three
+languages, review and independent mode, package export) confirmed that an
+export carries the origin package and its manifest hash, every decision with
+outcome, note, and reviewer, and every annotation with its author and its
+link to the proposal. It adds these points for the adapter:
+
+- the editor stores the reviewer as the free text typed on its dashboard.
+  The import configuration maps these editor IDs to the namespaced
+  pseudonyms; an editor ID missing from the configuration is an error;
+- the review timestamp is the submission time of the case (decided
+  2026-10-08), truncated to seconds. Decisions have no timestamp of their
+  own;
+- the export's `origin_manifest_hash` must match a build record in
+  `datasets/e3c-de/editor-packages/` (§7);
+- the export contains neither the guideline version of the review round nor
+  the editor software version. The guideline commit comes from the import
+  configuration;
+- a changed proposal arrives as a new annotation by the reviewer whose
+  `source_refs` hold the proposal's annotation ID and version. Its mentions
+  can be in another order than in the proposal, so mentions are compared and
+  merged by span, not by position;
+- a proposal that was copied without a change and then confirmed is exported
+  together with its copy; the merge by HPO ID and status (R5) covers this.
 
 The import also writes a text-free review statistics report per annotation
 group (decided 2026-10-06): proposals confirmed unchanged, changed (term,
