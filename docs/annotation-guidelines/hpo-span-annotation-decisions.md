@@ -1,8 +1,8 @@
 # HPO span annotation guideline: decisions and open questions
 
 Status: discussion recorded on 2026-10-07; updated on 2026-10-09 with the
-user decisions from the guided repository review and their operational
-consequences. These changes have been incorporated into
+project lead's decisions from the guided repository review and their
+operational consequences. These changes have been incorporated into
 [`hpo-span-annotation.md`](hpo-span-annotation.md), which remains the binding
 text. This log records the history rather than defining a second guideline.
 
@@ -106,7 +106,7 @@ separate decision note in the guideline.
 |---|---|---|---|
 | A31 | German texts are fixed before annotation; a translation correction creates a new text version and spans are re-anchored. An unnatural or wrong German span is reported as a translation correction. | draft | R7 |
 | A32 | Single-term cases are derived from all four groups, one set per language. | 2026-10-06 | Single-term derivation |
-| A33 | Only clear findings enter the single-term benchmark: assertion `present`, experiencer `patient`, span belonging to exactly one annotation, not marked as not verbalized. | 2026-10-06 | Single-term derivation |
+| A33 | Only clear findings enter the single-term benchmark: assertion `present`, experiencer `patient`, span belonging to exactly one annotation, not marked as not verbalized. The verbalization criterion is superseded by A43; the other criteria remain. | 2026-10-06 | Single-term derivation |
 
 ### Deliberately left open
 
@@ -118,10 +118,10 @@ separate decision note in the guideline.
 
 ### Revision of 2026-10-09
 
-Source for A37–A44: the user choices in the guided discussion of this
-repository on 2026-10-09, now incorporated into the guideline. A45 records
-operational consequences derived from those choices and the existing rules;
-it is not a separately answered user question.
+Source for A37–A44: the project lead's choices in the guided discussion of
+this repository on 2026-10-09, now incorporated into the guideline. A45
+records operational consequences derived from those choices and the existing
+rules; it is not a separately answered question.
 
 | # | Decision | Supersedes or clarifies | Recorded in |
 |---|---|---|---|
@@ -205,7 +205,7 @@ matching permitted term exists. Do not derive infection from a positive
 test, absent disease from a negative test, or pathology from vaccine-induced
 or explicitly insignificant positivity. An explicitly named and negated
 phenotype is still `absent`. This applies the general scope decisions; the
-user did not separately vote on each serology example. Individual term
+project lead did not separately vote on each serology example. Individual term
 matches remain physician review cases.
 
 ### Q2 Metastases
@@ -233,7 +233,7 @@ metastases. Apply R1: a permitted term must describe the explicitly named
 lesion, possibly at a general level, without implying a primary tumour or
 another unstated property. "Metastatic" alone does not establish a site.
 If no fitting term exists, leave the finding unannotated and note the gap.
-The user decided the general mapping policy, not the validity of each
+The project lead decided the general mapping policy, not the validity of each
 example's proposed HPO term; those mappings remain physician review cases.
 
 ### Q3 Substitute and inferred terms
@@ -273,14 +273,14 @@ phrase "dermatomyosite" becomes a single-term case for *Myositis*.
 
 Decision (2026-10-09; A38):
 
-The user chose strict text-bound matching, with an explicit qualification:
-if no suitable term represents a qualification, use the fitting general
-term rather than dropping the finding. This allows translation, synonyms,
-and generalization of the stated finding, but not substituting unmentioned
-disease components or inferred consequences. "Starke Bauchschmerzen" may
-map to *Abdominal pain*; "dermatomyosite" alone is not a substitute
-*Myositis* case. This is option a amended by the user's general-term rule,
-not option b's component inference.
+The project lead chose strict text-bound matching, with an explicit
+qualification: if no suitable term represents a qualification, use the fitting
+general term rather than dropping the finding. This allows translation,
+synonyms, and generalization of the stated finding, but not substituting
+unmentioned disease components or inferred consequences. "Starke
+Bauchschmerzen" may map to *Abdominal pain*; "dermatomyosite" alone is not a
+substitute *Myositis* case. This is option a amended by the project lead's
+general-term rule, not option b's component inference.
 
 ### Q4 Specificity taken from context
 
@@ -318,11 +318,11 @@ a single-term case for *Anemic pallor*.
 
 Decision (2026-10-09; A37, A39):
 
-The user chose phrase-local specificity (option a: the span alone carries
-the term). No specificity may be borrowed from another sentence or a
+The project lead chose phrase-local specificity (option a: the span alone
+carries the term). No specificity may be borrowed from another sentence or a
 separate numeric value. A later general mention is annotated with its own
-general term, not attached to the earlier specific term and not omitted.
-The same rule applies to full-text annotation and single-term candidates.
+general term, not attached to the earlier specific term and not omitted. The
+same rule applies to full-text annotation and single-term candidates.
 
 ### Q5 One finding at two levels
 
@@ -393,13 +393,13 @@ input.
 
 Derived clarification (2026-10-09; A37, A39, A45):
 
-Mark a renewed phrase when it identifies a finding on its own, using its
-own supported term. Articles and demonstratives do not decide eligibility:
-"diese Schmerzen" can support *Pain*, but cannot inherit an earlier
-anatomical qualification. Pure references such as "diese Befunde" do not
-count. An abbreviation counts only when it independently identifies the
-finding; an ambiguous "CU" does not inherit the preceding expansion.
-This follows the user's phrase-local and all-explicit-mentions decisions.
+Mark a renewed phrase when it identifies a finding on its own, using its own
+supported term. Articles and demonstratives do not decide eligibility: "diese
+Schmerzen" can support *Pain*, but cannot inherit an earlier anatomical
+qualification. Pure references such as "diese Befunde" do not count. An
+abbreviation counts only when it independently identifies the finding; an
+ambiguous "CU" does not inherit the preceding expansion. This follows the
+project lead's phrase-local and all-explicit-mentions decisions.
 
 ### Q7 Span edges, subjects, and long constructions
 
@@ -445,7 +445,7 @@ axes are recorded separately. Do not use an isolated predicate with site
 borrowed from context. There is no guideline character limit. Proposal
 excerpt limits are tooling constraints that must be addressed in the
 proposal workflow, not by truncating complete spans. These are operational
-consequences, not a separately chosen user option.
+consequences, not a separately chosen option.
 
 ### Q8 Past-history conditions: `historical` or `current`
 
@@ -472,7 +472,7 @@ To consider: temporality is not a criterion of the single-term derivation
 
 Decision (2026-10-09; A42):
 
-The user chose explicit time reference and corrected the initial
+The project lead chose explicit time reference and corrected the initial
 section-based option: `historical` only when the finding is unambiguously
 placed before the reported episode. Past tense and an anamnesis heading
 alone are insufficient. "Bei Aufnahme bestand Fieber" is `current`.
@@ -512,7 +512,7 @@ Sub-questions:
 
 Decision (2026-10-09; A41):
 
-The user chose separate states: an explicitly resolved finding gives
+The project lead chose separate states: an explicitly resolved finding gives
 `absent`, alongside its earlier `present` occurrence. "X disappeared" and
 "fieberfrei" follow the same rule. An explicit suspicion and later explicit
 exclusion similarly remain separate `uncertain` and `absent` annotations;
@@ -548,12 +548,12 @@ Sub-questions:
 
 Decision (2026-10-09; A43, A44):
 
-The user excludes procedures and treatments even where HPO offers a term;
-explicit pathological findings or consequences are annotated instead.
-Treatment alone does not establish a phenotype. The user also chose a
+The project lead excludes procedures and treatments even where HPO offers a
+term; explicit pathological findings or consequences are annotated instead.
+Treatment alone does not establish a phenotype. The project lead also chose a
 stricter rule than the proposed report-reference option: only findings the
-text itself explicitly classifies as pathologically altered may and must
-be annotated. No numeric values are interpreted, including values with
-reference intervals printed in the report. Therefore no external range or
+text itself explicitly classifies as pathologically altered may and must be
+annotated. No numeric values are interpreted, including values with reference
+intervals printed in the report. Therefore no external range or
 borderline-value rule is needed, and the former non-verbalized measurement
 category is superseded.

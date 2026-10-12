@@ -1,7 +1,7 @@
 # HPO span annotation guideline
 
-Status: rules agreed on 2026-10-06, revised by the user decisions of
-2026-10-09; not yet applied to any reviewed data. The decision history and
+Status: rules agreed on 2026-10-06, revised by the project lead's decisions
+of 2026-10-09; not yet applied to any reviewed data. The decision history and
 derived clarifications are in
 [`hpo-span-annotation-decisions.md`](hpo-span-annotation-decisions.md).
 
@@ -60,12 +60,11 @@ Infections, metastases, and test results follow the same text-bound term
 choice as other findings (R1). A positive test is not automatically an
 infection, and a negative test is not automatically an absent disease.
 Annotate a test finding only when the text explicitly describes it as
-pathologically altered and a permitted term fits; do not infer pathology
-from vaccine-induced positivity or a result described as normal or not
-clinically significant. An explicitly named and negated phenotype still
-receives `absent`. A general term for an explicitly named metastatic lesion
-may be used only if it describes that lesion without implying a primary
-tumour or another unstated property. If no term fits, leave it unannotated.
+pathologically altered and a permitted term fits; do not infer pathology from
+vaccine-induced positivity or a result described as normal or not clinically
+significant. A general term for an explicitly named metastatic lesion may be
+used only if it describes that lesion without implying a primary tumour or
+another unstated property. If no term fits, leave it unannotated.
 
 Completeness (decided 2026-10-06): annotate every phenotypic finding in the
 text, whoever it concerns and whatever its status. This includes negated
@@ -119,9 +118,7 @@ attach the general phrase to the specific term using the other occurrence
 as context. Explicitly worded collective and component findings are treated
 in the same way; raw component values give no annotations (R6).
 
-When no single term represents all explicitly named characteristics,
-complementary terms may share the same span (R4). Do not add a redundant
-ancestor of another term on that span.
+Complementary terms on one span are covered by R4.
 
 ### R2 Span extent
 
@@ -138,8 +135,7 @@ Mark the shortest contiguous phrase that expresses the term on its own.
   a span for *Abdominal distention*. Include the subject when needed to
   express the finding; retain unavoidable intervening words, including cues,
   under the contiguity rule. Record the status separately (R3).
-- Drop leading or trailing words that do not determine the selected term.
-  There is no guideline character limit: a complete construction takes
+- There is no guideline character limit: a complete construction takes
   precedence over a short span. A proposal format's excerpt limit is a
   tooling constraint, not permission to truncate the finding.
 
@@ -185,8 +181,7 @@ finding itself `present` ("Pneumonie, vermutlich durch Pneumocystis").
 - An explicitly stated suspicion is `uncertain`; an explicit later exclusion
   gives a separate `absent` annotation. A normal test result alone does not
   rule out a diagnosis. Judge hedging by the statement's meaning rather than
-  a word list: "indicated" is not automatically uncertain. A hedge on the
-  cause still leaves an explicitly established finding `present`.
+  a word list: "indicated" is not automatically uncertain.
 
 ### R4 Shared components
 
@@ -252,8 +247,8 @@ task, not an interpretation of laboratory or other numeric values (decided
   permitted HPO term fits.
 - Use the shortest wording that expresses the interpreted finding, not a
   bare measurement: "erniedrigtes Serumalbumin (29 g/l)" gives the span
-  "erniedrigtes Serumalbumin". Its later uninterpreted numeric value does
-  not create a second annotation or occurrence.
+  "erniedrigtes Serumalbumin". The value in parentheses, or a later
+  repetition of it, does not create a second annotation or occurrence.
 - Explicitly named and negated phenotypes remain covered by R0/R3, including
   "keine Anämie" and "afebril". A normal numeric value alone gives no
   annotation.
@@ -289,12 +284,10 @@ little value to that task.
 Every span is a candidate when all of the following hold:
 
 - the annotation has assertion `present` and experiencer `patient`;
-- the span belongs to exactly one annotation (R4);
-- the phrase itself supports the selected HPO term without context from
-  elsewhere in the report (R1/R2).
+- the span belongs to exactly one annotation (R4).
 
-All accepted findings are verbalized under R6. Historical findings remain
-eligible when these criteria hold; temporality is not an exclusion rule.
+Historical findings remain eligible when these criteria hold; temporality is
+not an exclusion rule.
 Repeated phrase text associated with different HPO IDs is flagged for
 review before release; it must not silently become contradictory test cases.
 
@@ -329,19 +322,12 @@ Two things v1 cannot represent:
   drops its origin. The format design of 2026-07-25 explicitly excluded
   German E3C annotation generation.
 
-These changes still require `curated-annotation-set/v2`; v1 is not
-reinterpreted in place. The former R6 marker is no longer a requirement for
-E3C gold. Existing proposal schemas and editor packages still carry
-`verbalized`/`verbalization`; their adaptation is pending. Existing raw
-proposals, run records, and package build records remain historical evidence
-under their recorded guideline versions, not accepted gold under this revision.
+Both require `curated-annotation-set/v2`; v1 is not reinterpreted in place.
+The marker for non-verbalized findings planned under the earlier R6 is no
+longer needed.
 
-`pipeline/annotation_corpus.py` already creates German benchmark `Document`s
-with `translation_status = translated` from accepted translation reviews.
-The real German group still awaits those reviews. Curated format v2, the
-editor import adapter, and automatic single-term selection are not yet
-implemented. Rule revisions alone do not establish that old proposals meet
-the new guideline; affected proposals need correction or physician review.
+German benchmark `Document`s (`translation_status = translated`) are created
+from accepted translation reviews by `pipeline/annotation_corpus.py`.
 
 Known and unchanged: the content-derived annotation ID includes the spans, so
 it changes when spans change.

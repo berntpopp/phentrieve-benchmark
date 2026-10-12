@@ -4,14 +4,15 @@
 
 **Date:** 2026-10-06
 
-**Guideline revision:** 2026-10-09. The user decisions are recorded in
+**Guideline revision:** 2026-10-09. The project lead's decisions are recorded
+in
 [`hpo-span-annotation-decisions.md`](../../annotation-guidelines/hpo-span-annotation-decisions.md)
 and incorporated into the binding guideline. Term choice is phrase-local;
 explicit general/specific occurrences and complementary terms are allowed;
-resolution is recorded as absence; historical status requires an earlier
-time reference; uninterpreted measurements and procedures are excluded.
-The existing proposal prompts, proposal outputs, and editor profiles predate
-this revision. Their adaptation or targeted review is pending; the historical
+resolution is recorded as absence; historical status requires an earlier time
+reference; uninterpreted measurements and procedures are excluded. The
+existing proposal prompts, proposal outputs, and editor profiles predate this
+revision. Their adaptation or targeted review is pending; the historical
 records are preserved.
 
 ## 1. Summary
@@ -416,9 +417,7 @@ Two additions are needed:
 
 - a selector that builds the selection from the accepted gold of one
   annotation group by the guideline criteria (assertion `present`,
-  experiencer `patient`, span owned by one annotation, and a phrase that
-  supports its term without specificity borrowed from context). All accepted
-  findings are verbalized under the R6 revision of 2026-10-09;
+  experiencer `patient`, span owned by one annotation);
 - merging candidates with identical phrase text and HPO ID across documents
   of one language. The current record ties a case to a single span, so the
   merged case keeps one representative span and lists the others as

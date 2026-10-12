@@ -262,7 +262,7 @@ missing next to those 24 proposals, mostly specialised examination and
 laboratory findings, and further occurrences of an annotated finding are not
 always marked. Sonnet 5.5 with prompt v1 is usable as a proposal source for
 physician review if reviewers are told to expect missing findings; whether
-that is good enough for the full run is the user's decision.
+that is good enough for the full run is the project lead's decision.
 
 Decision of 2026-10-06: revise the prompt and repeat the pilot.
 
@@ -392,7 +392,8 @@ but not always. Three weaknesses remain:
   next.
 
 The self-check without extra files did not work as written in the prompt.
-Whether prompt v2 is good enough for the full run is the user's decision.
+Whether prompt v2 is good enough for the full run is the project lead's
+decision.
 
 Decision of 2026-10-06, taken after these pilots:
 
@@ -493,11 +494,14 @@ location remain reliable (111 of 111 proposals, 128 of 128 mentions). The
 spot check found one obvious miss, one span that does not stand on its own,
 and two arguable proposals among 42. Open before the full run: the share
 of report text in the tracked contexts (up to 40 %). Whether to start the
-full run is the user's decision.
+full run is the project lead's decision.
 
 ## Guideline clarifications after the pilots
 
-Decided on 2026-10-06 and added to the guideline (R0, R3, R5):
+Decided on 2026-10-06 and added to the guideline (R0, R3, R5). The
+guideline revision of 2026-10-09 supersedes the last two points: a renewed
+phrase counts when it names a finding on its own (R5), and uninterpreted
+measurements are no longer annotated (R6).
 
 - A finding or diagnosis the text only suggests ("en faveur de", "consistent
   with", "suggestive of") is `uncertain`; a hedge on the cause or pathogen
