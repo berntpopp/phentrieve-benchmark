@@ -37,10 +37,12 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 from collections import Counter
 from collections.abc import Iterable
 from datetime import UTC, datetime
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from typing import Any
 
 from ontocurator.domain.annotations import (
@@ -235,9 +237,15 @@ class PackageBuilder:
             self.evidence[(item.mention.evidence_id, item.version)] = item
 
     def write(
-        self, package_id: str, hp_raw: bytes, output: Path, created_at: str
+        self,
+        package_id: str,
+        hp_raw: bytes,
+        output: Path,
+        created_at: str,
+        *,
+        expected_manifest_sha256: str | None = None,
     ) -> str:
-        """Write the package and return its canonical manifest hash."""
+        """Validate a staged package before atomically publishing its ZIP."""
         package = ValidatedPackage(
             manifest=PackageManifest(
                 package_id=package_id,
@@ -253,12 +261,27 @@ class PackageBuilder:
             embedded_files={HP_RESOURCE_PATH: hp_raw},
         )
         output.parent.mkdir(parents=True, exist_ok=True)
-        with output.open("wb") as stream:
-            PackageWriter.write_to_stream(package, stream)
-        # The editor hashes the manifest as stored, including the file hashes
-        # the writer adds; an export reports this as origin_manifest_hash.
-        written = PackageReader().read(output)
-        manifest_hash: str = canonical_hash(written.manifest.model_dump())
+        # Stay on the destination filesystem so replacement is atomic. A failed
+        # write, read-back or version check leaves the published ZIP untouched.
+        with TemporaryDirectory(
+            prefix=f".{output.name}.", dir=output.parent
+        ) as staging:
+            staged_output = Path(staging) / "package.zip"
+            with staged_output.open("wb") as stream:
+                PackageWriter.write_to_stream(package, stream)
+            # An editor export reports the hash of the stored manifest,
+            # including the file hashes added by the writer.
+            written = PackageReader().read(staged_output)
+            manifest_hash: str = canonical_hash(written.manifest.model_dump())
+            if (
+                expected_manifest_sha256 is not None
+                and expected_manifest_sha256 != manifest_hash
+            ):
+                raise SystemExit(
+                    f"{package_id}: content differs from its build record; "
+                    "pass a new --package-version"
+                )
+            os.replace(staged_output, output)
         return manifest_hash
 
 
@@ -394,7 +417,19 @@ def build_e3c(args: argparse.Namespace, hp_raw: bytes, store: ArtifactStore) -> 
         )
         created_at = f"{newest}T00:00:00Z"
         output = args.output_dir / f"editor-{name}.zip"
-        manifest_hash = builder.write(package_id, hp_raw, output, created_at)
+        record_path = E3C_BUILD_RECORD_DIR / f"{package_id}.json"
+        expected_manifest_sha256 = None
+        if not args.limit and record_path.is_file():
+            expected_manifest_sha256 = json.loads(record_path.read_bytes())[
+                "manifest_sha256"
+            ]
+        manifest_hash = builder.write(
+            package_id,
+            hp_raw,
+            output,
+            created_at,
+            expected_manifest_sha256=expected_manifest_sha256,
+        )
         print(f"{output} ({output.stat().st_size} bytes)")
         for key, value in sorted(stats.items()):
             print(f"  {key}: {value}")
@@ -423,14 +458,6 @@ def build_e3c(args: argparse.Namespace, hp_raw: bytes, store: ArtifactStore) -> 
             "ontology": {"release": args.hp_release, "sha256": _sha256(hp_raw)},
             **sources,
         }
-        record_path = E3C_BUILD_RECORD_DIR / f"{package_id}.json"
-        if record_path.is_file():
-            committed = json.loads(record_path.read_bytes())["manifest_sha256"]
-            if committed != manifest_hash:
-                raise SystemExit(
-                    f"{package_id}: content differs from its build record "
-                    f"{record_path.name}; pass a new --package-version"
-                )
         record_path.parent.mkdir(parents=True, exist_ok=True)
         record_path.write_bytes(canonical_json_bytes(record) + b"\n")
         print(f"  build record: {record_path.relative_to(REPO_ROOT).as_posix()}")

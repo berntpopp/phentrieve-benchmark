@@ -25,6 +25,11 @@ timestamps. The builder refuses to overwrite a record with a different hash:
 changed content needs a new `--package-version`, because the editor does not
 replace an imported package under the same ID.
 
+The ZIP is built in a temporary directory on the destination filesystem,
+read back and checked against the existing record before it replaces the
+published ZIP. A failed write, package validation or version check leaves
+the existing ZIP and build record unchanged.
+
 The guideline version a reviewer works under is not part of a package. It
 belongs to the review round and is supplied when the export is imported.
 
@@ -36,4 +41,17 @@ in the text are annotated. Adapting the profile/import handling and reviewing
 affected proposals are pending. Existing package IDs and build records remain
 historical evidence; changed package content requires a new package version.
 
+The active proposal, cross-read and revision prompt templates also still
+describe the earlier measurement rule. Update the templates and package
+profile together before new proposal runs under the revised guideline;
+technical proposal validation does not establish guideline compliance.
+
 Test packages built with `--limit` get no record.
+
+Synthetic integration tests for package publication use the editor overlay:
+
+```text
+uv run --with-editable ../ontocurator pytest tests/integration/test_editor_packages.py
+```
+
+The normal offline suite skips these tests when Ontocurator is unavailable.
