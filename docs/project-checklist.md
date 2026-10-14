@@ -152,14 +152,22 @@ Vergleichsdaten erhalten.
       werden nicht verwendet.
 - [x] Workbook-Export auf die deutsche Annotationsgruppe (`tllm-full`) statt
       auf die 30er-Kohorte umstellen.
-- [ ] Übersetzungsreview aller Texte der deutschen Gruppe durchführen und
-      importieren.
-- [ ] Je Fall die deutsche Textfassung festschreiben, bevor annotiert wird;
+- [x] Übersetzungsreview aller 61 Texte der deutschen Gruppe durchführen und
+      importieren (`2026-10-14`, maschinell gestützte medizinische Vorprüfung
+      `antigravity-gemini-4-argon-pre-review-v1`, Export
+      `ce2736cfbfe17d96b59b2f74e4b10e61b71a722a3ae82803051c6287077af652`,
+      Import `c83c4bb7f8fcca845a16f253f6a3821055f0946eb1130f055c910470f146ceb4`:
+      35 unverändert akzeptiert, 26 korrigiert akzeptiert, davon 21 mit
+      klinisch relevanter Änderung über 40 Einzelkorrekturen).
+- [x] Je Fall die deutsche Textfassung festschreiben, bevor annotiert wird;
       eine spätere Korrektur erzeugt eine neue Fassung, deren Spannen neu
-      verankert werden müssen (Richtlinie R7).
+      verankert werden müssen (Richtlinie R7). Korpus-Manifest:
+      `ba3f557f2efa188c3be64db0ef4a7a81e628e2193f3899cfd9f9c003a8cd9b14`
+      (`de=61 en=63 fr=61 es=61 pending_review=0`).
 - Entfällt: Ausweitung des manuellen Reviews bei kritischen Fehlern; die
   deutsche Gruppe wird ohnehin vollständig geprüft.
-- [ ] Reviewbefunde, Korrekturen und Entscheidungen getrennt dokumentieren.
+- [x] Reviewbefunde, Korrekturen und Entscheidungen getrennt dokumentieren
+      (`datasets/e3c-de/translations/e3c-de-group-61-review-v1/`).
 
 ### UMLS-zu-HPO-Mapping und Annotation
 
@@ -243,8 +251,9 @@ Vergleichsdaten erhalten.
 - [x] Korpus-Stufe für festgeschriebene deutsche Texte als
       benchmark-`Document`s (`translated`) implementieren und mit
       synthetischen akzeptierten Übersetzungsreviews testen.
-- [ ] Reale deutsche Korpusdokumente nach akzeptiertem Übersetzungsreview
-      erzeugen.
+- [x] Reale deutsche Korpusdokumente nach akzeptiertem Übersetzungsreview
+      erzeugen (`corpus_sha256 = ba3f557f2efa188c3be64db0ef4a7a81e628e2193f3899cfd9f9c003a8cd9b14`,
+      `de=61 en=63 fr=61 es=61 pending_review=0`).
 - [ ] `curated-annotation-set/v2` einführen: Achsenwerte nach R3 und eine
       Herkunftsart für LLM-Vorschläge; v1 kennt keine passende
       Herleitungsquelle. Ein Merkmal für nicht verbalisierte Messbefunde ist

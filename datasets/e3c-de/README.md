@@ -49,6 +49,10 @@ reports without one are listed as pending. Review imports are applied in the
 given order; for each report the last decision wins. The translation review
 for the German group is exported with
 `uv run phentrieve-benchmark review-workbook export-e3c <destination> --variant tllm-full --groups datasets/e3c-de/selections/e3c-annotation-groups-v1.json`.
+The completed 61-report German-group translation review (`import_sha256 = c83c4bb7f8fcca845a16f253f6a3821055f0946eb1130f055c910470f146ceb4`,
+`corpus_sha256 = ba3f557f2efa188c3be64db0ef4a7a81e628e2193f3899cfd9f9c003a8cd9b14`)
+is tracked under [`translations/e3c-de-group-61-review-v1/`](translations/e3c-de-group-61-review-v1/)
+alongside the unchanged `tllm-full` snapshot.
 
 ## Analysis reading path
 

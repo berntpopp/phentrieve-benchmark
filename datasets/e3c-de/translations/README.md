@@ -214,6 +214,25 @@ diffs, and an import manifest. Later stages consume those canonical artifacts,
 not the `.xlsx` file; the original source, TLLM, and optional NMT artifacts are
 never overwritten.
 
+The completed bilingual medical review of the 61 German-group reports (`21 EN`,
+`20 ES`, `20 FR`; reviewer ID `antigravity-gemini-4-argon-pre-review-v1`,
+review date `2026-10-14`) is tracked alongside the raw `tllm-full` snapshot
+under [e3c-de-group-61-review-v1/](e3c-de-group-61-review-v1/):
+
+- `export.json` (`ce2736cfbfe17d96b59b2f74e4b10e61b71a722a3ae82803051c6287077af652`):
+  canonical `TranslationReviewExport` for the 61 German-group reports.
+- `import-manifest.json` (`c83c4bb7f8fcca845a16f253f6a3821055f0946eb1130f055c910470f146ceb4`):
+  canonical `TranslationReviewImportManifest` (35 `unverändert akzeptiert`,
+  26 `korrigiert akzeptiert`, 21 with clinically relevant change across 40
+  substring edits, 0 rejected).
+- `<CASE>.translation.de.txt`, `records/<CASE>.review.json`,
+  `diffs/<CASE>.diff.json`, `index.csv`, and [`README.md`](e3c-de-group-61-review-v1/README.md)
+  (full medical review report with per-case hashes, diffs, `units_added`
+  verdicts, and documented silent source repairs).
+- Resulting annotation corpus (`build-corpus e3c --review-import c83c4bb7f8fcca845a16f253f6a3821055f0946eb1130f055c910470f146ceb4`):
+  `corpus_sha256 = ba3f557f2efa188c3be64db0ef4a7a81e628e2193f3899cfd9f9c003a8cd9b14`
+  (`de=61 en=63 fr=61 es=61 pending_review=0`).
+
 ## Automatic checks
 
 Each translation carries `nonempty_output`, `source_changed`, `length_ratio`,
