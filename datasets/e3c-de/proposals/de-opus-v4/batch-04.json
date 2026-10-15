@@ -1,0 +1,1860 @@
+{
+  "schema_version": "e3c-hpo-proposal-batch/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "de-opus-v4",
+  "batch_id": "batch-04",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:de:ES100513:translated",
+      "document_sha256": "797f7e95eccf4677e21047bc8a549faa4774fe96aae094333a739e381ca0c35c",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0011332",
+          "hpo_label": "Hemifacial hypoplasia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "rechtsseitigen Gesichtshypoplasie",
+              "context": "ausgeprägten rechtsseitigen Gesichtshypoplasie eine starke"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0000324",
+          "hpo_label": "Facial asymmetry",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Gesichtsasymmetrie",
+              "context": "eine starke Gesichtsasymmetrie auf"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0012478",
+          "hpo_label": "Temporomandibular joint ankylosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Unterkieferankylose",
+              "context": "wurde eine Unterkieferankylose (mandibuläre"
+            },
+            {
+              "phrase": "mandibuläre Ankylose",
+              "context": "(mandibuläre Ankylose) bestätigt"
+            },
+            {
+              "phrase": "ankylotischen Blocks des rechten Kiefergelenks",
+              "context": "Resektion des ankylotischen Blocks des rechten Kiefergelenks"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0000308",
+          "hpo_label": "Microretrognathia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Mikroretrognathie",
+              "context": "und einer Mikroretrognathie einherging"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0000211",
+          "hpo_label": "Trismus",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "lediglich eine maximale Inzisivendistanz von 4 mm",
+              "context": "dies ermöglichte lediglich eine maximale Inzisivendistanz von 4 mm"
+            }
+          ],
+          "note": "The text qualifies the 4 mm opening as restricted ('lediglich'); reviewer should check this counts as explicit interpretation under R6. Translation: 'Inzisivendistanz' is unusual German (Schneidekantendistanz)."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0000689",
+          "hpo_label": "Dental malocclusion",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Klasse-II-Okklusionsanomalie",
+              "context": "mit einer Klasse-II-Okklusionsanomalie verbunden"
+            }
+          ],
+          "note": "No HPO term for Class II malocclusion; general term used."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:de:ES100569:translated",
+      "document_sha256": "631880804300e1db80e4c3cd8f625073368f794b3a678520f6a2f5f7b8b47597",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0002027",
+          "hpo_label": "Abdominal pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Bauchschmerzen",
+              "context": "aufgrund von Bauchschmerzen, die vorwiegend im rechten Oberbauch"
+            }
+          ],
+          "note": "No HPO term for right upper quadrant pain; general term used."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0001407",
+          "hpo_label": "Hepatic cysts",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "zystische Leberläsion",
+              "context": "multilokuläre zystische Leberläsion"
+            },
+            {
+              "phrase": "zystische Läsion mit einem Durchmesser von etwa 10 cm, die über dem Leberhilus in den Segmenten 4 und 5 lag",
+              "context": "zystische Läsion mit einem Durchmesser von etwa 10 cm, die über dem Leberhilus in den Segmenten 4 und 5 lag"
+            },
+            {
+              "phrase": "Leberzyste",
+              "context": "eine ciliierte Leberzyste"
+            }
+          ],
+          "note": "Ciliated hepatic foregut cyst has no specific term."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0006559",
+          "hpo_label": "Hepatic calcification",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Leberläsion; diese war überwiegend hypoechogen, wies jedoch hyperechogene Areale sowie Verkalkungen",
+              "context": "Leberläsion; diese war überwiegend hypoechogen, wies jedoch hyperechogene Areale sowie Verkalkungen auf"
+            }
+          ],
+          "note": "Span extended to the liver lesion as subject so that the site is included (R2)."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0002664",
+          "hpo_label": "Neoplasm",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Malignität",
+              "context": "Da eine Malignität nicht ausgeschlossen werden konnte"
+            }
+          ],
+          "note": "Possible malignancy of the liver lesion; no general malignancy term, so Neoplasm."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:de:ES100571:translated",
+      "document_sha256": "891206fee4955724d6828a48c1f38a31add37bcd0c179571c4967e332734f8f9",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0025406",
+          "hpo_label": "Asthenia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Asthenie",
+              "context": "Allgemeinzustands, Asthenie, Anorexie"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0002039",
+          "hpo_label": "Anorexia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Anorexie",
+              "context": "Asthenie, Anorexie und Gewichtsverlust"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0001824",
+          "hpo_label": "Weight loss",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Gewichtsverlust",
+              "context": "Anorexie und Gewichtsverlust"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0012125",
+          "hpo_label": "Prostate cancer",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Adenokarzinoms der Prostata",
+              "context": "wegen eines Adenokarzinoms der Prostata operiert"
+            }
+          ],
+          "note": "Historical: operated before the reported episode; no prostate adenocarcinoma term."
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0002014",
+          "hpo_label": "Diarrhea",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Durchfall",
+              "context": "mit wechselndem Durchfall und Verstopfung"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0002019",
+          "hpo_label": "Constipation",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Verstopfung",
+              "context": "wechselndem Durchfall und Verstopfung sowie"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0011848",
+          "hpo_label": "Abdominal colic",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "kolikartigen Schmerzen",
+              "context": "häufigen kolikartigen Schmerzen"
+            }
+          ],
+          "note": "Site not stated in the phrase; colicky pain in an abdominal history read as abdominal colic."
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0012701",
+          "hpo_label": "Bowel urgency",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Stuhldrang",
+              "context": "begleitet von Stuhldrang und Tenesmus"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0012702",
+          "hpo_label": "Tenesmus",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Tenesmus",
+              "context": "Stuhldrang und Tenesmus"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0003271",
+          "hpo_label": "Visceromegaly",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Organvergrößerungen",
+              "context": "keine Organvergrößerungen"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0002716",
+          "hpo_label": "Lymphadenopathy",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Lymphadenopathie",
+              "context": "Es lagen keine Lymphadenopathie, kein Fieber"
+            },
+            {
+              "phrase": "Lymphadenopathien",
+              "context": "Es wurden weder Lymphadenopathien noch abdominale"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0001945",
+          "hpo_label": "Fever",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Fieber",
+              "context": "keine Lymphadenopathie, kein Fieber und"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:0001974",
+          "hpo_label": "Increased total leukocyte count",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Leukozytose",
+              "context": "ergab eine Leukozytose von"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:0003073",
+          "hpo_label": "Hypoalbuminemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Hypoalbuminämie",
+              "context": "sowie eine Hypoalbuminämie von"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p015",
+          "hpo_id": "HP:0002583",
+          "hpo_label": "Colitis",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Strahlenkolitis",
+              "context": "Verdachtsdiagnose wurde eine Strahlenkolitis"
+            },
+            {
+              "phrase": "aktinische Kolitis",
+              "context": "(aktinische Kolitis) gestellt"
+            }
+          ],
+          "note": "Radiation colitis has no specific term."
+        },
+        {
+          "proposal_id": "p016",
+          "hpo_id": "HP:0031500",
+          "hpo_label": "Abdominal mass",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "abdominale Raumforderungen",
+              "context": "noch abdominale Raumforderungen festgestellt"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p017",
+          "hpo_id": "HP:0008635",
+          "hpo_label": "Urinary bladder wall hypertrophy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Verdickung des perirektalen Fettgewebes sowie der Blasen- und Rektumwand",
+              "context": "eine Verdickung des perirektalen Fettgewebes sowie der Blasen- und Rektumwand"
+            }
+          ],
+          "note": "Whole construction kept because 'Verdickung' is shared with the bladder wall (R4); the hedge concerns the cause only."
+        },
+        {
+          "proposal_id": "p018",
+          "hpo_id": "HP:0012848",
+          "hpo_label": "Small intestinal stenosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Schlingen des pelvinen Ileums mit vermindertem Kaliber",
+              "context": "Schlingen des pelvinen Ileums mit vermindertem Kaliber"
+            }
+          ],
+          "note": "Reduced calibre of ileal loops read as narrowing; reviewer should confirm."
+        },
+        {
+          "proposal_id": "p019",
+          "hpo_id": "HP:4000055",
+          "hpo_label": "Intestinal inflammation",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Strahlenenteritis",
+              "context": "mit einer Strahlenenteritis vereinbar"
+            }
+          ],
+          "note": "No enteritis term; general intestinal inflammation used for radiation enteritis."
+        },
+        {
+          "proposal_id": "p020",
+          "hpo_id": "HP:4000055",
+          "hpo_label": "Intestinal inflammation",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Strahlenenteritis",
+              "context": "Die Diagnose lautete Strahlenenteritis"
+            }
+          ],
+          "note": "Final diagnosis; no enteritis term."
+        },
+        {
+          "proposal_id": "p021",
+          "hpo_id": "HP:0001880",
+          "hpo_label": "Increased total eosinophil count",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "sekundären peripheren Eosinophilie",
+              "context": "Ursachen einer sekundären peripheren Eosinophilie"
+            },
+            {
+              "phrase": "Eosinophilie",
+              "context": "zentraler Ursprung der Eosinophilie"
+            },
+            {
+              "phrase": "sekundäre periphere Eosinophilie",
+              "context": "Strahlenenteritis und sekundäre periphere Eosinophilie"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:de:ES100587:translated",
+      "document_sha256": "9e6ee708944a4d98158d344aa7668e176a3e7ef24d9ed76e595af47b9b81bede",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0011110",
+          "hpo_label": "Recurrent tonsillitis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Wiederkehrende Tonsillitiden",
+              "context": "Wiederkehrende Tonsillitiden in der Kindheit"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0002910",
+          "hpo_label": "Elevated circulating hepatic transaminase concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Erhöhung der Transaminasen",
+              "context": "persistierenden Erhöhung der Transaminasen"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0033563",
+          "hpo_label": "Anti-tissue transglutaminase antibody positivity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "TTG positiv",
+              "context": "TTG positiv (2,46)"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0011473",
+          "hpo_label": "Villous atrophy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Zottenatrophie",
+              "context": "mäßige Zottenatrophie"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:de:ES100631:translated",
+      "document_sha256": "98a3eb28de2384225860223ba286b40c244d780ae747814509eee9757e6c663d",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0000952",
+          "hpo_label": "Jaundice",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Gelbsucht",
+              "context": "schmerzlosen mukokutanen Gelbsucht"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0031811",
+          "hpo_label": "Bilirubinuria",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Kolurie",
+              "context": "Gelbsucht, Kolurie und"
+            }
+          ],
+          "note": "Translation: 'Kolurie' follows the Spanish spelling; German usually writes 'Cholurie'."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0000989",
+          "hpo_label": "Pruritus",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Juckreiz",
+              "context": "Kolurie und generalisiertem Juckreiz"
+            },
+            {
+              "phrase": "Juckreizes",
+              "context": "des persistierenden Juckreizes"
+            }
+          ],
+          "note": "No term for generalized pruritus."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:5210111",
+          "hpo_label": "Tuberculosis infection",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Tuberkulose",
+              "context": "eine behandelte Tuberkulose"
+            }
+          ],
+          "note": "Historical because already treated before the episode."
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0003124",
+          "hpo_label": "Hypercholesterolemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Hypercholesterinämie",
+              "context": "diätetisch behandelte Hypercholesterinämie"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0010702",
+          "hpo_label": "Increased circulating immunoglobulin concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Hypergammaglobulinämie",
+              "context": "eine Hypergammaglobulinämie (Gammaglobulin"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0033149",
+          "hpo_label": "Intrahepatic bile duct dilatation",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Dilatation der intra- und extrahepatischen Gallenwege",
+              "context": "eine Dilatation der intra- und extrahepatischen Gallenwege"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0035013",
+          "hpo_label": "Abnormal extrahepatic bile duct morphology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Dilatation der intra- und extrahepatischen Gallenwege",
+              "context": "eine Dilatation der intra- und extrahepatischen Gallenwege"
+            }
+          ],
+          "note": "No extrahepatic bile duct dilatation term; general term shares the span (R4)."
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0012094",
+          "hpo_label": "Abnormal pancreas size",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "vergrößertes Pankreas",
+              "context": "ergab ein vergrößertes Pankreas"
+            },
+            {
+              "phrase": "vergrößertes, hypodenses Pankreas",
+              "context": "insgesamt vergrößertes, hypodenses Pankreas"
+            }
+          ],
+          "note": "No pancreatic enlargement term."
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0012090",
+          "hpo_label": "Abnormal pancreas morphology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "fokalen Läsion im Bereich des Pankreaskopfes",
+              "context": "3 cm großen fokalen Läsion im Bereich des Pankreaskopfes"
+            }
+          ],
+          "note": "Focal pancreatic head lesion; no specific term, and a mass is not stated."
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0030992",
+          "hpo_label": "Abnormal pancreatic duct morphology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Dilatation des Pankreasgangs",
+              "context": "nachgeschaltete Dilatation des Pankreasgangs"
+            }
+          ],
+          "note": "No pancreatic duct dilatation term."
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0001733",
+          "hpo_label": "Pancreatitis",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Autoimmunpankreatitis",
+              "context": "vereinbar mit einer Autoimmunpankreatitis bei"
+            },
+            {
+              "phrase": "Autoimmunpankreatitis",
+              "context": "der Verdacht auf eine Autoimmunpankreatitis (AIP)"
+            }
+          ],
+          "note": "No autoimmune pancreatitis term; the later 'AIP' is not marked as an ambiguous abbreviation (R5)."
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:0001733",
+          "hpo_label": "Pancreatitis",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Autoimmunpankreatitis",
+              "context": "weder ein Rezidiv der Autoimmunpankreatitis"
+            }
+          ],
+          "note": "No recurrence during follow-up."
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:0005200",
+          "hpo_label": "Retroperitoneal fibrosis",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "retroperitonealer Fibrose",
+              "context": "bei gleichzeitiger retroperitonealer Fibrose"
+            }
+          ],
+          "note": "Hedged by 'vereinbar mit'."
+        },
+        {
+          "proposal_id": "p015",
+          "hpo_id": "HP:0005200",
+          "hpo_label": "Retroperitoneal fibrosis",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "retroperitonealen Fibrose",
+              "context": "das Verschwinden der retroperitonealen Fibrose"
+            },
+            {
+              "phrase": "retroperitonealen Fibrose",
+              "context": "noch der retroperitonealen Fibrose auf"
+            }
+          ],
+          "note": "Resolved and not recurred."
+        },
+        {
+          "proposal_id": "p016",
+          "hpo_id": "HP:0001396",
+          "hpo_label": "Cholestasis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Cholestase",
+              "context": "der manifesten Cholestase"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p017",
+          "hpo_id": "HP:0100889",
+          "hpo_label": "Abnormal ductus choledochus morphology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "stenosierende Läsion im distalen Ductus choledochus",
+              "context": "eine stenosierende Läsion im distalen Ductus choledochus"
+            },
+            {
+              "phrase": "Dilatation des Hauptgallengangs mit einer regulären, etwa 3–4 cm langen Stenose",
+              "context": "Dilatation des Hauptgallengangs mit einer regulären, etwa 3–4 cm langen Stenose"
+            }
+          ],
+          "note": "No common bile duct stenosis or dilatation term."
+        },
+        {
+          "proposal_id": "p018",
+          "hpo_id": "HP:0002894",
+          "hpo_label": "Neoplasm of the pancreas",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Pankreasneoplasie",
+              "context": "auf eine Pankreasneoplasie hindeutete"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p019",
+          "hpo_id": "HP:0002664",
+          "hpo_label": "Neoplasm",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Neoplasie",
+              "context": "Da sich keine Neoplasie bestätigte"
+            }
+          ],
+          "note": "Neoplasia explicitly not confirmed; reviewer should check whether this counts as exclusion."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:de:ES100688:translated",
+      "document_sha256": "8c785fe295cd237112f56ad4b30c8a21e85051a5aa93fde684877da1a62c3ce9",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0031244",
+          "hpo_label": "Swollen lip",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Schwellung der Unterlippe",
+              "context": "da eine Schwellung der Unterlippe vorlag"
+            },
+            {
+              "phrase": "Schwellung der Unterlippe",
+              "context": "dass die Schwellung der Unterlippe bereits"
+            },
+            {
+              "phrase": "Schwellung der Unterlippe",
+              "context": "ausgeprägte Schwellung der Unterlippe"
+            }
+          ],
+          "note": "No lower-lip-specific swelling term."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0100825",
+          "hpo_label": "Cheilitis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "granulomatöse Cheilitis",
+              "context": "eine granulomatöse Cheilitis"
+            },
+            {
+              "phrase": "Cheilitis granulomatosa",
+              "context": "(Cheilitis granulomatosa)"
+            }
+          ],
+          "note": "No granulomatous cheilitis term."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0001250",
+          "hpo_label": "Seizure",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Epilepsie",
+              "context": "Epilepsie (in Behandlung)"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0001256",
+          "hpo_label": "Mild intellectual disability",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "leichte geistige Behinderung",
+              "context": "leichte geistige Behinderung, Hypothyreose"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0000821",
+          "hpo_label": "Hypothyroidism",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Hypothyreose",
+              "context": "Behinderung, Hypothyreose, Insulinresistenz"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0000855",
+          "hpo_label": "Insulin resistance",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Insulinresistenz",
+              "context": "Hypothyreose, Insulinresistenz sowie"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0012393",
+          "hpo_label": "Allergy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Jodallergie",
+              "context": "sowie eine Jodallergie"
+            }
+          ],
+          "note": "Iodine contrast allergy would add contrast media, which the phrase does not state."
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0000232",
+          "hpo_label": "Everted lower lip vermilion",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Unterlippe, die nach außen gestülpt (evertiert) war",
+              "context": "Unterlippe, die nach außen gestülpt (evertiert) war"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0010298",
+          "hpo_label": "Smooth tongue",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Depapillierung der Zunge",
+              "context": "eine Depapillierung der Zunge"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0000221",
+          "hpo_label": "Furrowed tongue",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Querrillen auf dem Zungenrücken",
+              "context": "Querrillen auf dem Zungenrücken (vereinbar"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0000221",
+          "hpo_label": "Furrowed tongue",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Lingua plicata",
+              "context": "mit einer Lingua plicata/Faltenzunge"
+            },
+            {
+              "phrase": "Faltenzunge",
+              "context": "Lingua plicata/Faltenzunge)"
+            }
+          ],
+          "note": "The named diagnosis is hedged by 'vereinbar mit'; the described grooves are a separate present proposal."
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0000158",
+          "hpo_label": "Macroglossia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Makroglossie",
+              "context": "eine leichte Makroglossie vor"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:de:ES100727:translated",
+      "document_sha256": "9f8c1fba7bbe5c38c1907b75e1d339f94ac3ae3ea24a0346c93582a56f548abe",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0009088",
+          "hpo_label": "Speech articulation difficulties",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Artikulationsschwierigkeiten",
+              "context": "Hauptbeschwerde von Artikulationsschwierigkeiten"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0000098",
+          "hpo_label": "Tall stature",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "große Körpergröße",
+              "context": "eine große Körpergröße"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0000327",
+          "hpo_label": "Hypoplasia of the maxilla",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Oberkieferhypoplasie",
+              "context": "ausgeprägter Oberkieferhypoplasie"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0000678",
+          "hpo_label": "Dental crowding",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Zahnengstand",
+              "context": "Oberkieferhypoplasie, Zahnengstand"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0000689",
+          "hpo_label": "Dental malocclusion",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Angle-Klasse-III-Relation",
+              "context": "eine Angle-Klasse-III-Relation"
+            }
+          ],
+          "note": "No HPO term for Class III malocclusion; general term used."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0009102",
+          "hpo_label": "Anterior open-bite malocclusion",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "offener Biss im Frontzahnbereich",
+              "context": "ein offener Biss im Frontzahnbereich"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0000193",
+          "hpo_label": "Bifid uvula",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Uvula bifida",
+              "context": "eine Uvula bifida"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0000158",
+          "hpo_label": "Macroglossia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Makroglossie",
+              "context": "sowie eine Makroglossie"
+            },
+            {
+              "phrase": "Makroglossie",
+              "context": "stark mit der Makroglossie korrelierten"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0010866",
+          "hpo_label": "Abdominal wall defect",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Bauchwanddefekt",
+              "context": "bei der Geburt ein Bauchwanddefekt vorgelegen"
+            }
+          ],
+          "note": "Historical: present at birth and corrected."
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0002015",
+          "hpo_label": "Dysphagia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Schluck- und Sprechprobleme",
+              "context": "dabei wurden Schluck- und Sprechprobleme"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0002167",
+          "hpo_label": "Abnormal speech pattern",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Schluck- und Sprechprobleme",
+              "context": "dabei wurden Schluck- und Sprechprobleme"
+            },
+            {
+              "phrase": "sprachbezogenen Probleme",
+              "context": "die sprachbezogenen Probleme gemildert"
+            }
+          ],
+          "note": "Problems were mitigated, not resolved."
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0002094",
+          "hpo_label": "Dyspnea",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Atembeschwerden",
+              "context": "sowie Atembeschwerden beobachtet"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:0001892",
+          "hpo_label": "Abnormal bleeding",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Blutungen",
+              "context": "Komplikationen wie Blutungen oder Infektionen"
+            }
+          ],
+          "note": "Negated postoperative bleeding; no specific term."
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:0003474",
+          "hpo_label": "Somatic sensory dysfunction",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Sensibilitäts- oder Geschmacksverluste",
+              "context": "Sensibilitäts- oder Geschmacksverluste in diesem Bereich"
+            }
+          ],
+          "note": "No term for loss of sensation in the tongue; general term shares the span (R4)."
+        },
+        {
+          "proposal_id": "p015",
+          "hpo_id": "HP:0041051",
+          "hpo_label": "Ageusia",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Sensibilitäts- oder Geschmacksverluste",
+              "context": "Sensibilitäts- oder Geschmacksverluste in diesem Bereich"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:de:ES100775:translated",
+      "document_sha256": "5f530bb51e1a109947145520431f7c289f220427d46af2ef50e3c2bced3a1262",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0001945",
+          "hpo_label": "Fever",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Fieber",
+              "context": "seit 12 Tagen bestehendem Fieber"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0033399",
+          "hpo_label": "Persistent fever",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "anhaltenden Fiebers",
+              "context": "Aufgrund des anhaltenden Fiebers"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0001945",
+          "hpo_label": "Fever",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Fieber",
+              "context": "woraufhin das Fieber drei Tage"
+            }
+          ],
+          "note": "Fever resolved after treatment."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0034752",
+          "hpo_label": "Axillary lymphadenopathy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Lymphadenopathie in der linken Achselhöhle",
+              "context": "einer Lymphadenopathie in der linken Achselhöhle"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0002716",
+          "hpo_label": "Lymphadenopathy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Lymphadenopathie",
+              "context": "Fiebers und der Lymphadenopathie bestand"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0430081",
+          "hpo_label": "Anti-Bartonella henselae antibody positivity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "positives Ergebnis der *Bartonella-henselae*-Serologie",
+              "context": "durch ein positives Ergebnis der *Bartonella-henselae*-Serologie"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:de:ES100789:translated",
+      "document_sha256": "c39b28985e4f642f9b284102c1fc33dbc90ebfc6d1fd3c9cf20e60550621d914",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0030871",
+          "hpo_label": "Facet joint arthrosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Spondylarthrose",
+              "context": "eine schwere Spondylarthrose diagnostiziert"
+            }
+          ],
+          "note": "Spondylarthrosis read as facet joint arthrosis; Lumbar spondylosis is an alternative given the lumbar predominance."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0012531",
+          "hpo_label": "Pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Schmerzkontrolle unzureichend",
+              "context": "wobei die Schmerzkontrolle unzureichend ist"
+            }
+          ],
+          "note": "Ongoing pain expressed only through inadequate pain control; reviewer should confirm."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:de:ES100809:translated",
+      "document_sha256": "addd5b8335a80b3d3b371d03e167773ec925c213b3547d4b1a9a6fa5081cee7d",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0003236",
+          "hpo_label": "Elevated circulating creatine kinase activity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "auffällig waren CPK 2.295 U/l und Myoglobin",
+              "context": "auffällig waren CPK 2.295 U/l und Myoglobin"
+            }
+          ],
+          "note": "Text calls the values abnormal; the shared 'auffällig' construction is the span for both terms (R4)."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0033438",
+          "hpo_label": "Elevated circulating myoglobin concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "auffällig waren CPK 2.295 U/l und Myoglobin",
+              "context": "auffällig waren CPK 2.295 U/l und Myoglobin"
+            }
+          ],
+          "note": "Text calls the values abnormal; shared span (R4)."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0041159",
+          "hpo_label": "Fractured rib",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Rippenfrakturen",
+              "context": "ohne Rippenfrakturen"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0041161",
+          "hpo_label": "Pelvis fracture",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Fraktur des linken Sitz-Schambeinastes",
+              "context": "nicht dislozierte Fraktur des linken Sitz-Schambeinastes"
+            }
+          ],
+          "note": "No ischiopubic ramus fracture term."
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:6000875",
+          "hpo_label": "Wide sacroiliac joint",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Diastase von 10 mm im oberen Anteil des rechten Iliosakralgelenks",
+              "context": "eine Diastase von 10 mm im oberen Anteil des rechten Iliosakralgelenks"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0041090",
+          "hpo_label": "Pelvic avulsion fracture",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "knöcherner Avulsion am superomedialen Rand des Darmbeins",
+              "context": "kleiner knöcherner Avulsion am superomedialen Rand des Darmbeins"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0002945",
+          "hpo_label": "Intervertebral space narrowing",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Höhenminderung der Bandscheibenfächer",
+              "context": "eine Höhenminderung der Bandscheibenfächer L4-L5"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0012587",
+          "hpo_label": "Macroscopic hematuria",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "makroskopische Hämaturie",
+              "context": "keine makroskopische Hämaturie"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0002910",
+          "hpo_label": "Elevated circulating hepatic transaminase concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Anstieg der Leberenzyme",
+              "context": "ein Anstieg der Leberenzyme"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0001392",
+          "hpo_label": "Abnormality of the liver",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "akute toxische Hepatopathie",
+              "context": "wahrscheinliche akute toxische Hepatopathie"
+            }
+          ],
+          "note": "HPO lists 'Hepatopathy' as a synonym of Decreased liver function, but the text excludes liver failure; general term used."
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0001399",
+          "hpo_label": "Hepatic failure",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Leberversagen",
+              "context": "ohne Leberversagen"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0002240",
+          "hpo_label": "Hepatomegaly",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Hepatomegalie",
+              "context": "weder eine Hepatomegalie noch"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:0000952",
+          "hpo_label": "Jaundice",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Ikterus",
+              "context": "noch ein Ikterus vorlagen"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:0012531",
+          "hpo_label": "Pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Schmerzen",
+              "context": "klagte der Patient über Schmerzen unterschiedlicher"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p015",
+          "hpo_id": "HP:0100749",
+          "hpo_label": "Chest pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Schmerzen waren stechend, lokalisiert im rechten Thoraxbereich, im rechten Becken und im Gesäßbereich",
+              "context": "Die Schmerzen waren stechend, lokalisiert im rechten Thoraxbereich, im rechten Becken und im Gesäßbereich"
+            }
+          ],
+          "note": "Shared subject 'Schmerzen' for three sites (R4)."
+        },
+        {
+          "proposal_id": "p016",
+          "hpo_id": "HP:0034267",
+          "hpo_label": "Pelvic pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Schmerzen waren stechend, lokalisiert im rechten Thoraxbereich, im rechten Becken und im Gesäßbereich",
+              "context": "Die Schmerzen waren stechend, lokalisiert im rechten Thoraxbereich, im rechten Becken und im Gesäßbereich"
+            }
+          ],
+          "note": "Shared subject 'Schmerzen' for three sites (R4)."
+        },
+        {
+          "proposal_id": "p017",
+          "hpo_id": "HP:0034805",
+          "hpo_label": "Buttock pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Schmerzen waren stechend, lokalisiert im rechten Thoraxbereich, im rechten Becken und im Gesäßbereich",
+              "context": "Die Schmerzen waren stechend, lokalisiert im rechten Thoraxbereich, im rechten Becken und im Gesäßbereich"
+            }
+          ],
+          "note": "Shared subject 'Schmerzen' for three sites (R4)."
+        },
+        {
+          "proposal_id": "p018",
+          "hpo_id": "HP:5200273",
+          "hpo_label": "Pathological sadness",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Verstimmung",
+              "context": "eine leichte Verstimmung (Dysthymie)"
+            },
+            {
+              "phrase": "Dysthymie",
+              "context": "Verstimmung (Dysthymie), wahrscheinlich"
+            }
+          ],
+          "note": "The hedge concerns the cause only."
+        }
+      ]
+    }
+  ]
+}

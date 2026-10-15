@@ -1,0 +1,1796 @@
+{
+  "schema_version": "e3c-hpo-proposal-batch/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "de-opus-v4",
+  "batch_id": "batch-03",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:de:EN108798:translated",
+      "document_sha256": "7c5a746452a56b3650823e2673168d4f5ce693182c3ccf2752e07d010bdc7715",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0100570",
+          "hpo_label": "Carcinoid tumor",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Karzinoid",
+              "context": "mit einem winzigen Karzinoid der Ampulla"
+            },
+            {
+              "phrase": "Karzinoid",
+              "context": "die Diagnose lautete malignes Karzinoid"
+            }
+          ],
+          "note": "No permitted term for a carcinoid of the ampulla of Vater; the site is not represented."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0100570",
+          "hpo_label": "Carcinoid tumor",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Karzinoid",
+              "context": "das auf ein Karzinoid hindeutete"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0002733",
+          "hpo_label": "Abnormal lymph node morphology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "peripankreatischen Lymphknotenmetastasen",
+              "context": "mit zwei peripankreatischen Lymphknotenmetastasen einherging"
+            },
+            {
+              "phrase": "Metastasierung in zwei peripankreatische Lymphknoten",
+              "context": "an der Ampulle mit Metastasierung in zwei peripankreatische Lymphknoten"
+            }
+          ],
+          "note": "HPO has no lymph node metastasis term; general lymph node term used for the named metastatic lesions."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0002910",
+          "hpo_label": "Elevated circulating hepatic transaminase concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Erhöhung der Leberenzyme",
+              "context": "eine leichte Erhöhung der Leberenzyme festgestellt"
+            }
+          ],
+          "note": "Matches the HPO synonym 'Elevated liver enzymes'."
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0100889",
+          "hpo_label": "Abnormal ductus choledochus morphology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "erweiterten Ductus choledochus",
+              "context": "einen deutlich erweiterten Ductus choledochus"
+            }
+          ],
+          "note": "No dilated common bile duct term; general common bile duct term used."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0002716",
+          "hpo_label": "Lymphadenopathy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "vergrößerte peripankreatische Lymphknoten",
+              "context": "sowie zwei vergrößerte peripankreatische Lymphknoten"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0002664",
+          "hpo_label": "Neoplasm",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "submukösen Tumor",
+              "context": "Vergrößerung der Ampulle durch einen submukösen Tumor"
+            },
+            {
+              "phrase": "submukösen Tumor",
+              "context": "um einen kleinen submukösen Tumor"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:de:ES100002:translated",
+      "document_sha256": "f4a77a3771bbf8fd4e365a39262d886d61c77f0d85eadaffc9dd45ea0a64425a",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0008711",
+          "hpo_label": "Benign prostatic hyperplasia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "benigner Prostatahyperplasie",
+              "context": "ambulant wegen benigner Prostatahyperplasie (BPH) betreut"
+            },
+            {
+              "phrase": "BPH",
+              "context": "wegen symptomatischer BPH überwacht"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0008711",
+          "hpo_label": "Benign prostatic hyperplasia",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "BPH",
+              "context": "Rektal-digitale Untersuchung vereinbar mit BPH Grad I-II"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0000790",
+          "hpo_label": "Hematuria",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Hämaturie",
+              "context": "selbstlimitierenden Hämaturie bei negativen Urinkulturen"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0000126",
+          "hpo_label": "Hydronephrosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Ureteropyelokaliektasie",
+              "context": "Sonographisch zeigt sich eine Ureteropyelokaliektasie Grad II"
+            },
+            {
+              "phrase": "Hydronephrotische Atrophie der rechten Niere",
+              "context": "Hydronephrotische Atrophie der rechten Niere; keine endoluminalen"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0000072",
+          "hpo_label": "Hydroureter",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Ureteropyelokaliektasie",
+              "context": "Sonographisch zeigt sich eine Ureteropyelokaliektasie Grad II"
+            }
+          ],
+          "note": "Ureteropyelocaliectasis covers dilatation of ureter and renal pelvis; span shared with Hydronephrosis (R4)."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0008717",
+          "hpo_label": "Unilateral renal atrophy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Hydronephrotische Atrophie der rechten Niere",
+              "context": "Hydronephrotische Atrophie der rechten Niere; keine endoluminalen"
+            }
+          ],
+          "note": "Span shared with Hydronephrosis (R4)."
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0012211",
+          "hpo_label": "Abnormal renal physiology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Funktionsverlust der rechten Niere",
+              "context": "stellt sich ein Funktionsverlust der rechten Niere dar"
+            }
+          ],
+          "note": "No term for unilateral loss of renal function; general term used."
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0012393",
+          "hpo_label": "Allergy",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Allergien",
+              "context": "keine bekannten Allergien"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0000822",
+          "hpo_label": "Hypertension",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "arterielle Hypertonie",
+              "context": "keine bekannten Allergien, arterielle Hypertonie"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0005978",
+          "hpo_label": "Type II diabetes mellitus",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Diabetes mellitus Typ II",
+              "context": "Diabetes mellitus Typ II, hypertrophe Kardiomyopathie"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0001639",
+          "hpo_label": "Hypertrophic cardiomyopathy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hypertrophe Kardiomyopathie",
+              "context": "Diabetes mellitus Typ II, hypertrophe Kardiomyopathie"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0012163",
+          "hpo_label": "Carotid artery dilatation",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "intrazerebrales Aneurysma der Arteria carotis",
+              "context": "intrazerebrales Aneurysma der Arteria carotis ohne Folgeschäden"
+            }
+          ],
+          "note": "Translation: 'intrazerebrales Aneurysma der Arteria carotis' is unusual German (likely intracranial carotid aneurysm); span shared with Dilatation of the cerebral artery (R4)."
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:0004944",
+          "hpo_label": "Dilatation of the cerebral artery",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "intrazerebrales Aneurysma der Arteria carotis",
+              "context": "intrazerebrales Aneurysma der Arteria carotis ohne Folgeschäden"
+            }
+          ],
+          "note": "Complementary to Carotid artery dilatation: intracranial site (synonym 'Intracranial aneurysm')."
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:0002027",
+          "hpo_label": "Abdominal pain",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Abdomen weich, eindrückbar und schmerzlos",
+              "context": "Abdomen weich, eindrückbar und schmerzlos"
+            }
+          ],
+          "note": "'schmerzlos' names and negates abdominal pain; reviewer may treat it as a normal examination finding instead."
+        },
+        {
+          "proposal_id": "p015",
+          "hpo_id": "HP:0003271",
+          "hpo_label": "Visceromegaly",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Organvergrößerungen",
+              "context": "keine Organvergrößerungen (keine Megalien)"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p016",
+          "hpo_id": "HP:6000106",
+          "hpo_label": "Costovertebral angle tenderness",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Nierenlager frei und druckschmerzlos",
+              "context": "Nierenlager frei und druckschmerzlos"
+            }
+          ],
+          "note": "'druckschmerzlos' names and negates renal angle tenderness; reviewer may treat it as a normal examination finding instead."
+        },
+        {
+          "proposal_id": "p017",
+          "hpo_id": "HP:0030731",
+          "hpo_label": "Carcinoma",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Urothelkarzinom",
+              "context": "niedriggradigen (low-grade) Urothelkarzinom"
+            }
+          ],
+          "note": "No site-unspecific urothelial carcinoma term; urine cytology names no site."
+        },
+        {
+          "proposal_id": "p018",
+          "hpo_id": "HP:0005112",
+          "hpo_label": "Abdominal aortic aneurysm",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Infrarenales Aortenaneurysma",
+              "context": "Infrarenales Aortenaneurysma"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p019",
+          "hpo_id": "HP:0002716",
+          "hpo_label": "Lymphadenopathy",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "paravesikale Lymphadenopathie",
+              "context": "Fragliche paravesikale Lymphadenopathie"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p020",
+          "hpo_id": "HP:0100516",
+          "hpo_label": "Neoplasm of the ureter",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Urotheltumor des rechten Ureters",
+              "context": "Verdachts auf einen Urotheltumor des rechten Ureters"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p021",
+          "hpo_id": "HP:0012330",
+          "hpo_label": "Pyelonephritis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "chronische Pyelonephritis",
+              "context": "zeigt eine chronische Pyelonephritis"
+            }
+          ],
+          "note": "No chronic pyelonephritis term; general term used."
+        },
+        {
+          "proposal_id": "p022",
+          "hpo_id": "HP:0002634",
+          "hpo_label": "Arteriosclerosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "arteriosklerotische Veränderungen",
+              "context": "und arteriosklerotische Veränderungen"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:de:ES100063:translated",
+      "document_sha256": "e5748cb2833add408e2d9084f16eee255d9d7961a9408738b58acc88ade89e97",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0002027",
+          "hpo_label": "Abdominal pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Schmerzen im rechten Oberbauch",
+              "context": "bestehender Schmerzen im rechten Oberbauch (Hypochondrium)"
+            },
+            {
+              "phrase": "Druckschmerz im rechten Oberbauch",
+              "context": "es zeigt sich ein leichter Druckschmerz im rechten Oberbauch"
+            }
+          ],
+          "note": "No right upper quadrant pain or abdominal tenderness term; general term used for both occurrences."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0025142",
+          "hpo_label": "Constitutional symptom",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Allgemeinsymptome",
+              "context": "Es liegen weder Allgemeinsymptome noch urologische"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0001513",
+          "hpo_label": "Obesity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "adipös",
+              "context": "und ist mäßig adipös"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0001538",
+          "hpo_label": "Protuberant abdomen",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Abdomen ist vorgewölbt",
+              "context": "Das Abdomen ist vorgewölbt, weich und eindrückbar"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0034753",
+          "hpo_label": "Positive Murphy sign",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Murphy-Zeichen",
+              "context": "jedoch kein Murphy-Zeichen"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0034880",
+          "hpo_label": "Adrenal mass",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Raumforderung im Bereich der rechten Nebenniere",
+              "context": "Die Sonographie zeigt eine Raumforderung im Bereich der rechten Nebenniere"
+            },
+            {
+              "phrase": "Nebennierenraumforderung",
+              "context": "Aufgrund der Diagnose einer Nebennierenraumforderung"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0002896",
+          "hpo_label": "Neoplasm of the liver",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Lebermetastasen",
+              "context": "Es sind keine Lebermetastasen erkennbar"
+            }
+          ],
+          "note": "HPO has no liver metastasis term; general liver neoplasm term used for the named lesion."
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0002733",
+          "hpo_label": "Abnormal lymph node morphology",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "retroperitonealen Lymphknotenbefall",
+              "context": "keine Hinweise auf einen retroperitonealen Lymphknotenbefall"
+            }
+          ],
+          "note": "HPO has no lymph node metastasis term; general lymph node term used for the named tumour involvement."
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0100243",
+          "hpo_label": "Leiomyosarcoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Leiomyosarkom der Vena cava",
+              "context": "Die endgültige Diagnose lautet Leiomyosarkom der Vena cava"
+            }
+          ],
+          "note": "No vena cava leiomyosarcoma term; span shared with Vascular neoplasm (R4)."
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0100742",
+          "hpo_label": "Vascular neoplasm",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Leiomyosarkom der Vena cava",
+              "context": "Die endgültige Diagnose lautet Leiomyosarkom der Vena cava"
+            }
+          ],
+          "note": "Complementary to Leiomyosarcoma: vascular site."
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0002664",
+          "hpo_label": "Neoplasm",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "tumorfrei",
+              "context": "derzeit am Leben und tumorfrei"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:de:ES100064:translated",
+      "document_sha256": "1d118f9671ae3b2d45ccb7d584d99cd2fd796820ccab194356c4b96fb1fbcf82",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0012534",
+          "hpo_label": "Dysesthesia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Dysästhesien",
+              "context": "aufgrund von Dysästhesien im Gesichtsbereich"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0007687",
+          "hpo_label": "Unilateral ptosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Ptosis des linken Augenlids",
+              "context": "einer Ptosis des linken Augenlids sowie einer Proptose"
+            },
+            {
+              "phrase": "Ptosis des linken Augenlids",
+              "context": "über eine Ptosis des linken Augenlids und ein Hervortreten"
+            },
+            {
+              "phrase": "Ptosis des linken Augenlids",
+              "context": "es zeigten sich eine Ptosis des linken Augenlids"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0000520",
+          "hpo_label": "Proptosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Proptose des gleichseitigen Augapfels",
+              "context": "einer Proptose des gleichseitigen Augapfels vor"
+            },
+            {
+              "phrase": "Hervortreten des Auges",
+              "context": "ein Hervortreten des Auges (Proptose)"
+            },
+            {
+              "phrase": "Hervortreten des linken Auges",
+              "context": "ein Hervortreten des linken Auges (ohne"
+            },
+            {
+              "phrase": "Proptose",
+              "context": "Verlagerung des Auges nach unten sowie zur Proptose"
+            },
+            {
+              "phrase": "Exophthalmus am linken Auge",
+              "context": "Rückgang des Exophthalmus am linken Auge"
+            }
+          ],
+          "note": "The reported decrease ('Rückgang') of the exophthalmos is not a resolution, so that occurrence stays present."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0000822",
+          "hpo_label": "Hypertension",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "arterielle Hypertonie",
+              "context": "eine medikamentös behandelte arterielle Hypertonie"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0002588",
+          "hpo_label": "Duodenal ulcer",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Duodenalulkus",
+              "context": "vor 20 Jahren operiertes Duodenalulkus"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0025423",
+          "hpo_label": "Abnormal larynx morphology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Larynxpolypose",
+              "context": "Behandlung wegen Larynxpolypose (1993 und 1994)"
+            }
+          ],
+          "note": "No laryngeal polyp term; general larynx morphology term used."
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0012125",
+          "hpo_label": "Prostate cancer",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Prostatakarzinom",
+              "context": "Biopsie ein Prostatakarzinom (Adenokarzinom) diagnostiziert"
+            },
+            {
+              "phrase": "Prostatakarzinoms",
+              "context": "Es wurden Metastasen eines Prostatakarzinoms"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0010622",
+          "hpo_label": "Neoplasm of the skeletal system",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Knochenmetastasen",
+              "context": "zeigte multiple Knochenmetastasen"
+            }
+          ],
+          "note": "HPO has no bone metastasis term; synonym 'Bone neoplasm' used for the named lesions."
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0033748",
+          "hpo_label": "Hypoesthesia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Taubheitsgefühl",
+              "context": "über ein Taubheitsgefühl in der rechten Gesichtshälfte"
+            }
+          ],
+          "note": "No facial hypoesthesia term; synonym 'Numbness'."
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0000651",
+          "hpo_label": "Diplopia",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Doppelbilder",
+              "context": "Es bestanden keine Doppelbilder"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0200026",
+          "hpo_label": "Ocular pain",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Augenschmerzen",
+              "context": "keine Gesichts- oder Augenschmerzen"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0012246",
+          "hpo_label": "Oculomotor nerve palsy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Parese des linken III. und VI. Hirnnervs",
+              "context": "sowie eine Parese des linken III. und VI. Hirnnervs"
+            }
+          ],
+          "note": "Span shared with Abducens palsy (R4)."
+        },
+        {
+          "proposal_id": "p013",
+          "hpo_id": "HP:0006897",
+          "hpo_label": "Abducens palsy",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Parese des linken III. und VI. Hirnnervs",
+              "context": "sowie eine Parese des linken III. und VI. Hirnnervs"
+            }
+          ],
+          "note": "Span shared with Oculomotor nerve palsy (R4)."
+        },
+        {
+          "proposal_id": "p014",
+          "hpo_id": "HP:0003474",
+          "hpo_label": "Somatic sensory dysfunction",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Sensibilitätsstörungen",
+              "context": "Zudem lagen Sensibilitätsstörungen in der rechten Gesichtshälfte vor"
+            }
+          ],
+          "note": "No facial sensory disturbance term; general term used."
+        },
+        {
+          "proposal_id": "p015",
+          "hpo_id": "HP:0002637",
+          "hpo_label": "Cerebral ischemia",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "supratentorielle ischämische Läsionen",
+              "context": "zeigten sich supratentorielle ischämische Läsionen"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p016",
+          "hpo_id": "HP:0002687",
+          "hpo_label": "Abnormality of frontal sinus",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "linke Stirnhöhle durch eine Masse mit gleichen Eigenschaften wie die beschriebene Raumforderung ausgefüllt",
+              "context": "linke Stirnhöhle durch eine Masse mit gleichen Eigenschaften wie die beschriebene Raumforderung ausgefüllt"
+            }
+          ],
+          "note": "No frontal sinus mass term; general frontal sinus term used."
+        },
+        {
+          "proposal_id": "p017",
+          "hpo_id": "HP:0430023",
+          "hpo_label": "Abnormality of the maxillary sinus",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "expansive Raumforderung in der rechten Kieferhöhle",
+              "context": "eine expansive Raumforderung in der rechten Kieferhöhle"
+            }
+          ],
+          "note": "No maxillary sinus mass term; general maxillary sinus term used."
+        },
+        {
+          "proposal_id": "p018",
+          "hpo_id": "HP:0100886",
+          "hpo_label": "Abnormality of globe location",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Verlagerung des Auges nach unten",
+              "context": "zu einer Verlagerung des Auges nach unten"
+            }
+          ],
+          "note": "No downward globe displacement (hypoglobus) term; general term used."
+        },
+        {
+          "proposal_id": "p019",
+          "hpo_id": "HP:0030072",
+          "hpo_label": "Paranasal sinus neoplasm",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Metastasen eines Prostatakarzinoms (Adenokarzinom) in der rechten Kieferhöhle und der linken Stirnhöhle",
+              "context": "Metastasen eines Prostatakarzinoms (Adenokarzinom) in der rechten Kieferhöhle und der linken Stirnhöhle"
+            }
+          ],
+          "note": "HPO has no metastasis term; paranasal sinus neoplasm describes the named metastatic lesions."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:de:ES100182:translated",
+      "document_sha256": "478b19b8653149eaa9e8f28a7e566c59abfccd11cbcaf12167daf2f1b2d6373c",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0041118",
+          "hpo_label": "Fractured upper limb segment",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Frakturen der rechten oberen und unteren Extremität",
+              "context": "Frakturen der rechten oberen und unteren Extremität"
+            }
+          ],
+          "note": "Span shared with Fractured lower limb segment (R4)."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0041117",
+          "hpo_label": "Fractured lower limb segment",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Frakturen der rechten oberen und unteren Extremität",
+              "context": "Frakturen der rechten oberen und unteren Extremität"
+            }
+          ],
+          "note": "Span shared with Fractured upper limb segment (R4)."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0006640",
+          "hpo_label": "Multiple rib fractures",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Rippenfrakturen",
+              "context": "sowie Rippenfrakturen"
+            }
+          ],
+          "note": "Plural 'Rippenfrakturen' taken as multiple rib fractures."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:6001021",
+          "hpo_label": "Subcutaneous emphysema",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "subkutanes Emphysem",
+              "context": "ein ausgeprägtes subkutanes Emphysem"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0000790",
+          "hpo_label": "Hematuria",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Hämaturie",
+              "context": "eine leichte Hämaturie auf"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0041161",
+          "hpo_label": "Pelvis fracture",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Beckenfraktur",
+              "context": "eine geschlossene Beckenfraktur"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0020110",
+          "hpo_label": "Bone fracture",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Frakturen",
+              "context": "die Frakturen heilten im weiteren Verlauf gut ab"
+            }
+          ],
+          "note": "Explicitly healed fractures; general term because the phrase names no site."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:de:ES100214:translated",
+      "document_sha256": "f8e65bcb0f36ad4b70e21c2adaaa7aa1912fe638942e5f35c94c6e6340a03a30",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0001919",
+          "hpo_label": "Acute kidney injury",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "akutem Nierenversagen",
+              "context": "aufgrund von akutem Nierenversagen"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0031275",
+          "hpo_label": "Distributive shock",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "septischem Schock",
+              "context": "und septischem Schock"
+            }
+          ],
+          "note": "No septic shock term; septic shock is a distributive shock. Span shared with Sepsis (R4)."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0100806",
+          "hpo_label": "Sepsis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "septischem Schock",
+              "context": "und septischem Schock"
+            }
+          ],
+          "note": "Complementary to Distributive shock: septic cause named in the phrase."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0005521",
+          "hpo_label": "Disseminated intravascular coagulation",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "disseminierte intravasale Koagulopathie",
+              "context": "disseminierte intravasale Koagulopathie [DIC]"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0100520",
+          "hpo_label": "Oliguria",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Oligo-Anurie",
+              "context": "bestehende Oligo-Anurie"
+            }
+          ],
+          "note": "'Oligo-Anurie' shares the word part with Anuria (R4)."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0100519",
+          "hpo_label": "Anuria",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Oligo-Anurie",
+              "context": "bestehende Oligo-Anurie"
+            }
+          ],
+          "note": "'Oligo-Anurie' shares the word part with Oliguria (R4)."
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0003259",
+          "hpo_label": "Elevated circulating creatinine concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Kreatininanstieg",
+              "context": "einen Kreatininanstieg"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:de:ES100259:translated",
+      "document_sha256": "b1f29b720cb40f93beb334d449c8b753476241410d6e584f95d94f75c504ed05",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0100735",
+          "hpo_label": "Hypertensive crisis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "hypertensiver Krisen",
+              "context": "seit einem Jahr bestehender hypertensiver Krisen"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0000975",
+          "hpo_label": "Hyperhidrosis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "starkem Schwitzen",
+              "context": "begleitet von starkem Schwitzen"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0010783",
+          "hpo_label": "Erythema",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Rötung",
+              "context": "generalisierter Rötung"
+            },
+            {
+              "phrase": "Palmarerythem",
+              "context": "Wangen- und ein Palmarerythem"
+            }
+          ],
+          "note": "No generalized or palmar erythema term; general term used for both occurrences."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0002315",
+          "hpo_label": "Headache",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Kopfschmerzen",
+              "context": "Rötung, Kopfschmerzen und gelegentlichen"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0003419",
+          "hpo_label": "Low back pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Lumbalgien",
+              "context": "gelegentlichen Lumbalgien"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0025300",
+          "hpo_label": "Malar rash",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Wangen- und ein Palmarerythem",
+              "context": "Wangen- und ein Palmarerythem"
+            }
+          ],
+          "note": "'Wangenerythem' (malar erythema) is expressed only through the elided construction (R4)."
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0011976",
+          "hpo_label": "Elevated urinary catecholamine level",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "erhöhte Werte für Katecholamine und Metanephrine im 24-Stunden-Urin",
+              "context": "ergaben erhöhte Werte für Katecholamine und Metanephrine im 24-Stunden-Urin"
+            }
+          ],
+          "note": "Elevated urinary metanephrines in the same phrase have no permitted term (only circulating metanephrines)."
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0011976",
+          "hpo_label": "Elevated urinary catecholamine level",
+          "assertion": "absent",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Urinwerte für Katecholamine und Metanephrine",
+              "context": "Urinwerte für Katecholamine und Metanephrine normalisierten sich"
+            }
+          ],
+          "note": "Explicitly normalised after surgery."
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:6000285",
+          "hpo_label": "Retroperitoneal mass",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "retroperitoneale Raumforderung",
+              "context": "etwa 8 cm große retroperitoneale Raumforderung"
+            },
+            {
+              "phrase": "retroperitonealen Raumforderung",
+              "context": "8 x 4 cm großen retroperitonealen Raumforderung"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p010",
+          "hpo_id": "HP:0006729",
+          "hpo_label": "Retroperitoneal paraganglioma",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Paragangliom des Zuckerkandl-Organs",
+              "context": "Bei Verdacht auf ein Paragangliom des Zuckerkandl-Organs"
+            }
+          ],
+          "note": "The organ of Zuckerkandl is a retroperitoneal paraganglion."
+        },
+        {
+          "proposal_id": "p011",
+          "hpo_id": "HP:0002668",
+          "hpo_label": "Paraganglioma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Paraganglioms",
+              "context": "gekapselten Paraganglioms"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p012",
+          "hpo_id": "HP:0002664",
+          "hpo_label": "Neoplasm",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Tumors",
+              "context": "En-bloc-Resektion des Tumors"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:de:ES100280:translated",
+      "document_sha256": "603fdf1312db71f67c94d1b99da46f0ddd896d8c269912200732137d6feb4afc",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0000099",
+          "hpo_label": "Glomerulonephritis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Glomerulonephritis",
+              "context": "eine rasch progrediente Glomerulonephritis"
+            }
+          ],
+          "note": "No rapidly progressive glomerulonephritis term; general term used."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0033030",
+          "hpo_label": "Anti-glomerular basement membrane-antibody positivity",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Anti-GBM-Antikörpern",
+              "context": "Glomerulonephritis mit Anti-GBM-Antikörpern"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0002586",
+          "hpo_label": "Peritonitis",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Peritonitiden",
+              "context": "erlitt er zehn Peritonitiden"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0002027",
+          "hpo_label": "Abdominal pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Bauchschmerzen",
+              "context": "klagte er über Bauchschmerzen"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0031500",
+          "hpo_label": "Abdominal mass",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Raumforderungseffekt im Unterbauch",
+              "context": "ein Raumforderungseffekt im Unterbauch"
+            }
+          ],
+          "note": "'Raumforderungseffekt' (mass effect) in the lower abdomen; reviewer should check the term fit."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0002585",
+          "hpo_label": "Abnormal peritoneum morphology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "peritoneale Verdickung",
+              "context": "zeigte eine peritoneale Verdickung"
+            }
+          ],
+          "note": "No peritoneal thickening term; general term used."
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0002577",
+          "hpo_label": "Abnormal stomach morphology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Magen- und Darmdilatation",
+              "context": "ausgeprägte Magen- und Darmdilatation"
+            }
+          ],
+          "note": "No gastric dilatation term; general term used. Span shared with Abnormal intestine morphology (R4)."
+        },
+        {
+          "proposal_id": "p008",
+          "hpo_id": "HP:0002242",
+          "hpo_label": "Abnormal intestine morphology",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Magen- und Darmdilatation",
+              "context": "ausgeprägte Magen- und Darmdilatation"
+            }
+          ],
+          "note": "No intestinal dilatation term; general term used. Span shared with Abnormal stomach morphology (R4)."
+        },
+        {
+          "proposal_id": "p009",
+          "hpo_id": "HP:0005214",
+          "hpo_label": "Intestinal obstruction",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Darmverschlüssen",
+              "context": "aufgrund von Darmverschlüssen"
+            }
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:de:ES100304:translated",
+      "document_sha256": "0a3061558ef4ecfb9f549fc3389da8bada592c1bbbfd70b4dea1bfb6dc4065c8",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0000252",
+          "hpo_label": "Microcephaly",
+          "assertion": "present",
+          "experiencer": "family_member",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Mikrozephalie",
+              "context": "mit Mikrozephalie und schwerer"
+            }
+          ],
+          "note": "Concerns the patient's two children."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0010864",
+          "hpo_label": "Severe intellectual disability",
+          "assertion": "present",
+          "experiencer": "family_member",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "schwerer geistiger Behinderung",
+              "context": "Mikrozephalie und schwerer geistiger Behinderung"
+            }
+          ],
+          "note": "Concerns the patient's two children."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0001627",
+          "hpo_label": "Abnormal heart morphology",
+          "assertion": "present",
+          "experiencer": "family_member",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Herzfehlbildung",
+              "context": "an einer Herzfehlbildung verstorben"
+            }
+          ],
+          "note": "Concerns a third child of the patient."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0001249",
+          "hpo_label": "Intellectual disability",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "leichten bis mittelschweren geistigen Behinderung",
+              "context": "einer leichten bis mittelschweren geistigen Behinderung entspricht"
+            }
+          ],
+          "note": "Range 'mild to moderate' has no single term; general term used."
+        }
+      ]
+    },
+    {
+      "document_id": "e3c:v2.0.0:de:ES100412:translated",
+      "document_sha256": "e0943d5d57fd29ab99d5ef32582134e7be5d766ae28dad433d1ee2513fd4af60",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0200026",
+          "hpo_label": "Ocular pain",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Augenschmerzen",
+              "context": "aufgrund starker Augenschmerzen"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0000529",
+          "hpo_label": "Progressive visual loss",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "progredienten Sehverlusts",
+              "context": "progredienten Sehverlusts am linken Auge"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0000501",
+          "hpo_label": "Glaucoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Glaukom",
+              "context": "einem sekundären akuten Glaukom"
+            }
+          ],
+          "note": "No secondary or acute glaucoma term; general term used."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0007716",
+          "hpo_label": "Uveal melanoma",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Augenmelanom",
+              "context": "diffus ausgedehnten Augenmelanom"
+            }
+          ],
+          "note": "'Augenmelanom' matches the synonym 'Intraocular melanoma'."
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0012054",
+          "hpo_label": "Choroidal melanoma",
+          "assertion": "uncertain",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Aderhautmelanom",
+              "context": "für ein Aderhautmelanom sprach"
+            }
+          ],
+          "note": null
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0007716",
+          "hpo_label": "Uveal melanoma",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {
+              "phrase": "Uveamelanoms",
+              "context": "Diagnose eines diffusen Uveamelanoms"
+            }
+          ],
+          "note": null
+        }
+      ]
+    }
+  ]
+}

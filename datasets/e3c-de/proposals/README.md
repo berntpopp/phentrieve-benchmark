@@ -43,13 +43,17 @@ guideline version adopts it; such a version gets its own row.
 
 ## Current proposals
 
-[`current-proposals.json`](current-proposals.json) lists the 185 reports that
-have proposals to work with, all reports of the original-language groups
-(63 EN, 61 ES, 61 FR): 2,242 proposals with 2,718 mentions, all validated.
-Per report it names the run whose `validation.json` holds the current
-proposals and the steps that produced them, each with model, prompt, run
-date, and guideline commit. The 61 German reports are not included; see
-"German group".
+[`current-proposals.json`](current-proposals.json) lists all 246 reports:
+2,953 proposals with 3,575 mentions, all validated. Per report it names the
+run whose `validation.json` holds the current proposals and the steps that
+produced them, each with model, prompt, run date, and guideline commit.
+
+The 185 reports of the original-language groups (63 EN, 61 ES, 61 FR; 2,242
+proposals, 2,718 mentions) were proposed under guideline `1e67790` or
+`afb73cb`. The 61 German reports (711 proposals, 857 mentions) come from
+`de-opus-v4`, a technical test under the revised guideline `1e56a18`; see
+"Run de-opus-v4". Proposals of the two guideline versions are not
+interchangeable.
 
 | Reports | Current run | Steps |
 |---:|---|---|
@@ -57,6 +61,7 @@ date, and guideline commit. The 61 German reports are not included; see
 | 27 | `pilot-v2-rev`, `pilot-v2-extra-rev`, `pilot-v3-rev` | Sonnet 5.5 proposes, Opus 5.5 revises |
 | 6 | `sample6-opus-v3` | Opus 5.5 proposes |
 | 92 | `rest92-opus-v3-rev` | Opus 5.5 proposes, Opus 5.5 cross-reads, clear points applied by script |
+| 61 | `de-opus-v4` | Opus 5.5 proposes (prompt v4, German group, technical test) |
 
 The runs they are based on (`sample60-v3`, `pilot-v2`, `pilot-v2-extra`,
 `pilot-v3`, `rest92-opus-v3`) stay unchanged as the record of the first
@@ -159,8 +164,8 @@ deterministic functions of the archived batch outputs.
 German reports enter the corpus only with an accepted translation review.
 Until then `prepare-run --language de` stops with "N German reports pending
 translation review". Once reviews are imported, rebuild the corpus with
-`--review-import` and prepare a separate run, for example `de-v1`, with
-`--language de`. Such a run covers every German report reviewed by then. If
+`--review-import` and prepare a separate run with `--language de` (the
+first one is `de-opus-v4`). Such a run covers every German report reviewed by then. If
 only part of the group is reviewed, a later run on the rebuilt corpus covers
 all German reports again, including those of the earlier run.
 
@@ -180,6 +185,7 @@ all German reports again, including those of the earlier run.
 | `sample6-opus-v3` | `claude-opus-5-5` | 6 | 0 | `c8e1765f0cdb38c12f440973739903fa4e90d3a4f80abdf1748471b3d45f8519` | 6 further reports, prompt v3; current |
 | `rest92-opus-v3` | `claude-opus-5-5` | 92 | 0 | `aa0b27048919329d4b363c5953f181c7f77949a2f864b186bd9f231faf88ebff` | the remaining 92 reports of the original-language groups, prompt v3, cross-read by `claude-opus-5-5`; see below |
 | `rest92-opus-v3-rev` | script, no model | 92 | 0 | `bed603f129a946c913e9bad63744a35b5585c43f48ccc1adfccba1473723a172` | `rest92-opus-v3` with the eight clear points of its cross-read applied; current |
+| `de-opus-v4` | `claude-opus-5-5` | 61 | 0 | `677d4566764bd3dedb6fb0efb717d48435a193f95d4dda26548c564153bebbc8` | the 61 German reports, prompt v4, guideline `1e56a18`; technical test, current; see below |
 
 The three earlier pilots were validated again on 2026-10-06 after the
 validator began to reject terms outside *Phenotypic abnormality*; the table
@@ -897,7 +903,8 @@ p010, EN107021 p026, FR100515 p025).
 [`ancestor-pairs.json`](ancestor-pairs.json) lists, for all current runs,
 the 103 pairs of proposals in one report whose terms are ancestor and
 descendant in the pinned release and that have the same status or
-overlapping spans (64 of them in this run, 56 reports in total). It is
+overlapping spans (64 of them in this run, 56 reports in total; 201 pairs
+in 119 reports since `de-opus-v4` was added). It is
 written by the local `check_ancestors.py` from the validated proposals and
 is a hint for the review of R1, not a list of errors.
 
@@ -932,3 +939,63 @@ Decision of 2026-10-07: no model-written revision of this run and no
 further cross-read of Opus proposals. The arguable points stay in the
 cross-read files and, with `ancestor-pairs.json`, are hints for the
 physician review.
+
+## Run de-opus-v4
+
+Run date 2026-10-15. Corpus `ba3f557f2efa188c3be64db0ef4a7a81e628e2193f3899cfd9f9c003a8cd9b14`
+(`de=61 en=63 fr=61 es=61 pending_review=0`), prompt v4 (commit `d42384e`),
+guideline `1e56a18`, model `claude-opus-5-5`, all 61 German reports in seven
+batches (six of ten, one of one). No cross-read and no revision.
+
+Status: technical test of the German group, kept as proposals. The German
+texts are machine translations (Google `tllm-full`) checked only by a
+machine bilingual pre-review (`antigravity-gemini-4-argon-pre-review-v1`,
+see [`../translations/README.md`](../translations/README.md)). A physician
+review of the translations and of these proposals comes later; until then
+neither the texts nor the proposals are reviewed data.
+
+### Result
+
+Validation accepted all 711 proposals and 857 mentions; no batch was
+dispatched again. Assertion: 564 present, 109 absent, 38 uncertain.
+Experiencer: 701 patient, 8 family member, 2 other. Temporality: 688
+current, 23 historical. All proposals are verbalized. 305 proposals carry a
+note, 8 of them a "Translation:" note on German wording.
+
+### Dispatch
+
+Prompts were pasted verbatim, up to five batches in parallel. Every subagent
+reported reading only the guideline and its own text files; several listed
+the run directory without opening other files. The batch-04 subagent wrote
+and deleted a temporary file `/tmp/ids.txt` outside its permitted
+directory; it touched nothing under `datasets/`, so the batch was kept.
+
+### Findings
+
+- Prompt v4 limits a context to 120 characters but allows phrases up to the
+  300-character excerpt limit, so a phrase longer than about 120 characters
+  has no valid context. This happened twice: in `EN100682` a late
+  gadolinium enhancement proposal was left out, and in `EN100024` a shared
+  construction for two coronary lesions was marked only in part. A later
+  prompt should let the context grow to the phrase when needed; the
+  validator already allows 300 characters.
+- The terminology gaps the subagents reported repeat across batches:
+  metastases and recurrence, malignancy in general, a worsened general
+  condition, named syndromes (for example Pemphigus vulgaris, Proteus
+  syndrome, Beckwith-Wiedemann syndrome), and findings whose site is named
+  only outside the phrase (R2).
+- Points for the physician review, each with a note in the batch output:
+  general terms for metastatic lesions; normal examination wording proposed
+  as absent findings ("Abdomen weich ... schmerzlos"); conditions listed
+  under past history marked `historical`; complementary terms on one span
+  (R4); and a span that includes a laboratory value (`ES100809`).
+- Term checks: validation found every HPO ID active in release v2026-06-23,
+  not obsolete, under *Phenotypic abnormality*, and with the pinned label
+  (no rejections, no label warnings). Whether a term fits the text is left
+  to the physician review. The model-free ancestor check
+  (`ancestor-pairs.json`, now 201 pairs in 119 reports) finds 98 pairs in
+  this run: 97 ancestor and descendant terms with the same status on
+  different spans, which A39 allows for separate general and specific
+  mentions but which are worth a look, and one on overlapping spans
+  (`FR100132`: *Abnormality of the skin* on "Hautveränderungen" inside the
+  *Skin plaque* span), a likely R1 conflict.

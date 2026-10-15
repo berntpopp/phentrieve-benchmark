@@ -1,0 +1,105 @@
+{
+  "schema_version": "e3c-hpo-proposal-batch/v1",
+  "provenance": "machine generated, not review data, not gold",
+  "run_id": "de-opus-v4",
+  "batch_id": "batch-07",
+  "reports": [
+    {
+      "document_id": "e3c:v2.0.0:de:FR100998:translated",
+      "document_sha256": "def2232bf76527e83049f6617d8bccc78754da92dd3a726e52ecdc575ac0f189",
+      "annotations": [
+        {
+          "proposal_id": "p001",
+          "hpo_id": "HP:0200029",
+          "hpo_label": "Vasculitis in the skin",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {"phrase": "hypokomplementämischen urtikariellen Vaskulitis", "context": "wegen einer hypokomplementämischen urtikariellen Vaskulitis (VUH)"}
+          ],
+          "note": "HPO has no urticarial vasculitis term; urticarial vasculitis is a cutaneous vasculitis, so the skin vasculitis term is used. The later mention in the generic prognosis sentence is not marked."
+        },
+        {
+          "proposal_id": "p002",
+          "hpo_id": "HP:0004431",
+          "hpo_label": "Reduced circulating complement concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {"phrase": "hypokomplementämischen urtikariellen Vaskulitis", "context": "wegen einer hypokomplementämischen urtikariellen Vaskulitis (VUH)"}
+          ],
+          "note": "Complementary term (R4) for the explicitly named hypocomplementaemia, which no vasculitis term covers; reviewer may drop it as a diagnosis component."
+        },
+        {
+          "proposal_id": "p003",
+          "hpo_id": "HP:0001025",
+          "hpo_label": "Urticaria",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {"phrase": "urtikarielle Läsionen", "context": "Die Diagnose stützte sich auf urtikarielle Läsionen"}
+          ],
+          "note": "Historical because the finding supported the diagnosis made 20 years ago."
+        },
+        {
+          "proposal_id": "p004",
+          "hpo_id": "HP:0100533",
+          "hpo_label": "Inflammatory abnormality of the eye",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {"phrase": "Augenentzündung", "context": "eine Augenentzündung sowie einen positiven"}
+          ],
+          "note": "Historical because the finding supported the diagnosis made 20 years ago."
+        },
+        {
+          "proposal_id": "p005",
+          "hpo_id": "HP:0034601",
+          "hpo_label": "Decreased circulating C1q concentration",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "historical",
+          "verbalized": true,
+          "mentions": [
+            {"phrase": "erniedrigtem C1q-Spiegel", "context": "bei gleichzeitig erniedrigtem C1q-Spiegel"}
+          ],
+          "note": "Historical because the finding supported the diagnosis made 20 years ago."
+        },
+        {
+          "proposal_id": "p006",
+          "hpo_id": "HP:0002094",
+          "hpo_label": "Dyspnea",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {"phrase": "Dyspnoe", "context": "wobei sie jedoch eine Dyspnoe entwickelte"}
+          ],
+          "note": "NYHA stage III is not mapped to a more specific dyspnea term."
+        },
+        {
+          "proposal_id": "p007",
+          "hpo_id": "HP:0006536",
+          "hpo_label": "Airway obstruction",
+          "assertion": "present",
+          "experiencer": "patient",
+          "temporality": "current",
+          "verbalized": true,
+          "mentions": [
+            {"phrase": "obstruktive Lungenerkrankung", "context": "eine schwere obstruktive Lungenerkrankung"}
+          ],
+          "note": null
+        }
+      ]
+    }
+  ]
+}
