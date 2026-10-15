@@ -7,10 +7,13 @@
 Design: [`docs/superpowers/specs/2026-10-06-e3c-multilingual-span-annotation-design.md`](../../../docs/superpowers/specs/2026-10-06-e3c-multilingual-span-annotation-design.md) §6.
 Guideline path: [`docs/annotation-guidelines/hpo-span-annotation.md`](../../../docs/annotation-guidelines/hpo-span-annotation.md)
 (R0-R6); each run records the exact guideline commit and blob hash applied.
-Existing prompt template: [`configs/prompts/hpo-span-proposal-v3.md`](../../../configs/prompts/hpo-span-proposal-v3.md).
+Current prompt template: [`configs/prompts/hpo-span-proposal-v4.md`](../../../configs/prompts/hpo-span-proposal-v4.md),
+written for the guideline revision of 2026-10-09.
 Earlier versions: [v1](../../../configs/prompts/hpo-span-proposal-v1.md)
 (`pilot-v1`), [v2](../../../configs/prompts/hpo-span-proposal-v2.md)
-(`pilot-v2`, `pilot-v2-extra`). Each run keeps its own copy as `prompt.md`.
+(`pilot-v2`, `pilot-v2-extra`), [v3](../../../configs/prompts/hpo-span-proposal-v3.md)
+(`pilot-v3`, `sample60-v3`, `sample6-opus-v3`, `rest92-opus-v3`). Each run
+keeps its own copy as `prompt.md`.
 
 Guideline revision of 2026-10-09: the rules now require phrase-local term
 support and explicit interpretation of measurement findings; raw numeric
@@ -18,9 +21,25 @@ values are not annotated. They also clarify general/specific mentions,
 complementary terms, explicit resolution, and historical time reference.
 Existing runs remain unchanged as evidence under their recorded guideline
 versions. Their deterministic validation does not establish compliance with
-the revised rules. Targeted review of affected proposals and adaptation of
-the proposal/revision/cross-read templates are pending before further runs.
+the revised rules. Prompt v4 adapts the proposal template; the cross-read
+and revision templates are adapted only when a run uses them. Targeted
+review of affected proposals is still pending.
 See the [decision log](../../../docs/annotation-guidelines/hpo-span-annotation-decisions.md).
+
+Guideline versions in use. Proposals made under different versions are not
+interchangeable; every run records its version in `run.json` and every step
+in `current-proposals.json`.
+
+| Guideline commit | Date | Rules | Runs |
+|---|---|---|---|
+| `1e67790` | 2026-10-06 | axes and completeness settled | `pilot-v1`, `pilot-v2`, `pilot-v2-extra`, `pilot-v3` |
+| `afb73cb` | 2026-10-07 | hedges, back-references, and normal findings clarified | all other runs, including every revision step of the 185 current proposals |
+| `1e56a18` | 2026-10-12 | revision of 2026-10-09 (A37-A45), tidied | prompt v4 runs |
+
+The shared annotation format `ontospan` (Ontocurator T1) allows more than
+this guideline, for example all HPO branches, modifiers, and `unknown` for
+experiencer and temporality. None of that applies here unless a later
+guideline version adopts it; such a version gets its own row.
 
 ## Current proposals
 

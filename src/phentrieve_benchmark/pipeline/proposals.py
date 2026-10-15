@@ -36,7 +36,7 @@ from phentrieve_benchmark.selection.groups import (
 )
 
 PROPOSALS_DIRECTORY = Path("e3c-de/proposals")
-PROMPT_TEMPLATE = Path("configs/prompts/hpo-span-proposal-v3.md")
+PROMPT_TEMPLATE = Path("configs/prompts/hpo-span-proposal-v4.md")
 GUIDELINE = Path("docs/annotation-guidelines/hpo-span-annotation.md")
 
 
